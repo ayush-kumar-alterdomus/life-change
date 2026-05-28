@@ -79,14 +79,14 @@ Initial scaffolding for the Ascend platform — a Spring Boot modular monolith b
     - Create `src/core/interceptors/error.interceptor.ts` — placeholder for centralized error handling
     - _Requirements: Environment configuration, API layer foundation_
 
-- [ ] 3. Checkpoint - Verify project initialization
+- [x] 3. Checkpoint - Verify project initialization
   - Ensure both projects compile/build without errors
   - Backend: `./mvnw compile` should succeed
   - Frontend: `ng build` should succeed
   - Ensure all tests pass, ask the user if questions arise.
 
-- [ ] 4. Set up Docker Compose for local development
-  - [ ] 4.1 Create Docker Compose configuration
+- [x] 4. Set up Docker Compose for local development
+  - [x] 4.1 Create Docker Compose configuration
     - Create `docker-compose.yml` at project root
     - Add PostgreSQL 16 service: port 5432, database `ascend_dev`, user `ascend`, password `ascend_dev_pass`
     - Add Redis 7 service: port 6379
@@ -96,13 +96,13 @@ Initial scaffolding for the Ascend platform — a Spring Boot modular monolith b
     - Create `.env.example` with all environment variable placeholders
     - _Requirements: PostgreSQL, Redis, local development environment_
 
-  - [ ] 4.2 Create database initialization script
+  - [x] 4.2 Create database initialization script
     - Create `docker/postgres/init.sql` with: CREATE DATABASE if not exists, CREATE EXTENSION for uuid-ossp
     - Mount init script in Docker Compose as `/docker-entrypoint-initdb.d/init.sql`
     - _Requirements: Database initialization, UUID support_
 
-- [ ] 5. Configure build tooling and shared configuration
-  - [ ] 5.1 Create shared code quality configuration files
+- [x] 5. Configure build tooling and shared configuration
+  - [x] 5.1 Create shared code quality configuration files
     - Create `.editorconfig` at project root (indent_size=2 for frontend, indent_size=4 for Java, charset=utf-8, trim_trailing_whitespace=true)
     - Create `frontend/.eslintrc.json` with Angular ESLint recommended rules
     - Create `frontend/.prettierrc` with: singleQuote=true, trailingComma=all, printWidth=100, semi=true
@@ -110,21 +110,21 @@ Initial scaffolding for the Ascend platform — a Spring Boot modular monolith b
     - Add ESLint and Prettier dev dependencies to frontend `package.json`
     - _Requirements: Code quality, consistent formatting_
 
-  - [ ] 5.2 Create CI configuration placeholder
+  - [x] 5.2 Create CI configuration placeholder
     - Create `.github/workflows/ci.yml` with placeholder jobs:
       - `backend-build`: checkout, setup Java 21, run `./mvnw verify`
       - `frontend-build`: checkout, setup Node 20, npm ci, ng build, ng test (headless)
     - Add trigger on push to `main` and pull requests
     - _Requirements: CI pipeline skeleton_
 
-  - [ ] 5.3 Create project-level documentation and gitignore
+  - [x] 5.3 Create project-level documentation and gitignore
     - Create root `README.md` with: project description, prerequisites (Java 21, Node 20, Docker), quick start instructions (docker-compose up, backend run, frontend serve)
     - Create root `.gitignore` combining Java (target/, *.class, .idea/) and Node (node_modules/, dist/, .angular/) patterns
     - Create `backend/.gitignore` for Java/Maven specifics
     - Create `frontend/.gitignore` for Angular specifics
     - _Requirements: Developer onboarding, clean repository_
 
-- [ ] 6. Final checkpoint - Verify complete project setup
+- [x] 6. Final checkpoint - Verify complete project setup
   - Verify Docker Compose starts successfully (`docker-compose up -d`)
   - Verify backend connects to PostgreSQL and Redis (application starts without errors)
   - Verify frontend builds and serves

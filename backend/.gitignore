@@ -1,0 +1,40 @@
+# Maven build output
+target/
+
+# Compiled class files
+*.class
+
+# Package files
+*.jar
+*.war
+*.ear
+
+# Maven wrapper jar (downloaded at build time)
+.mvn/wrapper/maven-wrapper.jar
+
+# IDE — IntelliJ
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+
+# IDE — Eclipse
+.classpath
+.project
+.settings/
+
+# IDE — VS Code
+.vscode/
+
+# Logs
+*.log
+hs_err_pid*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Application secrets
+application-local.yml
+firebase-service-account.json
