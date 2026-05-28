@@ -2,6 +2,8 @@ package com.ascend.common.exception;
 
 import com.ascend.auth.service.FirebaseAuthenticationException;
 import com.ascend.common.dto.ApiResponse;
+import com.ascend.quest.exception.CustomQuestLimitException;
+import com.ascend.quest.exception.DuplicateCompletionException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -16,6 +18,18 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ApiResponse<Void>> handleFirebaseAuthException(FirebaseAuthenticationException ex) {
         ApiResponse<Void> response = ApiResponse.error(ex.getMessage());
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
+    }
+
+    @ExceptionHandler(DuplicateCompletionException.class)
+    public ResponseEntity<ApiResponse<Void>> handleDuplicateCompletionException(DuplicateCompletionException ex) {
+        ApiResponse<Void> response = ApiResponse.error(ex.getMessage());
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(response);
+    }
+
+    @ExceptionHandler(CustomQuestLimitException.class)
+    public ResponseEntity<ApiResponse<Void>> handleCustomQuestLimitException(CustomQuestLimitException ex) {
+        ApiResponse<Void> response = ApiResponse.error(ex.getMessage());
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(response);
     }
 
     @ExceptionHandler(BusinessException.class)
