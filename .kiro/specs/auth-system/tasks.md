@@ -77,22 +77,22 @@ Firebase authentication integration with Spring Boot backend. Covers JWT validat
     - Return 429 Too Many Requests with `Retry-After` header when exceeded
     - Log rate limit violations to security event log
 
-- [-] 6. Implement security event logging
-  - [ ] 6.1 Create security audit logging
+- [x] 6. Implement security event logging
+  - [x] 6.1 Create security audit logging
     - Create `security_events` table migration (`V20__create_security_events_table.sql`)
     - Columns: id, user_id, event_type, ip_address, details (JSONB), created_at
     - Create `SecurityEvent.java` entity and `SecurityEventRepository.java`
     - Create `SecurityAuditService.java` that logs: login attempts, permission denials, rate limit violations, anti-cheat flags
     - Mask PII in log details (email → a***@example.com)
 
-- [ ] 7. Implement Guest Mode
-  - [ ] 7.1 Create guest user handling
+- [x] 7. Implement Guest Mode
+  - [x] 7.1 Create guest user handling
     - In `AuthService`, detect anonymous Firebase tokens (no email, anonymous provider)
     - Create guest user record with generated username ("Guest_XXXXX"), role=USER
     - Create `GuestRestrictionAspect.java` or middleware that blocks: leaderboard access, guild features, cloud sync for guest users
     - Add `is_guest` boolean to users table (migration `V21__add_guest_flag.sql`)
 
-- [ ] 8. Checkpoint - Verify auth system
+- [-] 8. Checkpoint - Verify auth system
   - Test login flow with Firebase ID token (mock in integration test)
   - Test JWT validation rejects expired/invalid tokens
   - Test RBAC blocks unauthorized access

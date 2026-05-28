@@ -57,7 +57,7 @@ public class RateLimitFilter extends OncePerRequestFilter {
 
         if (isRateLimited(redisKey, matchedBucket)) {
             log.warn("Rate limit exceeded: bucket={}, client={}, path={}",
-                    matchedBucket.getName(), clientKey, requestPath);
+                    matchedBucket.getName(), clientKey, requestPath.replaceAll("[\r\n]", ""));
 
             response.setStatus(429);
             response.setHeader("Retry-After", String.valueOf(matchedBucket.getWindowSeconds()));

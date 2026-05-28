@@ -97,6 +97,7 @@ CREATE TABLE users (
     league VARCHAR(50) DEFAULT 'Bronze',
     premium BOOLEAN DEFAULT FALSE,
     hard_mode BOOLEAN DEFAULT FALSE,
+    is_guest BOOLEAN DEFAULT FALSE,
     timezone VARCHAR(50),
     created_at TIMESTAMP DEFAULT NOW(),
     updated_at TIMESTAMP DEFAULT NOW()

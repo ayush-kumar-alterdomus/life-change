@@ -35,6 +35,7 @@ public class AuthService {
     /**
      * Finds an existing user by Firebase UID, or creates a new one if not found.
      * Used during the login flow after Firebase token verification.
+     * Detects anonymous Firebase tokens and creates guest user records.
      */
     @Transactional
     public User loginOrRegister(String firebaseUid, String email, String provider) {
@@ -45,8 +46,72 @@ public class AuthService {
             return existingUser.get();
         }
 
+        if (isAnonymousProvider(provider)) {
+            log.info("Creating guest user for uid={}", firebaseUid);
+            return createGuestUser(firebaseUid);
+        }
+
         log.info("Creating new user for uid={} provider={}", firebaseUid, provider);
         return createUser(firebaseUid, email, generateUsername(email));
+    }
+
+    /**
+     * Checks if the provider indicates an anonymous/guest Firebase user.
+     */
+    private boolean isAnonymousProvider(String provider) {
+        return "anonymous".equals(provider);
+    }
+
+    /**
+     * Creates a guest user record with a generated "Guest_XXXXX" username,
+     * role=USER, and isGuest=true. Guest users have restricted access to
+     * social features (leaderboards, guilds, cloud sync).
+     */
+    @Transactional
+    public User createGuestUser(String firebaseUid) {
+        String guestUsername = generateGuestUsername();
+
+        User user = User.builder()
+                .firebaseUid(firebaseUid)
+                .email(null)
+                .username(guestUsername)
+                .level(1)
+                .xp(0L)
+                .league("BRONZE")
+                .guest(true)
+                .premium(false)
+                .hardMode(false)
+                .timezone("UTC")
+                .build();
+
+        user = userRepository.save(user);
+        log.info("Created guest user id={} username={}", user.getId(), guestUsername);
+
+        // Create initial UserStats
+        UserStats stats = UserStats.builder()
+                .userId(user.getId())
+                .build();
+        userStatsRepository.save(stats);
+
+        // Create initial Streak
+        Streak streak = Streak.builder()
+                .userId(user.getId())
+                .build();
+        streakRepository.save(streak);
+
+        return user;
+    }
+
+    /**
+     * Generates a guest username in the format "Guest_XXXXX" where XXXXX is a random 5-digit number.
+     */
+    private String generateGuestUsername() {
+        String username;
+        do {
+            int randomSuffix = (int) (Math.random() * 90000) + 10000;
+            username = "Guest_" + randomSuffix;
+        } while (userRepository.findByUsername(username).isPresent());
+        return username;
     }
 
     /**

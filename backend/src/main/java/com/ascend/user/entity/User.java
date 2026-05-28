@@ -70,6 +70,10 @@ public class User {
     private Boolean hardMode = false;
 
     @Builder.Default
+    @Column(name = "is_guest", nullable = false)
+    private Boolean guest = false;
+
+    @Builder.Default
     @Column(name = "timezone", nullable = false, length = 50)
     private String timezone = "UTC";
 
