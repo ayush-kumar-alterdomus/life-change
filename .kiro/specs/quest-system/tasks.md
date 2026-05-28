@@ -84,7 +84,7 @@ Quest CRUD operations, completion flow, daily reset scheduler, custom quest vali
     - All endpoints require authentication
     - Apply rate limiting (20/min for completion)
 
-- [-] 7. Checkpoint - Verify quest system
+- [x] 7. Checkpoint - Verify quest system
   - Write integration test: create quest → complete quest → verify completion record exists
   - Write integration test: attempt duplicate completion → verify 409 response
   - Write unit test: QuestValidator rejects invalid inputs
