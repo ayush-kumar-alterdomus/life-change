@@ -1,0 +1,52 @@
+# === Java / Maven (backend) ===
+backend/target/
+*.class
+*.jar
+*.war
+*.ear
+*.log
+hs_err_pid*
+
+# Maven wrapper jar (downloaded at build time)
+backend/.mvn/wrapper/maven-wrapper.jar
+
+# IDE
+.idea/
+*.iml
+*.iws
+*.ipr
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Environment / secrets
+.env
+*.env.local
+firebase-service-account.json
+
+# === Node / Angular (frontend) ===
+frontend/node_modules/
+frontend/dist/
+frontend/www/
+frontend/.angular/
+frontend/coverage/
+frontend/.sass-cache/
+frontend/tmp/
+
+# Capacitor
+frontend/android/
+frontend/ios/
+
+# === Docker ===
+pgdata/
+redisdata/
+
+# === Misc ===
+*.bak
+*.tmp

@@ -43,8 +43,8 @@ Initial scaffolding for the Ascend platform — a Spring Boot modular monolith b
     - Create placeholder `CorsConfig.java` in `common/config` (allow localhost:4200 for dev)
     - _Requirements: Common infrastructure, API standards, error handling skeleton_
 
-- [ ] 2. Initialize Angular/Ionic frontend project
-  - [ ] 2.1 Generate Angular/Ionic project with standalone components
+- [x] 2. Initialize Angular/Ionic frontend project
+  - [x] 2.1 Generate Angular/Ionic project with standalone components
     - Create `frontend/` directory
     - Initialize Ionic Angular project with standalone components (no NgModules)
     - Use Angular 17+, Ionic 7+, SCSS styling
@@ -52,7 +52,7 @@ Initial scaffolding for the Ascend platform — a Spring Boot modular monolith b
     - Add Capacitor for native mobile builds
     - _Requirements: Angular 17+, Ionic 7+, standalone components, Capacitor_
 
-  - [ ] 2.2 Create frontend feature-first folder structure
+  - [x] 2.2 Create frontend feature-first folder structure
     - Create `src/core/` with subdirectories: `auth`, `interceptors`, `services`, `config`, `constants`, `utilities`, `animations`
     - Create `src/shared/` with subdirectories: `components`, `ui`, `directives`, `pipes`, `models`, `enums`, `validators`
     - Create `src/features/` with subdirectories for each feature: `auth`, `onboarding`, `dashboard`, `quests`, `arc-mode`, `leveling`, `streaks`, `skill-tree`, `guilds`, `leagues`, `boss-battle`, `analytics`, `ai-coach`, `premium`, `social`, `profile`, `settings`
@@ -64,14 +64,14 @@ Initial scaffolding for the Ascend platform — a Spring Boot modular monolith b
     - Create `src/environments/` with `environment.ts` and `environment.prod.ts`
     - _Requirements: Feature-first architecture, domain-driven frontend_
 
-  - [ ] 2.3 Configure Angular app bootstrap and routing skeleton
+  - [x] 2.3 Configure Angular app bootstrap and routing skeleton
     - Configure `app.config.ts` with standalone providers (provideRouter, provideHttpClient, provideIonicAngular)
     - Create `app.routes.ts` with lazy-loaded route stubs for each feature module
     - Create `tabs.routes.ts` with bottom navigation: Home, Quests, Arc Mode, Social, Profile
     - Add route guards placeholders: `auth.guard.ts`, `premium.guard.ts`, `onboarding.guard.ts`
     - _Requirements: Lazy loading, tab navigation, route guards_
 
-  - [ ] 2.4 Configure frontend environment files and base services
+  - [x] 2.4 Configure frontend environment files and base services
     - Set up `environment.ts` with: `production: false`, `apiUrl: 'http://localhost:8080/api/v1'`, Firebase config placeholders
     - Set up `environment.prod.ts` with production flag and placeholder URLs
     - Create `src/core/services/api.service.ts` — base HTTP service wrapping HttpClient with API URL prefix
