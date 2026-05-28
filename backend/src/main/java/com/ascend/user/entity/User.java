@@ -1,7 +1,10 @@
 package com.ascend.user.entity;
 
+import com.ascend.auth.entity.UserRole;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -52,6 +55,11 @@ public class User {
     @Builder.Default
     @Column(name = "league", nullable = false, length = 20)
     private String league = "BRONZE";
+
+    @Builder.Default
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role", nullable = false, length = 20)
+    private UserRole role = UserRole.USER;
 
     @Builder.Default
     @Column(name = "premium", nullable = false)

@@ -1,5 +1,6 @@
 package com.ascend.common.exception;
 
+import com.ascend.auth.service.FirebaseAuthenticationException;
 import com.ascend.common.dto.ApiResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +11,12 @@ import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
+
+    @ExceptionHandler(FirebaseAuthenticationException.class)
+    public ResponseEntity<ApiResponse<Void>> handleFirebaseAuthException(FirebaseAuthenticationException ex) {
+        ApiResponse<Void> response = ApiResponse.error(ex.getMessage());
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
+    }
 
     @ExceptionHandler(BusinessException.class)
     public ResponseEntity<ApiResponse<Void>> handleBusinessException(BusinessException ex) {
