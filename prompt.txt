@@ -1,0 +1,12892 @@
+ascend-srs/
+├── README.md
+├── 00-product-overview.md
+├── 01-executive-summary.md
+├── 02-product-vision-and-usp.md
+├── 03-user-personas.md
+├── 04-functional-requirements.md
+├── 05-gamification-engine.md
+├── 06-ui-ux-blueprint.md
+├── 07-angular-ionic-architecture.md
+├── 08-springboot-architecture.md
+├── 09-firebase-architecture.md
+├── 10-database-design.md
+├── 11-api-contracts.md
+├── 12-security-architecture.md
+├── 13-websocket-events.md
+├── 14-implementation-roadmap.md
+├── 15-coding-blueprint.md
+├── 16-folder-structure.md
+├── 17-development-sprints.md
+├── 18-agentic-build-context.md
+└── 19-next-phase-roadmap.md
+
+create this structure with data below: , keep it as more deatailed as possible
+
+
+This is a solid idea — especially for your goals (discipline, consistency, self-improvement, gamification). Since you're a software developer and already work with Angular + Spring Boot, this can become a serious portfolio + startup-grade product.
+
+Before I write the detailed requirements document, I want to clarify the product scope so I don’t generate something generic.
+
+From the screenshots, I see the app includes:
+
+### Core Features I identified
+
+* Habit / Goal tracking
+* Daily quests/tasks
+* XP & leveling system
+* Streak tracking
+* Character progression / RPG feel
+* Hard mode (penalties for missed tasks)
+* Analytics & progress dashboard
+* Categories (Sleep, Water, Exercise, Focus, etc.)
+* Social leaderboard/community
+* Personalized onboarding
+* AI recommendations
+* Motivational cards
+* Widgets
+* Mini tools (timer, calorie tracker, summaries, meditation)
+* Subscription & premium model
+* Notifications/reminders
+
+### Architecture decision needed
+
+Since you said **Angular**, I assume:
+
+**Frontend:** Angular (Web/PWA or Ionic?)
+**Backend:** Spring Boot (since you already know it?)
+**DB:** PostgreSQL/MySQL?
+**Auth:** JWT + OAuth (Google/Apple)?
+
+### Important question:
+
+Do you want this as:
+
+**A) MVP (buildable in 2–3 months)**
+→ practical, lean version with only core features
+
+**B) Full production-grade app like the screenshots**
+→ 80–120 page detailed Software Requirements Specification (SRS), including:
+
+* Functional requirements
+* Non-functional requirements
+* User stories
+* Complete database schema
+* Angular architecture
+* Component hierarchy
+* API contracts
+* UX flows
+* Gamification engine
+* XP algorithm
+* Ranking system
+* Subscription model
+* Notification engine
+* Admin panel
+* Security
+* Scalability
+* DevOps deployment
+* Roadmap by phase
+* ER diagrams
+* Folder structure
+* Angular standalone architecture
+* State management
+* Redis caching
+* WebSocket real-time leaderboard
+* AI recommendation engine
+* System design
+
+Also, should I design it as:
+
+**1. Mobile-first PWA using Angular + Ionic** (recommended for app-like experience)
+
+OR
+
+**2. Pure Angular web app** (easier to build first)
+
+Once you answer those 2 questions, I’ll write a very detailed professional requirements document.
+
+
+Perfect. I’ll design this as a **full production-grade SaaS-level application** inspired by the screenshots, but architected professionally for scalability, monetization, and real-world usage.
+
+## Final Architecture (Confirmed)
+
+### Frontend
+
+* **Angular 20+**
+* **Ionic Angular (Mobile-first + Web)**
+* **Capacitor** (Android + iOS builds)
+* **Standalone Components**
+* **NgRx Signal Store / RxJS state management**
+* **Angular SSR (for web SEO landing pages)**
+* **PWA support**
+
+### Backend
+
+* **Spring Boot (Java 21)**
+* Microservice-ready modular monolith architecture
+* REST APIs + WebSockets
+* Scheduler engine
+* Notification orchestration
+* Gamification engine
+
+### Database & Authentication
+
+* **Firebase Authentication**
+
+  * Google login
+  * Apple login
+  * Email/password
+  * Phone OTP (optional)
+* **Firestore + Firebase Storage**
+* **Firebase Cloud Messaging (FCM)** for notifications
+* Hybrid persistence:
+
+  * Firebase for auth/profile/realtime
+  * Spring Boot + SQL for business logic analytics & scalability
+
+### App Type
+
+**Mobile-first + Responsive Web**
+
+* iOS
+* Android
+* Web dashboard
+* PWA
+
+### Scope
+
+**Full production-grade SRS**
+I’ll include:
+
+#### 1. Product Vision & Goals
+
+* Business objectives
+* User personas
+* Market positioning
+* Success metrics
+
+#### 2. Complete Functional Requirements
+
+Every screen and feature documented:
+
+* onboarding
+* habit creation
+* quests
+* XP system
+* streaks
+* hard mode
+* leaderboard
+* seasons
+* social
+* analytics
+* widgets
+* AI coach
+* motivation cards
+* premium plans
+* subscription engine
+* reminders
+* accountability system
+* progress tracking
+* challenges
+* focus mode
+* etc.
+
+#### 3. Complete UX Flow
+
+* User journey
+* Navigation architecture
+* Wireframe descriptions
+* User flows
+* Screen-to-screen mapping
+
+#### 4. Angular Architecture
+
+* folder structure
+* module boundaries
+* standalone components
+* services
+* signals
+* interceptors
+* guards
+* reusable UI system
+* theming engine
+* dark mode
+
+#### 5. Spring Boot Architecture
+
+* package structure
+* clean architecture
+* domain separation
+* services
+* repositories
+* scheduler
+* notification engine
+* caching
+* async processing
+
+#### 6. Database Design
+
+* Full ER diagram
+* Firestore collections
+* SQL schema
+* indexes
+* relationships
+
+#### 7. API Documentation
+
+Complete REST API contract:
+
+* endpoints
+* request/response models
+* auth flow
+* pagination
+* websocket events
+
+#### 8. Gamification Engine
+
+Detailed formulas:
+
+* XP calculation
+* levels
+* streak multipliers
+* penalties
+* hard mode
+* ranking system
+* season reset
+* achievement engine
+
+#### 9. Subscription & Monetization
+
+* free tier
+* premium
+* yearly/monthly
+* feature gating
+* trial system
+* Stripe/Razorpay/App Store billing
+
+#### 10. Notification System
+
+* reminders
+* streak warnings
+* AI nudges
+* accountability alerts
+* smart scheduling
+
+#### 11. Security
+
+* JWT flow
+* Firebase token validation
+* rate limiting
+* encryption
+* RBAC
+* anti-cheat system
+
+#### 12. DevOps
+
+* Docker
+* CI/CD
+* Firebase hosting
+* Play Store deployment
+* App Store deployment
+* AWS/GCP option
+
+#### 13. Non-functional Requirements
+
+* scalability
+* performance
+* availability
+* analytics
+* observability
+
+#### 14. Project Roadmap
+
+Phased implementation:
+**MVP → Beta → V1 → Growth**
+
+#### 15. Detailed Sprint Plan
+
+Week-by-week development roadmap.
+
+One important product decision before I start the SRS:
+
+### What is the primary theme?
+
+The screenshots are a mix of:
+
+**A. Hardcore Self-Improvement RPG**
+(Levels, discipline, punishments, “hard mode”)
+
+**B. Habit Tracker + Productivity**
+(Water, sleep, meditation, health)
+
+**C. Social Competitive Platform**
+(Leaderboard, seasons, ranking)
+
+**D. AI Life Coach**
+(Personalized plans, recommendations)
+
+For a production-grade product, we should choose a **primary pillar** and secondary pillars.
+
+My recommendation for strongest market fit:
+
+**Primary:** A + B
+(Habit tracking + RPG progression)
+
+**Secondary:** C
+(Social seasons, ranking)
+
+**Advanced Premium:** D
+(AI coach & personalization)
+
+Tell me:
+**Do you want the app to feel more like a game (RPG-first) or productivity app (habit-first)?**
+
+That choice changes the entire UX, XP system, and monetization strategy.
+
+
+
+
+Excellent choice.
+
+A **game-first self-improvement app** is far more differentiated and addictive than another habit tracker. We’ll design it like a **real-life RPG**, where productivity feels like progression rather than work.
+
+## Product Direction (Locked)
+
+### Core Identity
+
+**“Real Life RPG for Self-Improvement”**
+
+Users are not “tracking habits.”
+
+They are:
+
+* leveling up
+* building stats
+* surviving streaks
+* entering seasons
+* competing in leagues
+* unlocking classes
+* earning achievements
+* fighting “boss battles”
+* improving their real life
+
+Think:
+
+**Habitica × Duolingo streak psychology × RPG progression × anime aesthetics × self-improvement**
+
+Based on the screenshots, we’ll position it more premium and immersive.
+
+## Final Product Vision
+
+Instead of:
+
+> “Drink water today”
+
+The app says:
+
+> **Hydration Quest**
+> +20 Vitality XP
+> Reward: Streak Shield Charge
+
+Instead of:
+
+> “Meditate”
+
+It becomes:
+
+> **Mind Training — Rare Quest**
+> +35 Focus XP
+
+Instead of:
+
+> “Missed habit”
+
+It becomes:
+
+> **Penalty Applied**
+> Discipline -3
+> Streak at risk.
+
+---
+
+## Core Game Systems (Production Grade)
+
+### 1. Player Stats System
+
+Each user has RPG stats.
+
+Example:
+
+| Stat       |             Meaning |
+| ---------- | ------------------: |
+| Strength   | Fitness consistency |
+| Wisdom     |    Reading/learning |
+| Discipline |    Habit completion |
+| Focus      |           Deep work |
+| Vitality   |   Sleep + hydration |
+| Confidence |       Social habits |
+
+Real-life actions increase stats.
+
+Example:
+
+* Gym → Strength +15 XP
+* Reading → Wisdom +10 XP
+* Deep Work → Focus +20 XP
+
+---
+
+### 2. Leveling System
+
+Users gain XP daily.
+
+Example progression:
+
+Level 1 → 100 XP
+Level 2 → 250 XP
+Level 3 → 450 XP
+
+Advanced formula:
+Non-linear exponential progression.
+
+Prevents users from maxing too fast.
+
+---
+
+### 3. Daily Quest Engine
+
+Tasks become quests.
+
+Types:
+
+* Main Quests
+* Side Quests
+* Daily Missions
+* Weekly Challenges
+* Epic Quests
+
+Example:
+
+**Main Quest**
+
+> Sleep before 12 AM
+
+Reward:
++50 XP
+
+---
+
+### 4. Streak Psychology Engine
+
+Major retention system.
+
+Features:
+
+* streak freezing
+* streak shields
+* comeback bonus
+* redemption mode
+* anti-burnout recovery
+
+Example:
+7-day streak:
+Unlocks multiplier:
+
+**XP × 1.2**
+
+30-day streak:
+
+**XP × 2**
+
+---
+
+### 5. Hard Mode
+
+One of the strongest premium differentiators.
+
+Miss habits:
+
+Consequences:
+
+* XP deduction
+* stat decay
+* league demotion
+* streak damage
+* penalty tasks
+
+Optional feature:
+User deposits money.
+
+Miss goals:
+
+₹ deducted to charity/accountability pool.
+
+---
+
+### 6. League & Ranking System
+
+Inspired by competitive games.
+
+Tiers:
+
+Bronze → Silver → Gold → Platinum → Diamond → Master
+
+Users compete weekly.
+
+Leaderboard categories:
+
+* Discipline
+* Focus
+* Fitness
+* Consistency
+
+---
+
+### 7. Season System
+
+Major retention mechanic.
+
+Every 60–90 days:
+
+New:
+
+* challenges
+* themes
+* rewards
+* seasonal badges
+* exclusive skins
+
+Example:
+
+**Season: Discipline Arc**
+
+---
+
+### 8. Avatar / Identity System
+
+Highly addictive.
+
+Unlock:
+
+* avatars
+* themes
+* titles
+* aura
+* profile effects
+
+Example:
+
+**Title Unlocked**
+
+> “The Consistent One”
+
+---
+
+### 9. Boss Battle System
+
+Massive engagement feature.
+
+Example:
+
+**Beat Procrastination Boss**
+
+Requirement:
+Complete 20 focus sessions in 7 days.
+
+Reward:
+Legendary badge.
+
+---
+
+### 10. AI Life Coach
+
+Premium feature.
+
+Uses:
+
+* habit analysis
+* motivation detection
+* burnout prediction
+* schedule optimization
+
+Example:
+
+> Your consistency drops after 9 PM.
+> Move gym to mornings.
+
+---
+
+## UI Direction
+
+Based on your screenshots:
+
+### Design Style
+
+* Dark mode default
+* Black + orange premium palette
+* Anime / RPG feel
+* Glassmorphism
+* Neon progress
+* XP animations
+* Smooth transitions
+
+### UX Principles
+
+* dopamine loops
+* instant rewards
+* satisfying micro animations
+* game feedback
+* progress obsession
+
+---
+
+## SRS Structure I’ll Create
+
+The document will be **startup/funding-grade**, not college-project level.
+
+Expected size:
+
+**80–150+ pages**
+
+Sections:
+
+1. Executive Summary
+2. Vision & Product Goals
+3. Competitor Analysis
+4. User Personas
+5. Complete Feature Breakdown
+6. Detailed Functional Requirements
+7. Detailed Non-functional Requirements
+8. Full Screen Specifications
+9. UI/UX Requirements
+10. Complete Information Architecture
+11. Angular Ionic Architecture
+12. Spring Boot Architecture
+13. Firebase Architecture
+14. Database Design
+15. Complete API Contracts
+16. Gamification Engine Algorithms
+17. XP/Level Formula Design
+18. Ranking & Season Engine
+19. Subscription System
+20. Notification Engine
+21. AI Recommendation System
+22. Security Design
+23. Admin Panel Requirements
+24. Analytics & Metrics
+25. DevOps & Deployment
+26. Scalability Plan
+27. Sprint-wise Development Roadmap
+28. Risk Analysis
+29. Future Expansion Strategy
+
+One more important decision before I start the final architecture:
+
+### Should users be able to add **custom habits only**, or should the app also provide **prebuilt RPG missions**?
+
+Example:
+
+**Custom**
+“Learn Spring Boot”
+
+vs
+
+**Prebuilt**
+“Monk Arc”
+(30-day focus challenge)
+
+“Warrior Arc”
+(fitness challenge)
+
+“Discipline Arc”
+(wake-up consistency)
+
+My recommendation:
+
+**Both**, but RPG-first:
+
+* beginner users use premade “Arcs”
+* advanced users create custom systems
+
+This massively improves retention and onboarding.
+
+
+Great — that’s the right direction for a product with strong retention and real startup potential.
+
+## Product Direction Finalized
+
+### Product Positioning
+
+**Game-first self-improvement RPG**
+
+Users improve real life through:
+
+* Quests
+* XP
+* Levels
+* Streaks
+* Leagues
+* Seasons
+* Boss fights
+* Character progression
+* Rewards
+
+### Content Model (Locked)
+
+**Hybrid System (Recommended)**
+
+#### 1. Prebuilt “Life Arcs” (Primary)
+
+For onboarding and retention.
+
+Examples:
+
+### Warrior Arc
+
+Fitness-focused
+
+* wake up early
+* gym
+* protein intake
+* steps
+* sleep
+
+Rewards:
+
+* Strength XP
+* Warrior badge
+* exclusive avatar frame
+
+### Monk Arc
+
+Focus & discipline
+
+* meditation
+* deep work
+* dopamine detox
+* reduced screen time
+
+### Scholar Arc
+
+Learning-focused
+
+* coding
+* reading
+* skill building
+* study hours
+
+### Creator Arc
+
+Career/productivity
+
+* build projects
+* networking
+* content creation
+
+### Beast Mode Arc
+
+Hardcore mode
+
+* penalties
+* no excuses
+* streak punishment
+* competitive leagues
+
+---
+
+#### 2. Custom Missions (Secondary)
+
+Advanced users create:
+
+Examples:
+
+* Learn Spring Boot
+* DSA grind
+* Gym transformation
+* Save ₹2 lakh
+* Build startup
+
+Users define:
+
+* frequency
+* difficulty
+* XP reward
+* penalties
+* stat category
+
+---
+
+#### 3. Dynamic AI Missions (Premium)
+
+AI generates personalized quests:
+
+Example:
+
+> You skip workouts on Mondays.
+> New Quest Added:
+> **10-minute starter workout**
+
+This becomes a major premium differentiator.
+
+# Next-Level Features I Recommend Adding
+
+These are not in the screenshots but would make your product significantly stronger.
+
+## 1. “Real Life Skill Tree”
+
+Very addictive.
+
+Users unlock paths.
+
+Example:
+
+**Discipline Tree**
+
+* Wake early
+* No snooze
+* Daily planning
+* Consistency mastery
+
+Unlock rewards progressively.
+
+Like RPG games.
+
+---
+
+## 2. “Transformation Journey”
+
+A visual identity system.
+
+Examples:
+
+* Beginner
+* Survivor
+* Disciplined
+* Elite
+* Legendary
+
+Users feel progress emotionally.
+
+---
+
+## 3. Guild / Squad System
+
+Huge retention mechanic.
+
+Friends form groups.
+
+Example:
+**Backend Warriors Guild**
+
+Shared missions:
+
+* 100 coding hours/month
+* gym challenge
+
+Missing tasks hurts guild ranking.
+
+Extremely sticky feature.
+
+---
+
+## 4. Accountability Contracts
+
+Very powerful.
+
+Examples:
+
+* lose streak → penalty
+* ₹500 stake
+* public accountability
+
+Optional premium feature.
+
+---
+
+## 5. “Life Score”
+
+Single improvement score.
+
+Calculated from:
+
+* health
+* focus
+* consistency
+* learning
+* discipline
+
+Users become obsessed with increasing it.
+
+---
+
+## 6. Anti-Burnout Engine
+
+Critical for long-term retention.
+
+Detect:
+
+* overload
+* declining completion
+* burnout risk
+
+AI suggests:
+
+> Recovery Week Activated
+
+Prevents quitting.
+
+---
+
+# What I’ll design in the SRS
+
+The document will include **detailed requirements for every screen** from your screenshots:
+
+### Authentication
+
+* splash
+* onboarding
+* RPG assessment
+* Firebase auth
+* social login
+
+### Home Dashboard
+
+* daily quests
+* XP
+* streaks
+* quick actions
+* active arc
+
+### Quest Management
+
+* create/edit
+* recurring quests
+* penalties
+* difficulty engine
+
+### Stats & Leveling
+
+* stat engine
+* XP formulas
+* leveling algorithms
+
+### Progress Analytics
+
+* heatmaps
+* streak charts
+* improvement graphs
+* stat trends
+
+### Social
+
+* leaderboards
+* guilds
+* seasonal leagues
+
+### Hard Mode
+
+* penalties
+* streak damage
+* accountability
+
+### Premium
+
+* subscriptions
+* free trial
+* feature locking
+
+### Admin Panel
+
+* arc management
+* moderation
+* analytics
+* notification campaigns
+
+### Full Technical Architecture
+
+For:
+
+* Angular Ionic
+* Spring Boot
+* Firebase
+* Firestore
+* Push notifications
+* Capacitor
+* Deployment
+* CI/CD
+
+### Production-Level Database Design
+
+Including:
+
+* collections
+* tables
+* indexing
+* scalability strategy
+
+### API Contract
+
+Every endpoint documented.
+
+### Complete Angular Folder Structure
+
+Feature-first scalable architecture.
+
+### Complete Spring Boot Structure
+
+Production modular monolith.
+
+### Sprint Plan
+
+MVP → Launch → Scale.
+
+Before I begin the SRS design, **one final product naming decision** (important because naming affects branding, UX copy, database naming, and theme):
+
+Do you want the vibe to be more:
+
+**A. Serious/Premium**
+Examples:
+
+* Ascend
+* AscendX
+* Discipline
+* Evolv
+* Rise
+
+**B. RPG / Anime / Game Feel**
+Examples:
+
+* LevelUp
+* LifeQuest
+* ArcMode
+* Solo Leveling inspired vibe
+* IRL RPG
+
+**C. Hybrid (recommended)**
+Professional but still game-like.
+
+Example style:
+**Ascend — Real Life RPG**
+
+I strongly recommend **Hybrid** for better mass adoption and premium feel.
+
+
+Perfect — **Hybrid** is the strongest choice.
+
+You get:
+
+* **premium feel** (better trust + monetization)
+* **game psychology** (higher retention)
+* **mass appeal** (not too “cringe gamer” for adults)
+
+## Brand Direction (Locked)
+
+### Positioning
+
+**Premium Real-Life RPG for Self Improvement**
+
+Tone:
+
+**Professional × Motivational × Game-like**
+
+Not childish.
+
+Not overly productivity-corporate.
+
+Not anime-only.
+
+Think:
+
+> “Become the strongest version of yourself.”
+
+---
+
+## Brand Identity Direction
+
+### Visual Style
+
+Based on your screenshots + premium UX:
+
+**Theme**
+
+* Dark mode default
+* Black / charcoal background
+* Orange-gold accent (premium progression feel)
+* White typography
+* subtle glow
+* cinematic transitions
+
+**Design Language**
+
+* RPG progression
+* premium SaaS polish
+* game dopamine loops
+* minimal clutter
+* immersive experience
+
+---
+
+## Naming Direction (Hybrid)
+
+Here are strong startup-grade options:
+
+### Tier 1 (Highly Recommended)
+
+**Ascend**
+Simple, premium, memorable.
+
+Tagline:
+
+> Ascend — Become Your Best Self
+
+---
+
+**AscendX**
+Feels modern + scalable.
+
+---
+
+**LevelUp**
+Very intuitive but less unique.
+
+---
+
+**Arc**
+Minimal and premium.
+
+Example:
+
+> Start your Discipline Arc
+
+---
+
+**Ascend: Real Life RPG**
+Very strong.
+
+---
+
+**Rise**
+Premium and motivational.
+
+---
+
+**Evolv**
+Modern self-improvement feel.
+
+---
+
+### Tier 2 (More RPG Feel)
+
+**LifeQuest**
+Good but slightly generic.
+
+**IRL RPG**
+Fun but niche.
+
+**Level IRL**
+Social-media friendly.
+
+**Solo IRL**
+Inspired feel (careful legally).
+
+**ArcMode**
+Actually very strong.
+
+---
+
+### My recommendation for startup potential:
+
+## **Ascend**
+
+or
+
+## **ArcMode**
+
+Why?
+
+### Ascend
+
+Best for:
+
+* premium brand
+* mature users
+* subscriptions
+* investors/startup feel
+* scalable into wellness/productivity
+
+Feels like:
+
+> Duolingo / Headspace / Notion quality
+
+---
+
+### ArcMode
+
+Best for:
+
+* game-first identity
+* memorable
+* viral branding
+* RPG differentiation
+
+Feels like:
+
+> “Enter your Discipline Arc”
+
+Very aligned with your concept.
+
+---
+
+## What happens next
+
+Now that scope is locked, I’ll prepare the **full production-grade SRS** with:
+
+### Volume
+
+**~100–150+ pages**
+
+### Deliverables
+
+1. **Complete SRS Documentation**
+2. **System Architecture**
+3. **Complete DB Design**
+4. **Angular Ionic Architecture**
+5. **Spring Boot Architecture**
+6. **Firebase Design**
+7. **Feature Specifications**
+8. **Gamification Algorithms**
+9. **API Contracts**
+10. **Screen-by-screen Requirements**
+11. **User Flows**
+12. **Component Hierarchy**
+13. **Folder Structure**
+14. **Scalable Design Decisions**
+15. **Implementation Roadmap**
+
+One last branding decision to finalize the document:
+
+### Pick one:
+
+**1. Ascend**
+(premium + scalable)
+
+**2. ArcMode**
+(game-first + memorable)
+
+**3. Combination**
+Example:
+
+> **Ascend**
+> *Enter Arc Mode*
+
+This third option is honestly very strong for branding.
+Excellent. That gives us a very strong brand architecture.
+
+# Final Brand Direction (Locked)
+
+## Product Name
+
+# **Ascend**
+
+### Signature Feature / Experience
+
+# **Arc Mode**
+
+Tagline ideas:
+
+> **Ascend — Enter Arc Mode**
+
+or
+
+> **Ascend — Level Up Your Real Life**
+
+or
+
+> **Ascend — Become Your Strongest Self**
+
+This is powerful because:
+
+### “Ascend” = premium brand
+
+Good for:
+
+* app store
+* investors
+* subscriptions
+* long-term scalability
+
+### “Arc Mode” = addictive RPG identity
+
+Users say:
+
+> “I’m in Monk Arc”
+
+> “Starting Beast Mode Arc”
+
+> “Completed my Discipline Arc”
+
+This creates **community vocabulary**, which massively helps virality.
+
+Example:
+
+### User Language Inside App
+
+Instead of:
+
+❌ Habit Tracker
+
+You use:
+
+✅ **Quest Board**
+
+---
+
+❌ Goals
+
+✅ **Main Quests**
+
+---
+
+❌ Daily Tasks
+
+✅ **Daily Missions**
+
+---
+
+❌ Categories
+
+✅ **Skill Trees**
+
+---
+
+❌ Progress
+
+✅ **Character Growth**
+
+---
+
+❌ Productivity Stats
+
+✅ **Player Stats**
+
+---
+
+❌ Streak
+
+✅ **Combo Streak**
+
+---
+
+❌ Challenge
+
+✅ **Arc Challenge**
+
+This makes the product feel immersive and unique.
+
+---
+
+# Final Product Vision Statement
+
+### Ascend
+
+*A premium real-life RPG where users level up themselves through quests, arcs, streaks, and progression systems.*
+
+Users don't just track habits.
+
+They:
+
+* build discipline
+* complete quests
+* level up stats
+* compete in leagues
+* unlock achievements
+* evolve their identity
+
+through **Arc Mode**.
+
+---
+
+# What I’ll design in the SRS
+
+The document will now be tailored to:
+
+## **Ascend — Enter Arc Mode**
+
+and include:
+
+### 1. Complete Product Blueprint
+
+Startup-grade vision.
+
+### 2. Detailed SRS
+
+Production-level requirement specification.
+
+### 3. Full Technical Architecture
+
+For:
+
+* Angular + Ionic
+* Spring Boot
+* Firebase
+
+### 4. Database Design
+
+Optimized for scale.
+
+### 5. Screen-by-Screen Requirements
+
+Based on your screenshots + improved UX.
+
+### 6. Complete Gamification Engine
+
+Including:
+
+* XP system
+* leveling formulas
+* skill trees
+* league engine
+* seasonal resets
+* streak psychology
+* anti-cheat
+
+### 7. Arc System
+
+Including:
+
+* Monk Arc
+* Warrior Arc
+* Scholar Arc
+* Beast Mode Arc
+* Creator Arc
+* custom arcs
+
+### 8. Premium Monetization
+
+Designed for strong retention + revenue.
+
+### 9. Admin Panel
+
+Full CMS-grade management.
+
+### 10. Implementation Roadmap
+
+Built realistically for a solo/lean team.
+
+Because this is a **large 100–150+ page document**, I recommend structuring it into **phases** instead of dumping everything at once.
+
+### Phase 1
+
+**Product + SRS Foundation**
+
+* vision
+* personas
+* requirements
+* features
+* user stories
+* flows
+
+### Phase 2
+
+**Technical Architecture**
+
+* Angular Ionic
+* Spring Boot
+* Firebase
+* DB schema
+* APIs
+
+### Phase 3
+
+**Gamification & Algorithms**
+
+* XP
+* stats
+* leagues
+* arc engine
+
+### Phase 4
+
+**Implementation Blueprint**
+
+* sprint plan
+* folder structure
+* roadmap
+* deployment
+
+This will produce a much higher quality document.
+
+I’ll start with **Phase 1: Product + SRS Foundation** next.
+
+
+Perfect. I’ll begin with **Phase 1 — Product + SRS Foundation** for:
+
+# **Ascend — Enter Arc Mode**
+
+This phase will include:
+
+## 1. Executive Summary
+
+* Product overview
+* Vision
+* Problem statement
+* Solution approach
+* USP (Unique Selling Proposition)
+
+## 2. Product Vision & Mission
+
+* Long-term vision
+* Core philosophy
+* Why users will stay
+* Retention psychology
+
+## 3. Market & Competitor Analysis
+
+Comparison against:
+
+* Habitica
+* Duolingo
+* Fabulous
+* HabitBull
+* Forest
+
+Including:
+
+* strengths
+* weaknesses
+* market gap
+* differentiation strategy
+
+## 4. User Personas
+
+Detailed personas such as:
+
+### The Discipline Seeker
+
+Wants:
+
+* consistency
+* gym routine
+* waking early
+
+### The Career Grinder
+
+Wants:
+
+* coding consistency
+* project building
+* learning
+
+### The Competitive Achiever
+
+Wants:
+
+* rankings
+* leagues
+* visible progress
+
+### The Lost Beginner
+
+Needs:
+
+* guided arcs
+* onboarding
+* motivation
+
+---
+
+## 5. Core Product Pillars
+
+Finalized product principles:
+
+### RPG Progression
+
+### Real-Life Transformation
+
+### Accountability
+
+### Competition
+
+### Identity Evolution
+
+### Sustainable Discipline
+
+---
+
+## 6. Detailed Functional Requirements
+
+Every major feature:
+
+* onboarding
+* quests
+* arcs
+* XP
+* stats
+* streaks
+* penalties
+* hard mode
+* leagues
+* guilds
+* analytics
+* AI coach
+* premium
+
+with detailed acceptance criteria.
+
+---
+
+## 7. User Roles & Permissions
+
+* Guest
+* Free User
+* Premium User
+* Guild Leader
+* Moderator
+* Admin
+* Super Admin
+
+---
+
+## 8. Complete User Journeys
+
+Examples:
+
+**New User Journey**
+Install → Assessment → Choose Arc → First Quest → XP → Retention Loop
+
+**Competitive User Journey**
+Join League → Daily Quests → Rank Climb → Rewards
+
+---
+
+## 9. Screen Inventory
+
+Every screen identified from your screenshots + production additions.
+
+---
+
+## 10. MVP vs V1 vs Scale Features
+
+So development stays realistic.
+
+Since this is your long-term flagship product, I’ll write it at a **startup/enterprise level**, not college-project documentation.
+
+One thing I’ll optimize for based on your goals as a developer:
+
+I’ll make the architecture **resume-worthy + scalable**, meaning if you build this, it becomes a serious portfolio project for higher-paying roles or startup potential.
+
+Next response, I’ll begin **Phase 1 — Executive Summary + Product Vision + USP + Personas**.
+
+# Phase 1 — Product + SRS Foundation
+
+# **Ascend — Enter Arc Mode**
+
+---
+
+# 1. Executive Summary
+
+## 1.1 Product Overview
+
+**Ascend** is a **game-first self-improvement platform** designed to help users improve their real-life habits, productivity, discipline, fitness, learning, and personal growth through **RPG-style progression systems**.
+
+Instead of traditional habit tracking, users experience self-improvement as a game through:
+
+* Quests
+* XP progression
+* Leveling systems
+* Skill trees
+* Streak mechanics
+* Competitive leagues
+* Seasonal progression
+* Boss battles
+* Guilds/social accountability
+* AI-driven coaching
+
+The app transforms self-development into an immersive, rewarding experience called:
+
+# **Arc Mode**
+
+Users enter personalized growth journeys (“Arcs”) such as:
+
+* Warrior Arc
+* Monk Arc
+* Scholar Arc
+* Creator Arc
+* Beast Mode Arc
+
+The platform combines:
+
+**Gamification + Behavioral Psychology + Productivity + Identity Growth**
+
+to maximize long-term retention and habit consistency.
+
+---
+
+## 1.2 Problem Statement
+
+Modern self-improvement apps fail because they feel like:
+
+* boring trackers
+* repetitive checklists
+* guilt-based productivity systems
+* emotionally disconnected tools
+
+Most users quit habit apps within weeks due to:
+
+### Problem 1: Low Motivation
+
+Traditional apps do not create emotional engagement.
+
+Example:
+
+Traditional app:
+
+> Drink water
+
+No excitement.
+
+No emotional reward.
+
+---
+
+### Problem 2: Lack of Identity Change
+
+Users fail because they do not become the type of person who performs the habit.
+
+Example:
+
+Instead of:
+
+> “I need to wake up early”
+
+Identity should become:
+
+> “I am becoming disciplined.”
+
+---
+
+### Problem 3: Weak Reward Loops
+
+Most habit trackers lack:
+
+* dopamine feedback
+* visible progression
+* achievement systems
+* competition
+* stakes
+
+Result:
+
+Users lose interest.
+
+---
+
+### Problem 4: No Accountability
+
+Most platforms allow users to skip habits endlessly without consequences.
+
+No urgency.
+
+No challenge.
+
+No meaningful cost.
+
+---
+
+### Problem 5: One-Size-Fits-All Systems
+
+Every user receives identical experiences.
+
+No personalization.
+
+No adaptive difficulty.
+
+No meaningful guidance.
+
+---
+
+## 1.3 Proposed Solution
+
+Ascend solves these problems by reframing self-improvement as a **real-life RPG progression system**.
+
+Users no longer “track habits.”
+
+They:
+
+### Complete Quests
+
+Daily tasks become missions.
+
+Example:
+
+Instead of:
+
+> Go to gym
+
+User sees:
+
+> **Warrior Quest**
+> Complete 45 mins strength training
+> Reward: +40 Strength XP
+
+---
+
+### Build Character Stats
+
+Users evolve through stats:
+
+| Stat       | Meaning             |
+| ---------- | ------------------- |
+| Strength   | Fitness consistency |
+| Focus      | Deep work           |
+| Wisdom     | Learning            |
+| Discipline | Habit reliability   |
+| Vitality   | Sleep + health      |
+| Charisma   | Social confidence   |
+
+Real-life behavior improves stats.
+
+---
+
+### Level Up
+
+Every completed quest gives XP.
+
+Example:
+
+Level 1 → 2
+
+Reward:
+
+* title unlock
+* badge
+* cosmetics
+* league access
+
+---
+
+### Enter Arcs
+
+Users choose guided life journeys.
+
+Example:
+
+## Monk Arc
+
+Goal:
+Build discipline.
+
+Includes:
+
+* meditation
+* sleep routine
+* reduced distraction
+* focus sessions
+
+---
+
+### Compete
+
+Weekly leagues:
+
+Bronze → Silver → Gold → Platinum → Diamond → Master
+
+Users compete using:
+
+* consistency
+* XP
+* streaks
+* discipline score
+
+---
+
+### Receive Smart Coaching
+
+AI provides:
+
+* adaptive difficulty
+* burnout prevention
+* schedule optimization
+* motivational guidance
+
+---
+
+## 1.4 Vision Statement
+
+### Long-Term Vision
+
+> **To become the world’s most engaging self-improvement platform by transforming personal growth into an immersive RPG experience.**
+
+Ascend aims to redefine self-improvement from:
+
+> boring obligation
+
+to
+
+> meaningful progression.
+
+---
+
+## 1.5 Mission Statement
+
+> Help people become the strongest version of themselves through engaging systems that reward real-life growth.
+
+---
+
+## 1.6 Unique Selling Proposition (USP)
+
+### What Makes Ascend Different?
+
+Unlike traditional habit apps:
+
+Ascend combines:
+
+### 1. RPG Mechanics
+
+Not habit tracking.
+
+Real progression.
+
+---
+
+### 2. Arc System
+
+Guided transformation journeys.
+
+---
+
+### 3. Identity-Based Growth
+
+Focuses on becoming someone better.
+
+---
+
+### 4. Competitive Systems
+
+Leagues + rankings + guilds.
+
+---
+
+### 5. Smart Accountability
+
+Hard mode + penalties.
+
+---
+
+### 6. Emotional Reward Loops
+
+XP, visuals, unlocks, achievements.
+
+---
+
+### 7. AI Personalization
+
+Adaptive coaching.
+
+---
+
+# 2. Product Vision
+
+## 2.1 Core Philosophy
+
+### Self-improvement should feel rewarding.
+
+Current apps rely on:
+
+* discipline
+* guilt
+* reminders
+
+Ascend relies on:
+
+* excitement
+* progression
+* challenge
+* achievement
+* immersion
+
+---
+
+## 2.2 Product Principles
+
+The product must follow these rules:
+
+### Principle 1: Game First
+
+Every interaction should feel rewarding.
+
+No boring UI.
+
+No spreadsheet feeling.
+
+---
+
+### Principle 2: Real-Life Impact
+
+Gamification must improve actual life.
+
+Not fake engagement.
+
+---
+
+### Principle 3: Progress Must Feel Visible
+
+Users should always feel:
+
+> “I am improving.”
+
+---
+
+### Principle 4: Sustainable Growth
+
+Avoid burnout.
+
+Long-term retention > short-term obsession.
+
+---
+
+### Principle 5: Personalization
+
+Every user journey should adapt.
+
+---
+
+# 3. Target Audience
+
+## Primary Audience
+
+### Age Group
+
+18–35
+
+### User Types
+
+### 1. Self-Improvement Enthusiasts
+
+Goals:
+
+* discipline
+* consistency
+* health
+
+---
+
+### 2. Students
+
+Goals:
+
+* study
+* learning
+* focus
+
+---
+
+### 3. Working Professionals
+
+Goals:
+
+* productivity
+* career growth
+* routine building
+
+---
+
+### 4. Gym & Fitness Users
+
+Goals:
+
+* consistency
+* body transformation
+
+---
+
+### 5. Gamers
+
+Want progression systems.
+
+---
+
+# 4. User Personas
+
+## Persona 1 — The Discipline Builder
+
+**Name:** Aarav
+Age: 24
+Occupation: Software Developer
+
+Pain Points:
+
+* procrastination
+* inconsistency
+* poor sleep schedule
+
+Goal:
+Become disciplined.
+
+Preferred Arc:
+**Monk Arc**
+
+---
+
+## Persona 2 — The Career Grinder
+
+**Name:** Neha
+Age: 27
+Occupation: Software Engineer
+
+Goals:
+
+* coding consistency
+* side projects
+* career growth
+
+Preferred Arc:
+**Creator Arc**
+
+---
+
+## Persona 3 — Competitive Achiever
+
+Motivation:
+Leaderboard domination.
+
+Preferred:
+Guilds + rankings.
+
+---
+
+## Persona 4 — Beginner
+
+Needs:
+Guided onboarding.
+
+Preferred:
+Prebuilt arcs.
+
+---
+
+# 5. Product Success Metrics (KPIs)
+
+### Retention
+
+D1, D7, D30 retention
+
+Goal:
+
+> 40%+ D30 retention
+
+---
+
+### Daily Engagement
+
+DAU/MAU ratio
+
+Target:
+
+> 35%
+
+---
+
+### Quest Completion Rate
+
+Target:
+
+> 70%
+
+---
+
+### Streak Longevity
+
+Average streak length.
+
+---
+
+### Premium Conversion
+
+Target:
+5–12%
+
+---
+
+### Session Time
+
+Target:
+8–15 mins/day
+
+---
+
+# 6. High-Level Feature List
+
+### Core Features
+
+✅ Quest System
+✅ XP & Leveling
+✅ Streak Engine
+✅ Arc Mode
+✅ Skill Trees
+✅ Character Stats
+✅ Leagues
+✅ Guilds
+✅ Boss Battles
+✅ AI Coach
+✅ Analytics
+✅ Seasonal Events
+✅ Notifications
+✅ Hard Mode
+✅ Accountability Contracts
+✅ Premium Membership
+
+---
+
+### Technical Stack (Finalized)
+
+#### Frontend
+
+* Angular
+* Ionic
+* Capacitor
+* PWA
+
+#### Backend
+
+* Spring Boot
+
+#### Auth
+
+* Firebase Auth
+
+#### DB
+
+* Firestore + SQL Hybrid
+
+#### Notifications
+
+* Firebase Cloud Messaging
+
+#### Analytics
+
+* Firebase Analytics
+
+---
+
+## Next: Section 2 — Detailed User Personas + Functional Requirement Breakdown + User Stories + Screen Inventory.
+
+
+
+Perfect. Moving to the next section.
+
+# Phase 1 — Part 2
+
+# Detailed User Personas + Functional Requirements + User Stories + Screen Inventory
+
+I’ll structure this like a **real startup SRS document** with:
+
+## 7. Detailed User Personas
+
+Deep behavioral profiles:
+
+* motivations
+* psychology
+* retention triggers
+* frustration points
+* monetization fit
+
+---
+
+## 8. Functional Requirement Breakdown
+
+Detailed requirements for:
+
+### Authentication
+
+### Onboarding
+
+### Arc Mode
+
+### Quest Engine
+
+### XP System
+
+### Streaks
+
+### Skill Trees
+
+### Leagues
+
+### Guilds
+
+### Analytics
+
+### AI Coach
+
+### Hard Mode
+
+### Notifications
+
+### Subscription System
+
+### Settings/Profile
+
+Each feature will include:
+
+* Functional description
+* Business rules
+* Acceptance criteria
+* User flows
+* Edge cases
+* Failure handling
+
+---
+
+## 9. User Stories
+
+Production-grade stories like:
+
+> As a user, I want to start a Monk Arc so that I can build discipline.
+
+With:
+
+* priority
+* dependencies
+* acceptance criteria
+
+---
+
+## 10. Screen Inventory
+
+Complete mobile-first screen architecture for:
+
+### Authentication
+
+* Splash
+* Login
+* Signup
+* Forgot password
+
+### Onboarding
+
+* Welcome
+* Assessment
+* Goal selection
+* Arc recommendation
+* Difficulty selection
+
+### Home
+
+* Dashboard
+* Quest board
+* XP overview
+* Daily missions
+
+### Gameplay
+
+* Arc details
+* Skill tree
+* Boss battles
+* Streak screen
+* Rewards
+
+### Social
+
+* Guilds
+* Leaderboards
+* Profiles
+
+### Analytics
+
+* Growth insights
+* Heatmaps
+* Trends
+
+### Premium
+
+* Subscription
+* Paywall
+* Benefits
+
+### Settings
+
+* Profile
+* Theme
+* Notifications
+* Hard mode
+
+---
+
+### Estimated Output
+
+This next section alone will be **20–30+ pages worth of detailed requirements**.
+
+After that we’ll move to:
+
+**Phase 2 → Technical Architecture**
+(Angular Ionic + Spring Boot + Firebase + DB + APIs)
+
+Starting next section now.
+Great. Starting **Section 7 — Detailed User Personas** and **Section 8 — Functional Requirements** next.
+
+This will be written in proper **SRS format**, including:
+
+### Requirement Structure
+
+For each feature:
+
+**Feature Name**
+**Description**
+**Objective**
+**Functional Requirements (FR)**
+**Business Rules**
+**User Flow**
+**Acceptance Criteria**
+**Error Handling**
+**Edge Cases**
+**Future Scalability**
+
+Example format:
+
+---
+
+## FR-QUEST-001: Daily Quest System
+
+### Description
+
+The system shall allow users to complete recurring daily quests associated with an active Arc.
+
+### Functional Requirements
+
+* User can create quests
+* User can edit quests
+* User can pause quests
+* Quest frequency:
+
+  * daily
+  * weekly
+  * custom
+* Quest difficulty:
+
+  * Easy
+  * Medium
+  * Hard
+  * Legendary
+
+### Rewards
+
+Every quest completion grants:
+
+* XP
+* stat points
+* streak progression
+* rewards
+
+### Business Rules
+
+* Missed quests affect streak
+* Hard Mode users receive penalties
+* Duplicate completion prohibited
+
+### Acceptance Criteria
+
+✅ User completes quest → XP updates instantly
+✅ Dashboard refreshes automatically
+✅ Streak updates in real time
+
+---
+
+Then I’ll do this level of detail for:
+
+1. Authentication
+2. Onboarding
+3. Arc Mode
+4. Quest Engine
+5. XP System
+6. Streak Engine
+7. Character Stats
+8. Skill Trees
+9. Leaderboards
+10. Guilds
+11. Boss Battles
+12. Notifications
+13. AI Coach
+14. Analytics
+15. Premium System
+16. Hard Mode
+17. Profile System
+18. Settings
+19. Admin Panel
+
+After that:
+
+## Phase 2
+
+**Production Architecture**
+for your stack:
+
+**Angular Ionic + Spring Boot + Firebase**
+
+Including:
+
+* scalable folder structure
+* standalone components
+* API architecture
+* Firestore schema
+* Spring Boot package structure
+* caching
+* realtime events
+* push notification architecture
+* deployment
+
+We’re now moving from product idea → actual build blueprint.
+Great. We’re aligned.
+
+I’ll proceed in this order so the documentation becomes **implementation-ready** and not just theory:
+
+## Immediate Next Deliverable
+
+### **Section 7 — Detailed User Personas**
+
+Deep personas with:
+
+* goals
+* frustrations
+* behavioral triggers
+* retention psychology
+* monetization likelihood
+* onboarding path
+* recommended arcs
+
+---
+
+### **Section 8 — Functional Requirements (Detailed SRS)**
+
+Feature-by-feature production requirements:
+
+#### Epic 1: Authentication & User Management
+
+* Firebase auth
+* social login
+* onboarding persistence
+* account linking
+* guest mode
+* profile management
+
+#### Epic 2: Onboarding & Arc Recommendation
+
+* RPG-style onboarding
+* personality assessment
+* goal mapping
+* difficulty calibration
+* first quest generation
+
+#### Epic 3: Arc Mode Engine
+
+* prebuilt arcs
+* custom arcs
+* arc progression
+* milestones
+* arc completion rewards
+
+#### Epic 4: Quest System
+
+* daily missions
+* weekly quests
+* recurring tasks
+* difficulty system
+* dynamic XP
+* reminders
+* penalties
+
+#### Epic 5: XP + Leveling Engine
+
+* level formulas
+* stat growth
+* multipliers
+* diminishing returns
+* balancing system
+
+#### Epic 6: Streak & Retention System
+
+* streak freeze
+* combo multiplier
+* comeback mode
+* relapse recovery
+
+#### Epic 7: Skill Tree System
+
+* unlockable branches
+* progression dependencies
+* permanent boosts
+
+#### Epic 8: League & Ranking
+
+* bronze → master
+* weekly resets
+* rewards
+* anti-cheat
+
+#### Epic 9: Guild/Squad System
+
+* friend groups
+* shared quests
+* accountability
+
+#### Epic 10: Boss Battles
+
+* challenge-based progression
+* rare rewards
+
+#### Epic 11: AI Coach
+
+* personalized suggestions
+* burnout prediction
+* behavior analysis
+
+#### Epic 12: Premium System
+
+* subscriptions
+* feature gating
+* free trial
+* monetization rules
+
+#### Epic 13: Analytics
+
+* heatmaps
+* consistency graph
+* stat progression
+* behavioral insights
+
+#### Epic 14: Notifications Engine
+
+* reminders
+* motivational nudges
+* streak warnings
+* adaptive timing
+
+#### Epic 15: Hard Mode
+
+* penalties
+* accountability contracts
+* stake system
+
+#### Epic 16: Admin Panel
+
+* arc management
+* CMS
+* moderation
+* analytics
+
+---
+
+### Then → Phase 2
+
+Technical architecture for your stack:
+
+**Angular Ionic + Spring Boot + Firebase**
+
+Including:
+
+* scalable standalone architecture
+* Ionic mobile-first structure
+* Spring Boot modular monolith
+* Firebase integration
+* realtime architecture
+* DB schema
+* API contracts
+* deployment architecture
+
+We’re now officially designing this like a **real startup product spec + engineering blueprint**.
+
+
+Excellent. We now have enough clarity to move from idea → **real product specification**.
+
+I’ll begin writing the **implementation-grade SRS** for:
+
+# **Ascend — Enter Arc Mode**
+
+## Confirmed Product Scope
+
+### Product Type
+
+**Game-first self-improvement platform**
+
+### Platforms
+
+* **Android (Primary)**
+* **iOS**
+* **Responsive Web**
+* **PWA**
+
+### Tech Stack
+
+#### Frontend
+
+* Angular + Ionic
+* Standalone Components
+* Capacitor
+* RxJS + Signals
+* PWA
+
+#### Backend
+
+* Spring Boot (Java 21)
+* REST APIs
+* WebSockets
+* Scheduler Engine
+
+#### Auth & DB
+
+* Firebase Authentication
+* Firestore
+* Firebase Storage
+* FCM Notifications
+
+#### Optional Analytics DB
+
+* PostgreSQL/MySQL for heavy analytics & reporting
+
+---
+
+# Documentation Plan (Execution Order)
+
+## Phase 1 — Product & Functional SRS
+
+**(Business + Product Requirements)**
+
+### Section 1
+
+✅ Executive Summary
+✅ Product Vision
+✅ USP
+✅ Market Direction
+✅ KPIs
+
+### Section 2 (Starting Next)
+
+**Detailed Personas**
+
+* psychology
+* behavior
+* monetization fit
+* retention triggers
+
+### Section 3
+
+**Feature Requirements (Production Grade)**
+For every feature:
+
+* FR IDs
+* workflows
+* business logic
+* validations
+* acceptance criteria
+* edge cases
+
+---
+
+## Phase 2 — Technical Architecture
+
+**(Engineering Blueprint)**
+
+### Angular Ionic Architecture
+
+* scalable folder structure
+* standalone architecture
+* state management
+* lazy loading
+* reusable components
+* navigation architecture
+
+### Spring Boot Architecture
+
+* modular monolith
+* package structure
+* services
+* schedulers
+* event system
+* websocket architecture
+
+### Firebase Architecture
+
+* auth flow
+* Firestore structure
+* cloud messaging
+* storage
+* security rules
+
+### Database Design
+
+* collections
+* SQL tables
+* indexing
+* ER diagrams
+
+### API Documentation
+
+Complete contracts:
+
+* request payloads
+* responses
+* validation
+* pagination
+* auth handling
+
+---
+
+## Phase 3 — Game Engine Design
+
+**(Most important section)**
+
+Detailed formulas for:
+
+### XP System
+
+Balanced progression curve.
+
+### Leveling Formula
+
+Prevent gaming/exploits.
+
+### Skill Trees
+
+### Arc Progression
+
+### Boss Battles
+
+### League Rankings
+
+### Streak Psychology
+
+### Penalty System
+
+### Burnout Prevention
+
+---
+
+## Phase 4 — UI/UX Blueprint
+
+Based on your screenshots but improved.
+
+Includes:
+
+* screen hierarchy
+* wireframe logic
+* UX rules
+* animation system
+* RPG interactions
+* motion guidelines
+* dark theme system
+
+---
+
+## Phase 5 — Implementation Blueprint
+
+For actual development.
+
+Includes:
+
+* sprint planning
+* MVP roadmap
+* backlog
+* priorities
+* dev timeline
+* release plan
+
+Given the size (**100–150+ pages**), I’ll build this in structured sections so it stays high quality and actually usable during development.
+
+### Next Deliverable:
+
+# **Section 7 — Detailed User Personas**
+
+# **Section 8 — Functional Requirements (Authentication + Onboarding + Arc Mode + Quest System)**
+
+
+
+Perfect. Starting the actual **SRS deep dive** now.
+
+Next section will contain:
+
+# **Section 7 — Detailed User Personas**
+
+(Deep behavioral analysis)
+
+Including for each persona:
+
+* demographics
+* motivations
+* frustrations
+* psychological triggers
+* retention drivers
+* onboarding flow
+* preferred Arc
+* monetization likelihood
+* risk of churn
+* AI recommendations
+
+Personas:
+
+1. **The Discipline Builder**
+2. **The Career Grinder**
+3. **The Competitive Achiever**
+4. **The Lost Beginner**
+5. **The Fitness Warrior**
+6. **The Self-Improvement Addict**
+
+---
+
+Then:
+
+# **Section 8 — Functional Requirements**
+
+Starting with:
+
+## Epic 1 — Authentication & User Management
+
+Detailed SRS:
+
+### FR-AUTH-001
+
+Firebase Authentication
+
+### FR-AUTH-002
+
+Google Sign-In
+
+### FR-AUTH-003
+
+Apple Sign-In
+
+### FR-AUTH-004
+
+Guest Mode
+
+### FR-AUTH-005
+
+Profile Creation
+
+### FR-AUTH-006
+
+Session Persistence
+
+### FR-AUTH-007
+
+Device Sync
+
+With:
+
+* business logic
+* validations
+* user flows
+* acceptance criteria
+* edge cases
+* failure handling
+
+---
+
+Then:
+
+## Epic 2 — Onboarding Engine
+
+RPG onboarding flow.
+
+Including:
+
+* personality quiz
+* self-improvement goals
+* difficulty calibration
+* arc recommendation engine
+* first quest generation
+
+---
+
+Then:
+
+## Epic 3 — Arc Mode Engine
+
+Your app’s core mechanic.
+
+Including:
+
+* prebuilt arcs
+* custom arcs
+* progression
+* milestones
+* unlockables
+* completion rewards
+
+---
+
+Then:
+
+## Epic 4 — Quest System
+
+Production-grade design:
+
+* daily quests
+* recurring missions
+* XP rewards
+* penalties
+* scheduling
+* smart reminders
+* completion validation
+* anti-cheat logic
+
+This is where the document starts becoming **engineering-ready for Angular + Spring Boot implementation**.
+
+Great. We have everything locked.
+
+I’ll now proceed with the **actual production-grade SRS writing** for:
+
+# **Ascend — Enter Arc Mode**
+
+## Current Status
+
+### Product Identity
+
+✅ **Ascend** (brand)
+✅ **Arc Mode** (signature experience)
+
+### Product Philosophy
+
+✅ **Game-first self-improvement RPG**
+
+### Platform Scope
+
+✅ Mobile-first + Web
+
+### Tech Stack
+
+✅ Angular + Ionic
+✅ Spring Boot
+✅ Firebase Auth + Firestore
+
+### Experience Direction
+
+✅ Premium + RPG Hybrid
+
+### Content Strategy
+
+✅ Prebuilt Arcs + Custom Missions
+
+---
+
+## SRS Progression Plan
+
+### Part 1 (Completed)
+
+✅ Executive Summary
+✅ Vision
+✅ USP
+✅ Core Product Principles
+✅ Target Audience
+✅ High-Level Features
+
+---
+
+### Part 2 (Starting)
+
+## Section 7 — Detailed Personas
+
+Deep behavioral profiles.
+
+---
+
+## Section 8 — Functional Requirements
+
+Detailed engineering-grade requirements for:
+
+### Epic 1 — Authentication
+
+(Firebase + onboarding persistence)
+
+### Epic 2 — Onboarding Engine
+
+(Game onboarding + Arc recommendation)
+
+### Epic 3 — Arc Mode Engine
+
+(Core transformation system)
+
+### Epic 4 — Quest System
+
+(Daily gameplay loop)
+
+Each requirement will include:
+
+* **FR IDs**
+* Description
+* Business Logic
+* Validation Rules
+* Acceptance Criteria
+* User Flow
+* Edge Cases
+* Future Scalability
+
+Example style:
+
+**FR-QUEST-001**
+**Title:** Daily Quest Completion
+
+**Description:**
+The system shall allow users to complete assigned quests and receive dynamic XP rewards.
+
+**Business Rules:**
+
+* One completion/day
+* Duplicate prevention
+* Streak update required
+* XP multiplier support
+
+**Acceptance Criteria:**
+✅ XP updates instantly
+✅ Animation shown
+✅ Stats refreshed
+✅ Streak recalculated
+
+---
+
+After this:
+
+## Phase 2 — Technical Blueprint
+
+For **Angular Ionic + Spring Boot + Firebase**
+
+Including:
+
+* scalable architecture
+* standalone Angular structure
+* modular Spring Boot
+* Firestore schema
+* API contracts
+* deployment
+* CI/CD
+* notification architecture
+
+We are now entering the **implementation-ready specification phase**.
+Perfect. I’ll continue with the SRS in the next section.
+
+# Upcoming Deliverable
+
+## **Section 7 — Detailed User Personas**
+
+(Deep psychology + product fit)
+
+## **Section 8 — Functional Requirements**
+
+Starting with:
+
+### Epic 1 — Authentication & User Management
+
+* Firebase auth
+* Google login
+* Apple login
+* Guest mode
+* session persistence
+* onboarding state
+* profile management
+
+### Epic 2 — Onboarding & Arc Recommendation
+
+* RPG-style onboarding
+* self-assessment quiz
+* goal selection
+* difficulty calibration
+* Arc recommendation engine
+* first quest generation
+
+### Epic 3 — Arc Mode Engine
+
+* prebuilt arcs
+* custom arcs
+* milestones
+* rewards
+* progression
+* completion system
+
+### Epic 4 — Quest Engine
+
+* daily quests
+* recurring quests
+* weekly missions
+* XP rewards
+* dynamic difficulty
+* reminders
+* anti-cheat validation
+
+Each feature will be documented in **proper enterprise SRS format**:
+
+**Requirement ID**
+**Objective**
+**Description**
+**Business Rules**
+**User Flow**
+**Validation Rules**
+**Acceptance Criteria**
+**Error Handling**
+**Edge Cases**
+**Scalability Considerations**
+
+After that we’ll move into the **engineering blueprint** for your Angular Ionic + Spring Boot + Firebase stack.
+
+Perfect. I’ll stop waiting for confirmations and **move continuously section-by-section** from here.
+
+We are now entering:
+
+# **SECTION 7 — DETAILED USER PERSONAS**
+
+# **SECTION 8 — FUNCTIONAL REQUIREMENTS (SRS)**
+
+followed immediately by:
+
+# **PHASE 2 — TECHNICAL ARCHITECTURE**
+
+(Angular Ionic + Spring Boot + Firebase)
+
+and then:
+
+# **PHASE 3 — GAMIFICATION ENGINE**
+
+(XP, arcs, leagues, streaks, balancing)
+
+and finally:
+
+# **PHASE 4 — IMPLEMENTATION BLUEPRINT**
+
+(sprints, folder structure, roadmap)
+
+## Delivery Strategy
+
+Instead of repeatedly pausing, I’ll continue in a structured sequence:
+
+### Part A
+
+**Personas + Authentication + Onboarding**
+
+### Part B
+
+**Arc Mode + Quest Engine + XP + Streaks**
+
+### Part C
+
+**Leagues + Guilds + Boss Battles + AI Coach**
+
+### Part D
+
+**Premium + Notifications + Hard Mode + Analytics**
+
+### Part E
+
+**Technical Architecture**
+(Angular Ionic + Spring Boot + Firebase)
+
+### Part F
+
+**Database + API Contracts + Folder Structure**
+
+### Part G
+
+**Game Economy + Balancing Algorithms**
+
+### Part H
+
+**Roadmap + Sprint Plan + Deployment**
+
+I’ll treat this as a **real production SRS for an app you are actually building**, optimized for:
+
+* scalability
+* resume value
+* startup potential
+* maintainability
+* solo-developer feasibility first
+* enterprise readiness later
+
+Starting the detailed sections and moving forward continuously.
+Understood. I’ll continue without pausing and build the document as a **complete implementation-ready SRS**.
+
+Next sections I will proceed through in order:
+
+# Section 7 — Detailed User Personas
+
+* behavior patterns
+* psychology
+* retention triggers
+* monetization fit
+* churn risks
+* recommended arcs
+
+# Section 8 — Functional Requirements (Full SRS)
+
+### Epic 1 — Authentication & User Management
+
+(Firebase auth + profile system)
+
+### Epic 2 — RPG Onboarding Engine
+
+(assessment + arc recommendation)
+
+### Epic 3 — Arc Mode Engine
+
+(core gameplay system)
+
+### Epic 4 — Quest Engine
+
+(daily gameplay loop)
+
+### Epic 5 — XP + Leveling Engine
+
+### Epic 6 — Streak Engine
+
+### Epic 7 — Character Stats + Skill Trees
+
+### Epic 8 — League System
+
+### Epic 9 — Guild / Squad System
+
+### Epic 10 — Boss Battle System
+
+### Epic 11 — AI Coach
+
+### Epic 12 — Premium & Monetization
+
+### Epic 13 — Notifications Engine
+
+### Epic 14 — Analytics & Insights
+
+### Epic 15 — Hard Mode & Accountability
+
+### Epic 16 — Admin Panel
+
+Then I’ll immediately move to:
+
+# Phase 2 — Engineering Architecture
+
+for:
+
+**Angular Ionic + Spring Boot + Firebase**
+
+including:
+
+### Angular Ionic
+
+* standalone architecture
+* feature-first folder structure
+* state management
+* reusable component system
+* navigation architecture
+* responsive strategy
+
+### Spring Boot
+
+* modular monolith architecture
+* packages
+* service boundaries
+* scheduler engine
+* websocket system
+* notification orchestration
+
+### Firebase
+
+* authentication architecture
+* Firestore schema
+* FCM notifications
+* security rules
+
+### Database
+
+* full ER design
+* collections
+* indexing
+* scalability strategy
+
+### API Contracts
+
+* REST endpoints
+* payloads
+* DTOs
+* validation
+* pagination
+* auth
+
+Then:
+
+# Phase 3 — Game Economy & Balancing
+
+* XP formulas
+* level curve
+* streak psychology
+* arc progression
+* anti-cheat
+* league balancing
+
+Then:
+
+# Phase 4 — Development Blueprint
+
+* sprint planning
+* roadmap
+* MVP → V1 → Scale
+* deployment strategy
+* CI/CD
+
+I’m proceeding continuously from here as a **real product specification for development**, not a conceptual outline.
+
+Great — proceeding continuously.
+
+I will now start generating the **actual detailed SRS content** (not planning messages anymore) in the following sequence:
+
+### Part 1
+
+**Section 7 — Detailed User Personas**
+
+### Part 2
+
+**Section 8 — Functional Requirements**
+
+* Authentication
+* Onboarding
+* Arc Mode
+* Quest System
+
+### Part 3
+
+**XP + Streak + Skill Tree Engine**
+
+### Part 4
+
+**Leagues + Guilds + Boss Battles**
+
+### Part 5
+
+**AI Coach + Premium + Notifications + Hard Mode**
+
+### Part 6
+
+**Technical Architecture**
+(Angular Ionic + Spring Boot + Firebase)
+
+### Part 7
+
+**Database Design + APIs + Folder Structure**
+
+### Part 8
+
+**Game Economy + Balancing Algorithms**
+
+### Part 9
+
+**Implementation Blueprint**
+(sprints, roadmap, deployment)
+
+I’ll write it as a **production-grade engineering SRS** suitable for actual development of **Ascend — Enter Arc Mode**.
+
+# SECTION 7 — DETAILED USER PERSONAS
+
+# **Ascend — Enter Arc Mode**
+
+---
+
+# Persona 1 — The Discipline Builder
+
+## Profile
+
+**Name:** Aarav Sharma
+Age: 24
+Occupation: Software Developer
+Income: ₹8–15 LPA
+Lifestyle: Inconsistent but ambitious
+
+## Goals
+
+* wake up early
+* reduce procrastination
+* become disciplined
+* gym consistency
+* improve focus
+
+## Pain Points
+
+* inconsistent habits
+* dopamine addiction
+* doom scrolling
+* starts but quits
+
+## Emotional Trigger
+
+Feels guilty about wasted potential.
+
+Typical thought:
+
+> “I know I can do more, but I’m inconsistent.”
+
+## Retention Drivers
+
+Strongest motivators:
+
+* streaks
+* leveling system
+* progress visualization
+* punishment mode
+
+## Churn Risk
+
+High if:
+
+* onboarding too long
+* no quick wins
+* feels overwhelming
+
+## Recommended Arc
+
+### Monk Arc
+
+Secondary:
+
+### Beast Mode Arc
+
+## Monetization Potential
+
+**Very High**
+
+Likely premium features:
+
+* AI coach
+* hard mode
+* accountability contracts
+
+---
+
+# Persona 2 — The Career Grinder
+
+## Profile
+
+**Name:** Neha Kapoor
+Age: 27
+Occupation: Software Engineer
+
+## Goals
+
+* coding consistency
+* build side projects
+* improve productivity
+* learning discipline
+
+## Pain Points
+
+* burnout
+* inconsistent study
+* lack of measurable progress
+
+## Emotional Trigger
+
+Fear of career stagnation.
+
+Typical thought:
+
+> “I need structure.”
+
+## Retention Drivers
+
+* coding streaks
+* XP progression
+* achievement systems
+* productivity insights
+
+## Recommended Arc
+
+### Creator Arc
+
+### Scholar Arc
+
+## Monetization Potential
+
+High
+
+Likely premium:
+
+* analytics
+* AI productivity coach
+
+---
+
+# Persona 3 — Competitive Achiever
+
+## Profile
+
+Age: 20–30
+
+Psychology:
+Extremely competitive.
+
+Needs:
+
+* leaderboards
+* leagues
+* rank visibility
+
+## Emotional Trigger
+
+Winning.
+
+Typical thought:
+
+> “I want to be top 10.”
+
+## Retention Drivers
+
+Very high retention.
+
+Best features:
+
+* weekly league
+* guild battles
+* rewards
+
+## Recommended Arc
+
+### Beast Mode Arc
+
+---
+
+# Persona 4 — Lost Beginner
+
+## Profile
+
+Age: 18–28
+
+Problem:
+Doesn’t know where to start.
+
+## Pain Points
+
+* overwhelmed
+* low confidence
+* no routine
+
+## Emotional Trigger
+
+Needs direction.
+
+Typical thought:
+
+> “Tell me what to do.”
+
+## Retention Drivers
+
+* guided onboarding
+* prebuilt arcs
+* daily quests
+
+## Recommended Arc
+
+### Starter Arc
+
+### Monk Lite Arc
+
+---
+
+# Persona 5 — Fitness Warrior
+
+## Goals
+
+* body transformation
+* workout consistency
+* nutrition discipline
+
+## Retention Drivers
+
+* stat growth
+* streaks
+* body progression
+
+## Recommended Arc
+
+### Warrior Arc
+
+---
+
+# Persona 6 — Self-Improvement Addict
+
+Consumes:
+
+* self-help content
+* productivity videos
+* motivation reels
+
+Problem:
+Consumes too much.
+Executes too little.
+
+## Emotional Trigger
+
+Transformation fantasy.
+
+## Retention Drivers
+
+* identity system
+* prestige levels
+* boss battles
+
+---
+
+# SECTION 8 — FUNCTIONAL REQUIREMENTS (SRS)
+
+---
+
+# EPIC 1 — AUTHENTICATION & USER MANAGEMENT
+
+---
+
+# FR-AUTH-001
+
+## User Registration
+
+### Description
+
+The system shall allow users to register using:
+
+* Email/Password
+* Google Sign-In
+* Apple Sign-In
+* Anonymous Guest Mode
+
+---
+
+### Objective
+
+Reduce onboarding friction.
+
+---
+
+### Business Rules
+
+#### Email Registration
+
+Mandatory:
+
+* email
+* password
+
+Validation:
+
+* valid email format
+* password ≥ 8 chars
+* uppercase required
+* special character required
+
+---
+
+#### Social Login
+
+One-tap login.
+
+Providers:
+
+* Google
+* Apple
+
+---
+
+### User Flow
+
+Launch App
+
+→ Login Screen
+
+Options:
+
+1. Continue with Google
+2. Continue with Apple
+3. Email Signup
+4. Continue as Guest
+
+---
+
+### Acceptance Criteria
+
+✅ Account created successfully
+✅ Firebase token generated
+✅ User document created in Firestore
+✅ Session persists after app restart
+
+---
+
+### Edge Cases
+
+#### Existing Email
+
+Error:
+
+> Account already exists
+
+---
+
+#### Network Failure
+
+Show retry state.
+
+---
+
+#### Firebase Failure
+
+Fallback error UI.
+
+---
+
+# FR-AUTH-002
+
+## Guest Mode
+
+### Description
+
+Users may explore app without signup.
+
+Restrictions:
+
+Allowed:
+
+* onboarding
+* quests
+* basic gameplay
+
+Restricted:
+
+* leaderboard
+* cloud sync
+* guilds
+
+---
+
+### Business Rule
+
+Guest account expires after:
+
+**30 days inactivity**
+
+Prompt:
+
+> Save your progress
+
+---
+
+### Acceptance Criteria
+
+✅ Guest progress saved locally
+✅ Upgrade to account preserves progress
+
+---
+
+# FR-AUTH-003
+
+## Session Persistence
+
+### Description
+
+User session shall remain active.
+
+Mechanism:
+Firebase refresh token.
+
+Session expiry:
+Automatic refresh.
+
+---
+
+### Acceptance Criteria
+
+✅ User remains logged in
+✅ No forced login every launch
+
+---
+
+# FR-AUTH-004
+
+## Profile Creation
+
+After authentication:
+
+User profile created.
+
+Fields:
+
+```json
+{
+  "userId": "",
+  "username": "",
+  "avatar": "",
+  "currentLevel": 1,
+  "xp": 0,
+  "rank": "Bronze",
+  "selectedArc": "",
+  "createdAt": "",
+  "timezone": "",
+  "preferences": {}
+}
+```
+
+---
+
+# FR-AUTH-005
+
+## Multi-device Sync
+
+### Description
+
+Progress sync across devices.
+
+Sync includes:
+
+* quests
+* streaks
+* XP
+* stats
+* arcs
+
+---
+
+### Acceptance Criteria
+
+✅ Progress visible instantly
+✅ No duplicate XP
+
+---
+
+# EPIC 2 — RPG ONBOARDING ENGINE
+
+---
+
+# FR-ONBOARD-001
+
+## RPG Welcome Flow
+
+### Objective
+
+Make onboarding immersive.
+
+Instead of boring forms.
+
+---
+
+### Flow
+
+Screen 1:
+Cinematic Intro
+
+Text:
+
+> Your strongest self awaits.
+
+CTA:
+**Enter Arc Mode**
+
+---
+
+Screen 2:
+Choose Goal
+
+Options:
+
+* Discipline
+* Fitness
+* Learning
+* Productivity
+* Confidence
+* Mental Health
+
+---
+
+Screen 3:
+Difficulty Selection
+
+Options:
+
+### Casual Mode
+
+Low intensity
+
+### Balanced Mode
+
+Recommended
+
+### Beast Mode
+
+Hardcore
+
+Penalty enabled.
+
+---
+
+# FR-ONBOARD-002
+
+## Personality Assessment
+
+Questions:
+
+Example:
+
+> What stops you most?
+
+Options:
+
+* procrastination
+* low motivation
+* distraction
+* inconsistency
+
+---
+
+### System Logic
+
+AI score generated.
+
+Recommended arc returned.
+
+Example:
+
+Result:
+
+> Recommended:
+
+## Monk Arc
+
+---
+
+# FR-ONBOARD-003
+
+## Arc Recommendation Engine
+
+Algorithm:
+
+Input:
+
+* goals
+* assessment
+* personality
+* available time
+
+Output:
+Recommended Arc
+
+---
+
+### Sample Mapping
+
+Fitness + consistency
+
+→ Warrior Arc
+
+Learning + coding
+
+→ Scholar Arc
+
+Discipline + dopamine control
+
+→ Monk Arc
+
+---
+
+### Acceptance Criteria
+
+✅ Personalized recommendation shown
+✅ User can override recommendation
+
+---
+
+# EPIC 3 — ARC MODE ENGINE
+
+---
+
+# FR-ARC-001
+
+## Prebuilt Arc Selection
+
+Users may choose:
+
+### Monk Arc
+
+Discipline.
+
+### Warrior Arc
+
+Fitness.
+
+### Scholar Arc
+
+Learning.
+
+### Creator Arc
+
+Career growth.
+
+### Beast Mode Arc
+
+Extreme discipline.
+
+---
+
+### Arc Components
+
+Each arc contains:
+
+* quests
+* milestones
+* rewards
+* bosses
+* skill path
+
+---
+
+# FR-ARC-002
+
+## Arc Progression
+
+Arc duration:
+30–90 days.
+
+Progression:
+
+Beginner → Intermediate → Elite → Master
+
+---
+
+### Rewards
+
+Unlock:
+
+* titles
+* skins
+* XP multiplier
+* aura effects
+
+---
+
+### Acceptance Criteria
+
+✅ Progress visible
+✅ Rewards auto unlocked
+
+---
+
+# FR-ARC-003
+
+## Custom Arc Builder
+
+User may create:
+
+Example:
+“Spring Boot Mastery”
+
+Inputs:
+
+* title
+* goal
+* duration
+* milestones
+* quest frequency
+
+---
+
+### Validation
+
+Minimum:
+1 milestone required.
+
+---
+
+# EPIC 4 — QUEST ENGINE
+
+---
+
+# FR-QUEST-001
+
+## Daily Quest System
+
+Users receive:
+
+### Main Quests
+
+High impact.
+
+### Side Quests
+
+Optional.
+
+### Daily Missions
+
+Recurring.
+
+### Weekly Challenges
+
+Long-term.
+
+---
+
+### Example
+
+Quest:
+
+> Morning Workout
+
+Reward:
+
++40 Strength XP
+
+---
+
+### Completion Rules
+
+Quest may only complete once/day.
+
+Duplicate blocked.
+
+---
+
+### Acceptance Criteria
+
+✅ XP awarded instantly
+✅ Animation shown
+✅ Streak updated
+✅ Quest marked complete
+
+---
+
+# FR-QUEST-002
+
+## Dynamic Difficulty
+
+Difficulty adjusts based on consistency.
+
+Example:
+
+If user skips gym:
+
+Instead of:
+45 mins workout
+
+System adapts:
+
+10 mins recovery workout
+
+---
+
+### Objective
+
+Reduce churn.
+
+---
+
+Next:
+**XP System + Leveling + Streak Engine + Skill Trees (Production SRS)**
+
+
+# SECTION 8 — FUNCTIONAL REQUIREMENTS (CONTINUED)
+
+# **EPIC 5 — XP SYSTEM & LEVELING ENGINE**
+
+---
+
+# FR-XP-001
+
+## XP Reward Engine
+
+### Description
+
+The system shall award **Experience Points (XP)** when users complete quests, milestones, streaks, and achievements.
+
+XP is the primary progression currency.
+
+---
+
+## Objective
+
+Create strong dopamine loops and visible progression.
+
+Users should feel:
+
+> “I’m getting stronger.”
+
+---
+
+## XP Sources
+
+| Action                 |          XP |
+| ---------------------- | ----------: |
+| Daily Quest            |    10–40 XP |
+| Main Quest             |   50–150 XP |
+| Weekly Challenge       |  100–300 XP |
+| Boss Battle            | 300–1000 XP |
+| Arc Completion         | 500–5000 XP |
+| Streak Bonus           |    Variable |
+| First Completion Bonus |      +25 XP |
+| Perfect Day            |     +100 XP |
+
+---
+
+## XP Difficulty Formula
+
+XP depends on:
+
+### Formula
+
+XP=(BaseXP \times DifficultyMultiplier \times StreakMultiplier \times ArcMultiplier) + BonusXP
+
+---
+
+### Difficulty Multiplier
+
+| Difficulty | Multiplier |
+| ---------- | ---------: |
+| Easy       |         ×1 |
+| Medium     |       ×1.5 |
+| Hard       |         ×2 |
+| Legendary  |         ×3 |
+
+---
+
+### Example
+
+Quest:
+
+> Deep Work Session
+
+Base XP:
+20
+
+Difficulty:
+Hard
+
+Streak:
+1.5x
+
+Final:
+
+20 × 2 × 1.5 = **60 XP**
+
+---
+
+### Acceptance Criteria
+
+✅ XP granted instantly
+✅ Animation triggered
+✅ UI updated in real-time
+✅ Server validation applied
+
+---
+
+### Edge Cases
+
+#### Duplicate Completion
+
+Prevent XP farming.
+
+Rule:
+Quest cannot award XP twice.
+
+---
+
+#### Offline Completion
+
+Store locally.
+
+Sync later.
+
+---
+
+# FR-XP-002
+
+## XP Animation System
+
+### Description
+
+Completing quests triggers immersive animations.
+
+Example:
+
+**+50 XP**
+**Focus +10**
+
+Animation types:
+
+* particle burst
+* glow effect
+* level progress fill
+* vibration feedback
+
+---
+
+### Objective
+
+Increase reward satisfaction.
+
+---
+
+# FR-XP-003
+
+## Combo Bonus System
+
+Users gain combo multiplier.
+
+Rules:
+
+### 3-Day Combo
+
++10% XP
+
+### 7-Day Combo
+
++20%
+
+### 30-Day Combo
+
++50%
+
+### 100-Day Combo
+
++100%
+
+---
+
+### Formula
+
+FinalXP = XP \times ComboMultiplier
+
+---
+
+### Anti-Exploit Rule
+
+Combo breaks if:
+
+User misses required quests.
+
+Unless:
+**Streak Shield Active**
+
+---
+
+# FR-XP-004
+
+## Perfect Day Bonus
+
+If all daily missions completed:
+
+Reward:
+
+* bonus XP
+* chest unlock
+* multiplier token
+
+---
+
+Example:
+
+> PERFECT DAY ACHIEVED
+
+Reward:
++100 XP
+
+---
+
+# EPIC 6 — LEVELING ENGINE
+
+---
+
+# FR-LEVEL-001
+
+## Player Level System
+
+### Description
+
+Users level up based on XP earned.
+
+---
+
+## Objective
+
+Provide long-term progression.
+
+---
+
+### Progression Curve
+
+Use **non-linear progression** to avoid fast burnout.
+
+Formula:
+
+XPRequired = 100 \times Level^{1.5}
+
+---
+
+### Example Levels
+
+| Level | XP Needed |
+| ----- | --------: |
+| 1     |       100 |
+| 2     |       282 |
+| 3     |       519 |
+| 5     |      1118 |
+| 10    |      3162 |
+| 25    |     12500 |
+| 50    |     35355 |
+| 100   |   100000+ |
+
+---
+
+### Why This Formula?
+
+Benefits:
+
+* early wins feel easy
+* later mastery feels earned
+* prevents abuse
+
+---
+
+### Acceptance Criteria
+
+✅ Level updates automatically
+✅ Animation shown
+✅ Rewards granted
+
+---
+
+# FR-LEVEL-002
+
+## Level-Up Rewards
+
+Each level grants:
+
+### Standard Rewards
+
+* coins
+* titles
+* cosmetics
+* profile effects
+
+---
+
+### Milestone Rewards
+
+Level 10:
+Unlock Leagues
+
+Level 25:
+Unlock Guilds
+
+Level 50:
+Legendary Avatar
+
+---
+
+### Example UX
+
+> LEVEL UP
+> You reached Level 12
+
+Rewards:
+
+* +100 Coins
+* “Focused Mind” Title
+
+---
+
+# FR-LEVEL-003
+
+## Prestige System
+
+After Level 100:
+
+User can reset.
+
+Benefits:
+
+* prestige badge
+* exclusive cosmetics
+* global ranking boost
+
+---
+
+### Formula
+
+Prestige multiplier:
+
+PrestigeXP = BaseXP \times (1 + 0.1P)
+
+Where:
+P = Prestige level
+
+---
+
+# EPIC 7 — STREAK ENGINE
+
+---
+
+# FR-STREAK-001
+
+## Daily Streak System
+
+### Description
+
+Track consecutive completion days.
+
+---
+
+### Rules
+
+A streak continues if:
+
+Minimum:
+**80% daily quests completed**
+
+---
+
+### Example
+
+Day 1 ✅
+Day 2 ✅
+Day 3 ❌
+
+Result:
+
+Streak broken.
+
+---
+
+### Acceptance Criteria
+
+✅ Streak updates daily
+✅ Dashboard reflects count
+
+---
+
+# FR-STREAK-002
+
+## Streak Shield
+
+Premium feature.
+
+Purpose:
+Prevent streak loss.
+
+Ways to earn:
+
+* rewards
+* purchase
+* milestones
+
+---
+
+### Rule
+
+Shield automatically activates once.
+
+---
+
+Example:
+
+Missed quest.
+
+Instead of:
+
+❌ Streak lost
+
+Result:
+
+🛡 Shield Used
+
+---
+
+# FR-STREAK-003
+
+## Comeback Mode
+
+When streak breaks:
+
+App enters recovery state.
+
+Example message:
+
+> Your Arc isn't over.
+> Recover in the next 48 hours.
+
+Reward:
+Recovery multiplier.
+
+---
+
+### Objective
+
+Reduce churn after failure.
+
+---
+
+# FR-STREAK-004
+
+## Relapse Prevention
+
+AI detects:
+
+* declining completion
+* missed streaks
+* motivation drop
+
+System adapts.
+
+Example:
+
+Instead of:
+
+5 hard tasks
+
+System gives:
+
+2 easy wins
+
+---
+
+# EPIC 8 — CHARACTER STATS SYSTEM
+
+---
+
+# FR-STATS-001
+
+## RPG Stats
+
+User profile contains:
+
+| Stat       | Meaning           |
+| ---------- | ----------------- |
+| Strength   | Fitness           |
+| Wisdom     | Learning          |
+| Focus      | Deep work         |
+| Discipline | Consistency       |
+| Vitality   | Sleep & health    |
+| Charisma   | Social confidence |
+
+---
+
+### Stat Progression
+
+Gym:
+
++Strength
+
+Reading:
+
++Wisdom
+
+Meditation:
+
++Focus
+
+---
+
+### Formula
+
+StatGain = BaseStat \times DifficultyMultiplier
+
+---
+
+### Acceptance Criteria
+
+✅ Stats update instantly
+✅ Visual growth displayed
+
+---
+
+# FR-STATS-002
+
+## Stat Decay (Hard Mode)
+
+If user skips repeatedly:
+
+Stats decline.
+
+Example:
+
+No workout 7 days:
+
+Strength -5
+
+---
+
+### Objective
+
+Create accountability.
+
+---
+
+# FR-STATS-003
+
+## Identity Titles
+
+Unlockable based on stats.
+
+Examples:
+
+Focus > 500
+
+Title:
+
+> The Focused One
+
+Strength > 1000
+
+Title:
+
+> Iron Discipline
+
+---
+
+# EPIC 9 — SKILL TREE SYSTEM
+
+---
+
+# FR-SKILL-001
+
+## Skill Tree Unlocking
+
+Each arc contains skill tree.
+
+Example:
+
+### Monk Tree
+
+Focus Branch
+
+Meditation → Deep Work → Mind Mastery
+
+---
+
+### Warrior Tree
+
+Fitness → Endurance → Elite Athlete
+
+---
+
+### Requirements
+
+Must unlock previous node.
+
+---
+
+### Example
+
+Cannot unlock:
+
+> Deep Focus
+
+until:
+
+> Meditation Master complete
+
+---
+
+# FR-SKILL-002
+
+## Passive Buffs
+
+Skill unlocks give boosts.
+
+Example:
+
+**Mind Mastery**
+
+Effect:
+
++10% Focus XP
+
+---
+
+### Formula
+
+BoostedXP = BaseXP \times (1 + SkillBoost)
+
+---
+
+# FR-SKILL-003
+
+## Skill Reset
+
+Premium feature.
+
+User can rebuild tree.
+
+Cooldown:
+30 days
+
+---
+
+Next:
+
+# **Leagues + Guilds + Boss Battles + Rewards Economy (Production SRS)**
+
+# SECTION 8 — FUNCTIONAL REQUIREMENTS (CONTINUED)
+
+# **EPIC 10 — LEAGUE & RANKING SYSTEM**
+
+---
+
+# FR-LEAGUE-001
+
+## Competitive League System
+
+### Description
+
+The system shall organize users into competitive leagues to improve retention, motivation, and consistency.
+
+Users compete weekly using:
+
+* XP gained
+* Quest completion rate
+* Consistency score
+* Streak score
+* Arc progression
+
+---
+
+## Objective
+
+Introduce healthy competition.
+
+Increase long-term retention.
+
+---
+
+## League Hierarchy
+
+| Tier      | Entry Requirement |
+| --------- | ----------------- |
+| Bronze    | Default           |
+| Silver    | Level 10          |
+| Gold      | Level 20          |
+| Platinum  | Level 35          |
+| Diamond   | Level 50          |
+| Master    | Level 75          |
+| Ascendant | Invite/Elite      |
+
+---
+
+### Weekly League Cycle
+
+Every week:
+
+League resets.
+
+Users ranked.
+
+Top performers promoted.
+
+Bottom users demoted.
+
+---
+
+### Example
+
+Silver League:
+
+100 users.
+
+Top 15:
+⬆ Promotion
+
+Bottom 15:
+⬇ Demotion
+
+Middle:
+Remain
+
+---
+
+### Acceptance Criteria
+
+✅ Rankings update real-time
+✅ Promotion shown visually
+✅ Rewards auto distributed
+
+---
+
+# FR-LEAGUE-002
+
+## Fair Matchmaking System
+
+### Description
+
+Users matched by:
+
+* level
+* consistency
+* activity
+* timezone
+* arc type
+
+---
+
+### Business Rules
+
+Avoid:
+
+Level 100 vs Level 10.
+
+---
+
+### Matchmaking Formula
+
+LeagueScore = 0.4(Level) + 0.3(Consistency) + 0.2(Streak) + 0.1(ActivityScore)
+
+---
+
+### Objective
+
+Prevent discouragement.
+
+Maintain fairness.
+
+---
+
+# FR-LEAGUE-003
+
+## Seasonal Ranking
+
+Every season:
+
+Global ranking resets.
+
+Users receive:
+
+* seasonal badges
+* cosmetic rewards
+* titles
+* leaderboard trophies
+
+---
+
+### Example
+
+Season 1:
+
+> Discipline Arc
+
+Top 1% title:
+
+> Discipline Emperor
+
+---
+
+# FR-LEAGUE-004
+
+## Anti-Cheat Detection
+
+System detects:
+
+* suspicious completions
+* impossible streaks
+* bulk quest spam
+* XP farming
+
+---
+
+### Detection Rules
+
+Example:
+
+50 quests completed in 2 mins.
+
+Flag account.
+
+---
+
+### Penalty
+
+* XP rollback
+* temporary suspension
+* leaderboard ban
+
+---
+
+# EPIC 11 — GUILD / SQUAD SYSTEM
+
+---
+
+# FR-GUILD-001
+
+## Guild Creation
+
+### Description
+
+Users may create or join guilds.
+
+Purpose:
+Accountability + social retention.
+
+---
+
+### Guild Types
+
+#### Public Guild
+
+Anyone joins.
+
+#### Private Guild
+
+Invite only.
+
+#### Premium Guild
+
+Exclusive communities.
+
+---
+
+### Guild Rules
+
+Max members:
+
+Free:
+10
+
+Premium:
+50
+
+---
+
+### Example
+
+Guild Name:
+
+> Backend Warriors
+
+Theme:
+Coding consistency.
+
+---
+
+### Acceptance Criteria
+
+✅ Guild created successfully
+✅ Members invited
+✅ Chat enabled
+
+---
+
+# FR-GUILD-002
+
+## Shared Quests
+
+Guild members complete common goals.
+
+Example:
+
+### Guild Quest
+
+100 total gym sessions/month
+
+Reward:
+Guild XP
+
+---
+
+### Objective
+
+Social accountability.
+
+---
+
+### Reward Types
+
+* guild rank
+* cosmetics
+* XP boost
+* badges
+
+---
+
+# FR-GUILD-003
+
+## Guild Leaderboard
+
+Compete against other guilds.
+
+Metrics:
+
+* consistency
+* quests completed
+* average streak
+
+---
+
+### Example
+
+Top Guild:
+
+> Monk Elite
+
+Reward:
+Season banner.
+
+---
+
+# FR-GUILD-004
+
+## Guild Penalty Mode
+
+Optional hardcore feature.
+
+Rule:
+
+Missing guild quest reduces score.
+
+---
+
+### Example
+
+User skipped challenge.
+
+Guild affected:
+
+-20 points.
+
+Creates accountability.
+
+---
+
+# FR-GUILD-005
+
+## Guild Chat
+
+Realtime communication.
+
+Features:
+
+* reactions
+* quest sharing
+* celebration messages
+* accountability reminders
+
+---
+
+### Technology
+
+Spring WebSocket.
+
+Realtime sync.
+
+---
+
+# EPIC 12 — BOSS BATTLE SYSTEM
+
+---
+
+# FR-BOSS-001
+
+## Boss Battle Engine
+
+### Description
+
+Major milestone challenges.
+
+Purpose:
+Break routine fatigue.
+
+Create memorable experiences.
+
+---
+
+### Examples
+
+#### Procrastination Boss
+
+Requirement:
+20 focus sessions.
+
+---
+
+#### Discipline Demon
+
+Requirement:
+30-day streak.
+
+---
+
+#### Sleep Destroyer
+
+Requirement:
+Sleep before 11 PM for 14 days.
+
+---
+
+### Rewards
+
+* legendary XP
+* titles
+* cosmetics
+* aura effects
+
+---
+
+### Acceptance Criteria
+
+✅ Boss unlock visible
+✅ Progress tracked live
+
+---
+
+# FR-BOSS-002
+
+## Multi-Stage Bosses
+
+Bosses contain phases.
+
+Example:
+
+### Discipline Demon
+
+Stage 1:
+7 days consistency
+
+Stage 2:
+14 days consistency
+
+Stage 3:
+30 days discipline
+
+---
+
+### Objective
+
+Increase engagement.
+
+---
+
+# FR-BOSS-003
+
+## Guild Boss Battles
+
+Guild-wide challenge.
+
+Example:
+
+Complete:
+500 deep work hours.
+
+Reward:
+Guild prestige.
+
+---
+
+# EPIC 13 — REWARD ECONOMY
+
+---
+
+# FR-REWARD-001
+
+## Coins & Currency
+
+### Description
+
+Soft currency system.
+
+Earn through:
+
+* quests
+* milestones
+* streaks
+* boss fights
+
+---
+
+### Uses
+
+Purchase:
+
+* themes
+* profile cosmetics
+* XP boosts
+* streak shields
+
+---
+
+### Currency Types
+
+#### Soft Currency
+
+Coins.
+
+Earned free.
+
+---
+
+#### Premium Currency
+
+Gems.
+
+Paid.
+
+---
+
+### Anti-Inflation Rules
+
+Cap rewards.
+
+Prevent farming.
+
+---
+
+# FR-REWARD-002
+
+## Cosmetic System
+
+Unlock:
+
+* avatars
+* profile frames
+* aura effects
+* titles
+* animations
+
+---
+
+### Objective
+
+Identity progression.
+
+Users should feel:
+
+> I evolved.
+
+---
+
+### Example
+
+100-day streak:
+
+Unlock:
+
+> Golden Flame Aura
+
+---
+
+# FR-REWARD-003
+
+## Loot Chest System
+
+Users earn chests.
+
+Types:
+
+### Common
+
+Basic rewards
+
+### Rare
+
+XP multiplier
+
+### Epic
+
+Rare cosmetics
+
+### Legendary
+
+Exclusive unlocks
+
+---
+
+### Reward Probability
+
+DropRate = BaseRate \times StreakBonus \times EventMultiplier
+
+---
+
+# FR-REWARD-004
+
+## Achievement System
+
+Permanent achievements.
+
+Examples:
+
+### Early Riser
+
+Wake up 30 days.
+
+---
+
+### Iron Discipline
+
+100-day streak.
+
+---
+
+### Coding Monk
+
+100 focus sessions.
+
+---
+
+### Completion Rewards
+
+* titles
+* XP
+* badges
+
+---
+
+# EPIC 14 — SOCIAL SYSTEM
+
+---
+
+# FR-SOCIAL-001
+
+## Friend System
+
+Users may:
+
+* follow
+* add friends
+* challenge friends
+
+---
+
+### Privacy Levels
+
+Public
+Friends Only
+Private
+
+---
+
+# FR-SOCIAL-002
+
+## Challenges
+
+Challenge friends.
+
+Example:
+
+> First to complete 10 workouts wins.
+
+---
+
+### Rewards
+
+* XP
+* badges
+* ranking points
+
+---
+
+# FR-SOCIAL-003
+
+## Social Feed
+
+Activity feed.
+
+Examples:
+
+> Ayush completed Monk Arc milestone.
+
+> Neha achieved 30-day streak.
+
+---
+
+### Objective
+
+Social proof.
+
+Retention boost.
+
+---
+
+# FR-SOCIAL-004
+
+## Accountability Partner
+
+Users pair with:
+
+1 accountability partner.
+
+Features:
+
+* missed quest alerts
+* encouragement
+* shared goals
+
+---
+
+Next:
+
+# **AI Coach + Notifications + Premium + Hard Mode + Analytics (Production SRS)**
+# SECTION 8 — FUNCTIONAL REQUIREMENTS (CONTINUED)
+
+# **EPIC 15 — AI COACH SYSTEM**
+
+---
+
+# FR-AI-001
+
+## Personalized AI Coach
+
+### Description
+
+The system shall provide an intelligent AI coach that adapts recommendations based on user behavior, consistency, goals, and Arc progression.
+
+---
+
+## Objective
+
+Make users feel:
+
+> “This app understands me.”
+
+Improve:
+
+* retention
+* personalization
+* consistency
+* recovery after failure
+
+---
+
+## AI Inputs
+
+The AI analyzes:
+
+### User Data
+
+* quest completion
+* streak history
+* activity timing
+* preferred quest types
+* missed habits
+* Arc progress
+* focus patterns
+
+---
+
+### Behavioral Signals
+
+* burnout probability
+* procrastination tendency
+* motivation drop
+* overtraining risk
+
+---
+
+### Example
+
+AI observes:
+
+User skips gym every Monday.
+
+Suggestion:
+
+> New Recovery Quest Added
+> 10-minute starter workout
+
+---
+
+### Acceptance Criteria
+
+✅ Suggestions feel relevant
+✅ Recommendations update dynamically
+✅ AI adapts weekly
+
+---
+
+# FR-AI-002
+
+## Burnout Prevention Engine
+
+### Description
+
+AI detects burnout risk.
+
+---
+
+### Burnout Signals
+
+Examples:
+
+* declining completion rate
+* reduced app activity
+* repeated streak breaks
+* increased missed quests
+
+---
+
+### Burnout Formula
+
+BurnoutRisk = (MissedQuests + StreakBreaks + DecliningActivity) / MotivationScore
+
+---
+
+### Response Strategy
+
+Instead of punishment:
+
+AI activates:
+
+## Recovery Mode
+
+Adjustments:
+
+* easier quests
+* fewer tasks
+* recovery XP
+
+---
+
+### Example UX
+
+> Recovery Week Activated
+> Your Arc is adapting to help you recover.
+
+---
+
+### Objective
+
+Reduce churn.
+
+---
+
+# FR-AI-003
+
+## Smart Schedule Optimization
+
+AI suggests better timing.
+
+Example:
+
+Pattern detected:
+
+User consistently fails evening tasks.
+
+Recommendation:
+
+> Move gym to mornings.
+
+---
+
+### Acceptance Criteria
+
+✅ Suggestions data-driven
+✅ User can reject recommendations
+
+---
+
+# FR-AI-004
+
+## Adaptive Difficulty System
+
+Quest difficulty changes automatically.
+
+---
+
+### Example
+
+User repeatedly fails:
+
+45-min coding session.
+
+System modifies:
+
+15-min focus sprint.
+
+---
+
+### Goal
+
+Prevent discouragement.
+
+---
+
+# FR-AI-005
+
+## AI Motivation Engine
+
+Personalized messages.
+
+Based on:
+
+* personality type
+* streak state
+* emotional profile
+
+---
+
+### Example Messages
+
+Competitive User:
+
+> You dropped 2 ranks today.
+
+Discipline User:
+
+> One quest today keeps your Arc alive.
+
+---
+
+### Anti-Spam Rules
+
+Max:
+3 motivational nudges/day
+
+---
+
+# EPIC 16 — NOTIFICATION ENGINE
+
+---
+
+# FR-NOTIF-001
+
+## Smart Push Notifications
+
+### Description
+
+System sends contextual reminders.
+
+Technology:
+Firebase Cloud Messaging (FCM)
+
+---
+
+### Types
+
+#### Quest Reminder
+
+> Warrior Quest starts in 30 mins.
+
+---
+
+#### Streak Warning
+
+> Your 14-day streak is at risk.
+
+---
+
+#### Reward Alert
+
+> Legendary chest unlocked.
+
+---
+
+#### Guild Reminder
+
+> Your guild needs you.
+
+---
+
+### Acceptance Criteria
+
+✅ Delivered reliably
+✅ Timezone aware
+✅ User configurable
+
+---
+
+# FR-NOTIF-002
+
+## Smart Notification Timing
+
+AI determines best reminder time.
+
+Example:
+
+User active:
+
+7 PM–9 PM
+
+Notifications optimized.
+
+---
+
+### Rule
+
+Avoid spam.
+
+Maximum:
+
+5/day
+
+---
+
+# FR-NOTIF-003
+
+## Streak Emergency Alert
+
+Triggered when:
+
+Streak at risk.
+
+Example:
+
+> 45 mins left to save your streak.
+
+---
+
+### Priority
+
+High notification.
+
+---
+
+# FR-NOTIF-004
+
+## Silent Recovery Mode
+
+During burnout:
+
+Notifications reduce.
+
+Example:
+
+Instead of:
+
+> COMPLETE YOUR TASKS
+
+Use:
+
+> Small progress counts today.
+
+---
+
+# EPIC 17 — PREMIUM & MONETIZATION SYSTEM
+
+---
+
+# FR-PREMIUM-001
+
+## Subscription Tiers
+
+### Free Tier
+
+Access:
+
+✅ Basic quests
+✅ Basic arcs
+✅ XP system
+✅ Limited analytics
+
+Restrictions:
+❌ AI coach
+❌ advanced stats
+❌ guild premium features
+
+---
+
+### Ascend Premium
+
+Features:
+
+✅ Full AI Coach
+✅ Unlimited custom arcs
+✅ Advanced analytics
+✅ Skill reset
+✅ Premium cosmetics
+✅ Streak shields
+✅ Hard mode
+✅ Accountability contracts
+
+---
+
+### Pricing Model
+
+Monthly
+Yearly
+
+Regional pricing support.
+
+---
+
+# FR-PREMIUM-002
+
+## Feature Gating
+
+Locked features show premium teaser.
+
+Example:
+
+> Unlock AI Recovery Insights
+
+CTA:
+**Upgrade to Premium**
+
+---
+
+### Business Rule
+
+No aggressive paywall.
+
+Core product remains valuable free.
+
+---
+
+# FR-PREMIUM-003
+
+## Free Trial
+
+Duration:
+7 days
+
+Unlocked:
+All premium features.
+
+---
+
+### Rule
+
+No forced payment.
+
+---
+
+# FR-PREMIUM-004
+
+## Premium Economy Protection
+
+No pay-to-win.
+
+Premium cannot buy:
+
+❌ leaderboard rank
+❌ XP unfair advantage
+
+Only:
+
+* convenience
+* personalization
+* cosmetics
+
+---
+
+# EPIC 18 — HARD MODE & ACCOUNTABILITY
+
+---
+
+# FR-HARD-001
+
+## Hard Mode
+
+### Description
+
+Users opt into extreme accountability.
+
+---
+
+### Penalties
+
+Miss quest:
+
+* XP reduction
+* stat decay
+* streak damage
+
+---
+
+### Formula
+
+PenaltyXP = BaseXP \times FailureMultiplier
+
+---
+
+### Example
+
+Missed gym:
+
+-20 Strength XP
+
+---
+
+### Objective
+
+Increase seriousness.
+
+---
+
+# FR-HARD-002
+
+## Accountability Contracts
+
+Optional commitment system.
+
+Example:
+
+User stakes:
+
+₹500
+
+Rule:
+
+Miss 5 workouts.
+
+Money forfeited.
+
+---
+
+### Options
+
+* donate to charity
+* accountability pool
+* guild fund
+
+---
+
+### Acceptance Criteria
+
+✅ Transparent rules
+✅ Clear penalties
+
+---
+
+# FR-HARD-003
+
+## Shame-Free Recovery
+
+After failure:
+
+App avoids guilt.
+
+Example:
+
+Instead of:
+
+❌ You failed
+
+Message:
+
+> Your Arc continues tomorrow.
+
+---
+
+# EPIC 19 — ANALYTICS & INSIGHTS
+
+---
+
+# FR-ANALYTICS-001
+
+## Progress Dashboard
+
+Metrics:
+
+* XP growth
+* level growth
+* quest completion
+* streak history
+* stat trends
+
+---
+
+### Charts
+
+* heatmaps
+* consistency graph
+* monthly growth
+* radar stats
+
+---
+
+### Objective
+
+Show visible transformation.
+
+---
+
+# FR-ANALYTICS-002
+
+## Weekly Review
+
+Every Sunday:
+
+User receives summary.
+
+Example:
+
+## Weekly Arc Report
+
+Completed:
+24 quests
+
+Missed:
+3
+
+Strongest stat:
+Focus
+
+Weakest:
+Vitality
+
+---
+
+### Recommendation
+
+> Sleep consistency should improve.
+
+---
+
+# FR-ANALYTICS-003
+
+## Life Score
+
+Single score.
+
+Based on:
+
+* discipline
+* health
+* consistency
+* learning
+* focus
+
+Formula:
+
+LifeScore = 0.25(Discipline)+0.2(Focus)+0.2(Health)+0.2(Learning)+0.15(Consistency)
+
+---
+
+### Purpose
+
+Simple progress metric.
+
+---
+
+# FR-ANALYTICS-004
+
+## Habit Correlation Engine
+
+Example insight:
+
+> Sleeping before 11 PM improves your Focus XP by 27%.
+
+---
+
+### Objective
+
+Behavior awareness.
+
+---
+
+# EPIC 20 — ADMIN PANEL
+
+---
+
+# FR-ADMIN-001
+
+## Arc Management CMS
+
+Admins manage:
+
+* arcs
+* quests
+* rewards
+* milestones
+* bosses
+
+---
+
+# FR-ADMIN-002
+
+## User Moderation
+
+Actions:
+
+* warn
+* suspend
+* ban
+* leaderboard restriction
+
+---
+
+# FR-ADMIN-003
+
+## Analytics Dashboard
+
+Metrics:
+
+* DAU
+* retention
+* premium conversion
+* churn
+* streak survival
+
+---
+
+# FR-ADMIN-004
+
+## Event Management
+
+Create:
+
+### Seasonal Events
+
+Example:
+
+**Discipline Season**
+
+Duration:
+60 days
+
+Rewards:
+exclusive skins
+
+---
+
+# SECTION 9 — NON-FUNCTIONAL REQUIREMENTS (NFR)
+
+---
+
+## NFR-001 Performance
+
+App startup:
+< 2 sec
+
+API latency:
+< 300 ms
+
+---
+
+## NFR-002 Availability
+
+Target uptime:
+
+99.9%
+
+---
+
+## NFR-003 Scalability
+
+Support:
+
+1M+ users
+
+---
+
+## NFR-004 Security
+
+* Firebase auth validation
+* encrypted communication
+* rate limiting
+* anti-cheat
+
+---
+
+## NFR-005 Mobile UX
+
+Smooth animations:
+
+60 FPS minimum
+
+---
+
+Next:
+
+
+
+
+# PHASE 2 — TECHNICAL ARCHITECTURE
+
+# **Ascend — Enter Arc Mode**
+
+---
+
+# 10. SYSTEM ARCHITECTURE
+
+## 10.1 High-Level Architecture
+
+Architecture Style:
+
+# **Modular Monolith (Microservice Ready)**
+
+Reason:
+Best for:
+
+✅ solo/lean development
+✅ faster iteration
+✅ simpler deployment
+✅ lower infrastructure cost
+
+while remaining scalable to microservices later.
+
+---
+
+## Architecture Overview
+
+```text
++------------------------------------------------+
+|                  Ionic Angular                 |
+|            (Android / iOS / Web)               |
++------------------------------------------------+
+                    |
+                    | HTTPS + WebSocket
+                    |
++------------------------------------------------+
+|                Spring Boot API                 |
+|                                                |
+| Auth Validation Layer                          |
+| Arc Engine                                     |
+| Quest Engine                                   |
+| XP Engine                                      |
+| League Engine                                  |
+| Notification Engine                            |
+| AI Recommendation Engine                       |
+| Analytics Engine                               |
++------------------------------------------------+
+                    |
+         --------------------------
+         |            |            |
+         |            |            |
++----------------+  +------------------+
+| Firebase Auth  |  | Firestore DB    |
++----------------+  +------------------+
+         |
+         |
++---------------------------+
+| Firebase Cloud Messaging  |
++---------------------------+
+
+         Optional
++---------------------------+
+| PostgreSQL / MySQL        |
+| Analytics + Reporting     |
++---------------------------+
+```
+
+---
+
+# 10.2 Why Hybrid Architecture?
+
+We are intentionally NOT using Firebase-only.
+
+Because:
+
+Firebase works great for:
+
+* auth
+* realtime sync
+* push notifications
+
+But poor for:
+
+* heavy analytics
+* complex ranking logic
+* gamification
+* leaderboards
+* reporting
+
+Therefore:
+
+### Firebase
+
+Handles:
+
+* auth
+* user profile
+* realtime state
+
+### Spring Boot
+
+Handles:
+
+* business logic
+* calculations
+* progression
+* leagues
+* AI logic
+
+### SQL
+
+Handles:
+
+* analytics
+* leaderboard queries
+* reporting
+
+---
+
+# 11. FRONTEND ARCHITECTURE (ANGULAR + IONIC)
+
+---
+
+# 11.1 Frontend Stack
+
+### Framework
+
+Angular 20+
+
+### UI
+
+Ionic Angular
+
+### Mobile
+
+Capacitor
+
+### State Management
+
+Signals + RxJS
+
+### Styling
+
+SCSS + Ionic Design System
+
+### Charts
+
+ApexCharts
+
+### Animation
+
+Angular Animations + Lottie
+
+### Storage
+
+Ionic Secure Storage
+
+### Notifications
+
+FCM + Capacitor Push
+
+---
+
+# 11.2 Architecture Style
+
+# Feature-Driven Architecture
+
+Avoid:
+
+❌ component mess
+
+Use:
+
+✅ scalable domain separation
+
+---
+
+## Folder Structure
+
+```text
+src/
+│
+├── app/
+│
+├── core/
+│   ├── auth/
+│   ├── interceptors/
+│   ├── guards/
+│   ├── services/
+│   ├── constants/
+│   └── utils/
+│
+├── shared/
+│   ├── components/
+│   ├── pipes/
+│   ├── directives/
+│   ├── ui/
+│   └── models/
+│
+├── features/
+│
+│   ├── auth/
+│   │   ├── login/
+│   │   ├── signup/
+│   │   └── onboarding/
+│
+│   ├── dashboard/
+│   │
+│   ├── quests/
+│   │
+│   ├── arc-mode/
+│   │
+│   ├── leveling/
+│   │
+│   ├── streaks/
+│   │
+│   ├── analytics/
+│   │
+│   ├── guilds/
+│   │
+│   ├── leagues/
+│   │
+│   ├── boss-battle/
+│   │
+│   ├── premium/
+│   │
+│   ├── profile/
+│   │
+│   └── settings/
+│
+├── layout/
+│
+├── state/
+│
+└── app.routes.ts
+```
+
+---
+
+# 11.3 Navigation Architecture
+
+Use:
+
+# **Tabs + Stack Hybrid**
+
+Bottom Tabs:
+
+```text
+Home
+Quests
+Arc Mode
+Social
+Profile
+```
+
+---
+
+### Why?
+
+Best UX for mobile.
+
+Fast navigation.
+
+Low cognitive load.
+
+---
+
+## Navigation Flow
+
+```text
+Splash
+ ↓
+Auth
+ ↓
+Onboarding
+ ↓
+Dashboard
+
+Dashboard
+ ├── Quest Board
+ ├── Arc Mode
+ ├── Analytics
+ ├── Profile
+ └── Social
+```
+
+---
+
+# 11.4 State Management
+
+Recommended:
+
+# **Signals + RxJS Hybrid**
+
+Why?
+
+NgRx is overkill initially.
+
+Signals = simpler.
+
+RxJS = async workflows.
+
+---
+
+## Global State
+
+Store:
+
+```ts
+user
+xp
+currentArc
+quests
+streak
+notifications
+league
+guild
+premiumStatus
+```
+
+---
+
+### Example
+
+```ts
+userSignal.set(user)
+
+computed(() => {
+ return level(userXp())
+})
+```
+
+---
+
+# 11.5 Component Architecture
+
+### Smart Components
+
+Logic heavy.
+
+Example:
+
+```text
+dashboard.page
+quest-board.page
+arc-mode.page
+```
+
+---
+
+### Dumb Components
+
+Reusable UI.
+
+Example:
+
+```text
+xp-progress.component
+quest-card.component
+streak-card.component
+level-badge.component
+reward-modal.component
+```
+
+---
+
+# 11.6 Design System
+
+Theme:
+
+### Primary
+
+Orange/Gold
+
+### Secondary
+
+Dark Gray
+
+### Accent
+
+Purple/Blue glow
+
+---
+
+### Typography
+
+Headers:
+Bold
+
+Body:
+Minimal clean.
+
+---
+
+### UI Rules
+
+Every action should feel rewarding.
+
+Example:
+
+Quest complete:
+
+❌ silent checkbox
+
+✅ animation
+✅ XP popup
+✅ vibration
+✅ sound
+
+---
+
+# 12. SPRING BOOT ARCHITECTURE
+
+---
+
+# 12.1 Backend Architecture
+
+Style:
+
+# Clean Architecture + Modular Monolith
+
+---
+
+## Package Structure
+
+```text
+com.ascend
+
+├── auth
+│
+├── user
+│
+├── onboarding
+│
+├── quest
+│
+├── arc
+│
+├── xp
+│
+├── streak
+│
+├── skilltree
+│
+├── league
+│
+├── guild
+│
+├── boss
+│
+├── analytics
+│
+├── ai
+│
+├── notification
+│
+├── premium
+│
+├── admin
+│
+└── common
+```
+
+---
+
+# 12.2 Layered Structure
+
+Each module:
+
+```text
+controller
+service
+repository
+dto
+mapper
+entity
+validator
+scheduler
+```
+
+---
+
+Example:
+
+```text
+quest/
+├── controller
+├── service
+├── repository
+├── dto
+├── entity
+├── validator
+└── scheduler
+```
+
+---
+
+# 12.3 Authentication Flow
+
+Firebase Auth token.
+
+Spring validates JWT.
+
+Flow:
+
+```text
+Login
+ ↓
+Firebase generates token
+ ↓
+Angular sends token
+ ↓
+Spring validates token
+ ↓
+Backend generates session context
+```
+
+---
+
+### Security Flow
+
+Header:
+
+```text
+Authorization: Bearer JWT_TOKEN
+```
+
+---
+
+# 12.4 API Standards
+
+Pattern:
+
+```text
+/api/v1/
+```
+
+Example:
+
+```text
+/api/v1/quests
+/api/v1/arc
+/api/v1/level
+```
+
+---
+
+### Response Standard
+
+Success:
+
+```json
+{
+  "success": true,
+  "message": "Quest completed",
+  "data": {}
+}
+```
+
+Error:
+
+```json
+{
+  "success": false,
+  "message": "Quest not found",
+  "errorCode": "QUEST_404"
+}
+```
+
+---
+
+# 12.5 Scheduler Engine
+
+Spring Scheduler.
+
+Used for:
+
+* daily reset
+* weekly league reset
+* streak calculation
+* reminders
+* leaderboard refresh
+
+---
+
+Example Jobs
+
+```text
+00:00 Daily Reset
+
+Sunday League Reset
+
+Quest Reminder Trigger
+```
+
+---
+
+# 12.6 WebSocket Architecture
+
+Realtime features:
+
+* guild chat
+* leaderboard updates
+* live XP
+* social feed
+
+Technology:
+
+Spring WebSocket
+
+---
+
+# 12.7 Caching Strategy
+
+Use:
+
+# Redis
+
+Cache:
+
+* leaderboard
+* user stats
+* rankings
+* profile summaries
+
+TTL:
+5–30 mins
+
+---
+
+Next:
+
+# **Firebase Architecture + Database Schema + Firestore Collections + SQL Tables + API Contracts**
+
+
+# PHASE 2 — TECHNICAL ARCHITECTURE (CONTINUED)
+
+# **Firebase Architecture + Database Design + API Contracts**
+
+---
+
+# 13. FIREBASE ARCHITECTURE
+
+## 13.1 Firebase Responsibilities
+
+Firebase is **not the primary backend**.
+
+It acts as:
+
+### Identity + Realtime Layer
+
+Responsibilities:
+
+✅ Authentication
+✅ Push Notifications
+✅ Realtime sync
+✅ Lightweight profile state
+✅ Offline persistence
+
+Not responsible for:
+
+❌ XP calculation
+❌ league ranking
+❌ quest validation
+❌ anti-cheat
+❌ analytics logic
+
+Those stay in **Spring Boot**.
+
+---
+
+# 13.2 Firebase Services Used
+
+| Service          | Purpose                    |
+| ---------------- | -------------------------- |
+| Firebase Auth    | Authentication             |
+| Firestore        | Lightweight realtime state |
+| Firebase Storage | Avatar/media               |
+| FCM              | Push notifications         |
+| Analytics        | Engagement tracking        |
+| Crashlytics      | Error monitoring           |
+
+---
+
+# 13.3 Authentication Architecture
+
+Providers:
+
+### Google Sign-In
+
+Primary.
+
+---
+
+### Apple Sign-In
+
+Required for iOS.
+
+---
+
+### Email/Password
+
+Fallback.
+
+---
+
+### Anonymous Login
+
+Guest mode.
+
+---
+
+## Authentication Flow
+
+```text
+App Launch
+    ↓
+Firebase Auth
+    ↓
+JWT Token Generated
+    ↓
+Angular sends token
+    ↓
+Spring Boot validates
+    ↓
+Backend User Session
+```
+
+---
+
+## Token Validation
+
+Spring Boot validates:
+
+* Firebase JWT
+* expiration
+* user identity
+
+Implementation:
+
+Firebase Admin SDK.
+
+---
+
+### Security Rule
+
+Never trust frontend role claims.
+
+Backend validates everything.
+
+---
+
+# 13.4 Firestore Collections
+
+Firestore stores:
+
+### Lightweight User State
+
+Not heavy relational logic.
+
+---
+
+## Collection Structure
+
+```text
+users/
+arcs/
+quests/
+notifications/
+guild-chat/
+leaderboard-cache/
+settings/
+analytics-lite/
+```
+
+---
+
+# 13.5 Firestore Schema
+
+## users collection
+
+```json
+{
+  "uid": "firebase_uid",
+  "username": "Ayush",
+  "email": "user@email.com",
+  "avatar": "avatar-url",
+  "level": 12,
+  "xp": 2800,
+  "league": "Silver",
+  "currentArcId": "arc_001",
+  "premium": false,
+  "timezone": "Asia/Kolkata",
+  "createdAt": "",
+  "lastLogin": ""
+}
+```
+
+---
+
+## arcs collection
+
+```json
+{
+  "arcId": "monk_arc",
+  "name": "Monk Arc",
+  "description": "Build discipline",
+  "durationDays": 60,
+  "difficulty": "medium",
+  "milestones": [],
+  "bosses": []
+}
+```
+
+---
+
+## quest-progress collection
+
+```json
+{
+  "questId": "quest001",
+  "userId": "uid123",
+  "completed": true,
+  "completedAt": "",
+  "xpEarned": 40
+}
+```
+
+---
+
+## guild-chat collection
+
+Realtime messaging.
+
+```json
+{
+  "guildId": "guild123",
+  "senderId": "uid123",
+  "message": "Completed workout",
+  "createdAt": ""
+}
+```
+
+---
+
+# 13.6 Firebase Security Rules
+
+Rule:
+
+Users can only access their own data.
+
+Example:
+
+```javascript
+rules_version = '2';
+
+service cloud.firestore {
+ match /databases/{database}/documents {
+
+  match /users/{userId} {
+    allow read, write:
+      if request.auth.uid == userId;
+  }
+ }
+}
+```
+
+---
+
+### Sensitive Logic Rule
+
+Never calculate:
+
+❌ XP
+❌ streaks
+❌ rewards
+
+inside Firebase.
+
+Always backend validated.
+
+---
+
+# 14. DATABASE DESIGN
+
+## Database Strategy
+
+We use:
+
+# **Hybrid DB Architecture**
+
+### Firestore
+
+Realtime + mobile-first.
+
+### PostgreSQL/MySQL
+
+Complex logic.
+
+Recommended:
+
+# PostgreSQL
+
+Reason:
+
+Better for:
+
+* analytics
+* JSONB
+* scaling
+* reporting
+
+---
+
+# 14.1 SQL Database Modules
+
+Tables grouped by domain:
+
+```text
+users
+quests
+quest_completion
+arcs
+arc_progress
+xp_history
+streaks
+skill_tree
+guilds
+guild_members
+leaderboards
+boss_progress
+achievements
+notifications
+subscriptions
+analytics
+```
+
+---
+
+# 14.2 Core Tables
+
+---
+
+## users table
+
+```sql
+CREATE TABLE users (
+   id UUID PRIMARY KEY,
+   firebase_uid VARCHAR(255),
+   username VARCHAR(100),
+   email VARCHAR(255),
+   level INT DEFAULT 1,
+   xp BIGINT DEFAULT 0,
+   league VARCHAR(50),
+   premium BOOLEAN DEFAULT FALSE,
+   created_at TIMESTAMP
+);
+```
+
+---
+
+## quests table
+
+```sql
+CREATE TABLE quests (
+   id UUID PRIMARY KEY,
+   title VARCHAR(255),
+   description TEXT,
+   difficulty VARCHAR(50),
+   xp_reward INT,
+   stat_type VARCHAR(50),
+   recurring BOOLEAN
+);
+```
+
+---
+
+## quest_completion
+
+Tracks history.
+
+```sql
+CREATE TABLE quest_completion (
+   id UUID PRIMARY KEY,
+   user_id UUID,
+   quest_id UUID,
+   completed_at TIMESTAMP,
+   xp_earned INT
+);
+```
+
+---
+
+## arcs table
+
+```sql
+CREATE TABLE arcs (
+   id UUID PRIMARY KEY,
+   name VARCHAR(255),
+   type VARCHAR(50),
+   duration_days INT
+);
+```
+
+---
+
+## user_arc_progress
+
+```sql
+CREATE TABLE user_arc_progress (
+   id UUID PRIMARY KEY,
+   user_id UUID,
+   arc_id UUID,
+   progress INT,
+   current_stage INT
+);
+```
+
+---
+
+## streaks table
+
+```sql
+CREATE TABLE streaks (
+   id UUID PRIMARY KEY,
+   user_id UUID,
+   streak_days INT,
+   last_completed TIMESTAMP
+);
+```
+
+---
+
+## guilds table
+
+```sql
+CREATE TABLE guilds (
+   id UUID PRIMARY KEY,
+   name VARCHAR(100),
+   owner_id UUID,
+   created_at TIMESTAMP
+);
+```
+
+---
+
+## guild_members
+
+```sql
+CREATE TABLE guild_members (
+   guild_id UUID,
+   user_id UUID,
+   role VARCHAR(50)
+);
+```
+
+---
+
+## achievements table
+
+```sql
+CREATE TABLE achievements (
+   id UUID PRIMARY KEY,
+   user_id UUID,
+   achievement_name VARCHAR(255),
+   unlocked_at TIMESTAMP
+);
+```
+
+---
+
+# 14.3 Database Indexing Strategy
+
+Critical indexes:
+
+```sql
+INDEX user_xp_idx
+INDEX quest_user_idx
+INDEX guild_user_idx
+INDEX leaderboard_idx
+INDEX streak_idx
+```
+
+---
+
+## Example
+
+Leaderboard query:
+
+```sql
+CREATE INDEX leaderboard_idx
+ON users(level DESC, xp DESC);
+```
+
+Improves ranking speed massively.
+
+---
+
+# 14.4 Scalability Strategy
+
+At 1M+ users:
+
+Move:
+
+### Leaderboard
+
+→ Redis cache
+
+---
+
+### Analytics
+
+→ Data warehouse
+
+---
+
+### Guild chat
+
+→ Dedicated websocket service
+
+---
+
+# 15. API ARCHITECTURE
+
+---
+
+# API Standard
+
+Versioning:
+
+```text
+/api/v1/
+```
+
+---
+
+## REST Principles
+
+Use:
+
+### GET
+
+Retrieve
+
+### POST
+
+Create
+
+### PUT
+
+Update
+
+### PATCH
+
+Partial update
+
+### DELETE
+
+Remove
+
+---
+
+# 15.1 Authentication APIs
+
+---
+
+## Login
+
+```http
+POST /api/v1/auth/login
+```
+
+Request:
+
+```json
+{
+  "firebaseToken": "JWT"
+}
+```
+
+Response:
+
+```json
+{
+  "success": true,
+  "user": {
+    "level": 12,
+    "xp": 2400
+  }
+}
+```
+
+---
+
+## Refresh User
+
+```http
+GET /api/v1/auth/me
+```
+
+---
+
+# 15.2 Quest APIs
+
+---
+
+## Get Daily Quests
+
+```http
+GET /api/v1/quests/daily
+```
+
+Response:
+
+```json
+[
+ {
+   "title": "Morning Workout",
+   "xp": 40,
+   "difficulty": "medium"
+ }
+]
+```
+
+---
+
+## Complete Quest
+
+```http
+POST /api/v1/quests/complete
+```
+
+Request:
+
+```json
+{
+   "questId": "quest123"
+}
+```
+
+Response:
+
+```json
+{
+  "xpEarned": 50,
+  "newLevel": 12,
+  "streak": 14
+}
+```
+
+---
+
+## Create Custom Quest
+
+```http
+POST /api/v1/quests/custom
+```
+
+---
+
+# 15.3 Arc APIs
+
+---
+
+## Get Arc
+
+```http
+GET /api/v1/arcs/{id}
+```
+
+---
+
+## Start Arc
+
+```http
+POST /api/v1/arcs/start
+```
+
+Request:
+
+```json
+{
+   "arcId": "monk_arc"
+}
+```
+
+---
+
+## Update Arc Progress
+
+```http
+PATCH /api/v1/arcs/progress
+```
+
+---
+
+# 15.4 XP APIs
+
+---
+
+## XP History
+
+```http
+GET /api/v1/xp/history
+```
+
+---
+
+## Level Summary
+
+```http
+GET /api/v1/xp/summary
+```
+
+---
+
+# 15.5 League APIs
+
+---
+
+## Leaderboard
+
+```http
+GET /api/v1/league/leaderboard
+```
+
+---
+
+## Weekly Rank
+
+```http
+GET /api/v1/league/rank
+```
+
+---
+
+# 15.6 Guild APIs
+
+---
+
+## Create Guild
+
+```http
+POST /api/v1/guild/create
+```
+
+---
+
+## Join Guild
+
+```http
+POST /api/v1/guild/join
+```
+
+---
+
+## Guild Chat
+
+WebSocket:
+
+```text
+/ws/guild/{guildId}
+```
+
+---
+
+# 15.7 Analytics APIs
+
+---
+
+## Weekly Report
+
+```http
+GET /api/v1/analytics/weekly
+```
+
+---
+
+## Life Score
+
+```http
+GET /api/v1/analytics/life-score
+```
+
+---
+
+Next:
+
+# **Angular Ionic Folder Structure + State Management + Component Design + UI Architecture**
+
+# PHASE 2 — FRONTEND ENGINEERING ARCHITECTURE
+
+# **Angular Ionic Folder Structure + State Management + UI Architecture**
+
+---
+
+# 16. ANGULAR IONIC FRONTEND ARCHITECTURE
+
+## 16.1 Architecture Philosophy
+
+For **Ascend**, we optimize for:
+
+### Goals
+
+✅ scalability
+✅ maintainability
+✅ mobile-first UX
+✅ performance
+✅ lazy loading
+✅ reusable UI system
+✅ standalone components
+✅ enterprise-grade structure
+
+We intentionally avoid:
+
+❌ messy component structure
+❌ god services
+❌ giant app.module chaos
+
+---
+
+# 16.2 Angular Architecture Style
+
+# **Feature-First Architecture**
+
+Why?
+
+Because this app is feature-heavy.
+
+Better than:
+
+❌ type-based architecture
+
+Example of bad structure:
+
+```text
+components/
+services/
+pages/
+models/
+```
+
+This becomes unmaintainable.
+
+Instead:
+
+Use:
+
+# **Domain-Driven Frontend**
+
+---
+
+# Final Folder Structure
+
+```text
+src
+│
+├── app
+│
+├── core
+│   ├── auth
+│   ├── interceptors
+│   ├── guards
+│   ├── services
+│   ├── constants
+│   ├── config
+│   ├── storage
+│   ├── utilities
+│   └── animations
+│
+├── shared
+│   ├── components
+│   │
+│   ├── ui
+│   │
+│   ├── directives
+│   │
+│   ├── pipes
+│   │
+│   ├── models
+│   │
+│   ├── enums
+│   │
+│   └── validators
+│
+├── features
+│
+│   ├── auth
+│   │   ├── login
+│   │   ├── signup
+│   │   ├── forgot-password
+│   │   └── onboarding
+│   │
+│   ├── dashboard
+│   │
+│   ├── quests
+│   │   ├── pages
+│   │   ├── components
+│   │   ├── services
+│   │   └── state
+│   │
+│   ├── arc-mode
+│   │
+│   ├── leveling
+│   │
+│   ├── streaks
+│   │
+│   ├── skill-tree
+│   │
+│   ├── guilds
+│   │
+│   ├── leagues
+│   │
+│   ├── boss-battle
+│   │
+│   ├── analytics
+│   │
+│   ├── ai-coach
+│   │
+│   ├── premium
+│   │
+│   ├── social
+│   │
+│   ├── profile
+│   │
+│   └── settings
+│
+├── state
+│
+├── layouts
+│
+├── assets
+│
+└── app.routes.ts
+```
+
+---
+
+# 16.3 Standalone Components Architecture
+
+We will use:
+
+# **Angular Standalone Components**
+
+No NgModules.
+
+Reason:
+
+✅ cleaner architecture
+✅ better lazy loading
+✅ faster builds
+✅ Angular modern best practice
+
+---
+
+### Example
+
+```ts
+@Component({
+ standalone: true,
+ selector: 'app-quest-card',
+ templateUrl: './quest-card.component.html',
+ imports: [
+   CommonModule,
+   IonicModule
+ ]
+})
+export class QuestCardComponent {}
+```
+
+---
+
+# 16.4 Smart vs Dumb Components
+
+Critical architecture rule.
+
+---
+
+## Smart Components
+
+Contain:
+
+* API calls
+* state logic
+* orchestration
+
+Examples:
+
+```text
+dashboard.page
+quest-board.page
+arc-mode.page
+guild.page
+profile.page
+```
+
+---
+
+## Dumb Components
+
+Reusable.
+
+No business logic.
+
+Examples:
+
+```text
+quest-card.component
+xp-bar.component
+level-badge.component
+streak-card.component
+reward-popup.component
+arc-card.component
+```
+
+---
+
+### Example
+
+Bad:
+
+Quest logic inside quest card.
+
+Good:
+
+```text
+quest-board.page
+     ↓
+quest-card.component
+```
+
+Card only emits events.
+
+---
+
+# 16.5 Routing Architecture
+
+Use:
+
+# **Lazy Loaded Routes**
+
+Performance critical.
+
+---
+
+## Main Routes
+
+```ts
+export const routes: Routes = [
+
+{
+ path: '',
+ loadComponent: () =>
+ import('./features/dashboard/dashboard.page')
+},
+
+{
+ path: 'quests',
+ loadChildren: () =>
+ import('./features/quests/routes')
+},
+
+{
+ path: 'arc-mode',
+ loadChildren: () =>
+ import('./features/arc-mode/routes')
+},
+
+{
+ path: 'guilds',
+ loadChildren: () =>
+ import('./features/guilds/routes')
+}
+];
+```
+
+---
+
+### Why Lazy Loading?
+
+Only load features when needed.
+
+Improves:
+
+* startup speed
+* memory usage
+* battery
+
+---
+
+# 16.6 Mobile Navigation Architecture
+
+For Ionic:
+
+Use:
+
+# Tabs + Stack Hybrid
+
+Best for gamified apps.
+
+---
+
+## Bottom Navigation
+
+```text
+🏠 Home
+⚔ Quests
+🔥 Arc Mode
+👥 Social
+👤 Profile
+```
+
+---
+
+### Why this layout?
+
+Users constantly revisit:
+
+* dashboard
+* quests
+* profile
+
+Low thumb distance.
+
+---
+
+## Deep Navigation
+
+Example:
+
+```text
+Home
+ ↓
+Quest Details
+ ↓
+Quest Completion
+ ↓
+Reward Screen
+```
+
+Stack navigation.
+
+---
+
+# 16.7 Global State Management
+
+Recommended:
+
+# Signals + RxJS Hybrid
+
+---
+
+Why NOT NgRx?
+
+Overengineering initially.
+
+Your app complexity:
+
+Medium-high.
+
+Signals easier.
+
+---
+
+## Global State
+
+Store:
+
+```ts
+user
+xp
+level
+quests
+currentArc
+streak
+guild
+league
+premium
+notifications
+theme
+```
+
+---
+
+## Store Structure
+
+```text
+state
+│
+├── user.store.ts
+├── quest.store.ts
+├── xp.store.ts
+├── guild.store.ts
+├── streak.store.ts
+└── notification.store.ts
+```
+
+---
+
+### Example Store
+
+```ts
+@Injectable()
+export class UserStore {
+
+ user = signal<User | null>(null);
+
+ level = computed(() =>
+   calculateLevel(this.user()?.xp)
+ );
+
+ setUser(user: User){
+   this.user.set(user);
+ }
+}
+```
+
+---
+
+# 16.8 API Layer Architecture
+
+Rule:
+
+Never call HttpClient directly inside page.
+
+Wrong:
+
+```ts
+dashboard.page.ts
+```
+
+Calling API directly.
+
+---
+
+Correct:
+
+```text
+page
+ ↓
+service
+ ↓
+api client
+```
+
+---
+
+Structure:
+
+```text
+services
+│
+├── auth.service.ts
+├── quest.service.ts
+├── xp.service.ts
+├── guild.service.ts
+└── analytics.service.ts
+```
+
+---
+
+Example:
+
+```ts
+completeQuest(id: string){
+ return this.http.post(
+   '/quests/complete',
+   { questId: id }
+ )
+}
+```
+
+---
+
+# 16.9 Interceptor Architecture
+
+Create:
+
+## Auth Interceptor
+
+Purpose:
+Attach Firebase JWT.
+
+Example:
+
+```ts
+Authorization:
+Bearer TOKEN
+```
+
+---
+
+## Error Interceptor
+
+Centralized error handling.
+
+Example:
+
+401:
+
+Auto logout.
+
+---
+
+## Loading Interceptor
+
+Show loading overlay.
+
+---
+
+## Retry Interceptor
+
+Retry failed network requests.
+
+---
+
+# 16.10 Guard System
+
+Guards:
+
+### Auth Guard
+
+Protect routes.
+
+---
+
+### Premium Guard
+
+Premium-only pages.
+
+Example:
+
+AI Coach.
+
+---
+
+### Onboarding Guard
+
+User must complete onboarding.
+
+---
+
+# 16.11 UI Component System
+
+Create reusable design system.
+
+---
+
+## Base Components
+
+```text
+button
+card
+modal
+toast
+badge
+loader
+dialog
+tabs
+```
+
+---
+
+## Game Components
+
+```text
+xp-bar
+quest-card
+arc-card
+boss-card
+streak-flame
+reward-popup
+skill-tree-node
+achievement-card
+guild-card
+leaderboard-card
+```
+
+---
+
+### Example
+
+Quest Card
+
+Contains:
+
+* difficulty
+* XP
+* stat icon
+* progress
+* complete button
+
+---
+
+# 16.12 Theme Architecture
+
+Support:
+
+### Dark Mode (Default)
+
+### Light Mode (Optional)
+
+---
+
+## Theme Variables
+
+```scss
+--primary: #ff8c00;
+--secondary: #1f1f1f;
+--accent: #9c27b0;
+--success: #4caf50;
+```
+
+---
+
+### Theme Engine
+
+Store preference.
+
+Auto sync device theme.
+
+---
+
+# 16.13 Animation System
+
+Critical for retention.
+
+Every action feels rewarding.
+
+---
+
+### Quest Completion
+
+Animation:
+
+XP flies upward.
+
+---
+
+### Level Up
+
+Full-screen glow.
+
+---
+
+### Streak Milestone
+
+Fire animation.
+
+---
+
+### Loot Chest
+
+Opening animation.
+
+---
+
+Libraries:
+
+* Angular animations
+* Lottie
+
+---
+
+# 16.14 Offline Mode
+
+Critical mobile feature.
+
+Users may:
+
+Complete quests offline.
+
+---
+
+Strategy:
+
+Local cache.
+
+Sync later.
+
+Queue actions.
+
+Example:
+
+```text
+Complete Quest Offline
+ ↓
+Local save
+ ↓
+Internet restored
+ ↓
+Sync API
+```
+
+---
+
+### Conflict Strategy
+
+Server wins.
+
+But merge safely.
+
+---
+
+# 16.15 Performance Strategy
+
+Target:
+
+60 FPS
+
+---
+
+Optimization:
+
+### Virtual scrolling
+
+Leaderboard.
+
+---
+
+### Lazy images
+
+Avatars.
+
+---
+
+### Skeleton loading
+
+Avoid blank screens.
+
+---
+
+### Cached API
+
+Repeated endpoints cached.
+
+---
+
+# 16.16 Error UX Strategy
+
+Avoid technical errors.
+
+Bad:
+
+> API failed
+
+Good:
+
+> Could not load your Arc.
+> Try again.
+
+---
+
+Offline:
+
+> You're in Offline Mode.
+> Progress will sync later.
+
+---
+
+# 17. SCREEN INVENTORY & PAGE ARCHITECTURE
+
+## Authentication
+
+```text
+Splash
+Login
+Signup
+Forgot Password
+Guest Entry
+```
+
+---
+
+## Onboarding
+
+```text
+Welcome
+Goal Selection
+Difficulty Selection
+Assessment Quiz
+Arc Recommendation
+Avatar Selection
+```
+
+---
+
+## Core Gameplay
+
+```text
+Dashboard
+Quest Board
+Quest Details
+Arc Details
+Skill Tree
+Boss Battle
+Rewards
+Level Up
+```
+
+---
+
+## Social
+
+```text
+Guilds
+Guild Chat
+Leaderboard
+Friend Profile
+Challenges
+```
+
+---
+
+## Premium
+
+```text
+Subscription
+Premium Benefits
+Upgrade Flow
+```
+
+---
+
+## Profile
+
+```text
+Achievements
+Stats
+History
+Customization
+```
+
+---
+
+Next:
+
+# **Complete Database ER Design + Firestore Model + Advanced API Contracts + WebSocket Events + Security Architecture**
+# PHASE 2 — ADVANCED ENGINEERING DESIGN
+
+# **Database ER Design + Firestore Model + Advanced APIs + WebSocket + Security**
+
+---
+
+# 18. DATABASE ER DESIGN
+
+## 18.1 Database Philosophy
+
+For Ascend:
+
+We separate data into:
+
+### Core Relational Data
+
+(PostgreSQL)
+
+For:
+
+* progression
+* XP
+* quests
+* analytics
+* rankings
+
+---
+
+### Realtime Data
+
+(Firestore)
+
+For:
+
+* chat
+* notifications
+* live state
+* temporary sync
+
+---
+
+## 18.2 Core ER Diagram
+
+```text
+USER
+ ├── QUEST_COMPLETION
+ ├── USER_ARC_PROGRESS
+ ├── XP_HISTORY
+ ├── STREAK
+ ├── USER_SKILL
+ ├── USER_ACHIEVEMENT
+ ├── USER_NOTIFICATION
+ ├── GUILD_MEMBER
+ ├── LEADERBOARD
+ └── SUBSCRIPTION
+
+ARC
+ ├── ARC_MILESTONE
+ ├── ARC_QUEST
+ └── ARC_BOSS
+
+QUEST
+ ├── QUEST_COMPLETION
+ ├── QUEST_REWARD
+ └── QUEST_CATEGORY
+
+GUILD
+ ├── GUILD_MEMBER
+ ├── GUILD_CHALLENGE
+ └── GUILD_CHAT
+
+BOSS
+ └── BOSS_PROGRESS
+```
+
+---
+
+# 18.3 Core Entity Relationships
+
+---
+
+## User → Quest Completion
+
+Relationship:
+
+**1 : Many**
+
+One user completes many quests.
+
+---
+
+## User → Arc
+
+Relationship:
+
+**Many : One**
+
+Many users can join:
+
+Example:
+
+**Monk Arc**
+
+---
+
+## User → Guild
+
+Relationship:
+
+**Many : Many**
+
+Through:
+
+```text
+guild_members
+```
+
+---
+
+## User → Skill Tree
+
+Relationship:
+
+**1 : Many**
+
+Multiple unlocked skills.
+
+---
+
+## User → Achievement
+
+Relationship:
+
+**1 : Many**
+
+Example:
+
+> Early Riser
+
+---
+
+## Guild → Chat
+
+Relationship:
+
+**1 : Many**
+
+---
+
+# 18.4 Detailed Tables
+
+---
+
+## xp_history
+
+Purpose:
+Track every XP transaction.
+
+Critical for:
+
+* rollback
+* anti-cheat
+* debugging
+
+```sql
+CREATE TABLE xp_history (
+    id UUID PRIMARY KEY,
+    user_id UUID,
+    source_type VARCHAR(50),
+    source_id UUID,
+    xp_amount INT,
+    multiplier DECIMAL,
+    created_at TIMESTAMP
+);
+```
+
+---
+
+## leaderboard
+
+Performance optimization.
+
+Avoid recalculating rankings.
+
+```sql
+CREATE TABLE leaderboard (
+    user_id UUID,
+    weekly_rank INT,
+    global_rank INT,
+    xp BIGINT,
+    league VARCHAR(50),
+    updated_at TIMESTAMP
+);
+```
+
+---
+
+## user_skills
+
+```sql
+CREATE TABLE user_skills (
+    user_id UUID,
+    skill_id UUID,
+    unlocked BOOLEAN,
+    unlocked_at TIMESTAMP
+);
+```
+
+---
+
+## boss_progress
+
+```sql
+CREATE TABLE boss_progress (
+    user_id UUID,
+    boss_id UUID,
+    stage INT,
+    progress_percent INT
+);
+```
+
+---
+
+## subscriptions
+
+```sql
+CREATE TABLE subscriptions (
+    user_id UUID,
+    provider VARCHAR(50),
+    premium BOOLEAN,
+    expires_at TIMESTAMP
+);
+```
+
+---
+
+# 18.5 Recommended Database Indexes
+
+Most important indexes:
+
+```sql
+CREATE INDEX idx_user_xp
+ON users(level, xp);
+
+CREATE INDEX idx_user_quest
+ON quest_completion(user_id);
+
+CREATE INDEX idx_league
+ON leaderboard(league);
+
+CREATE INDEX idx_streak
+ON streaks(user_id);
+
+CREATE INDEX idx_arc
+ON user_arc_progress(user_id);
+```
+
+---
+
+### Why?
+
+Without indexes:
+
+Leaderboard becomes slow.
+
+At scale:
+
+Bad performance.
+
+---
+
+# 19. FIRESTORE REALTIME MODEL
+
+---
+
+## Purpose
+
+Firestore should only contain:
+
+### Realtime UX data
+
+Not core business logic.
+
+---
+
+## Collections
+
+```text
+users
+presence
+guild-chat
+live-notifications
+leaderboard-cache
+user-settings
+realtime-progress
+```
+
+---
+
+## Presence Tracking
+
+Example:
+
+```json
+{
+  "userId": "123",
+  "online": true,
+  "lastSeen": ""
+}
+```
+
+Used for:
+
+* guild online indicator
+* friend status
+
+---
+
+## Live Notifications
+
+```json
+{
+  "title": "Quest Completed",
+  "message": "+50 XP earned",
+  "read": false,
+  "createdAt": ""
+}
+```
+
+---
+
+## Realtime Progress
+
+Temporary sync.
+
+```json
+{
+  "currentQuest": "deep_work",
+  "progress": 60
+}
+```
+
+---
+
+# 20. ADVANCED API CONTRACTS
+
+---
+
+# API Standards
+
+---
+
+## Success Response
+
+```json
+{
+  "success": true,
+  "message": "Operation successful",
+  "data": {}
+}
+```
+
+---
+
+## Error Response
+
+```json
+{
+  "success": false,
+  "message": "Quest already completed",
+  "errorCode": "QUEST_DUPLICATE"
+}
+```
+
+---
+
+## Pagination Standard
+
+```http
+?page=1&size=20
+```
+
+---
+
+## Sorting Standard
+
+```http
+?sort=xp,desc
+```
+
+---
+
+# 20.1 Dashboard APIs
+
+---
+
+## Get Dashboard
+
+```http
+GET /api/v1/dashboard
+```
+
+Response:
+
+```json
+{
+  "user": {},
+  "dailyQuests": [],
+  "streak": 12,
+  "xp": 2200,
+  "level": 14,
+  "currentArc": {},
+  "leaderboardPosition": 45
+}
+```
+
+---
+
+## Get Daily Summary
+
+```http
+GET /api/v1/dashboard/summary
+```
+
+---
+
+# 20.2 Quest APIs
+
+---
+
+## Create Quest
+
+```http
+POST /api/v1/quests
+```
+
+Request:
+
+```json
+{
+  "title": "Gym",
+  "difficulty": "hard",
+  "frequency": "daily"
+}
+```
+
+---
+
+## Update Quest
+
+```http
+PUT /api/v1/quests/{id}
+```
+
+---
+
+## Delete Quest
+
+```http
+DELETE /api/v1/quests/{id}
+```
+
+---
+
+## Complete Quest
+
+```http
+POST /api/v1/quests/complete
+```
+
+Response:
+
+```json
+{
+  "xp": 50,
+  "newLevel": 12,
+  "streak": 14,
+  "rewardUnlocked": false
+}
+```
+
+---
+
+# 20.3 Skill Tree APIs
+
+---
+
+## Unlock Skill
+
+```http
+POST /api/v1/skills/unlock
+```
+
+---
+
+## Skill Tree
+
+```http
+GET /api/v1/skills/tree
+```
+
+---
+
+# 20.4 Boss APIs
+
+---
+
+## Get Boss
+
+```http
+GET /api/v1/boss/{id}
+```
+
+---
+
+## Attack Boss
+
+```http
+POST /api/v1/boss/attack
+```
+
+Response:
+
+```json
+{
+  "damage": 15,
+  "bossRemaining": 40
+}
+```
+
+---
+
+# 20.5 Premium APIs
+
+---
+
+## Subscription Status
+
+```http
+GET /api/v1/premium/status
+```
+
+---
+
+## Upgrade
+
+```http
+POST /api/v1/premium/upgrade
+```
+
+---
+
+# 20.6 Notification APIs
+
+---
+
+## Get Notifications
+
+```http
+GET /api/v1/notifications
+```
+
+---
+
+## Mark Read
+
+```http
+PATCH /api/v1/notifications/read
+```
+
+---
+
+# 21. WEBSOCKET ARCHITECTURE
+
+---
+
+## Purpose
+
+Realtime features.
+
+Used for:
+
+* guild chat
+* live XP
+* rankings
+* notifications
+* friend status
+
+---
+
+# 21.1 WebSocket Events
+
+---
+
+## Guild Chat
+
+Channel:
+
+```text
+/ws/guild/{guildId}
+```
+
+Events:
+
+```json
+{
+  "type": "MESSAGE",
+  "message": "Completed quest"
+}
+```
+
+---
+
+## Live XP Event
+
+Channel:
+
+```text
+/ws/xp/{userId}
+```
+
+Example:
+
+```json
+{
+  "type": "XP_GAINED",
+  "xp": 50
+}
+```
+
+---
+
+## Leaderboard Updates
+
+Channel:
+
+```text
+/ws/leaderboard
+```
+
+---
+
+## Streak Alert
+
+Channel:
+
+```text
+/ws/streak
+```
+
+---
+
+# 22. SECURITY ARCHITECTURE
+
+---
+
+# 22.1 Security Layers
+
+We implement:
+
+### Layer 1
+
+Firebase Authentication
+
+---
+
+### Layer 2
+
+Spring JWT Validation
+
+---
+
+### Layer 3
+
+Role Authorization
+
+---
+
+### Layer 4
+
+Rate Limiting
+
+---
+
+### Layer 5
+
+Anti-Cheat
+
+---
+
+# 22.2 Role-Based Access Control (RBAC)
+
+Roles:
+
+```text
+USER
+PREMIUM_USER
+MODERATOR
+ADMIN
+SUPER_ADMIN
+```
+
+---
+
+## Example
+
+Admin routes:
+
+```http
+/api/v1/admin/**
+```
+
+Only:
+
+ADMIN
+
+---
+
+# 22.3 Rate Limiting
+
+Prevent abuse.
+
+Example:
+
+Quest completion:
+
+Max:
+
+20/min
+
+---
+
+### Protection
+
+Stops:
+
+* spam
+* automation
+* bot abuse
+
+---
+
+# 22.4 Anti-Cheat System
+
+Critical feature.
+
+---
+
+## XP Validation
+
+Impossible XP blocked.
+
+Example:
+
+User completes:
+
+50 quests instantly.
+
+Flag:
+
+```text
+SUSPICIOUS_ACTIVITY
+```
+
+---
+
+## Speed Detection
+
+Impossible streak growth.
+
+Blocked.
+
+---
+
+## Duplicate Rewards
+
+Prevent duplicate chest farming.
+
+---
+
+# 22.5 Secure Storage
+
+Sensitive data:
+
+Never store in local storage.
+
+Use:
+
+### Ionic Secure Storage
+
+Store:
+
+* JWT
+* session
+* preferences
+
+---
+
+# 22.6 Encryption
+
+Use:
+
+### HTTPS only
+
+TLS 1.3
+
+Mandatory.
+
+---
+
+# 22.7 Firebase Security Rules
+
+Never expose:
+
+* premium status
+* leaderboard calculations
+* XP logic
+
+Frontend is untrusted.
+
+Backend validates all gameplay.
+
+---
+
+# 23. OBSERVABILITY & MONITORING
+
+Use:
+
+### Firebase Crashlytics
+
+Crash tracking.
+
+---
+
+### Micrometer + Prometheus
+
+Spring metrics.
+
+---
+
+### Grafana
+
+Dashboards.
+
+Track:
+
+* API latency
+* active users
+* quest completion
+* failures
+
+---
+
+Next:
+
+# **PHASE 3 — GAME ECONOMY & BALANCING ENGINE (XP formulas, Arc progression, streak psychology, anti-addiction, retention systems)**
+
+# PHASE 3 — GAME ECONOMY & BALANCING ENGINE
+
+# **Ascend — Enter Arc Mode**
+
+This section is the **heart of the product**.
+
+Poor balancing = users quit.
+
+Good balancing = addiction-level retention (healthy, sustainable).
+
+We optimize for:
+
+✅ long-term retention
+✅ real-life improvement
+✅ dopamine without burnout
+✅ fairness
+✅ anti-cheat
+✅ sustainable progression
+
+---
+
+# 24. GAME ECONOMY PHILOSOPHY
+
+Ascend must avoid:
+
+### Problem 1 — Too Easy
+
+Users level too fast.
+
+Result:
+
+> boring
+
+---
+
+### Problem 2 — Too Hard
+
+Users feel punished.
+
+Result:
+
+> quit
+
+---
+
+### Problem 3 — Fake Progress
+
+Everything gives rewards.
+
+Result:
+
+> meaningless progression
+
+---
+
+## Core Rule
+
+# **Progress must feel earned but achievable**
+
+Users should think:
+
+> “I’m getting stronger.”
+
+without feeling overwhelmed.
+
+---
+
+# 25. XP ECONOMY DESIGN
+
+---
+
+# 25.1 XP Sources
+
+XP must come from:
+
+### Primary Actions (80%)
+
+Core habits.
+
+Examples:
+
+* gym
+* coding
+* sleep
+* reading
+* meditation
+
+---
+
+### Secondary Actions (15%)
+
+Engagement systems.
+
+Examples:
+
+* guild participation
+* social challenge
+* streak save
+
+---
+
+### Rare Rewards (5%)
+
+Memorable dopamine.
+
+Examples:
+
+* legendary chest
+* boss victory
+* seasonal reward
+
+---
+
+## XP Distribution Table
+
+| Activity        |        XP |
+| --------------- | --------: |
+| Small Quest     |     10–25 |
+| Medium Quest    |     30–60 |
+| Hard Quest      |    60–120 |
+| Legendary Quest |   150–300 |
+| Boss Battle     |  300–1000 |
+| Arc Completion  | 1000–5000 |
+
+---
+
+# 25.2 Daily XP Cap
+
+Critical anti-addiction system.
+
+Purpose:
+Prevent obsessive grinding.
+
+Rule:
+
+Maximum effective XP/day:
+
+DailyCap = 1000 + (Level \times 20)
+
+---
+
+### Example
+
+Level 10:
+
+Cap:
+1200 XP
+
+---
+
+### Why?
+
+Prevents:
+
+❌ unhealthy obsession
+❌ leaderboard abuse
+❌ burnout
+
+---
+
+# 25.3 XP Decay Prevention
+
+Problem:
+
+Users stop for weeks.
+
+Feel impossible to return.
+
+Solution:
+
+### Soft Regression
+
+Instead of losing level.
+
+Lose:
+
+temporary bonus multiplier.
+
+Example:
+
+7 inactive days:
+
+* streak frozen
+* XP boost removed
+
+Not:
+
+> Level reset
+
+---
+
+# 25.4 Difficulty Balancing
+
+Each quest weighted.
+
+Score:
+
+| Difficulty | Multiplier |
+| ---------- | ---------: |
+| Easy       |         1x |
+| Medium     |       1.5x |
+| Hard       |         2x |
+| Legendary  |         3x |
+
+---
+
+### Final XP Formula
+
+FinalXP = BaseXP \times Difficulty \times Consistency \times ArcBonus
+
+---
+
+### Example
+
+Gym Quest:
+
+Base:
+25
+
+Difficulty:
+Hard (2x)
+
+Consistency:
+1.5x
+
+Arc:
+1.2x
+
+Result:
+
+90 XP
+
+---
+
+# 26. LEVEL BALANCING SYSTEM
+
+---
+
+# 26.1 Level Curve Philosophy
+
+Goal:
+
+Early levels:
+
+FAST
+
+Later levels:
+
+MEANINGFUL
+
+---
+
+### Recommended Curve
+
+XPRequired = 100(Level)^{1.6}
+
+---
+
+## Level Phases
+
+### Beginner
+
+1–15
+
+Fast growth.
+
+Retention critical.
+
+---
+
+### Intermediate
+
+15–40
+
+Moderate growth.
+
+Identity building.
+
+---
+
+### Advanced
+
+40–75
+
+Meaningful grind.
+
+Prestige unlocked.
+
+---
+
+### Elite
+
+75–100+
+
+Mastery.
+
+Social prestige.
+
+---
+
+## Level Rewards
+
+Every level:
+
+Small reward.
+
+Every 5 levels:
+
+Meaningful reward.
+
+Every 10 levels:
+
+Major unlock.
+
+---
+
+Example:
+
+### Level 10
+
+Unlock:
+Leagues
+
+---
+
+### Level 25
+
+Unlock:
+Guilds
+
+---
+
+### Level 50
+
+Unlock:
+Elite cosmetics
+
+---
+
+### Level 100
+
+Unlock:
+Prestige
+
+---
+
+# 27. STREAK PSYCHOLOGY ENGINE
+
+This is one of the biggest retention systems.
+
+---
+
+# 27.1 Streak Philosophy
+
+Traditional apps:
+
+Miss one day:
+
+❌ streak dead
+
+User quits.
+
+Ascend:
+
+Recovery-friendly.
+
+---
+
+# 27.2 Combo System
+
+Instead of only streak.
+
+Use:
+
+# Combo Multiplier
+
+---
+
+### Formula
+
+ComboMultiplier = 1 + (0.01 \times StreakDays)
+
+Cap:
+2x
+
+---
+
+### Example
+
+10-day streak:
+
+1.1x
+
+50-day streak:
+
+1.5x
+
+100-day streak:
+
+2x
+
+---
+
+### Why?
+
+Users emotionally protect streak.
+
+---
+
+# 27.3 Streak Shield Economy
+
+Earned by:
+
+* milestones
+* premium
+* legendary chest
+
+Rare resource.
+
+---
+
+### Rule
+
+Auto activate.
+
+Protects:
+
+1 missed day.
+
+---
+
+# 27.4 Comeback Loop
+
+Most habit apps fail here.
+
+Broken streak = quit.
+
+Ascend system:
+
+### Redemption Window
+
+48 hours.
+
+Recover streak.
+
+---
+
+### Example UX
+
+> Arc Interrupted
+> Recover in 2 days to continue.
+
+---
+
+### Objective
+
+Reduce churn.
+
+---
+
+# 27.5 Anti-Guilt Design
+
+Never show:
+
+❌ You failed
+
+Use:
+
+✅ Continue your Arc
+
+---
+
+# 28. ARC PROGRESSION ENGINE
+
+---
+
+# 28.1 Arc Structure
+
+Each Arc:
+
+30–90 days.
+
+Contains:
+
+```text
+Phases
+Milestones
+Bosses
+Quests
+Rewards
+Identity evolution
+```
+
+---
+
+## Example
+
+### Monk Arc
+
+Phase 1:
+Foundation
+
+* wake up early
+* meditate
+
+---
+
+Phase 2:
+Discipline
+
+* reduce distraction
+* deep work
+
+---
+
+Phase 3:
+Mastery
+
+* consistency
+* advanced habits
+
+---
+
+# 28.2 Arc Formula
+
+Progression score:
+
+ArcProgress = CompletedMilestones / TotalMilestones
+
+---
+
+### Example
+
+20 milestones
+
+Completed:
+8
+
+Progress:
+40%
+
+---
+
+# 28.3 Arc Failure System
+
+No hard failure.
+
+Instead:
+
+### Arc Recovery
+
+Quest difficulty reduced.
+
+---
+
+### Example
+
+Missed week.
+
+System adapts:
+
+* easier quests
+* lower threshold
+
+---
+
+# 28.4 Arc Identity Evolution
+
+Critical psychology system.
+
+User identity evolves.
+
+Example:
+
+Monk Arc:
+
+Beginner:
+
+> Distracted Mind
+
+Intermediate:
+
+> Focused Student
+
+Advanced:
+
+> Disciplined Mind
+
+Elite:
+
+> Zen Master
+
+---
+
+# 29. LEADERBOARD BALANCING
+
+---
+
+## Problem
+
+Power users dominate.
+
+New users quit.
+
+---
+
+## Solution
+
+League Segmentation.
+
+Compete with similar users.
+
+---
+
+### Weekly Reset
+
+Keeps competition fair.
+
+---
+
+### Formula
+
+LeaderboardScore = XP + (Consistency \times 2) + StreakBonus
+
+---
+
+### Why?
+
+Consistency > Grinding.
+
+---
+
+# 30. BOSS BATTLE BALANCING
+
+Boss difficulty adapts.
+
+---
+
+### Formula
+
+BossDifficulty = UserLevel \times ArcDifficulty \times MotivationScore
+
+---
+
+### Objective
+
+Always challenging.
+
+Never impossible.
+
+---
+
+## Reward Philosophy
+
+Boss reward must feel:
+
+### memorable
+
+Examples:
+
+* aura
+* rare title
+* animated profile
+
+---
+
+# 31. ANTI-BURNOUT ENGINE
+
+Critical long-term system.
+
+---
+
+## Burnout Detection
+
+Signals:
+
+* declining activity
+* repeated failures
+* lower session duration
+
+---
+
+### Formula
+
+BurnoutRisk = MissedQuests + FatigueScore + ReducedEngagement
+
+---
+
+### Recovery Mode
+
+Temporary changes:
+
+* lower difficulty
+* fewer quests
+* recovery XP
+
+---
+
+### Example
+
+Instead of:
+
+5 tasks/day
+
+AI changes:
+
+2 easy wins/day
+
+---
+
+# 32. RETENTION ENGINE
+
+---
+
+## Day 1
+
+Quick win.
+
+User must level up fast.
+
+---
+
+## Day 7
+
+Streak attachment.
+
+---
+
+## Day 30
+
+Identity attachment.
+
+---
+
+## Day 90
+
+Community + prestige.
+
+---
+
+### Retention Loop
+
+```text
+Quest
+ ↓
+XP
+ ↓
+Reward
+ ↓
+Identity Growth
+ ↓
+Social Recognition
+ ↓
+Repeat
+```
+
+---
+
+# 33. ANTI-ADDICTION PRINCIPLES
+
+We want:
+
+### Healthy engagement
+
+Not exploitative addiction.
+
+---
+
+Rules:
+
+### XP cap
+
+### Recovery days
+
+### Burnout mode
+
+### No infinite grinding
+
+### Wellness reminders
+
+---
+
+Example:
+
+> Time to rest.
+> Growth needs recovery too.
+
+---
+
+Next:
+
+# **PHASE 4 — IMPLEMENTATION BLUEPRINT (MVP → V1 → Scale Roadmap + Sprint Plan + Solo Developer Strategy + Folder-by-folder Build Order)**
+
+# PHASE 4 — IMPLEMENTATION BLUEPRINT
+
+# **Ascend — Enter Arc Mode**
+
+This phase converts the SRS into an **actual build roadmap**.
+
+Goal:
+
+Build smart.
+
+Avoid overengineering.
+
+Ship fast.
+
+Scale safely.
+
+Since you are a **solo developer with Angular + Spring Boot background**, architecture is optimized for:
+
+✅ solo execution
+✅ resume-worthy system design
+✅ scalable codebase
+✅ production readiness
+
+---
+
+# 34. PRODUCT DEVELOPMENT STRATEGY
+
+We will NOT build everything at once.
+
+Bad approach:
+
+> Build all features.
+
+Result:
+
+❌ burnout
+❌ abandoned project
+
+---
+
+## Recommended Approach
+
+# **4 Stages**
+
+### Stage 1
+
+MVP
+
+Goal:
+Retention validation.
+
+---
+
+### Stage 2
+
+V1 Launch
+
+Goal:
+Product-market fit.
+
+---
+
+### Stage 3
+
+Growth
+
+Goal:
+Social virality.
+
+---
+
+### Stage 4
+
+Scale
+
+Goal:
+Monetization + optimization.
+
+---
+
+# 35. MVP SCOPE (VERSION 0.1)
+
+## Timeline
+
+**8–12 Weeks**
+
+Goal:
+
+Users should feel:
+
+> “This is addictive.”
+
+without building unnecessary complexity.
+
+---
+
+# MVP Features
+
+Only include:
+
+---
+
+## Authentication
+
+✅ Google Login
+✅ Email Login
+✅ Guest Mode
+
+Skip:
+❌ Apple login initially
+
+---
+
+## RPG Onboarding
+
+✅ Goal selection
+✅ Difficulty selection
+✅ Arc recommendation
+
+---
+
+## Arc Mode
+
+Only:
+
+### Monk Arc
+
+### Warrior Arc
+
+### Creator Arc
+
+Skip:
+❌ Guild arcs
+
+---
+
+## Quest Engine
+
+✅ Daily quests
+✅ Weekly quests
+✅ Custom quests
+
+Skip:
+❌ advanced AI generation
+
+---
+
+## XP + Levels
+
+✅ XP system
+✅ level system
+✅ progress animations
+
+---
+
+## Streak System
+
+✅ streaks
+✅ comeback system
+
+Skip:
+❌ streak shields
+
+---
+
+## Dashboard
+
+✅ XP
+✅ level
+✅ quests
+✅ streak
+
+---
+
+## Analytics
+
+Basic only:
+
+✅ weekly report
+
+Skip:
+❌ advanced AI insights
+
+---
+
+## Notifications
+
+Basic FCM reminders.
+
+---
+
+## Premium
+
+Simple paywall.
+
+---
+
+## Social
+
+Skip entirely.
+
+❌ Guilds
+❌ Chat
+❌ Friends
+
+Reason:
+
+Not needed for MVP.
+
+---
+
+# MVP Architecture
+
+### Frontend
+
+Angular Ionic
+
+### Backend
+
+Spring Boot
+
+### DB
+
+Firestore only initially
+
+Reason:
+
+Faster shipping.
+
+Add PostgreSQL later.
+
+---
+
+# 36. VERSION 1 (PUBLIC RELEASE)
+
+## Timeline
+
+3–6 months
+
+Goal:
+
+Retention + virality.
+
+---
+
+## Add Features
+
+### Guilds
+
+### Leagues
+
+### Leaderboards
+
+### Boss Battles
+
+### Skill Trees
+
+### Cosmetics
+
+### Seasonal Events
+
+### Weekly Rankings
+
+### Social Challenges
+
+---
+
+## Backend Upgrade
+
+Add:
+
+### PostgreSQL
+
+For:
+
+* rankings
+* analytics
+* performance
+
+---
+
+### Redis
+
+For:
+
+* leaderboard cache
+* session optimization
+
+---
+
+# 37. VERSION 2 (PREMIUM EXPERIENCE)
+
+Goal:
+
+Strong monetization.
+
+---
+
+### AI Coach
+
+### Burnout Prevention
+
+### Smart Scheduling
+
+### Adaptive Quests
+
+### Accountability Contracts
+
+### Advanced Analytics
+
+### Recovery Mode
+
+---
+
+# 38. VERSION 3 (SCALE)
+
+Goal:
+
+Startup-grade scale.
+
+---
+
+### Guild Wars
+
+### Global Seasons
+
+### Creator Economy
+
+### Community Challenges
+
+### Marketplace
+
+### Public Profiles
+
+---
+
+# 39. RECOMMENDED DEVELOPMENT ORDER
+
+This is critical.
+
+Build in the wrong order:
+
+You waste months.
+
+---
+
+## Sprint 1
+
+### Project Setup
+
+Tasks:
+
+* Angular Ionic setup
+* Firebase integration
+* Spring Boot setup
+* Auth integration
+* CI/CD setup
+* Theme setup
+
+Deliverable:
+App launches.
+
+---
+
+## Sprint 2
+
+### Authentication
+
+Build:
+
+* login
+* signup
+* guest mode
+* onboarding persistence
+
+Deliverable:
+User enters app.
+
+---
+
+## Sprint 3
+
+### Onboarding
+
+Build:
+
+* goals
+* personality quiz
+* arc recommendation
+
+Deliverable:
+First arc selected.
+
+---
+
+## Sprint 4
+
+### Dashboard
+
+Build:
+
+* XP bar
+* level card
+* streak card
+* active quests
+
+Deliverable:
+Core UI alive.
+
+---
+
+## Sprint 5
+
+### Quest Engine
+
+Build:
+
+* create quest
+* complete quest
+* XP reward
+* recurring tasks
+
+Deliverable:
+Core gameplay works.
+
+---
+
+## Sprint 6
+
+### XP & Leveling
+
+Build:
+
+* progression
+* animation
+* milestones
+
+Deliverable:
+Dopamine loop complete.
+
+---
+
+## Sprint 7
+
+### Streak Engine
+
+Build:
+
+* streak logic
+* comeback system
+
+Deliverable:
+Retention system active.
+
+---
+
+## Sprint 8
+
+### Arc Mode
+
+Build:
+
+* monk arc
+* warrior arc
+* creator arc
+
+Deliverable:
+Identity progression.
+
+---
+
+## Sprint 9
+
+### Analytics
+
+Build:
+
+* weekly summary
+* heatmap
+* growth stats
+
+---
+
+## Sprint 10
+
+### Notifications
+
+Build:
+
+* reminders
+* streak alerts
+
+---
+
+## Sprint 11
+
+### Premium
+
+Build:
+
+* subscriptions
+* feature gating
+
+---
+
+## Sprint 12
+
+### Polish
+
+Build:
+
+* animations
+* optimization
+* bug fixes
+
+---
+
+# 40. FOLDER-BY-FOLDER BUILD ORDER
+
+Do NOT jump randomly.
+
+Order:
+
+```text
+1. core/auth
+2. features/auth
+3. onboarding
+4. dashboard
+5. quests
+6. xp
+7. streaks
+8. arc-mode
+9. analytics
+10. notifications
+11. premium
+12. social
+```
+
+---
+
+# 41. BACKEND BUILD ORDER
+
+Order:
+
+```text
+1. auth module
+2. user module
+3. onboarding module
+4. quest module
+5. xp module
+6. streak module
+7. arc module
+8. analytics module
+9. notification module
+10. premium module
+```
+
+---
+
+# 42. SOLO DEVELOPER STRATEGY
+
+Critical advice.
+
+Avoid:
+
+> perfectionism
+
+Ship ugly if needed.
+
+Priority:
+
+### Retention > polish
+
+Ask:
+
+> Would users come back tomorrow?
+
+---
+
+### Build Rule
+
+Every sprint must increase:
+
+# **Retention**
+
+---
+
+### MVP Success Metric
+
+You only need:
+
+> 50 daily active users
+
+who return consistently.
+
+That proves product value.
+
+---
+
+# 43. ESTIMATED TIMELINE
+
+### MVP
+
+2–3 months
+
+---
+
+### V1
+
+5–7 months
+
+---
+
+### Production-grade App
+
+9–15 months
+
+(solo developer)
+
+---
+
+# 44. COST ESTIMATION
+
+## MVP
+
+Very low.
+
+Monthly:
+
+| Service        |       Cost |
+| -------------- | ---------: |
+| Firebase       |     ₹0–₹2k |
+| Render/Railway |   ₹500–₹2k |
+| Domain         | ₹100/month |
+| Storage        |    minimal |
+
+---
+
+### V1 Scale
+
+1000–5000 users:
+
+₹5k–15k/month
+
+---
+
+### Large Scale
+
+100k+ users:
+
+₹50k+/month
+
+---
+
+# 45. DEPLOYMENT ARCHITECTURE
+
+### Frontend
+
+Web:
+Firebase Hosting
+
+Mobile:
+Capacitor builds.
+
+---
+
+### Backend
+
+Recommended:
+
+### Railway
+
+or
+
+### Render
+
+Later:
+
+### AWS ECS/Kubernetes
+
+---
+
+### Database
+
+Start:
+Firestore
+
+Scale:
+PostgreSQL
+
+---
+
+### CI/CD
+
+Frontend:
+
+GitHub Actions
+
+Deploy on merge.
+
+Backend:
+
+Docker + GitHub Actions.
+
+---
+
+# 46. BIGGEST RISKS
+
+---
+
+## Risk 1
+
+Feature overload.
+
+Solution:
+
+Ship MVP first.
+
+---
+
+## Risk 2
+
+Too much gamification.
+
+Solution:
+
+Real-life impact first.
+
+---
+
+## Risk 3
+
+Burnout.
+
+Solution:
+
+Focus on one sprint.
+
+---
+
+## Risk 4
+
+Retention failure.
+
+Solution:
+
+Prioritize streak psychology.
+
+---
+
+# 47. FINAL RECOMMENDATION
+
+### First Build Goal
+
+Not:
+
+> complete app
+
+Goal:
+
+# **One addictive loop**
+
+User opens app:
+
+Quest → XP → Level → Reward → Return tomorrow
+
+If this loop works:
+
+Ascend has potential.
+
+---
+
+# NEXT PHASE
+
+## **Complete UI/UX Blueprint**
+
+(screen-by-screen design system, exact mobile navigation, component map, dashboard layout, and how every screen should look based on your screenshots)
+
+
+
+
+# PHASE 5 — UI/UX BLUEPRINT
+
+# **Ascend — Enter Arc Mode**
+
+This section defines:
+
+### Exact App Experience
+
+How the app should feel.
+
+How every screen behaves.
+
+How users emotionally experience progression.
+
+Based on:
+
+✅ your screenshots
+✅ RPG-first direction
+✅ premium UX psychology
+✅ mobile-first Ionic design
+
+---
+
+# 48. DESIGN PHILOSOPHY
+
+Ascend should feel like:
+
+> **A premium self-improvement RPG**
+
+Not:
+
+❌ boring productivity app
+❌ childish game
+❌ spreadsheet tracker
+
+---
+
+## Emotional Goal
+
+Users should feel:
+
+### Day 1
+
+> “This feels exciting.”
+
+### Day 7
+
+> “I don’t want to lose my streak.”
+
+### Day 30
+
+> “I’ve changed.”
+
+### Day 90
+
+> “This is who I am.”
+
+---
+
+# 49. DESIGN SYSTEM
+
+---
+
+## Theme Direction
+
+### Primary Style
+
+# **Dark RPG Premium**
+
+---
+
+## Color Palette
+
+### Background
+
+```text
+#0A0A0A
+```
+
+Deep black.
+
+Premium feel.
+
+---
+
+### Cards
+
+```text
+#161616
+```
+
+Glassmorphism.
+
+Soft shadow.
+
+---
+
+### Primary Accent
+
+```text
+#FF9800
+```
+
+Progression orange.
+
+---
+
+### Secondary Accent
+
+```text
+#A855F7
+```
+
+Mystic RPG purple.
+
+---
+
+### Success
+
+```text
+#4CAF50
+```
+
+Quest completion.
+
+---
+
+### Error
+
+```text
+#F44336
+```
+
+Missed quest.
+
+---
+
+## Typography
+
+### Heading
+
+Bold.
+
+Strong.
+
+Example:
+
+```text
+LEVEL UP
+MONK ARC
+QUEST COMPLETE
+```
+
+---
+
+### Body
+
+Minimal.
+
+Readable.
+
+Never cluttered.
+
+---
+
+# 50. UX RULES
+
+Critical.
+
+---
+
+## Rule 1
+
+Every tap gives feedback.
+
+Example:
+
+Quest tap:
+
+✅ animation
+✅ vibration
+✅ sound
+✅ glow
+
+Never silent.
+
+---
+
+## Rule 2
+
+No empty screens.
+
+Always show:
+
+* motivation
+* recommendations
+* rewards
+
+---
+
+## Rule 3
+
+Always show progress.
+
+Humans love visible progression.
+
+Every screen should display:
+
+### XP
+
+### Level
+
+### Streak
+
+---
+
+## Rule 4
+
+Immediate reward loop.
+
+Quest complete:
+
+Instant gratification.
+
+Not delayed.
+
+---
+
+## Rule 5
+
+Avoid overwhelm.
+
+Never show:
+
+20 quests.
+
+Max:
+
+5–8 visible daily.
+
+---
+
+# 51. INFORMATION ARCHITECTURE
+
+---
+
+## Bottom Navigation
+
+Mobile-first.
+
+```text
+🏠 Home
+⚔ Quests
+🔥 Arc
+👥 Social
+👤 Profile
+```
+
+---
+
+### Why?
+
+High-frequency actions.
+
+Low thumb movement.
+
+Best for retention.
+
+---
+
+# 52. SCREEN-BY-SCREEN BLUEPRINT
+
+---
+
+# SCREEN 1 — SPLASH SCREEN
+
+---
+
+## Purpose
+
+First impression.
+
+---
+
+## Layout
+
+Full black background.
+
+Center logo:
+
+# ASCEND
+
+Subtext:
+
+> Enter Arc Mode
+
+Background animation:
+
+Subtle glowing particles.
+
+---
+
+### CTA
+
+Animated loading.
+
+---
+
+### UX Goal
+
+Feel premium immediately.
+
+---
+
+# SCREEN 2 — WELCOME SCREEN
+
+---
+
+## Layout
+
+Large cinematic text.
+
+```text
+Become the strongest
+version of yourself.
+```
+
+---
+
+Hero illustration:
+
+Stylized avatar evolving.
+
+---
+
+Buttons:
+
+### Enter Arc Mode
+
+Primary.
+
+### Continue as Guest
+
+Secondary.
+
+---
+
+# SCREEN 3 — GOAL SELECTION
+
+---
+
+## Layout
+
+Grid cards.
+
+Examples:
+
+```text
+⚡ Discipline
+💪 Fitness
+🧠 Learning
+💼 Productivity
+😌 Mental Wellness
+🗣 Confidence
+```
+
+---
+
+### UX Interaction
+
+Card expands on tap.
+
+Glow effect.
+
+---
+
+# SCREEN 4 — DIFFICULTY SCREEN
+
+---
+
+Cards:
+
+### Casual Mode
+
+Low intensity.
+
+---
+
+### Balanced Mode
+
+Recommended.
+
+Badge:
+
+🔥 Recommended
+
+---
+
+### Beast Mode
+
+Hardcore accountability.
+
+Dark dramatic theme.
+
+---
+
+# SCREEN 5 — ARC RECOMMENDATION
+
+---
+
+Hero Card
+
+Example:
+
+# Monk Arc
+
+Description:
+
+> Build discipline, focus, and inner consistency.
+
+---
+
+Quest Preview:
+
+* wake early
+* meditate
+* deep work
+
+---
+
+Button:
+
+### Begin Arc
+
+---
+
+Secondary:
+
+Choose another arc.
+
+---
+
+# SCREEN 6 — DASHBOARD (HOME)
+
+Most important screen.
+
+Must feel addictive.
+
+---
+
+## Layout Structure
+
+```text
+Top Header
+XP Progress
+Daily Overview
+Current Arc
+Today's Quests
+Motivation Widget
+Leaderboard Snapshot
+```
+
+---
+
+## Section 1 — Header
+
+Greeting:
+
+```text
+Good Evening, Ayush
+```
+
+Level badge.
+
+Streak flame.
+
+---
+
+## Section 2 — XP Card
+
+Large premium card.
+
+Shows:
+
+```text
+Level 12
+
+████████░░
+
+2400 / 3000 XP
+```
+
+Animated progress.
+
+---
+
+## Section 3 — Daily Summary
+
+Mini cards:
+
+### Quests Completed
+
+### Current Streak
+
+### Focus Score
+
+### Life Score
+
+---
+
+## Section 4 — Active Arc
+
+Card:
+
+```text
+MONK ARC
+43% Complete
+```
+
+CTA:
+
+Continue Arc
+
+---
+
+## Section 5 — Daily Quests
+
+Quest cards.
+
+Example:
+
+```text
+Morning Workout
++40 XP
+Difficulty: Medium
+```
+
+Button:
+
+### Complete
+
+Swipe support.
+
+---
+
+## Interaction
+
+Quest complete:
+
+Animation:
+
+```text
++40 XP
+Strength +5
+```
+
+Card disappears.
+
+---
+
+## Section 6 — Motivation Widget
+
+Dynamic AI message.
+
+Example:
+
+> You're strongest in Focus.
+> Keep building momentum.
+
+---
+
+## Section 7 — Leaderboard Preview
+
+Shows:
+
+Rank.
+
+Guild position.
+
+CTA:
+
+View Full Rankings
+
+---
+
+# SCREEN 7 — QUEST BOARD
+
+---
+
+Tabs:
+
+### Daily
+
+### Weekly
+
+### Custom
+
+---
+
+Quest Card Layout
+
+```text
+Title
+XP Reward
+Difficulty
+Time estimate
+Stat affected
+```
+
+---
+
+Actions:
+
+### Complete
+
+### Edit
+
+### Skip
+
+---
+
+# SCREEN 8 — ARC MODE
+
+---
+
+Hero screen.
+
+Feels cinematic.
+
+---
+
+Layout:
+
+```text
+Arc Banner
+Progress
+Milestones
+Boss
+Skill Tree
+Rewards
+```
+
+---
+
+Example:
+
+# MONK ARC
+
+Progress:
+43%
+
+Current Phase:
+
+### Discipline
+
+---
+
+Milestone Timeline
+
+```text
+✓ Wake early
+✓ Meditation
+○ Deep work streak
+○ Dopamine detox
+```
+
+---
+
+Boss Section
+
+```text
+DISCIPLINE DEMON
+
+65% defeated
+```
+
+---
+
+# SCREEN 9 — SKILL TREE
+
+---
+
+Visual RPG tree.
+
+Example:
+
+```text
+Meditation
+     ↓
+Deep Focus
+     ↓
+Mind Mastery
+```
+
+Locked nodes grayed.
+
+Unlocked glow.
+
+---
+
+Tap node:
+
+Shows:
+
+### reward
+
+### buff
+
+### requirements
+
+---
+
+# SCREEN 10 — LEVEL UP SCREEN
+
+Full-screen experience.
+
+Critical dopamine moment.
+
+---
+
+Animation:
+
+Glow explosion.
+
+Text:
+
+# LEVEL UP
+
+```text
+Level 13 Achieved
+```
+
+Rewards:
+
+* +100 coins
+* new title
+* cosmetic unlock
+
+Button:
+
+### Continue Journey
+
+---
+
+# SCREEN 11 — PROFILE
+
+---
+
+Sections:
+
+### Stats
+
+### Achievements
+
+### Titles
+
+### History
+
+### Avatar
+
+---
+
+Stats Radar Chart:
+
+* Focus
+* Strength
+* Wisdom
+* Vitality
+* Discipline
+
+---
+
+# SCREEN 12 — ANALYTICS
+
+---
+
+Cards:
+
+### Weekly Progress
+
+### Heatmap
+
+### XP Growth
+
+### Streak Trends
+
+### Habit Consistency
+
+---
+
+AI Insight:
+
+> You perform best before 9 PM.
+
+---
+
+# SCREEN 13 — LEADERBOARD
+
+---
+
+Tabs:
+
+### Friends
+
+### Local
+
+### Global
+
+### Guild
+
+---
+
+User Row:
+
+Avatar.
+
+Level.
+
+XP.
+
+Rank.
+
+---
+
+Top 3:
+
+Special styling.
+
+---
+
+# SCREEN 14 — GUILD
+
+---
+
+Sections:
+
+### Chat
+
+### Shared Challenges
+
+### Members
+
+### Guild Ranking
+
+---
+
+# SCREEN 15 — PREMIUM
+
+---
+
+Premium card.
+
+Messaging:
+
+```text
+Unlock Your Strongest Self
+```
+
+Features:
+
+* AI Coach
+* Advanced Analytics
+* Hard Mode
+* Skill Reset
+
+---
+
+CTA:
+
+### Upgrade to Premium
+
+---
+
+# 53. MICROINTERACTIONS
+
+Critical for retention.
+
+---
+
+Quest Complete
+
+Animation:
+XP flies upward.
+
+---
+
+Level Up
+
+Full-screen celebration.
+
+---
+
+Streak Milestone
+
+Fire burst.
+
+---
+
+Chest Opening
+
+Loot reveal.
+
+---
+
+Boss Defeat
+
+Epic cinematic.
+
+---
+
+# 54. MOBILE UX RULES
+
+Buttons:
+
+Minimum:
+
+```text
+44px
+```
+
+Thumb friendly.
+
+---
+
+Bottom-heavy layout.
+
+Most actions reachable one-handed.
+
+---
+
+Avoid:
+
+Tiny text.
+
+Complex forms.
+
+---
+
+# 55. RESPONSIVE STRATEGY
+
+Mobile:
+Primary.
+
+---
+
+Tablet:
+Grid layout.
+
+---
+
+Desktop:
+Dashboard layout.
+
+Sidebar enabled.
+
+---
+
+# FINAL BLUEPRINT STATUS
+
+Completed:
+
+✅ Product Vision
+✅ SRS
+✅ Functional Requirements
+✅ Technical Architecture
+✅ Database Design
+✅ API Contracts
+✅ Game Economy
+✅ Balancing System
+✅ Development Roadmap
+✅ UI/UX Blueprint
+
+Next:
+
+# **Production Angular Ionic Folder-by-Folder Coding Blueprint (exact implementation structure + component tree + first build setup)**
+
+# PHASE 6 — PRODUCTION ANGULAR IONIC CODING BLUEPRINT
+
+# **Ascend — Enter Arc Mode**
+
+This section converts architecture into an **actual implementation structure**.
+
+Goal:
+
+You should be able to start coding immediately.
+
+Optimized for:
+
+✅ Angular + Ionic best practices
+✅ scalable codebase
+✅ solo developer velocity
+✅ production-ready architecture
+
+---
+
+# 56. PROJECT INITIALIZATION
+
+## Step 1 — Create Ionic Angular App
+
+```bash
+npm install -g @ionic/cli
+```
+
+Create app:
+
+```bash
+ionic start ascend tabs --type=angular --capacitor --standalone
+```
+
+Reason:
+
+We want:
+
+✅ tabs navigation
+✅ standalone architecture
+✅ capacitor ready
+
+---
+
+## Step 2 — Install Core Dependencies
+
+### Firebase
+
+```bash
+npm install firebase @angular/fire
+```
+
+---
+
+### State Management
+
+```bash
+npm install rxjs
+```
+
+Signals are built-in.
+
+---
+
+### Charts
+
+```bash
+npm install apexcharts ng-apexcharts
+```
+
+---
+
+### Animations
+
+```bash
+npm install lottie-web ngx-lottie
+```
+
+---
+
+### Utilities
+
+```bash
+npm install dayjs uuid
+```
+
+---
+
+### Storage
+
+```bash
+npm install @ionic/storage-angular
+```
+
+Secure storage:
+
+```bash
+npm install @capacitor/preferences
+```
+
+---
+
+### Push Notifications
+
+```bash
+npm install @capacitor/push-notifications
+```
+
+---
+
+# 57. INITIAL PROJECT STRUCTURE
+
+Immediately restructure app.
+
+Do NOT use default Ionic structure.
+
+---
+
+## Final Structure
+
+```text
+src
+│
+├── app
+│
+├── core
+│   │
+│   ├── auth
+│   │   ├── firebase-auth.service.ts
+│   │   ├── auth.guard.ts
+│   │   └── auth.interceptor.ts
+│   │
+│   ├── services
+│   │
+│   ├── config
+│   │
+│   ├── constants
+│   │
+│   ├── utilities
+│   │
+│   └── animations
+│
+├── shared
+│   │
+│   ├── components
+│   │
+│   ├── ui
+│   │
+│   ├── models
+│   │
+│   ├── enums
+│   │
+│   ├── pipes
+│   │
+│   └── directives
+│
+├── features
+│
+│   ├── auth
+│   │
+│   ├── onboarding
+│   │
+│   ├── dashboard
+│   │
+│   ├── quests
+│   │
+│   ├── arc-mode
+│   │
+│   ├── xp
+│   │
+│   ├── streaks
+│   │
+│   ├── analytics
+│   │
+│   ├── profile
+│   │
+│   ├── premium
+│   │
+│   └── settings
+│
+├── layouts
+│
+├── state
+│
+└── app.routes.ts
+```
+
+---
+
+# 58. BUILD ORDER (CRITICAL)
+
+Never randomly code screens.
+
+Build dependency-first.
+
+---
+
+# PHASE A — FOUNDATION
+
+## Sprint 1
+
+### Goal
+
+App runs + auth works.
+
+Build:
+
+```text
+Firebase setup
+Theme setup
+Routing
+Bottom tabs
+Auth
+Guest mode
+```
+
+---
+
+## Folder Priority
+
+```text
+core/auth
+features/auth
+```
+
+---
+
+### Deliverable
+
+User can:
+
+✅ login
+✅ logout
+✅ continue as guest
+
+---
+
+# Sprint 2
+
+### Goal
+
+Onboarding complete.
+
+Build:
+
+```text
+Goal Selection
+Difficulty Selection
+Assessment
+Arc Recommendation
+```
+
+Folder:
+
+```text
+features/onboarding
+```
+
+---
+
+### Deliverable
+
+User reaches dashboard.
+
+---
+
+# Sprint 3
+
+### Goal
+
+Dashboard UI.
+
+Build:
+
+```text
+XP card
+streak card
+daily quests
+active arc
+```
+
+Folder:
+
+```text
+features/dashboard
+```
+
+---
+
+### Deliverable
+
+Home screen alive.
+
+---
+
+# Sprint 4
+
+### Goal
+
+Quest engine.
+
+Build:
+
+```text
+create quest
+edit quest
+complete quest
+XP reward
+```
+
+Folder:
+
+```text
+features/quests
+```
+
+---
+
+### Deliverable
+
+Core gameplay works.
+
+---
+
+# Sprint 5
+
+### Goal
+
+XP + leveling.
+
+Build:
+
+```text
+level logic
+XP animation
+milestones
+```
+
+Folder:
+
+```text
+features/xp
+```
+
+---
+
+# Sprint 6
+
+### Goal
+
+Streak system.
+
+Build:
+
+```text
+streak logic
+combo system
+comeback mode
+```
+
+---
+
+# Sprint 7
+
+### Goal
+
+Arc mode.
+
+Build:
+
+```text
+Monk Arc
+Warrior Arc
+Creator Arc
+progress system
+```
+
+---
+
+# Sprint 8
+
+### Goal
+
+Analytics.
+
+Build:
+
+```text
+heatmaps
+weekly summary
+graphs
+```
+
+---
+
+# 59. COMPONENT TREE
+
+---
+
+# Dashboard Page
+
+```text
+dashboard.page
+│
+├── header.component
+│
+├── xp-card.component
+│
+├── streak-card.component
+│
+├── stats-overview.component
+│
+├── active-arc.component
+│
+├── quest-list.component
+│
+│     └── quest-card.component
+│
+├── ai-widget.component
+│
+└── leaderboard-preview.component
+```
+
+---
+
+# Quest Module
+
+```text
+quests.page
+│
+├── daily-tab.component
+│
+├── weekly-tab.component
+│
+├── custom-tab.component
+│
+│
+└── quest-card.component
+```
+
+---
+
+# Arc Mode Module
+
+```text
+arc-mode.page
+│
+├── arc-banner.component
+│
+├── milestone-timeline.component
+│
+├── skill-tree-preview.component
+│
+├── boss-card.component
+│
+└── rewards-section.component
+```
+
+---
+
+# Profile Module
+
+```text
+profile.page
+│
+├── avatar-card.component
+│
+├── stats-radar.component
+│
+├── achievement-list.component
+│
+├── title-history.component
+│
+└── settings-shortcut.component
+```
+
+---
+
+# 60. REUSABLE UI COMPONENTS
+
+Build these early.
+
+Huge time saver.
+
+---
+
+## Core UI
+
+```text
+app-button
+app-card
+app-loader
+app-modal
+app-dialog
+app-badge
+app-progress
+```
+
+---
+
+## Game UI
+
+```text
+xp-progress-bar
+level-badge
+streak-flame
+reward-popup
+quest-card
+arc-card
+boss-card
+achievement-card
+```
+
+---
+
+# 61. STATE MANAGEMENT STRUCTURE
+
+---
+
+## User Store
+
+```ts
+user
+level
+premium
+avatar
+league
+```
+
+---
+
+## Quest Store
+
+```ts
+dailyQuests
+weeklyQuests
+completedQuests
+```
+
+---
+
+## XP Store
+
+```ts
+xp
+level
+history
+```
+
+---
+
+## Arc Store
+
+```ts
+currentArc
+progress
+milestones
+```
+
+---
+
+## Streak Store
+
+```ts
+streakDays
+comboMultiplier
+```
+
+---
+
+# Example Store
+
+```ts
+@Injectable()
+export class QuestStore {
+
+ quests = signal<Quest[]>([]);
+
+ completed = computed(() =>
+   this.quests().filter(q => q.done)
+ );
+
+ completeQuest(id: string){
+   this.quests.update(quests =>
+      quests.map(q =>
+         q.id === id
+         ? {...q, done: true}
+         : q
+      )
+   );
+ }
+}
+```
+
+---
+
+# 62. ROUTING STRUCTURE
+
+```ts
+/auth
+
+/onboarding
+
+/home
+
+/quests
+
+/arc-mode
+
+/analytics
+
+/profile
+
+/settings
+```
+
+---
+
+### Protected Routes
+
+Everything after login:
+
+```ts
+canActivate: [AuthGuard]
+```
+
+---
+
+# 63. ENVIRONMENT CONFIG
+
+---
+
+## environment.ts
+
+```ts
+export const environment = {
+
+ production: false,
+
+ firebase: {
+   apiKey: '',
+   authDomain: '',
+   projectId: '',
+   storageBucket: '',
+   messagingSenderId: '',
+   appId: ''
+ },
+
+ apiUrl:
+ 'http://localhost:8080/api/v1'
+};
+```
+
+---
+
+# 64. FIREBASE SETUP
+
+---
+
+## app.config.ts
+
+```ts
+provideFirebaseApp(
+ () => initializeApp(environment.firebase)
+),
+
+provideAuth(() => getAuth()),
+
+provideFirestore(() =>
+ getFirestore()
+)
+```
+
+---
+
+# 65. SPRING BOOT PROJECT STRUCTURE
+
+Create:
+
+```text
+com.ascend
+│
+├── auth
+├── user
+├── onboarding
+├── quest
+├── xp
+├── streak
+├── arc
+├── analytics
+├── notification
+└── common
+```
+
+---
+
+## Build Order
+
+### Week 1
+
+Auth module
+
+---
+
+### Week 2
+
+Quest module
+
+---
+
+### Week 3
+
+XP system
+
+---
+
+### Week 4
+
+Streak engine
+
+---
+
+### Week 5
+
+Arc progression
+
+---
+
+# 66. FIRST SCREEN TO BUILD
+
+Do NOT start with login.
+
+Start with:
+
+# Dashboard Mock UI
+
+Reason:
+
+Motivation.
+
+Visual progress.
+
+Then:
+
+Auth.
+
+Then:
+
+Backend.
+
+---
+
+### Recommended First Flow
+
+```text
+Splash
+ ↓
+Onboarding
+ ↓
+Dashboard
+ ↓
+Quest Complete
+ ↓
+XP Animation
+```
+
+If this loop feels addictive:
+
+You’re building correctly.
+
+---
+
+# 67. RECOMMENDED MVP SCREEN ORDER
+
+1. Splash
+2. Welcome
+3. Goal Selection
+4. Arc Recommendation
+5. Dashboard
+6. Quest Board
+7. Quest Completion
+8. XP Reward
+9. Streak Card
+10. Profile
+
+Build social later.
+
+---
+
+# FINAL STATUS
+
+You now have:
+
+✅ Product Blueprint
+✅ SRS
+✅ Functional Requirements
+✅ Technical Architecture
+✅ Database Design
+✅ APIs
+✅ Game Economy
+✅ UI/UX Blueprint
+✅ Coding Blueprint
+✅ Sprint Roadmap
+
+### Next Recommended Deliverable
+
+**Complete Database ER diagram + Angular component hierarchy diagram + system architecture diagram in visual form**, followed by **actual starter project scaffolding for Angular + Spring Boot**.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# **PHASE 2 — TECHNICAL ARCHITECTURE (Angular Ionic + Spring Boot + Firebase + DB + APIs)**
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

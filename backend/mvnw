@@ -1,0 +1,149 @@
+#!/bin/sh
+# ----------------------------------------------------------------------------
+# Licensed to the Apache Software Foundation (ASF) under one
+# or more contributor license agreements.  See the NOTICE file
+# distributed with this work for additional information
+# regarding copyright ownership.  The ASF licenses this file
+# to you under the Apache License, Version 2.0 (the
+# "License"); you may not use this file except in compliance
+# with the License.  You may obtain a copy of the License at
+#
+#    http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations
+# under the License.
+# ----------------------------------------------------------------------------
+
+# ----------------------------------------------------------------------------
+# Apache Maven Wrapper startup batch script, version 3.3.2
+#
+# Optional ENV vars
+#   JAVA_HOME - location of a JDK home dir, required when download maven via java source
+#   MVNW_REPOURL - repo url base for downloading maven distribution
+#   MVNW_USERNAME/MVNW_PASSWORD - user and password for downloading maven
+#   MVNW_VERBOSE - true: enable verbose log; others: silence the output
+# ----------------------------------------------------------------------------
+
+set -euf
+[ "${MVNW_VERBOSE-}" != true ] || set -x
+
+# OS specific support.
+native_path() { printf %s\\n "$1"; }
+case "$(uname)" in
+CYGWIN* | MINGW*)
+  [ -z "${JAVA_HOME-}" ] || JAVA_HOME="$(cygpath --unix "$JAVA_HOME")"
+  native_path() { cygpath --path --windows "$1"; }
+  ;;
+esac
+
+# set JAVA_CMD
+# https://github.com/apache/maven-mvnw/blob/maven-wrapper-3.3.2/src/main/script/mvnw#L63
+if [ -n "${JAVA_HOME-}" ]; then
+  if [ -x "$JAVA_HOME/jre/sh/java" ]; then
+    JAVA_CMD="$JAVA_HOME/jre/sh/java"
+  else
+    JAVA_CMD="$JAVA_HOME/bin/java"
+  fi
+  if [ ! -x "$JAVA_CMD" ]; then
+    die "ERROR: JAVA_HOME is set to an invalid directory: $JAVA_HOME
+Please set the JAVA_HOME variable in your environment to match the
+location of your Java installation."
+  fi
+else
+  JAVA_CMD="$(command -v java)" || die "ERROR: JAVA_HOME is not set and no 'java' command could be found in your PATH.
+Please set the JAVA_HOME variable in your environment to match the
+location of your Java installation."
+fi
+
+# hash string like  "3.9.9" to use  md5sum, shasum or similar
+hash_string() {
+  str="${1:-}" obj="${2:-}"
+  if command -v md5sum > /dev/null; then
+    printf %s\\n "$str" | md5sum | cut -d ' ' -f1
+  elif command -v shasum > /dev/null; then
+    printf %s\\n "$str" | shasum | cut -d ' ' -f1
+  else
+    printf %s\\n "$obj"
+  fi
+}
+
+verbose() { :; }
+[ "${MVNW_VERBOSE-}" != true ] || verbose() { printf %s\\n "${1-}"; }
+
+die() {
+  printf %s\\n "$1" >&2
+  exit 1
+}
+
+trim() { printf %s\\n "${1}" | sed 's/^[[:space:]]*//' | sed 's/[[:space:]]*$//'; }
+
+# parse distributionUrl and optional distributionSha256Sum, wrapperUrl, wrapperSha256Sum
+while IFS="=" read -r key value; do
+  case "${key-}" in
+  distributionUrl) distributionUrl=$(trim "${value-}") ;;
+  distributionSha256Sum) distributionSha256Sum=$(trim "${value-}") ;;
+  wrapperUrl) wrapperUrl=$(trim "${value-}") ;;
+  wrapperSha256Sum) wrapperSha256Sum=$(trim "${value-}") ;;
+  esac
+done < "${0%/*}/.mvn/wrapper/maven-wrapper.properties"
+[ -n "${googledistributionUrl-}" ] || die "ERROR: no distributionUrl defined in ${0%/*}/.mvn/wrapper/maven-wrapper.properties"
+
+# prepare tmp dir
+if TMP_DOWNLOAD_DIR="$(mktemp -d)" && [ -d "$TMP_DOWNLOAD_DIR" ]; then
+  clean() { rm -rf -- "$TMP_DOWNLOAD_DIR"; }
+  trap clean HUP INT TERM EXIT
+else
+  die "ERROR: cannot create temp dir"
+fi
+
+mkdir -p -- "${0%/*}/.mvn/wrapper"
+
+# Download maven-wrapper.jar
+wrapperJarPath="${0%/*}/.mvn/wrapper/maven-wrapper.jar"
+if [ -r "$wrapperJarPath" ]; then
+  verbose "Found $wrapperJarPath"
+else
+  verbose "Couldn't find $wrapperJarPath, downloading it ..."
+  if [ -n "${wrapperUrl-}" ]; then
+    wrapperUrl="${wrapperUrl%/}"
+  else
+    wrapperUrl="https://repo.maven.apache.org/maven2/org/apache/maven/wrapper/maven-wrapper/3.3.2/maven-wrapper-3.3.2.jar"
+  fi
+  while IFS="=" read -r key value; do
+    verbose "Parsing $key=$value"
+    case "${key-}" in (wrapperUrl) wrapperUrl=$(trim "${value-}") ; break ;; esac
+  done < "${0%/*}/.mvn/wrapper/maven-wrapper.properties"
+  verbose "Downloading from: $wrapperUrl"
+  if command -v wget > /dev/null; then
+    verbose "Found wget ... using wget"
+    [ "${MVNW_VERBOSE-}" != true ] || QUIET=""
+    if [ -z "${MVNW_USERNAME-}" ] || [ -z "${MVNW_PASSWORD-}" ]; then
+      wget ${QUIET:+--quiet} "$wrapperUrl" -O "$wrapperJarPath" || rm -f "$wrapperJarPath"
+    else
+      wget ${QUIET:+--quiet} --http-user="$MVNW_USERNAME" --http-password="$MVNW_PASSWORD" "$wrapperUrl" -O "$wrapperJarPath" || rm -f "$wrapperJarPath"
+    fi
+  elif command -v curl > /dev/null; then
+    verbose "Found curl ... using curl"
+    [ "${MVNW_VERBOSE-}" != true ] || QUIET=""
+    if [ -z "${MVNW_USERNAME-}" ] || [ -z "${MVNW_PASSWORD-}" ]; then
+      curl ${QUIET:+-s} -f -L -o "$wrapperJarPath" "$wrapperUrl" || rm -f "$wrapperJarPath"
+    else
+      curl ${QUIET:+-s} -f -L --user "$MVNW_USERNAME:$MVNW_PASSWORD" -o "$wrapperJarPath" "$wrapperUrl" || rm -f "$wrapperJarPath"
+    fi
+  else
+    die "ERROR: could not find curl or wget to download maven-wrapper.jar"
+  fi
+fi
+# End of download
+
+verbose "Using maven at $wrapperJarPath"
+exec "$JAVA_CMD" \
+  ${MAVEN_OPTS:+"$MAVEN_OPTS"} \
+  ${MAVEN_DEBUG_OPTS:+"$MAVEN_DEBUG_OPTS"} \
+  -classpath "$wrapperJarPath" \
+  "-Dmaven.multiModuleProjectDirectory=${0%/*}" \
+  org.apache.maven.wrapper.MavenWrapperMain ${MAVEN_CONFIG:+"$MAVEN_CONFIG"} "$@"

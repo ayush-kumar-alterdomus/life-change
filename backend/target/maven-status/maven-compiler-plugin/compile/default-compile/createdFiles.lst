@@ -1,0 +1,10 @@
+com\ascend\AscendApplication.class
+com\ascend\common\exception\BusinessException.class
+com\ascend\common\dto\ApiResponse.class
+com\ascend\common\config\RedisConfig.class
+com\ascend\common\config\WebSocketConfig.class
+com\ascend\common\dto\ApiResponse$ApiResponseBuilder.class
+com\ascend\common\exception\GlobalExceptionHandler.class
+com\ascend\auth\config\SecurityConfig.class
+com\ascend\common\constants\AppConstants.class
+com\ascend\common\config\CorsConfig.class
