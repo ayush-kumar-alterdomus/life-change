@@ -14,7 +14,6 @@ import com.ascend.user.repository.UserRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseToken;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -25,20 +24,13 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.http.MediaType;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -183,7 +175,8 @@ class AuthControllerTest {
             mockMvc.perform(post("/api/v1/auth/login")
                             .contentType(MediaType.APPLICATION_JSON)
                             .content(objectMapper.writeValueAsString(request)))
-                    .andExpect(status().isBadRequest());
+                    .andExpect(status().isBadRequest())
+                    .andExpect(jsonPath("$.success").value(false));
         }
 
         @Test
@@ -201,6 +194,7 @@ class AuthControllerTest {
                     "firebase", Map.of("sign_in_provider", "google.com")
             ));
             when(firebaseTokenService.verifyToken(anyString())).thenReturn(mockToken);
+            when(firebaseTokenService.getProvider(mockToken)).thenReturn("google.com");
 
             // Act & Assert
             mockMvc.perform(get("/api/v1/auth/me")
@@ -242,7 +236,7 @@ class AuthControllerTest {
 
             LoginRequest request = new LoginRequest(VALID_TOKEN);
 
-            // Act & Assert
+            // Act & Assert - login is a public endpoint, so the controller handles the exception
             mockMvc.perform(post("/api/v1/auth/login")
                             .contentType(MediaType.APPLICATION_JSON)
                             .content(objectMapper.writeValueAsString(request)))
@@ -251,19 +245,19 @@ class AuthControllerTest {
         }
 
         @Test
-        @DisplayName("Request without Authorization header to protected endpoint returns 403")
-        void request_noAuthHeader_returnsForbidden() throws Exception {
+        @DisplayName("Request without Authorization header to protected endpoint returns 401")
+        void request_noAuthHeader_returnsUnauthorized() throws Exception {
             mockMvc.perform(get("/api/v1/auth/me"))
-                    .andExpect(status().isForbidden());
+                    .andExpect(status().isUnauthorized());
         }
 
         @Test
-        @DisplayName("Request with malformed Bearer token to protected endpoint returns 403")
-        void request_malformedToken_returnsForbidden() throws Exception {
+        @DisplayName("Request with malformed Bearer token to protected endpoint returns 401")
+        void request_malformedToken_returnsUnauthorized() throws Exception {
             // Token too short (below MIN_TOKEN_LENGTH of 100) - filter skips verification
             mockMvc.perform(get("/api/v1/auth/me")
                             .header("Authorization", "Bearer short-token"))
-                    .andExpect(status().isForbidden());
+                    .andExpect(status().isUnauthorized());
         }
 
         @Test
@@ -310,12 +304,12 @@ class AuthControllerTest {
                     "firebase", Map.of("sign_in_provider", "google.com")
             ));
             when(firebaseTokenService.verifyToken(anyString())).thenReturn(mockToken);
+            when(firebaseTokenService.getProvider(mockToken)).thenReturn("google.com");
 
-            // Act & Assert - try to access an admin endpoint (any non-public endpoint requires auth)
-            // The user is authenticated but with USER role only
+            // Act & Assert - endpoint doesn't exist in this WebMvcTest context, returns 404 after auth passes
             mockMvc.perform(get("/api/v1/admin/users")
                             .header("Authorization", "Bearer " + VALID_TOKEN))
-                    .andExpect(status().isNotFound()); // 404 because endpoint doesn't exist, but auth passed
+                    .andExpect(status().isNotFound());
         }
 
         @Test
@@ -333,6 +327,7 @@ class AuthControllerTest {
                     "firebase", Map.of("sign_in_provider", "google.com")
             ));
             when(firebaseTokenService.verifyToken(anyString())).thenReturn(mockToken);
+            when(firebaseTokenService.getProvider(mockToken)).thenReturn("google.com");
 
             // Act & Assert
             mockMvc.perform(get("/api/v1/auth/me")
@@ -345,7 +340,7 @@ class AuthControllerTest {
         @DisplayName("Unauthenticated user cannot access protected endpoints")
         void unauthenticatedUser_cannotAccessProtected() throws Exception {
             mockMvc.perform(get("/api/v1/auth/me"))
-                    .andExpect(status().isForbidden());
+                    .andExpect(status().isUnauthorized());
         }
     }
 }

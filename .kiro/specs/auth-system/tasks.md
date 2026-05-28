@@ -92,7 +92,7 @@ Firebase authentication integration with Spring Boot backend. Covers JWT validat
     - Create `GuestRestrictionAspect.java` or middleware that blocks: leaderboard access, guild features, cloud sync for guest users
     - Add `is_guest` boolean to users table (migration `V21__add_guest_flag.sql`)
 
-- [-] 8. Checkpoint - Verify auth system
+- [x] 8. Checkpoint - Verify auth system
   - Test login flow with Firebase ID token (mock in integration test)
   - Test JWT validation rejects expired/invalid tokens
   - Test RBAC blocks unauthorized access
