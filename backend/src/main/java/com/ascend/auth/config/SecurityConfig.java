@@ -3,6 +3,7 @@ package com.ascend.auth.config;
 import com.ascend.auth.service.FirebaseTokenService;
 import com.ascend.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -23,6 +24,7 @@ import java.util.stream.Stream;
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
+@ConditionalOnProperty(name = "firebase.enabled", havingValue = "true")
 public class SecurityConfig {
 
     /** Exact-match public paths (no sub-path access needed). */

@@ -6,28 +6,28 @@ XP calculation, award, daily cap enforcement, level-up detection, prestige syste
 
 ## Tasks
 
-- [ ] 1. Create XP calculation pure functions
-  - [ ] 1.1 Create XpCalculator
+- [x] 1. Create XP calculation pure functions
+  - [x] 1.1 Create XpCalculator
     - Create `XpCalculator.java` in `xp/service/`
     - Pure static method: `calculateFinalXp(int baseXp, QuestDifficulty difficulty, double streakMultiplier, double arcMultiplier, int bonusXp)`
     - Formula: FinalXP = BaseXP × DifficultyMultiplier × StreakMultiplier × ArcMultiplier + BonusXP
     - Difficulty multipliers: EASY=1.0, MEDIUM=1.5, HARD=2.0, LEGENDARY=3.0
     - All inputs validated (no negatives, multipliers >= 1.0)
     - Returns integer (floor)
-  - [ ] 1.2 Create ComboCalculator
+  - [x] 1.2 Create ComboCalculator
     - Create `ComboCalculator.java` in `xp/service/`
     - Pure static method: `calculateComboMultiplier(int streakDays)`
     - Formula: min(1 + 0.01 × streakDays, 2.0)
     - Input: non-negative integer
     - Output: double in range [1.0, 2.0]
-  - [ ] 1.3 Create LevelCalculator
+  - [x] 1.3 Create LevelCalculator
     - Create `LevelCalculator.java` in `xp/service/`
     - Pure static method: `xpRequiredForLevel(int level)` — returns floor(100 × level^1.5)
     - Pure static method: `calculateLevel(long totalXp)` — returns highest level where cumulative XP requirement <= totalXp
     - Pure static method: `xpToNextLevel(int currentLevel, long totalXp)` — returns remaining XP needed
 
-- [ ] 2. Implement XP award service
-  - [ ] 2.1 Create XpService
+- [x] 2. Implement XP award service
+  - [x] 2.1 Create XpService
     - Create `XpService.java` in `xp/service/`
     - `awardXp(UUID userId, QuestCompletedEvent event)`:
       1. Fetch user's current streak (for combo multiplier)
@@ -41,11 +41,11 @@ XP calculation, award, daily cap enforcement, level-up detection, prestige syste
       9. Publish XpAwardedEvent
     - `getDailyXpEarned(UUID userId)` — sum today's xp_history for cap checking
     - `getDailyCap(int level)` — returns 1000 + (level × 20)
-  - [ ] 2.2 Create XpAwardedEvent
+  - [x] 2.2 Create XpAwardedEvent
     - Create `XpAwardedEvent.java` in `xp/event/`
     - Fields: userId, xpAmount, newTotalXp, newLevel, statType, source
     - Published after every XP award for leaderboard and analytics consumption
-  - [ ] 2.3 Create QuestCompletedEvent listener
+  - [x] 2.3 Create QuestCompletedEvent listener
     - Create `XpEventListener.java` in `xp/event/`
     - Listen for `QuestCompletedEvent`
     - Call `XpService.awardXp()` with event data

@@ -1,10 +1,10 @@
-import { Component, signal } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import {
-  IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonInput,
-  IonItem, IonList, IonText, IonIcon, IonNote, IonCard, IonCardContent
+  IonContent, IonButton, IonInput, IonItem, IonList, IonText,
+  IonIcon, IonNote
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { logoGoogle, personOutline, mailOutline, lockClosedOutline } from 'ionicons/icons';
@@ -12,10 +12,10 @@ import { logoGoogle, personOutline, mailOutline, lockClosedOutline } from 'ionic
 @Component({
   selector: 'app-login',
   standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [
-    CommonModule, FormsModule, IonContent, IonHeader, IonTitle, IonToolbar,
-    IonButton, IonInput, IonItem, IonList, IonText, IonIcon, IonNote,
-    IonCard, IonCardContent
+    CommonModule, FormsModule, RouterModule, IonContent,
+    IonButton, IonInput, IonItem, IonList, IonText, IonIcon, IonNote
   ],
   template: `
     <ion-content class="ion-padding">
@@ -76,7 +76,6 @@ import { logoGoogle, personOutline, mailOutline, lockClosedOutline } from 'ionic
           <p>Don't have an account? <a routerLink="/auth/signup">Sign Up</a></p>
         </ion-text>
 
-        <!-- Dev mode notice -->
         <ion-note color="warning" class="dev-notice">
           🛠️ Dev Mode: Firebase not configured. Use "Continue as Guest" to explore the app.
         </ion-note>
@@ -128,7 +127,6 @@ export class LoginPage {
   }
 
   continueAsGuest() {
-    // Skip auth and go directly to the app
     this.router.navigate(['/tabs/home']);
   }
 }

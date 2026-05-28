@@ -6,11 +6,13 @@ import {
   IonButtons, IonItem, IonLabel, IonInput, IonTextarea, IonSelect,
   IonSelectOption, IonList, IonNote
 } from '@ionic/angular/standalone';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { QuestService, CreateQuestRequest } from '../services/quest.service';
 
 @Component({
   selector: 'app-create-quest-modal',
   standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [
     CommonModule, FormsModule, IonModal, IonHeader, IonToolbar, IonTitle,
     IonContent, IonButton, IonButtons, IonItem, IonLabel, IonInput,
