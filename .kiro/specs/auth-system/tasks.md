@@ -77,7 +77,7 @@ Firebase authentication integration with Spring Boot backend. Covers JWT validat
     - Return 429 Too Many Requests with `Retry-After` header when exceeded
     - Log rate limit violations to security event log
 
-- [ ] 6. Implement security event logging
+- [-] 6. Implement security event logging
   - [ ] 6.1 Create security audit logging
     - Create `security_events` table migration (`V20__create_security_events_table.sql`)
     - Columns: id, user_id, event_type, ip_address, details (JSONB), created_at

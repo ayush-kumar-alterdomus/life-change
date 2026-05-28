@@ -73,7 +73,8 @@ echo.
 goto error
 
 :run
-"%JAVA_EXE%" -classpath "%WRAPPER_JAR%" "-Dmaven.multiModuleProjectDirectory=%CD%" org.apache.maven.wrapper.MavenWrapperMain %MAVEN_CMD_LINE_ARGS%
+set "WRAPPER_DIR_NOSLASH=%WRAPPER_DIR:~0,-1%"
+"%JAVA_EXE%" -classpath "%WRAPPER_JAR%" "-Dmaven.multiModuleProjectDirectory=%WRAPPER_DIR_NOSLASH%" org.apache.maven.wrapper.MavenWrapperMain %MAVEN_CMD_LINE_ARGS%
 
 
 if ERRORLEVEL 1 goto error

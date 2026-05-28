@@ -59,7 +59,7 @@ public class RateLimitFilter extends OncePerRequestFilter {
             log.warn("Rate limit exceeded: bucket={}, client={}, path={}",
                     matchedBucket.getName(), clientKey, requestPath);
 
-            response.setStatus(HttpServletResponse.SC_TOO_MANY_REQUESTS);
+            response.setStatus(429);
             response.setHeader("Retry-After", String.valueOf(matchedBucket.getWindowSeconds()));
             response.setContentType("application/json");
             response.getWriter().write(
