@@ -165,7 +165,7 @@ docker-compose up -d
 
 ```bash
 cd backend
-./mvnw spring-boot:run -Dspring-boot.run.profiles=dev,local
+mvnw.cmd spring-boot:run -Dspring-boot.run.profiles=dev,local
 ```
 
 ### 3. Run the frontend with local config
