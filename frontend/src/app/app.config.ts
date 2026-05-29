@@ -20,6 +20,8 @@ import {
 import { environment } from '../environments/environment';
 import { routes } from './app.routes';
 import { authInterceptor } from '../core/interceptors/auth.interceptor';
+import { loadingInterceptor } from '../core/interceptors/loading.interceptor';
+import { retryInterceptor } from '../core/interceptors/retry.interceptor';
 import { errorInterceptor } from '../core/interceptors/error.interceptor';
 
 export const appConfig: ApplicationConfig = {
@@ -47,7 +49,7 @@ export const appConfig: ApplicationConfig = {
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     provideIonicAngular({ mode: 'md' }),
     provideRouter(routes, withPreloading(PreloadAllModules)),
-    provideHttpClient(withInterceptors([authInterceptor, errorInterceptor])),
+    provideHttpClient(withInterceptors([authInterceptor, loadingInterceptor, retryInterceptor, errorInterceptor])),
     provideAnimations(),
   ],
 };

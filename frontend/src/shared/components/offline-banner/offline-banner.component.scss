@@ -1,0 +1,36 @@
+.offline-banner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  text-align: center;
+  pointer-events: none;
+  transform: translateY(-100%);
+  transition: transform 300ms ease-in-out;
+
+  // Non-intrusive: no overlay, no pointer-events blocking on content below
+  &--visible {
+    transform: translateY(0);
+  }
+
+  &--offline {
+    background-color: #f59e0b; // Amber/warning
+    color: #1a1a1a;
+  }
+
+  &--back-online {
+    background-color: #10b981; // Green/success
+    color: #ffffff;
+  }
+
+  &__message {
+    line-height: 1.4;
+  }
+}

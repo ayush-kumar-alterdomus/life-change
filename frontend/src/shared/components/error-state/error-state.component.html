@@ -1,0 +1,23 @@
+<!-- Skeleton loader shown during retry -->
+@if (retrying()) {
+  <div class="error-state__skeleton">
+    <app-skeleton-loader shape="circle" width="64px" height="64px" />
+    <app-skeleton-loader shape="text-line" width="80%" height="16px" />
+    <app-skeleton-loader shape="rectangle" width="140px" height="40px" borderRadius="8px" />
+  </div>
+} @else {
+  <!-- Error state with icon, message, and retry button -->
+  <div class="error-state">
+    <ion-icon [name]="icon()" class="error-state__icon" aria-hidden="true"></ion-icon>
+    <p class="error-state__message">{{ displayMessage() }}</p>
+    <ion-button
+      class="error-state__button"
+      fill="outline"
+      size="default"
+      [disabled]="buttonDisabled()"
+      (click)="onRetry()"
+    >
+      Try Again
+    </ion-button>
+  </div>
+}

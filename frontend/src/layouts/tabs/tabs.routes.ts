@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { TabsPage } from './tabs.page';
+import { premiumGuard } from '../../core/auth/premium.guard';
 
 export const TABS_ROUTES: Routes = [
   {
@@ -30,6 +31,20 @@ export const TABS_ROUTES: Routes = [
         path: 'profile',
         loadChildren: () =>
           import('../../features/profile/profile.routes').then((m) => m.PROFILE_ROUTES),
+      },
+      {
+        path: 'ai-coach',
+        canActivate: [premiumGuard],
+        data: { featureName: 'AI Coach' },
+        loadChildren: () =>
+          import('../../features/ai-coach/ai-coach.routes').then((m) => m.AI_COACH_ROUTES),
+      },
+      {
+        path: 'analytics',
+        canActivate: [premiumGuard],
+        data: { featureName: 'Advanced Analytics' },
+        loadChildren: () =>
+          import('../../features/analytics/analytics.routes').then((m) => m.ANALYTICS_ROUTES),
       },
       {
         path: '',

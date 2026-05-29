@@ -1,10 +1,11 @@
 import { Routes } from '@angular/router';
 import { authGuard } from '../core/auth/auth.guard';
+import { onboardingGuard } from '../core/auth/onboarding.guard';
 
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'tabs',
+    redirectTo: 'tabs/home',
     pathMatch: 'full',
   },
   {
@@ -18,7 +19,11 @@ export const routes: Routes = [
   },
   {
     path: 'tabs',
-    canActivate: [authGuard],
+    canActivate: [authGuard, onboardingGuard],
     loadChildren: () => import('../layouts/tabs/tabs.routes').then((m) => m.TABS_ROUTES),
+  },
+  {
+    path: '**',
+    redirectTo: 'tabs/home',
   },
 ];

@@ -1,0 +1,28 @@
+<ion-tabs (ionTabsDidChange)="onTabChange($event)">
+  <ion-tab-bar slot="bottom">
+    <ion-tab-button tab="home" (click)="onTabButtonClick('home')">
+      <ion-icon [name]="activeTab === 'home' ? 'home' : 'home-outline'"></ion-icon>
+      <ion-label>Home</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="quests" (click)="onTabButtonClick('quests')">
+      <ion-icon [name]="activeTab === 'quests' ? 'list' : 'list-outline'"></ion-icon>
+      <ion-label>Quests</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="arc-mode" (click)="onTabButtonClick('arc-mode')">
+      <ion-icon [name]="activeTab === 'arc-mode' ? 'flame' : 'flame-outline'"></ion-icon>
+      <ion-label>Arc Mode</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="social" (click)="onTabButtonClick('social')">
+      <ion-icon [name]="activeTab === 'social' ? 'people' : 'people-outline'"></ion-icon>
+      <ion-label>Social</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="profile" (click)="onTabButtonClick('profile')">
+      <ion-icon [name]="activeTab === 'profile' ? 'person' : 'person-outline'"></ion-icon>
+      <ion-label>Profile</ion-label>
+    </ion-tab-button>
+  </ion-tab-bar>
+</ion-tabs>

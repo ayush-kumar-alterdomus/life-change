@@ -71,8 +71,8 @@ This plan implements the foundational infrastructure layer of the Ascend app: ro
 - [ ] 3. Checkpoint - Ensure all services compile and pass tests
   - Ensure all tests pass, ask the user if questions arise.
 
-- [-] 4. Implement route guards (Auth, Onboarding, Premium)
-  - [-] 4.1 Implement authGuard with Firebase Auth observable and timeout
+- [x] 4. Implement route guards (Auth, Onboarding, Premium)
+  - [x] 4.1 Implement authGuard with Firebase Auth observable and timeout
     - Update `src/core/auth/auth.guard.ts`
     - Subscribe to Firebase Auth `onAuthStateChanged` via @angular/fire
     - Wait for first emission with 5-second timeout
@@ -85,7 +85,7 @@ This plan implements the foundational infrastructure layer of the Ascend app: ro
     - **Property 1: Auth guard stores return URL** — For any valid route URL attempted by unauthenticated user, the guard stores that exact URL and redirects to `/auth/login`
     - **Validates: Requirements 3.1**
 
-  - [-] 4.3 Implement onboardingGuard with dual-source check
+  - [x] 4.3 Implement onboardingGuard with dual-source check
     - Update `src/core/auth/onboarding.guard.ts`
     - Check Capacitor Preferences (`onboarding_complete`) first via StorageService
     - Fall back to user profile onboarding status if preference not `true`
@@ -93,7 +93,7 @@ This plan implements the foundational infrastructure layer of the Ascend app: ro
     - Apply as `canActivate` on the `tabs` route
     - _Requirements: 5.1, 5.2, 5.3, 5.4, 5.5, 5.6_
 
-  - [-] 4.4 Implement premiumGuard with UserStore signal check
+  - [x] 4.4 Implement premiumGuard with UserStore signal check
     - Update `src/core/auth/premium.guard.ts`
     - Read `premiumStatus` from UserStore signal
     - Redirect to premium upgrade page if not premium or user is null/undefined
@@ -107,8 +107,8 @@ This plan implements the foundational infrastructure layer of the Ascend app: ro
     - Test premium guard boolean logic and null user handling
     - _Requirements: 3.1–3.6, 4.1–4.6, 5.1–5.6_
 
-- [ ] 5. Implement HTTP interceptors (Auth, Loading, Retry, Error)
-  - [ ] 5.1 Implement authInterceptor with token refresh and request queuing
+- [-] 5. Implement HTTP interceptors (Auth, Loading, Retry, Error)
+  - [x] 5.1 Implement authInterceptor with token refresh and request queuing
     - Update `src/core/interceptors/auth.interceptor.ts`
     - Attach Bearer token only for requests starting with `environment.apiUrl`
     - Force-refresh token when less than 5 minutes to expiry
@@ -121,7 +121,7 @@ This plan implements the foundational infrastructure layer of the Ascend app: ro
     - **Property 3: Auth interceptor passes through non-API URLs** — For any request URL NOT starting with `environment.apiUrl`, forwards without modifying Authorization header
     - **Validates: Requirements 6.1, 6.2**
 
-  - [ ] 5.3 Implement loadingInterceptor with counter management
+  - [x] 5.3 Implement loadingInterceptor with counter management
     - Create `src/core/interceptors/loading.interceptor.ts`
     - Increment LoadingService counter on request start (unless SKIP_LOADING token)
     - Decrement on request complete (success, error, or cancellation)
@@ -134,7 +134,7 @@ This plan implements the foundational infrastructure layer of the Ascend app: ro
     - **Property 8: Loading counter ignores skip-loading requests** — For any request with SKIP_LOADING token, counter remains unchanged
     - **Validates: Requirements 8.1, 8.2, 8.7**
 
-  - [ ] 5.5 Implement retryInterceptor with exponential backoff
+  - [x] 5.5 Implement retryInterceptor with exponential backoff
     - Create `src/core/interceptors/retry.interceptor.ts`
     - Retry up to 3 times with 1000ms, 2000ms, 4000ms delays for transient failures
     - Respect Retry-After header for 429 responses (clamped to 60s max)
@@ -150,7 +150,7 @@ This plan implements the foundational infrastructure layer of the Ascend app: ro
     - **Property 12: No retry for non-idempotent requests without retryable token** — For any POST/PUT/PATCH without RETRYABLE token, no retry regardless of error
     - **Validates: Requirements 9.1, 9.2, 9.3, 9.4**
 
-  - [ ] 5.7 Implement errorInterceptor with toast notifications and 401 logout
+  - [x] 5.7 Implement errorInterceptor with toast notifications and 401 logout
     - Update `src/core/interceptors/error.interceptor.ts`
     - Handle 401: clear Firebase Auth, reset UserStore, navigate to login, re-throw
     - Handle 403: show "insufficient permissions" toast (3000ms), re-throw
@@ -169,8 +169,8 @@ This plan implements the foundational infrastructure layer of the Ascend app: ro
 - [ ] 6. Checkpoint - Ensure all interceptors and guards compile and pass tests
   - Ensure all tests pass, ask the user if questions arise.
 
-- [ ] 7. Implement shared UI components (Skeleton Loader, Error State, Offline Banner)
-  - [ ] 7.1 Implement SkeletonLoaderComponent
+- [x] 7. Implement shared UI components (Skeleton Loader, Error State, Offline Banner)
+  - [x] 7.1 Implement SkeletonLoaderComponent
     - Create `src/shared/components/skeleton-loader/skeleton-loader.component.ts` and `.scss`
     - Support `shape` (rectangle, circle, text-line), `width`, `height`, `borderRadius` inputs
     - Implement shimmer animation via CSS keyframes (1-2s cycle)
@@ -183,7 +183,7 @@ This plan implements the foundational infrastructure layer of the Ascend app: ro
     - **Property 13: Skeleton loader dimension handling** — For any dimension input, renders with provided value if valid positive, or falls back to defaults if zero/negative/invalid
     - **Validates: Requirements 12.2, 12.7**
 
-  - [ ] 7.3 Implement ErrorStateComponent with retry functionality
+  - [x] 7.3 Implement ErrorStateComponent with retry functionality
     - Create `src/shared/components/error-state/error-state.component.ts` and `.scss`
     - Accept `message` input (max 150 chars displayed, truncated if longer) and `icon` input
     - Emit `retry` event via @Output() on "Try Again" button tap
@@ -197,7 +197,7 @@ This plan implements the foundational infrastructure layer of the Ascend app: ro
     - **Property 14: Error state message truncation** — For any message string, displayed text is at most 150 characters; longer inputs are truncated
     - **Validates: Requirements 13.3**
 
-  - [ ] 7.5 Implement OfflineBannerComponent with connectivity transitions
+  - [x] 7.5 Implement OfflineBannerComponent with connectivity transitions
     - Create `src/shared/components/offline-banner/offline-banner.component.ts` and `.scss`
     - Inject ConnectivityService, show amber banner when offline
     - Show "Back online" green banner on reconnection, auto-dismiss after 3 seconds
@@ -212,30 +212,30 @@ This plan implements the foundational infrastructure layer of the Ascend app: ro
     - Test offline banner visibility transitions and auto-dismiss timing
     - _Requirements: 11.1–11.7, 12.1–12.7, 13.1–13.8_
 
-- [ ] 8. Wire routing, guards, interceptors, and shell together
-  - [ ] 8.1 Update app.routes.ts with guards and wildcard redirect
+- [x] 8. Wire routing, guards, interceptors, and shell together
+  - [x] 8.1 Update app.routes.ts with guards and wildcard redirect
     - Add `authGuard` and `onboardingGuard` as `canActivate` on the `tabs` route
     - Update root redirect from `tabs` to `tabs/home`
     - Add wildcard route (`**`) redirecting to `/tabs/home`
     - _Requirements: 1.1, 1.4, 3.5, 5.6_
 
-  - [ ] 8.2 Update tabs.routes.ts with premium guard on specific child routes
+  - [x] 8.2 Update tabs.routes.ts with premium guard on specific child routes
     - Apply `premiumGuard` to AI Coach and advanced analytics child routes
     - Ensure all child routes use `loadChildren` with dynamic `import()` for separate chunks
     - _Requirements: 1.3, 1.6, 4.4_
 
-  - [ ] 8.3 Update app.config.ts with full interceptor pipeline and Firebase providers
+  - [x] 8.3 Update app.config.ts with full interceptor pipeline and Firebase providers
     - Register interceptors in order: authInterceptor, loadingInterceptor, retryInterceptor, errorInterceptor
     - Ensure Firebase providers are registered before router and HTTP providers
     - Register `PreloadAllModules` strategy (already present, verify)
     - _Requirements: 1.5, 10.6_
 
-  - [ ] 8.4 Update app.component.ts to include OfflineBannerComponent
+  - [x] 8.4 Update app.component.ts to include OfflineBannerComponent
     - Add `<app-offline-banner>` above `<ion-router-outlet>` in template
     - Import OfflineBannerComponent in component imports array
     - _Requirements: 11.6_
 
-  - [ ] 8.5 Update TabsPage with active tab styling and tap-to-root/scroll behavior
+  - [x] 8.5 Update TabsPage with active tab styling and tap-to-root/scroll behavior
     - Implement filled icon variant for active tab with primary accent color
     - Implement tap-on-active-tab: pop to root if stack > 1, scroll to top if at root
     - Ensure 48x48 CSS pixel minimum touch targets
@@ -252,6 +252,7 @@ This plan implements the foundational infrastructure layer of the Ascend app: ro
 
 ## Notes
 
+- **IMPORTANT: Do NOT run any terminal commands (npm, ng, npx, etc.). Only create or update files directly.**
 - Tasks marked with `*` are optional and can be skipped for faster MVP
 - Each task references specific requirements for traceability
 - Checkpoints ensure incremental validation

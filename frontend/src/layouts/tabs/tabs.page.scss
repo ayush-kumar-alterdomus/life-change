@@ -1,0 +1,38 @@
+// Tabs page styling for bottom tab navigation
+// Implements Requirements 2.2, 2.5, 2.6
+
+// Ensure minimum 48x48 CSS pixel touch targets (Req 2.5)
+ion-tab-bar {
+  --background: var(--ion-tab-bar-background, var(--ion-color-step-50, #f7f7f7));
+
+  ion-tab-button {
+    min-width: 48px;
+    min-height: 48px;
+
+    // Active tab styling: filled icon + primary accent color (Req 2.2)
+    &.tab-selected {
+      --color-selected: var(--ion-color-primary, #3880ff);
+
+      ion-icon {
+        color: var(--ion-color-primary, #3880ff);
+      }
+
+      ion-label {
+        color: var(--ion-color-primary, #3880ff);
+        font-weight: 600;
+      }
+    }
+
+    // Inactive tabs: outline icon + default text color (Req 2.2)
+    &:not(.tab-selected) {
+      ion-icon {
+        color: var(--ion-tab-bar-color, #999);
+      }
+
+      ion-label {
+        color: var(--ion-tab-bar-color, #999);
+        font-weight: 400;
+      }
+    }
+  }
+}

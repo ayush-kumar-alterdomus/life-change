@@ -1,5 +1,12 @@
-import { Component } from '@angular/core';
-import { IonTabs, IonTabBar, IonTabButton, IonIcon, IonLabel } from '@ionic/angular/standalone';
+import { Component, ViewChild } from '@angular/core';
+import {
+  IonTabs,
+  IonTabBar,
+  IonTabButton,
+  IonIcon,
+  IonLabel,
+} from '@ionic/angular/standalone';
+import { NavController } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import {
   homeOutline,
@@ -18,40 +25,15 @@ import {
   selector: 'app-tabs',
   standalone: true,
   imports: [IonTabs, IonTabBar, IonTabButton, IonIcon, IonLabel],
-  template: `
-    <ion-tabs>
-      <ion-tab-bar slot="bottom">
-        <ion-tab-button tab="home">
-          <ion-icon name="home-outline"></ion-icon>
-          <ion-label>Home</ion-label>
-        </ion-tab-button>
-
-        <ion-tab-button tab="quests">
-          <ion-icon name="list-outline"></ion-icon>
-          <ion-label>Quests</ion-label>
-        </ion-tab-button>
-
-        <ion-tab-button tab="arc-mode">
-          <ion-icon name="flame-outline"></ion-icon>
-          <ion-label>Arc Mode</ion-label>
-        </ion-tab-button>
-
-        <ion-tab-button tab="social">
-          <ion-icon name="people-outline"></ion-icon>
-          <ion-label>Social</ion-label>
-        </ion-tab-button>
-
-        <ion-tab-button tab="profile">
-          <ion-icon name="person-outline"></ion-icon>
-          <ion-label>Profile</ion-label>
-        </ion-tab-button>
-      </ion-tab-bar>
-    </ion-tabs>
-  `,
-  styles: [],
+  templateUrl: './tabs.page.html',
+  styleUrls: ['./tabs.page.scss'],
 })
 export class TabsPage {
-  constructor() {
+  @ViewChild(IonTabs) tabs!: IonTabs;
+
+  activeTab = 'home';
+
+  constructor(private navCtrl: NavController) {
     addIcons({
       homeOutline,
       home,
@@ -64,5 +46,32 @@ export class TabsPage {
       personOutline,
       person,
     });
+  }
+
+  onTabChange(event: { tab: string }): void {
+    this.activeTab = event.tab;
+  }
+
+  onTabButtonClick(tab: string): void {
+    if (tab === this.activeTab) {
+      this.handleActiveTabTap(tab);
+    }
+  }
+
+  private handleActiveTabTap(tab: string): void {
+    const outlet = this.tabs?.outlet;
+
+    if (outlet && outlet.canGoBack()) {
+      this.navCtrl.navigateRoot(`/tabs/${tab}`);
+    } else {
+      this.scrollToTop();
+    }
+  }
+
+  private scrollToTop(): void {
+    const content = document.querySelector('ion-content');
+    if (content) {
+      (content as HTMLIonContentElement).scrollToTop(300);
+    }
   }
 }
