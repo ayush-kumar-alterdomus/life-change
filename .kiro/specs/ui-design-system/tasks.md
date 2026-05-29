@@ -66,7 +66,7 @@ This plan implements the Ascend UI Design System in dependency order: SCSS token
     - Create `src/shared/enums/index.ts` barrel export
     - _Requirements: 29.1, 29.2, 29.3_
 
-  - [x] 2.2 Write property test for enum values (Property 14)
+  - [x]* 2.2 Write property test for enum values (Property 14)
     - **Property 14: Enum values are lowercase strings**
     - Verify all enum member values match `/^[a-z]+$/` pattern
     - **Validates: Requirements 29.3**
@@ -83,7 +83,7 @@ This plan implements the Ascend UI Design System in dependency order: SCSS token
     - Create `src/shared/models/index.ts` barrel export
     - _Requirements: 28.1, 28.2, 28.3_
 
-- [ ] 3. Implement Theme Service
+- [x] 3. Implement Theme Service
   > ⚠️ **Hint:** Only create files. Do not run any build or test commands.
   - [x] 3.1 Create `src/core/services/theme.service.ts`
     - Implement ThemeService as injectable with `providedIn: 'root'`
@@ -95,12 +95,12 @@ This plan implements the Ascend UI Design System in dependency order: SCSS token
     - Handle errors: corrupted storage → fallback, write failure → in-memory only
     - _Requirements: 4.1, 4.2, 4.3, 4.4, 4.5, 4.6, 4.7_
 
-  - [~] 3.2 Write property test for theme persistence round-trip (Property 1)
+  - [ ]* 3.2 Write property test for theme persistence round-trip (Property 1)
     - **Property 1: Theme persistence round-trip**
     - For any valid theme value, set → persist → restore produces same value
     - **Validates: Requirements 4.2, 4.3**
 
-  - [~] 3.3 Write property test for theme toggle idempotence (Property 2)
+  - [ ]* 3.3 Write property test for theme toggle idempotence (Property 2)
     - **Property 2: Theme toggle idempotence**
     - For any initial theme, toggle twice returns to original state
     - **Validates: Requirements 4.7**
@@ -111,14 +111,14 @@ This plan implements the Ascend UI Design System in dependency order: SCSS token
 
 - [ ] 5. Implement pipes
   > ⚠️ **Hint:** Only create files. Do not run any build or test commands.
-  - [~] 5.1 Create `src/shared/pipes/time-ago.pipe.ts`
+  - [ ] 5.1 Create `src/shared/pipes/time-ago.pipe.ts`
     - Implement TimeAgoPipe as standalone pure pipe
     - Handle null/undefined → empty string
     - Handle future dates → "just now"
     - Implement time bucket mapping: seconds, minutes, hours, days, weeks, months, years
     - _Requirements: 25.1, 25.2, 25.3_
 
-  - [ ] 5.2 Write property test for time-ago pipe (Property 11)
+  - [ ]* 5.2 Write property test for time-ago pipe (Property 11)
     - **Property 11: Time-ago bucket mapping**
     - Generate random past dates, verify correct bucket string is returned
     - Verify null/undefined returns empty string, future dates return "just now"
@@ -132,7 +132,7 @@ This plan implements the Ascend UI Design System in dependency order: SCSS token
     - Handle standard values → thousand-separated + " XP" suffix
     - _Requirements: 26.1, 26.2, 26.3, 26.4_
 
-  - [ ] 5.4 Write property test for xp-format pipe (Property 12)
+  - [ ]* 5.4 Write property test for xp-format pipe (Property 12)
     - **Property 12: XP format correctness**
     - Generate random non-negative numbers, verify formatting rules
     - Verify null/undefined returns "0 XP"
@@ -145,7 +145,7 @@ This plan implements the Ascend UI Design System in dependency order: SCSS token
     - Support format='full' → "Level {n} — {title}"
     - _Requirements: 27.1, 27.2, 27.3_
 
-  - [ ] 5.6 Write property test for level-title pipe (Property 13)
+  - [ ]* 5.6 Write property test for level-title pipe (Property 13)
     - **Property 13: Level title mapping**
     - Generate random positive integers, verify title mapping
     - Verify format='full' produces "Level {n} — {title}"
@@ -167,7 +167,7 @@ This plan implements the Ascend UI Design System in dependency order: SCSS token
     - Clean up timer on destroy
     - _Requirements: 22.1, 22.2, 22.3, 22.4_
 
-  - [ ] 6.2 Write property tests for long-press directive (Properties 8, 9)
+  - [ ]* 6.2 Write property tests for long-press directive (Properties 8, 9)
     - **Property 8: Long press timing emission**
     - For any positive duration, verify emission only after duration elapses
     - **Property 9: Long press movement cancellation**
@@ -183,7 +183,7 @@ This plan implements the Ascend UI Design System in dependency order: SCSS token
     - Do not emit when disabled is true
     - _Requirements: 23.1, 23.2, 23.3, 23.4, 23.5_
 
-  - [ ] 6.4 Write property test for swipe direction detection (Property 10)
+  - [ ]* 6.4 Write property test for swipe direction detection (Property 10)
     - **Property 10: Swipe direction detection**
     - Generate random gesture vectors, verify correct direction emission based on distance and velocity thresholds
     - **Validates: Requirements 23.1, 23.2, 23.3, 23.4**
@@ -199,7 +199,7 @@ This plan implements the Ascend UI Design System in dependency order: SCSS token
     - Handle IntersectionObserver not supported: skip animation, element remains visible
     - _Requirements: 24.1, 24.2, 24.3, 24.4, 24.5_
 
-  - [~] 6.6 Create `src/shared/directives/index.ts` barrel export
+  - [ ] 6.6 Create `src/shared/directives/index.ts` barrel export
     - Export LongPressDirective, SwipeDirective, AnimateOnViewDirective
     - _Requirements: 22, 23, 24_
 
@@ -220,12 +220,12 @@ This plan implements the Ascend UI Design System in dependency order: SCSS token
     - Support keyboard activation (Enter/Space)
     - _Requirements: 5.1, 5.2, 5.3, 5.4, 5.5, 5.6, 30.1, 30.2_
 
-  - [ ] 8.2 Write property test for button click guard (Property 3)
+  - [ ]* 8.2 Write property test for button click guard (Property 3)
     - **Property 3: Button click guard**
     - For any combination of disabled/loading states, verify clicked emits iff both are false
     - **Validates: Requirements 5.5**
 
-  - [~] 8.3 Create `src/shared/components/app-card/` component
+  - [ ] 8.3 Create `src/shared/components/app-card/` component
     - Create app-card.component.ts as standalone with OnPush change detection
     - Use signal inputs: elevated, clickable
     - Use output: cardClick (emit only when clickable is true)
@@ -257,7 +257,7 @@ This plan implements the Ascend UI Design System in dependency order: SCSS token
     - Add ARIA: role="alert", aria-live="polite"
     - _Requirements: 8.1, 8.2, 8.3, 8.4, 8.5, 30.1_
 
-  - [~] 8.6 Create `src/shared/components/app-loader/` component
+  - [ ] 8.6 Create `src/shared/components/app-loader/` component
     - Create app-loader.component.ts as standalone with OnPush change detection
     - Use signal inputs: mode ('spinner' | 'skeleton' | 'progress'), size
     - Create template with conditional rendering per mode
@@ -284,7 +284,7 @@ This plan implements the Ascend UI Design System in dependency order: SCSS token
     - Apply striped CSS pattern when striped is true
     - _Requirements: 11.1, 11.2, 11.3, 11.4, 11.5_
 
-  - [ ] 8.9 Write property test for progress value clamping (Property 4)
+  - [ ]* 8.9 Write property test for progress value clamping (Property 4)
     - **Property 4: Progress value clamping**
     - For any numeric value, verify rendered fill equals clamp(value, 0, 100)
     - **Validates: Requirements 11.1**
@@ -297,7 +297,7 @@ This plan implements the Ascend UI Design System in dependency order: SCSS token
   > ⚠️ **Hint:** Only create files. Do not run any build or test commands.
   - Ensure all tests pass, ask the user if questions arise.
 
-- [~] 10. Implement game components (Part 1)
+- [ ] 10. Implement game components (Part 1)
   > ⚠️ **Hint:** Only create files. Do not run any build or test commands.
   - [ ] 10.1 Create `src/shared/ui/xp-progress-bar/` component
     - Create xp-progress-bar.component.ts as standalone with OnPush change detection
@@ -309,7 +309,7 @@ This plan implements the Ascend UI Design System in dependency order: SCSS token
     - Animate fill width on value change
     - _Requirements: 12.1, 12.2, 12.3, 12.4, 12.5_
 
-  - [ ] 10.2 Write property test for XP fill percentage (Property 5)
+  - [ ]* 10.2 Write property test for XP fill percentage (Property 5)
     - **Property 5: XP fill percentage calculation**
     - For any currentXp >= 0 and requiredXp > 0, verify fill = min((currentXp / requiredXp) * 100, 100)
     - **Validates: Requirements 12.2**
@@ -331,7 +331,7 @@ This plan implements the Ascend UI Design System in dependency order: SCSS token
     - Dimmed/inactive state when streakDays is 0
     - _Requirements: 14.1, 14.2, 14.3, 14.4, 14.5_
 
-  - [ ] 10.5 Write property test for streak intensity mapping (Property 6)
+  - [ ]* 10.5 Write property test for streak intensity mapping (Property 6)
     - **Property 6: Streak intensity mapping**
     - For any non-negative integer, verify correct intensity level based on thresholds
     - **Validates: Requirements 14.4**
@@ -395,7 +395,7 @@ This plan implements the Ascend UI Design System in dependency order: SCSS token
     - Handle < 3 stats: render nothing, log warning in dev mode
     - _Requirements: 21.1, 21.2, 21.3, 21.4, 21.5_
 
-  - [ ] 11.6 Write property test for stat radar axis count (Property 7)
+  - [ ]* 11.6 Write property test for stat radar axis count (Property 7)
     - **Property 7: Stat radar axis count**
     - For any array of N stats (N >= 3), verify SVG contains exactly N axis lines and N labels
     - **Validates: Requirements 21.2**
