@@ -26,7 +26,7 @@ spring:
 
 # Firebase configuration
 firebase:
-  enabled: ${FIREBASE_ENABLED:false}
+  enabled: ${FIREBASE_ENABLED:true}
   project-id: ${FIREBASE_PROJECT_ID:ascend-dev}
   credentials-file: ${FIREBASE_CREDENTIALS_FILE:firebase-service-account.json}
 

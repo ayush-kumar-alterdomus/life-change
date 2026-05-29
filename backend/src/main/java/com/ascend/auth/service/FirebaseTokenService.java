@@ -4,12 +4,14 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseToken;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
 
 @Slf4j
 @Service
+@ConditionalOnProperty(name = "firebase.enabled", havingValue = "true")
 public class FirebaseTokenService {
 
     private final FirebaseAuth firebaseAuth;
