@@ -1,0 +1,28 @@
+<div class="toast-container">
+  <!-- Type icon -->
+  <span class="toast-icon" aria-hidden="true">{{ icon() }}</span>
+
+  <!-- Message -->
+  <span class="toast-message">{{ message() }}</span>
+
+  <!-- Optional action button -->
+  @if (actionLabel()) {
+    <button
+      class="toast-action-btn"
+      type="button"
+      (click)="onActionClick()"
+    >
+      {{ actionLabel() }}
+    </button>
+  }
+
+  <!-- Close button -->
+  <button
+    class="toast-close-btn"
+    type="button"
+    aria-label="Dismiss notification"
+    (click)="onCloseClick()"
+  >
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>

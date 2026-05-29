@@ -1,0 +1,29 @@
+<!-- Spinner Mode -->
+<ng-container *ngIf="mode() === 'spinner'">
+  <div class="loader-spinner" [class.loader-spinner--small]="size() === 'small'"
+       [class.loader-spinner--medium]="size() === 'medium'"
+       [class.loader-spinner--large]="size() === 'large'">
+    <div class="loader-spinner__circle"></div>
+  </div>
+</ng-container>
+
+<!-- Skeleton Mode -->
+<ng-container *ngIf="mode() === 'skeleton'">
+  <div class="loader-skeleton">
+    <div class="loader-skeleton__circle"></div>
+    <div class="loader-skeleton__lines">
+      <div class="loader-skeleton__line loader-skeleton__line--long"></div>
+      <div class="loader-skeleton__line loader-skeleton__line--medium"></div>
+      <div class="loader-skeleton__line loader-skeleton__line--short"></div>
+    </div>
+  </div>
+</ng-container>
+
+<!-- Progress Mode -->
+<ng-container *ngIf="mode() === 'progress'">
+  <div class="loader-progress">
+    <div class="loader-progress__track">
+      <div class="loader-progress__fill"></div>
+    </div>
+  </div>
+</ng-container>

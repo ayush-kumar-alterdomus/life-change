@@ -1,0 +1,16 @@
+<button
+  class="app-button"
+  type="button"
+  [title]="ariaLabel()"
+  [attr.aria-label]="ariaLabel() || null"
+  [attr.aria-disabled]="disabled() || loading()"
+  [attr.aria-busy]="loading()"
+  [disabled]="disabled() || loading()"
+  (click)="handleClick($event)"
+  (keydown)="handleKeydown($event)"
+>
+  <span class="app-button__spinner" *ngIf="loading()" aria-hidden="true"></span>
+  <span class="app-button__content" [class.app-button__content--hidden]="loading()">
+    <ng-content></ng-content>
+  </span>
+</button>

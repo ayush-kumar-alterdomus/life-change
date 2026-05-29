@@ -1,0 +1,24 @@
+<span
+  class="app-progress__label app-progress__label--above"
+  *ngIf="showLabel() && labelPosition() === 'above'"
+>
+  {{ clampedValue() }}%
+</span>
+
+<div class="app-progress__track">
+  <div
+    class="app-progress__fill"
+    [class.app-progress__fill--primary]="color() === 'primary'"
+    [class.app-progress__fill--secondary]="color() === 'secondary'"
+    [class.app-progress__fill--success]="color() === 'success'"
+    [class.app-progress__fill--danger]="color() === 'danger'"
+    [style.width.%]="clampedValue()"
+  >
+    <span
+      class="app-progress__label app-progress__label--inside"
+      *ngIf="showLabel() && labelPosition() === 'inside' && clampedValue() > 10"
+    >
+      {{ clampedValue() }}%
+    </span>
+  </div>
+</div>

@@ -82,7 +82,7 @@ class QuestCompletionServiceTest {
         when(questCompletionRepository.save(any(QuestCompletion.class)))
                 .thenAnswer(invocation -> invocation.getArgument(0));
 
-        QuestCompletionResponse response = questCompletionService.completeQuest(userId, questId);
+        questCompletionService.completeQuest(userId, questId);
 
         // Verify event was published
         ArgumentCaptor<QuestCompletedEvent> eventCaptor = ArgumentCaptor.forClass(QuestCompletedEvent.class);

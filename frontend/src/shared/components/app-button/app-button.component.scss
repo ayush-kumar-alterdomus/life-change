@@ -1,0 +1,146 @@
+@use 'src/theme/mixins' as *;
+
+:host {
+  display: inline-block;
+}
+
+.app-button {
+  @include flex-center;
+  position: relative;
+  border: none;
+  border-radius: var(--radius-md);
+  font-family: var(--font-body);
+  font-weight: var(--font-semibold);
+  cursor: pointer;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease, opacity 0.2s ease;
+  min-height: 44px; // Minimum touch target height
+  min-width: 44px; // Minimum touch target width
+  padding: var(--space-2) var(--space-4);
+  gap: var(--space-2);
+  -webkit-user-select: none;
+  user-select: none;
+  line-height: 1.2;
+  text-decoration: none;
+  white-space: nowrap;
+
+  // Focus indicator for keyboard navigation
+  &:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+
+  // Disabled state
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+
+  // Active press feedback
+  &:not(:disabled):active {
+    transform: scale(0.96);
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Size Variants
+// ---------------------------------------------------------------------------
+:host(.app-button--small) .app-button {
+  min-height: 44px; // Maintain touch target
+  padding: var(--space-1) var(--space-3);
+  font-size: var(--text-sm);
+}
+
+:host(.app-button--medium) .app-button {
+  min-height: 44px;
+  padding: var(--space-2) var(--space-4);
+  font-size: var(--text-base);
+}
+
+:host(.app-button--large) .app-button {
+  min-height: 52px;
+  padding: var(--space-3) var(--space-6);
+  font-size: var(--text-lg);
+}
+
+// ---------------------------------------------------------------------------
+// Variant Styles
+// ---------------------------------------------------------------------------
+:host(.app-button--primary) .app-button {
+  background-color: var(--color-primary);
+  color: #000000;
+
+  &:not(:disabled):hover {
+    box-shadow: var(--shadow-glow-primary);
+    filter: brightness(1.1);
+  }
+}
+
+:host(.app-button--secondary) .app-button {
+  background-color: var(--color-secondary);
+  color: #ffffff;
+
+  &:not(:disabled):hover {
+    box-shadow: var(--shadow-glow-secondary);
+    filter: brightness(1.1);
+  }
+}
+
+:host(.app-button--outline) .app-button {
+  background-color: transparent;
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary);
+
+  &:not(:disabled):hover {
+    background-color: rgba(255, 152, 0, 0.1);
+  }
+}
+
+:host(.app-button--ghost) .app-button {
+  background-color: transparent;
+  color: var(--color-text-primary);
+
+  &:not(:disabled):hover {
+    background-color: rgba(255, 255, 255, 0.08);
+  }
+}
+
+:host(.app-button--danger) .app-button {
+  background-color: var(--color-error);
+  color: #ffffff;
+
+  &:not(:disabled):hover {
+    filter: brightness(1.1);
+    box-shadow: 0 0 20px rgba(244, 67, 54, 0.3);
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Loading Spinner
+// ---------------------------------------------------------------------------
+.app-button__spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid transparent;
+  border-top-color: currentColor;
+  border-radius: 50%;
+  animation: button-spin 0.6s linear infinite;
+  position: absolute;
+}
+
+.app-button__content {
+  @include flex-center;
+  gap: var(--space-2);
+
+  &--hidden {
+    visibility: hidden;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Keyframes
+// ---------------------------------------------------------------------------
+@keyframes button-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

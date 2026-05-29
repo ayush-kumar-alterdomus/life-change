@@ -207,9 +207,9 @@ This plan implements the Ascend UI Design System in dependency order: SCSS token
   > ⚠️ **Hint:** Only create files. Do not run any build or test commands.
   - Ensure all tests pass, ask the user if questions arise.
 
-- [ ] 8. Implement base components
+- [x] 8. Implement base components
   > ⚠️ **Hint:** Only create files. Do not run any build or test commands.
-  - [ ] 8.1 Create `src/shared/components/app-button/` component
+  - [x] 8.1 Create `src/shared/components/app-button/` component
     - Create app-button.component.ts as standalone with OnPush change detection
     - Use signal inputs: variant, size, disabled, loading
     - Use output: clicked (emit only when not disabled and not loading)
@@ -225,7 +225,7 @@ This plan implements the Ascend UI Design System in dependency order: SCSS token
     - For any combination of disabled/loading states, verify clicked emits iff both are false
     - **Validates: Requirements 5.5**
 
-  - [ ] 8.3 Create `src/shared/components/app-card/` component
+  - [x] 8.3 Create `src/shared/components/app-card/` component
     - Create app-card.component.ts as standalone with OnPush change detection
     - Use signal inputs: elevated, clickable
     - Use output: cardClick (emit only when clickable is true)
@@ -235,7 +235,7 @@ This plan implements the Ascend UI Design System in dependency order: SCSS token
     - Add appropriate ARIA role for clickable cards
     - _Requirements: 6.1, 6.2, 6.3, 6.4, 30.1_
 
-  - [ ] 8.4 Create `src/shared/components/app-modal/` component
+  - [x] 8.4 Create `src/shared/components/app-modal/` component
     - Create app-modal.component.ts as standalone with OnPush change detection
     - Use signal inputs: closable (default true)
     - Use output: dismiss
@@ -246,7 +246,7 @@ This plan implements the Ascend UI Design System in dependency order: SCSS token
     - Add ARIA attributes: role="dialog", aria-modal="true"
     - _Requirements: 7.1, 7.2, 7.3, 7.4, 7.5, 30.1_
 
-  - [ ] 8.5 Create `src/shared/components/app-toast/` component
+  - [x] 8.5 Create `src/shared/components/app-toast/` component
     - Create app-toast.component.ts as standalone with OnPush change detection
     - Use signal inputs: type, message (required), duration (default 3000), actionLabel
     - Use outputs: dismissed, actionClicked
@@ -257,7 +257,7 @@ This plan implements the Ascend UI Design System in dependency order: SCSS token
     - Add ARIA: role="alert", aria-live="polite"
     - _Requirements: 8.1, 8.2, 8.3, 8.4, 8.5, 30.1_
 
-  - [ ] 8.6 Create `src/shared/components/app-loader/` component
+  - [x] 8.6 Create `src/shared/components/app-loader/` component
     - Create app-loader.component.ts as standalone with OnPush change detection
     - Use signal inputs: mode ('spinner' | 'skeleton' | 'progress'), size
     - Create template with conditional rendering per mode
@@ -267,7 +267,7 @@ This plan implements the Ascend UI Design System in dependency order: SCSS token
     - Apply skeleton shimmer animation from _animations.scss
     - _Requirements: 9.1, 9.2, 9.3, 9.4_
 
-  - [ ] 8.7 Create `src/shared/components/app-badge/` component
+  - [x] 8.7 Create `src/shared/components/app-badge/` component
     - Create app-badge.component.ts as standalone with OnPush change detection
     - Use signal inputs: color, size, dotOnly
     - Create template: dot-only mode shows colored circle, otherwise shows ng-content text
@@ -275,7 +275,7 @@ This plan implements the Ascend UI Design System in dependency order: SCSS token
     - Map color variants to design token colors
     - _Requirements: 10.1, 10.2, 10.3, 10.4_
 
-  - [ ] 8.8 Create `src/shared/components/app-progress/` component
+  - [x] 8.8 Create `src/shared/components/app-progress/` component
     - Create app-progress.component.ts as standalone with OnPush change detection
     - Use signal inputs: value (0-100), color, animated, showLabel, labelPosition, striped
     - Implement value clamping: clamp(value, 0, 100)
@@ -289,7 +289,7 @@ This plan implements the Ascend UI Design System in dependency order: SCSS token
     - For any numeric value, verify rendered fill equals clamp(value, 0, 100)
     - **Validates: Requirements 11.1**
 
-  - [ ] 8.10 Create `src/shared/components/index.ts` barrel export
+  - [x] 8.10 Create `src/shared/components/index.ts` barrel export
     - Export all base components
     - _Requirements: 5, 6, 7, 8, 9, 10, 11_
 

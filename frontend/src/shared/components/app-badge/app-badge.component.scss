@@ -1,0 +1,120 @@
+@use 'src/theme/mixins' as *;
+
+// =============================================================================
+// App Badge Component
+// =============================================================================
+
+:host {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-full);
+  font-family: var(--font-body);
+  font-weight: var(--font-semibold);
+  line-height: 1;
+  white-space: nowrap;
+  vertical-align: middle;
+
+  // ---------------------------------------------------------------------------
+  // Size Variants
+  // ---------------------------------------------------------------------------
+  &.app-badge--small {
+    padding: var(--space-1) var(--space-2);
+    font-size: var(--text-xs);
+  }
+
+  &.app-badge--medium {
+    padding: var(--space-1) var(--space-3);
+    font-size: var(--text-sm);
+  }
+
+  // ---------------------------------------------------------------------------
+  // Dot-only Mode
+  // ---------------------------------------------------------------------------
+  &.app-badge--dot-only {
+    padding: 0;
+  }
+
+  &.app-badge--dot-only.app-badge--small {
+    width: 8px;
+    height: 8px;
+  }
+
+  &.app-badge--dot-only.app-badge--medium {
+    width: 10px;
+    height: 10px;
+  }
+
+  // ---------------------------------------------------------------------------
+  // Color Variants
+  // ---------------------------------------------------------------------------
+  &.app-badge--primary {
+    background-color: rgba(255, 152, 0, 0.15);
+    color: var(--color-primary);
+  }
+
+  &.app-badge--secondary {
+    background-color: rgba(168, 85, 247, 0.15);
+    color: var(--color-secondary);
+  }
+
+  &.app-badge--success {
+    background-color: rgba(76, 175, 80, 0.15);
+    color: var(--color-success);
+  }
+
+  &.app-badge--danger {
+    background-color: rgba(244, 67, 54, 0.15);
+    color: var(--color-error);
+  }
+
+  &.app-badge--warning {
+    background-color: rgba(245, 158, 11, 0.15);
+    color: var(--color-warning);
+  }
+
+  &.app-badge--neutral {
+    background-color: var(--color-border);
+    color: var(--color-text-secondary);
+  }
+
+  // Dot-only color overrides (solid background for dot indicator)
+  &.app-badge--dot-only.app-badge--primary {
+    background-color: var(--color-primary);
+  }
+
+  &.app-badge--dot-only.app-badge--secondary {
+    background-color: var(--color-secondary);
+  }
+
+  &.app-badge--dot-only.app-badge--success {
+    background-color: var(--color-success);
+  }
+
+  &.app-badge--dot-only.app-badge--danger {
+    background-color: var(--color-error);
+  }
+
+  &.app-badge--dot-only.app-badge--warning {
+    background-color: var(--color-warning);
+  }
+
+  &.app-badge--dot-only.app-badge--neutral {
+    background-color: var(--color-text-secondary);
+  }
+}
+
+// =============================================================================
+// Inner Elements
+// =============================================================================
+
+.app-badge__dot {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: var(--radius-full);
+}
+
+.app-badge__text {
+  display: inline-block;
+}

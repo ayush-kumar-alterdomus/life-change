@@ -1,0 +1,56 @@
+@use 'src/theme/mixins' as *;
+
+:host {
+  @include glass-card();
+  display: block;
+  padding: var(--space-4);
+  transition: box-shadow 0.2s ease, transform 0.15s ease;
+
+  // Elevated variant — increased shadow
+  &.app-card--elevated {
+    box-shadow: var(--shadow-lg);
+  }
+
+  // Clickable variant — hover/press feedback
+  &.app-card--clickable {
+    cursor: pointer;
+    -webkit-user-select: none;
+    user-select: none;
+
+    &:hover {
+      box-shadow: var(--shadow-md), var(--shadow-glow-primary);
+      transform: translateY(-2px);
+    }
+
+    &:active {
+      transform: translateY(0) scale(0.98);
+      box-shadow: var(--shadow-sm);
+    }
+
+    // Focus indicator for keyboard navigation
+    &:focus-visible {
+      outline: 2px solid var(--color-primary);
+      outline-offset: 2px;
+    }
+  }
+}
+
+.app-card__header {
+  &:empty {
+    display: none;
+  }
+
+  margin-bottom: var(--space-3);
+}
+
+.app-card__body {
+  flex: 1;
+}
+
+.app-card__footer {
+  &:empty {
+    display: none;
+  }
+
+  margin-top: var(--space-3);
+}

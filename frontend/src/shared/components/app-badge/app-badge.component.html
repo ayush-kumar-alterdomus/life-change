@@ -1,0 +1,8 @@
+<!-- Dot-only mode: colored circle indicator -->
+@if (dotOnly()) {
+  <span class="app-badge__dot" aria-hidden="true"></span>
+} @else {
+  <span class="app-badge__text">
+    <ng-content></ng-content>
+  </span>
+}
