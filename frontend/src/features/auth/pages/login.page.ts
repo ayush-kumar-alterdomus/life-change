@@ -12,6 +12,7 @@ import {
   IonIcon,
   IonNote,
 } from '@ionic/angular/standalone';
+import { Auth, signInAnonymously } from '@angular/fire/auth';
 import { addIcons } from 'ionicons';
 import { logoGoogle, personOutline, mailOutline, lockClosedOutline } from 'ionicons/icons';
 
@@ -160,13 +161,16 @@ import { logoGoogle, personOutline, mailOutline, lockClosedOutline } from 'ionic
     `,
   ],
 })
-export class LoginPage {
+export class LoginComponent {
   email = '';
   password = '';
   loading = signal(false);
   error = signal('');
 
-  constructor(private router: Router) {
+  constructor(
+    private router: Router,
+    private auth: Auth,
+  ) {
     addIcons({ logoGoogle, personOutline, mailOutline, lockClosedOutline });
   }
 
@@ -178,7 +182,17 @@ export class LoginPage {
     this.error.set('Firebase not configured. Use "Continue as Guest" for now.');
   }
 
-  continueAsGuest() {
-    this.router.navigate(['/tabs/home']);
+  async continueAsGuest() {
+    this.loading.set(true);
+    this.error.set('');
+    try {
+      await signInAnonymously(this.auth);
+      this.router.navigate(['/tabs/home']);
+    } catch (e: unknown) {
+      const msg = e instanceof Error ? e.message : 'Failed to sign in as guest.';
+      this.error.set(msg);
+    } finally {
+      this.loading.set(false);
+    }
   }
 }
