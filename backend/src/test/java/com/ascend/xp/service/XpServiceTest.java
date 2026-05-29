@@ -1,8 +1,6 @@
 package com.ascend.xp.service;
 
-import com.ascend.arc.entity.Arc;
 import com.ascend.arc.entity.UserArcProgress;
-import com.ascend.arc.repository.ArcRepository;
 import com.ascend.arc.repository.UserArcProgressRepository;
 import com.ascend.common.entity.Difficulty;
 import com.ascend.common.entity.StatType;
@@ -44,8 +42,6 @@ class XpServiceTest {
     @Mock
     private UserArcProgressRepository userArcProgressRepository;
     @Mock
-    private ArcRepository arcRepository;
-    @Mock
     private UserSkillRepository userSkillRepository;
     @Mock
     private XpHistoryRepository xpHistoryRepository;
@@ -61,7 +57,7 @@ class XpServiceTest {
     void setUp() {
         xpService = new XpService(
                 userRepository, streakRepository, userArcProgressRepository,
-                arcRepository, userSkillRepository, xpHistoryRepository, eventPublisher
+                userSkillRepository, xpHistoryRepository, eventPublisher
         );
         userId = UUID.randomUUID();
         user = User.builder()
@@ -143,14 +139,12 @@ class XpServiceTest {
         // Arrange
         UUID arcId = UUID.randomUUID();
         UserArcProgress activeArc = UserArcProgress.builder()
-                .userId(userId).arcId(arcId).status("ACTIVE").build();
-        Arc arc = Arc.builder().id(arcId).difficulty("HARD").name("Test Arc").durationDays(30).build();
+                .userId(userId).arcId(arcId).status("ACTIVE").progressPercent(300).build();
 
         when(userRepository.findById(userId)).thenReturn(Optional.of(user));
         when(streakRepository.findByUserId(userId)).thenReturn(Optional.empty());
         when(userArcProgressRepository.findByUserIdAndStatus(userId, "ACTIVE"))
                 .thenReturn(List.of(activeArc));
-        when(arcRepository.findById(arcId)).thenReturn(Optional.of(arc));
         when(userSkillRepository.findByUserIdAndUnlockedTrue(userId))
                 .thenReturn(Collections.emptyList());
         when(xpHistoryRepository.sumXpAmountByUserIdAndCreatedAtBetween(eq(userId), any(), any()))
@@ -164,7 +158,7 @@ class XpServiceTest {
         // Act
         xpService.awardXp(userId, event);
 
-        // Assert — HARD arc = 1.3 multiplier
+        // Assert — progressPercent=300, arcMultiplier = 1.0 + (300/1000.0) = 1.3
         // Final XP = floor(100 * 1.0 * 1.0 * 1.3) + 0 = 130
         ArgumentCaptor<XpHistory> historyCaptor = ArgumentCaptor.forClass(XpHistory.class);
         verify(xpHistoryRepository).save(historyCaptor.capture());

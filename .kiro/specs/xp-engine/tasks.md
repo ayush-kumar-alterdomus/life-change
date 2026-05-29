@@ -108,8 +108,8 @@ XP calculation, award, daily cap enforcement, level-up detection, prestige syste
     - Listen for `QuestCompletedEvent`
     - Call `StatService.awardStatPoints()` with event's statType and difficulty
 
-- [-] 8. Write property-based tests for XP calculations
-  - [ ] 8.1 Add jqwik dependency and create XP property tests
+- [x] 8. Write property-based tests for XP calculations
+  - [x] 8.1 Add jqwik dependency and create XP property tests
     - Add `net.jqwik:jqwik` dependency to pom.xml (test scope)
     - Create `XpCalculatorPropertyTest.java`:
       - Property 1: FinalXP formula correctness for all valid inputs
@@ -120,7 +120,7 @@ XP calculation, award, daily cap enforcement, level-up detection, prestige syste
       - Property 8: Prestige multiplier correctness
     - Minimum 100 iterations per property
 
-- [ ] 9. Checkpoint - Verify XP engine
+- [-] 9. Checkpoint - Verify XP engine
   - Run property-based tests — all must pass
   - Integration test: complete quest → XP awarded → level up triggered
   - Integration test: daily cap enforcement (award XP up to cap, verify excess discarded)
