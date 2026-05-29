@@ -54,6 +54,13 @@ public class Streak {
     @Column(name = "shield_used_at")
     private LocalDateTime shieldUsedAt;
 
+    @Builder.Default
+    @Column(name = "comeback_mode_active", nullable = false)
+    private Boolean comebackModeActive = false;
+
+    @Column(name = "comeback_expires_at")
+    private LocalDateTime comebackExpiresAt;
+
     @UpdateTimestamp
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;

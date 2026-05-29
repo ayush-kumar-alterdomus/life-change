@@ -6,14 +6,18 @@ Daily streak tracking, combo multiplier calculation, streak shields, comeback mo
 
 ## Tasks
 
-- [ ] 1. Create Streak DTOs and enums
-  - [ ] 1.1 Create streak response DTOs
+- [x] 1. Create Streak DTOs and enums
+  > **Hint:** Only create files. Do not run any compile or test commands.
+  - [x] 1.1 Create streak response DTOs
+    > **Hint:** Only create files. Do not run any compile or test commands.
     - Create `StreakResponse.java`: currentStreak, longestStreak, comboMultiplier, shieldAvailable, lastCompletedAt, comebackModeActive, comebackExpiresAt
     - Create `StreakStatus.java` enum: ACTIVE, BROKEN, COMEBACK_MODE, SHIELDED
     - Create `StreakMilestone.java` enum: WEEK(7), TWO_WEEKS(14), MONTH(30), QUARTER(90), YEAR(365) with XP bonus values
 
-- [ ] 2. Implement Streak Service
-  - [ ] 2.1 Create StreakService core logic
+- [x] 2. Implement Streak Service
+  > **Hint:** Only create files. Do not run any compile or test commands.
+  - [x] 2.1 Create StreakService core logic
+    > **Hint:** Only create files. Do not run any compile or test commands.
     - Create `StreakService.java` in `streak/service/`
     - `getStreak(UUID userId)` — fetch current streak data
     - `evaluateDailyStreak(UUID userId)`:
@@ -29,7 +33,8 @@ Daily streak tracking, combo multiplier calculation, streak shields, comeback mo
       3. Update last_completed_at
       4. Check for streak milestones (7, 14, 30, 90, 365)
       5. Publish StreakMilestoneEvent if milestone reached
-  - [ ] 2.2 Create streak break logic
+  - [x] 2.2 Create streak break logic
+    > **Hint:** Only create files. Do not run any compile or test commands.
     - `breakStreak(UUID userId)`:
       1. Check if shield_available = true
       2. If shield available → activate shield, preserve streak, publish StreakShieldedEvent
@@ -40,8 +45,10 @@ Daily streak tracking, combo multiplier calculation, streak shields, comeback mo
       2. Set shield_used_at = now()
       3. Streak remains intact
 
-- [ ] 3. Implement Comeback Mode
-  - [ ] 3.1 Create ComebackModeService
+- [x] 3. Implement Comeback Mode
+  > **Hint:** Only create files. Do not run any compile or test commands.
+  - [x] 3.1 Create ComebackModeService
+    > **Hint:** Only create files. Do not run any compile or test commands.
     - Create `ComebackModeService.java` in `streak/service/`
     - Add `comeback_mode_active` (BOOLEAN) and `comeback_expires_at` (TIMESTAMP) columns to streaks table (migration `V23__add_comeback_mode.sql`)
     - `activateComebackMode(UUID userId)`:
@@ -54,36 +61,45 @@ Daily streak tracking, combo multiplier calculation, streak shields, comeback mo
       2. Reset to normal difficulty
     - `isComebackActive(UUID userId)` — check if within 48-hour window
 
-- [ ] 4. Implement Streak Evaluation Scheduler
-  - [ ] 4.1 Create StreakCalculationScheduler
+- [x] 4. Implement Streak Evaluation Scheduler
+  > **Hint:** Only create files. Do not run any compile or test commands.
+  - [x] 4.1 Create StreakCalculationScheduler
+    > **Hint:** Only create files. Do not run any compile or test commands.
     - Create `StreakCalculationScheduler.java` in `streak/scheduler/`
     - Triggered by `DailyResetEvent` from Quest module (per timezone)
     - For each user in the resetting timezone:
       1. Call `evaluateDailyStreak(userId)`
       2. Handle streak breaks and comebacks
     - Also run hourly to check comeback mode expiry
-  - [ ] 4.2 Create streak event listener for quest completions
+  - [x] 4.2 Create streak event listener for quest completions
+    > **Hint:** Only create files. Do not run any compile or test commands.
     - Create `StreakEventListener.java` in `streak/event/`
     - Listen for `QuestCompletedEvent`
     - Update real-time completion count for today (for UI progress display)
     - Do NOT evaluate streak here — that happens at daily reset
 
-- [ ] 5. Create Streak Events
-  - [ ] 5.1 Create domain events
+- [x] 5. Create Streak Events
+  > **Hint:** Only create files. Do not run any compile or test commands.
+  - [x] 5.1 Create domain events
+    > **Hint:** Only create files. Do not run any compile or test commands.
     - Create `StreakMilestoneEvent.java`: userId, milestoneType, streakDays, bonusXp
     - Create `StreakBrokenEvent.java`: userId, previousStreak, comebackModeActivated
     - Create `StreakShieldedEvent.java`: userId, streakPreserved, shieldsRemaining
     - All consumed by Notification module for user alerts
 
-- [ ] 6. Create Streak Controller
-  - [ ] 6.1 Implement REST endpoints
+- [x] 6. Create Streak Controller
+  > **Hint:** Only create files. Do not run any compile or test commands.
+  - [x] 6.1 Implement REST endpoints
+    > **Hint:** Only create files. Do not run any compile or test commands.
     - Create `StreakController.java` in `streak/controller/`
     - GET `/api/v1/streak` — returns current streak info for authenticated user
     - GET `/api/v1/streak/history` — returns streak history (past 30 days)
     - POST `/api/v1/streak/shield/activate` — manually activate shield (if available)
 
-- [ ] 7. Write property-based tests for streak logic
-  - [ ] 7.1 Create streak property tests
+- [x] 7. Write property-based tests for streak logic
+  > **Hint:** Only create files. Do not run any compile or test commands.
+  - [x] 7.1 Create streak property tests
+    > **Hint:** Only create files. Do not run any compile or test commands.
     - Create `ComboCalculatorPropertyTest.java`:
       - Property 2: Combo multiplier always in [1.0, 2.0] for any non-negative streak
     - Create `StreakServicePropertyTest.java`:
@@ -92,7 +108,8 @@ Daily streak tracking, combo multiplier calculation, streak shields, comeback mo
       - Property 12: Shield auto-activation preserves streak
     - Minimum 100 iterations per property
 
-- [ ] 8. Checkpoint - Verify streak system
+- [x] 8. Checkpoint - Verify streak system
+  > **Hint:** Only create files. Do not run any compile or test commands.
   - Integration test: complete 80%+ quests → streak increments
   - Integration test: complete < 80% without shield → streak resets, comeback activates
   - Integration test: complete < 80% with shield → shield consumed, streak preserved
