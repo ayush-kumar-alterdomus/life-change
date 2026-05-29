@@ -105,13 +105,13 @@ This plan implements the Ascend UI Design System in dependency order: SCSS token
     - For any initial theme, toggle twice returns to original state
     - **Validates: Requirements 4.7**
 
-- [ ] 4. Checkpoint - Ensure all tests pass
+- [x] 4. Checkpoint - Ensure all tests pass
   > ⚠️ **Hint:** Only create files. Do not run any build or test commands.
   - Ensure all tests pass, ask the user if questions arise.
 
-- [ ] 5. Implement pipes
+- [x] 5. Implement pipes
   > ⚠️ **Hint:** Only create files. Do not run any build or test commands.
-  - [ ] 5.1 Create `src/shared/pipes/time-ago.pipe.ts`
+  - [x] 5.1 Create `src/shared/pipes/time-ago.pipe.ts`
     - Implement TimeAgoPipe as standalone pure pipe
     - Handle null/undefined → empty string
     - Handle future dates → "just now"
@@ -124,7 +124,7 @@ This plan implements the Ascend UI Design System in dependency order: SCSS token
     - Verify null/undefined returns empty string, future dates return "just now"
     - **Validates: Requirements 25.1, 25.2, 25.3**
 
-  - [ ] 5.3 Create `src/shared/pipes/xp-format.pipe.ts`
+  - [x] 5.3 Create `src/shared/pipes/xp-format.pipe.ts`
     - Implement XpFormatPipe as standalone pure pipe
     - Handle null/undefined → "0 XP"
     - Handle ≥ 1,000,000 → "X.XM XP" format
@@ -138,7 +138,7 @@ This plan implements the Ascend UI Design System in dependency order: SCSS token
     - Verify null/undefined returns "0 XP"
     - **Validates: Requirements 26.1, 26.2, 26.3, 26.4**
 
-  - [ ] 5.5 Create `src/shared/pipes/level-title.pipe.ts`
+  - [x] 5.5 Create `src/shared/pipes/level-title.pipe.ts`
     - Implement LevelTitlePipe as standalone pure pipe
     - Handle null/undefined → "Unknown"
     - Map level ranges: 1–15 → "Beginner", 16–40 → "Intermediate", 41–75 → "Advanced", 76+ → "Elite"
@@ -151,13 +151,13 @@ This plan implements the Ascend UI Design System in dependency order: SCSS token
     - Verify format='full' produces "Level {n} — {title}"
     - **Validates: Requirements 27.1, 27.2, 27.3**
 
-  - [ ] 5.7 Create `src/shared/pipes/index.ts` barrel export
+  - [x] 5.7 Create `src/shared/pipes/index.ts` barrel export
     - Export TimeAgoPipe, XpFormatPipe, LevelTitlePipe
     - _Requirements: 25, 26, 27_
 
-- [ ] 6. Implement directives
+- [x] 6. Implement directives
   > ⚠️ **Hint:** Only create files. Do not run any build or test commands.
-  - [ ] 6.1 Create `src/shared/directives/long-press.directive.ts`
+  - [x] 6.1 Create `src/shared/directives/long-press.directive.ts`
     - Implement LongPressDirective as standalone directive with selector `[appLongPress]`
     - Accept `duration` input (default 500ms)
     - Listen to touchstart/mousedown to start timer
@@ -174,7 +174,7 @@ This plan implements the Ascend UI Design System in dependency order: SCSS token
     - For any movement > 10px threshold, verify no emission regardless of hold time
     - **Validates: Requirements 22.1, 22.2**
 
-  - [ ] 6.3 Create `src/shared/directives/swipe.directive.ts`
+  - [x] 6.3 Create `src/shared/directives/swipe.directive.ts`
     - Implement SwipeDirective as standalone directive with selector `[appSwipe]`
     - Accept `disabled` input (default false) and `minDistance` input (default 50px)
     - Track touchstart position, calculate delta on touchend
@@ -188,7 +188,7 @@ This plan implements the Ascend UI Design System in dependency order: SCSS token
     - Generate random gesture vectors, verify correct direction emission based on distance and velocity thresholds
     - **Validates: Requirements 23.1, 23.2, 23.3, 23.4**
 
-  - [ ] 6.5 Create `src/shared/directives/animate-on-view.directive.ts`
+  - [x] 6.5 Create `src/shared/directives/animate-on-view.directive.ts`
     - Implement AnimateOnViewDirective as standalone directive with selector `[appAnimateOnView]`
     - Accept `animationType` input: 'fade-in' | 'slide-up' | 'slide-left' | 'scale-in' (default 'fade-in')
     - Accept `delay` input (default 0ms) for staggering
@@ -199,7 +199,7 @@ This plan implements the Ascend UI Design System in dependency order: SCSS token
     - Handle IntersectionObserver not supported: skip animation, element remains visible
     - _Requirements: 24.1, 24.2, 24.3, 24.4, 24.5_
 
-  - [ ] 6.6 Create `src/shared/directives/index.ts` barrel export
+  - [x] 6.6 Create `src/shared/directives/index.ts` barrel export
     - Export LongPressDirective, SwipeDirective, AnimateOnViewDirective
     - _Requirements: 22, 23, 24_
 
@@ -435,3 +435,39 @@ This plan implements the Ascend UI Design System in dependency order: SCSS token
 - SCSS tokens must be created before any component that references them
 - Theme service must be created before components that react to theme changes
 - Pipes must be created before game components that use them (xp-format, time-ago, level-title)
+
+## Task Dependency Graph
+
+```mermaid
+graph TD
+  T1["1. Set up SCSS token layer"]
+  T2["2. Implement shared models and enums"]
+  T3["3. Implement Theme Service"]
+  T4["4. Checkpoint"]
+  T5["5. Implement pipes"]
+  T6["6. Implement directives"]
+  T7["7. Checkpoint"]
+  T8["8. Implement base components"]
+  T9["9. Checkpoint"]
+  T10["10. Implement game components Part 1"]
+  T11["11. Implement game components Part 2"]
+  T12["12. Implement accessibility and focus indicators"]
+  T13["13. Final checkpoint"]
+
+  T1 --> T3
+  T1 --> T8
+  T2 --> T3
+  T2 --> T5
+  T3 --> T4
+  T4 --> T5
+  T4 --> T6
+  T5 --> T7
+  T6 --> T7
+  T7 --> T8
+  T8 --> T9
+  T9 --> T10
+  T9 --> T11
+  T10 --> T12
+  T11 --> T12
+  T12 --> T13
+```

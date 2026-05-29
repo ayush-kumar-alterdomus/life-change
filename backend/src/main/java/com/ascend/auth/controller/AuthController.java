@@ -14,6 +14,7 @@ import com.google.firebase.auth.FirebaseToken;
 import com.google.firebase.auth.UserRecord;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -28,6 +29,7 @@ import com.ascend.user.entity.User;
 @Slf4j
 @RestController
 @RequestMapping("/api/v1/auth")
+@ConditionalOnProperty(name = "firebase.enabled", havingValue = "true")
 public class AuthController {
 
     private final AuthService authService;
