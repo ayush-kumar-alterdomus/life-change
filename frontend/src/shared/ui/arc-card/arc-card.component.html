@@ -1,0 +1,13 @@
+<div class="arc-card__content">
+  <h3 class="arc-card__name">{{ arcName() }}</h3>
+
+  <div class="arc-card__progress">
+    <app-progress
+      [value]="progressPercentage()"
+      [color]="'primary'"
+      [animated]="true"
+    ></app-progress>
+  </div>
+
+  <span class="arc-card__phase">{{ currentPhase() }}</span>
+</div>

@@ -1,0 +1,45 @@
+:host {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-full);
+  background: var(--color-card);
+  border: 2px solid var(--color-primary);
+  box-shadow: var(--shadow-glow-primary);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.level-badge__level {
+  font-family: var(--font-display);
+  font-weight: var(--font-bold);
+  color: var(--color-primary);
+  line-height: 1;
+  text-shadow: 0 0 8px rgba(255, 152, 0, 0.4);
+}
+
+// =============================================================================
+// Size: Small (inline use)
+// =============================================================================
+:host(.level-badge--small) {
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+
+  .level-badge__level {
+    font-size: var(--text-sm);
+  }
+}
+
+// =============================================================================
+// Size: Large (profile/header)
+// =============================================================================
+:host(.level-badge--large) {
+  width: 56px;
+  height: 56px;
+  min-width: 56px;
+  border-width: 3px;
+
+  .level-badge__level {
+    font-size: var(--text-xl);
+  }
+}

@@ -1,0 +1,135 @@
+:host {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.streak-flame__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.streak-flame__emoji {
+  font-size: 24px;
+  line-height: 1;
+}
+
+.streak-flame__count {
+  font-family: var(--font-display);
+  font-weight: var(--font-bold);
+  font-size: var(--text-lg);
+  color: var(--color-text-primary);
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+// =============================================================================
+// Intensity: Inactive (0 days)
+// =============================================================================
+:host(.streak-flame--inactive) {
+  opacity: 0.4;
+
+  .streak-flame__icon {
+    filter: grayscale(1);
+  }
+
+  .streak-flame__count {
+    color: var(--color-text-secondary);
+  }
+}
+
+// =============================================================================
+// Intensity: Low (1-6 days)
+// =============================================================================
+:host(.streak-flame--low) {
+  .streak-flame__emoji {
+    font-size: 24px;
+  }
+
+  .streak-flame__count {
+    color: var(--color-primary);
+  }
+}
+
+// =============================================================================
+// Intensity: Active (7-29 days)
+// =============================================================================
+:host(.streak-flame--active) {
+  .streak-flame__emoji {
+    font-size: 28px;
+  }
+
+  .streak-flame__count {
+    color: var(--color-primary);
+    text-shadow: 0 0 8px rgba(255, 152, 0, 0.4);
+  }
+
+  .streak-flame__icon {
+    animation: flame-pulse 1.5s ease-in-out infinite;
+  }
+}
+
+// =============================================================================
+// Intensity: Epic (30-99 days)
+// =============================================================================
+:host(.streak-flame--epic) {
+  .streak-flame__emoji {
+    font-size: 32px;
+  }
+
+  .streak-flame__count {
+    color: var(--color-secondary);
+    text-shadow: 0 0 12px rgba(168, 85, 247, 0.5);
+  }
+
+  .streak-flame__icon {
+    animation: flame-pulse 1s ease-in-out infinite;
+    filter: drop-shadow(0 0 6px rgba(168, 85, 247, 0.4));
+  }
+}
+
+// =============================================================================
+// Intensity: Legendary (100+ days)
+// =============================================================================
+:host(.streak-flame--legendary) {
+  .streak-flame__emoji {
+    font-size: 36px;
+  }
+
+  .streak-flame__count {
+    font-size: var(--text-xl);
+    background: linear-gradient(135deg, #FF9800, #F44336, #A855F7);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: none;
+  }
+
+  .streak-flame__icon {
+    animation: flame-pulse 0.8s ease-in-out infinite, flame-glow 2s ease-in-out infinite alternate;
+    filter: drop-shadow(0 0 10px rgba(255, 152, 0, 0.6));
+  }
+}
+
+// =============================================================================
+// Keyframe Animations
+// =============================================================================
+@keyframes flame-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+@keyframes flame-glow {
+  from {
+    filter: drop-shadow(0 0 8px rgba(255, 152, 0, 0.5));
+  }
+  to {
+    filter: drop-shadow(0 0 16px rgba(244, 67, 54, 0.7));
+  }
+}

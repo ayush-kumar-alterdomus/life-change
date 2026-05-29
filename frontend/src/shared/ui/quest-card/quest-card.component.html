@@ -1,0 +1,56 @@
+<div class="quest-card__content">
+  <!-- Completed overlay -->
+  @if (completed()) {
+    <div class="quest-card__completed-overlay" aria-label="Quest completed">
+      <span class="quest-card__checkmark">✓</span>
+    </div>
+  }
+
+  <!-- Header: difficulty badge + XP reward -->
+  <div class="quest-card__header">
+    <app-badge [color]="difficultyColor()" size="small">
+      {{ difficultyLabel() }}
+    </app-badge>
+    <span class="quest-card__xp">{{ xpReward() | xpFormat }}</span>
+  </div>
+
+  <!-- Title -->
+  <h3 class="quest-card__title">{{ title() }}</h3>
+
+  <!-- Meta info: time estimate -->
+  @if (timeEstimate()) {
+    <div class="quest-card__meta">
+      <span class="quest-card__time">⏱ {{ timeEstimate() }}</span>
+    </div>
+  }
+
+  <!-- Actions -->
+  <div class="quest-card__actions">
+    @if (!completed()) {
+      <button
+        type="button"
+        class="quest-card__action quest-card__action--complete"
+        (click)="complete.emit()"
+        aria-label="Complete quest"
+      >
+        ✓
+      </button>
+      <button
+        type="button"
+        class="quest-card__action quest-card__action--edit"
+        (click)="edit.emit()"
+        aria-label="Edit quest"
+      >
+        ✎
+      </button>
+      <button
+        type="button"
+        class="quest-card__action quest-card__action--skip"
+        (click)="skip.emit()"
+        aria-label="Skip quest"
+      >
+        ⏭
+      </button>
+    }
+  </div>
+</div>
