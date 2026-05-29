@@ -25,6 +25,7 @@ ios/
 # Environment overrides
 .env
 .env.local
+src/environments/environment.local.ts
 
 # OS files
 .DS_Store

@@ -1,0 +1,169 @@
+// =============================================================================
+// SCSS Mixins Library
+// =============================================================================
+// Reusable mixins for common UI patterns in the Ascend application.
+// Import in component SCSS files via: @use 'src/theme/mixins' as *;
+
+// Breakpoint values (duplicated here to avoid circular @use)
+$breakpoint-mobile: 576px !default;
+$breakpoint-tablet: 768px !default;
+$breakpoint-desktop: 1024px !default;
+
+// ---------------------------------------------------------------------------
+// Glass-Morphism Card
+// ---------------------------------------------------------------------------
+// Semi-transparent background with backdrop blur and subtle border.
+@mixin glass-card($opacity: 0.6) {
+  background: rgba(22, 22, 22, $opacity);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+}
+
+// ---------------------------------------------------------------------------
+// Responsive Breakpoint Mixins
+// ---------------------------------------------------------------------------
+@mixin mobile {
+  @media (max-width: #{$breakpoint-mobile}) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (min-width: #{$breakpoint-mobile + 1px}) and (max-width: #{$breakpoint-desktop - 1px}) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: #{$breakpoint-desktop}) {
+    @content;
+  }
+}
+
+// Min-width breakpoint (mobile-first)
+@mixin breakpoint-up($breakpoint) {
+  @media (min-width: #{$breakpoint}) {
+    @content;
+  }
+}
+
+// Max-width breakpoint
+@mixin breakpoint-down($breakpoint) {
+  @media (max-width: #{$breakpoint - 1px}) {
+    @content;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Gradient Background
+// ---------------------------------------------------------------------------
+@mixin gradient-primary($direction: 135deg) {
+  background: linear-gradient(
+    $direction,
+    var(--color-primary),
+    var(--color-secondary)
+  );
+}
+
+@mixin gradient-subtle($direction: 135deg) {
+  background: linear-gradient(
+    $direction,
+    rgba(255, 152, 0, 0.1),
+    rgba(168, 85, 247, 0.1)
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Text Truncation
+// ---------------------------------------------------------------------------
+@mixin text-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@mixin text-clamp($lines: 2) {
+  display: -webkit-box;
+  -webkit-line-clamp: $lines;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+// ---------------------------------------------------------------------------
+// Flex Layout Helpers
+// ---------------------------------------------------------------------------
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@mixin flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+@mixin flex-column-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+// ---------------------------------------------------------------------------
+// Glow / Neon Effect
+// ---------------------------------------------------------------------------
+@mixin glow-primary($intensity: 0.3) {
+  box-shadow: 0 0 20px rgba(255, 152, 0, $intensity);
+}
+
+@mixin glow-secondary($intensity: 0.3) {
+  box-shadow: 0 0 20px rgba(168, 85, 247, $intensity);
+}
+
+@mixin glow-text-primary {
+  text-shadow: 0 0 10px rgba(255, 152, 0, 0.5),
+               0 0 20px rgba(255, 152, 0, 0.3);
+}
+
+@mixin glow-text-secondary {
+  text-shadow: 0 0 10px rgba(168, 85, 247, 0.5),
+               0 0 20px rgba(168, 85, 247, 0.3);
+}
+
+// ---------------------------------------------------------------------------
+// Skeleton Loading Placeholder
+// ---------------------------------------------------------------------------
+@mixin skeleton-placeholder {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.04) 25%,
+    rgba(255, 255, 255, 0.08) 50%,
+    rgba(255, 255, 255, 0.04) 75%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.5s ease-in-out infinite;
+  border-radius: var(--radius-sm);
+}
+
+@mixin skeleton-text($width: 100%, $height: 14px) {
+  @include skeleton-placeholder;
+  width: $width;
+  height: $height;
+  display: block;
+}
+
+@mixin skeleton-circle($size: 40px) {
+  @include skeleton-placeholder;
+  width: $size;
+  height: $size;
+  border-radius: 50%;
+}

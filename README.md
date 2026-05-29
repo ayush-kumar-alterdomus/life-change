@@ -105,9 +105,92 @@ ng test                 # Run unit tests
 ng lint                 # Lint check
 ```
 
+## Firebase Setup (Required for Auth)
+
+Firebase is required for authentication. Follow these steps once before running the app locally.
+
+### 1. Create a Firebase Project
+
+1. Go to [console.firebase.google.com](https://console.firebase.google.com)
+2. Click **Add project** → name it `ascend-dev` → create
+3. Go to **Authentication** → **Get started** → enable **Email/Password**, **Google**, and **Anonymous**
+
+### 2. Frontend Firebase Config
+
+1. In Firebase console → **Project Settings** → **General** → **Add app** → **Web**
+2. Register app as `ascend-web` and copy the config object
+3. Create the file `frontend/src/environments/environment.local.ts` (gitignored — never committed):
+
+```typescript
+export const environment = {
+  production: false,
+  apiUrl: 'http://localhost:8080/api/v1',
+  firebase: {
+    apiKey: 'YOUR_API_KEY',
+    authDomain: 'ascend-dev.firebaseapp.com',
+    projectId: 'ascend-dev',
+    storageBucket: 'ascend-dev.appspot.com',
+    messagingSenderId: 'YOUR_SENDER_ID',
+    appId: 'YOUR_APP_ID',
+  },
+};
+```
+
+### 3. Backend Service Account
+
+1. In Firebase console → **Project Settings** → **Service accounts** → **Generate new private key**
+2. Rename the downloaded file to `firebase-service-account.json`
+3. Place it at `backend/firebase-service-account.json` (gitignored — never committed)
+
+### 4. Enable Firebase on Backend
+
+Create `backend/src/main/resources/application-local.yml` (gitignored — never committed):
+
+```yaml
+firebase:
+  enabled: true
+  project-id: ascend-dev
+  credentials-file: firebase-service-account.json
+```
+
+## Running Locally (with Firebase)
+
+### 1. Start infrastructure
+
+```bash
+docker-compose up -d
+```
+
+### 2. Run the backend with local profile
+
+```bash
+cd backend
+./mvnw spring-boot:run -Dspring-boot.run.profiles=dev,local
+```
+
+### 3. Run the frontend with local config
+
+```bash
+cd frontend
+npm install
+ng serve --configuration=local
+```
+
+> The `local` configuration replaces `environment.ts` with your `environment.local.ts` at build time.
+> See `angular.json` under `build.configurations.local` for the `fileReplacements` setup.
+
 ## Environment Variables
 
 Copy `.env.example` to `.env` and fill in the required values. See the example file for all available configuration options.
+
+## Credentials Summary
+
+| File | Gitignored | Purpose |
+|------|-----------|---------|
+| `backend/firebase-service-account.json` | ✅ Yes | Firebase Admin SDK credentials |
+| `backend/src/main/resources/application-local.yml` | ✅ Yes | Local backend config overrides |
+| `frontend/src/environments/environment.local.ts` | ✅ Yes | Frontend Firebase config with real keys |
+| `frontend/src/environments/environment.ts` | ❌ No | Placeholder only — no real credentials |
 
 ## License
 
