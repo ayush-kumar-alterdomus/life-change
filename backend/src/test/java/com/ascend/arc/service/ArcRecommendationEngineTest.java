@@ -3,7 +3,6 @@ package com.ascend.arc.service;
 import com.ascend.arc.dto.ArcResponse;
 import com.ascend.arc.dto.ArcType;
 import com.ascend.arc.entity.Arc;
-import com.ascend.arc.entity.ArcMilestone;
 import com.ascend.arc.repository.ArcMilestoneRepository;
 import com.ascend.arc.repository.ArcRepository;
 import org.junit.jupiter.api.BeforeEach;

@@ -32,7 +32,8 @@ public class RoleCheckAspect {
             throw new AccessDeniedException("Authentication required");
         }
 
-        Set<String> requiredRoles = Arrays.stream(requireRole.value())
+        UserRole[] roles = requireRole.value();
+        Set<String> requiredRoles = Arrays.stream(roles)
                 .map(role -> "ROLE_" + role.name())
                 .collect(Collectors.toSet());
 

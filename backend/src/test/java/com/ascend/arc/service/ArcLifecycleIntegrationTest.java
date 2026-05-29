@@ -6,7 +6,6 @@ import com.ascend.arc.entity.ArcStatus;
 import com.ascend.arc.entity.Arc;
 import com.ascend.arc.entity.ArcMilestone;
 import com.ascend.arc.entity.UserArcProgress;
-import com.ascend.arc.entity.UserMilestoneCompletion;
 import com.ascend.arc.event.ArcCompletedEvent;
 import com.ascend.arc.event.ArcPhaseCompleteEvent;
 import com.ascend.arc.repository.ArcMilestoneRepository;

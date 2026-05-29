@@ -2,7 +2,6 @@ package com.ascend.xp.service;
 
 import com.ascend.arc.entity.UserArcProgress;
 import com.ascend.arc.repository.UserArcProgressRepository;
-import com.ascend.common.entity.StatType;
 import com.ascend.quest.event.QuestCompletedEvent;
 import com.ascend.skilltree.repository.UserSkillRepository;
 import com.ascend.streak.entity.Streak;
@@ -156,7 +155,7 @@ public class XpService {
     private double getStreakMultiplier(UUID userId) {
         return streakRepository.findByUserId(userId)
                 .map(Streak::getCurrentStreak)
-                .map(ComboCalculator::calculateComboMultiplier)
+                .map(streak -> ComboCalculator.calculateComboMultiplier(streak))
                 .orElse(1.0);
     }
 

@@ -57,7 +57,7 @@ public class XpController {
 
         double comboMultiplier = streakRepository.findByUserId(user.getId())
                 .map(Streak::getCurrentStreak)
-                .map(ComboCalculator::calculateComboMultiplier)
+                .map(streak -> ComboCalculator.calculateComboMultiplier(streak))
                 .orElse(1.0);
 
         XpSummaryResponse response = XpSummaryResponse.builder()
