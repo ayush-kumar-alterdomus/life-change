@@ -66,6 +66,10 @@ public class User {
     private Boolean premium = false;
 
     @Builder.Default
+    @Column(name = "prestige_level", nullable = false)
+    private Integer prestigeLevel = 0;
+
+    @Builder.Default
     @Column(name = "hard_mode", nullable = false)
     private Boolean hardMode = false;
 

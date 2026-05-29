@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {
   IonModal, IonHeader, IonToolbar, IonTitle, IonContent, IonButton,
-  IonButtons, IonItem, IonLabel, IonInput, IonTextarea, IonSelect,
+  IonButtons, IonItem, IonInput, IonTextarea, IonSelect,
   IonSelectOption, IonList, IonNote
 } from '@ionic/angular/standalone';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
@@ -15,7 +15,7 @@ import { QuestService, CreateQuestRequest } from '../services/quest.service';
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [
     CommonModule, FormsModule, IonModal, IonHeader, IonToolbar, IonTitle,
-    IonContent, IonButton, IonButtons, IonItem, IonLabel, IonInput,
+    IonContent, IonButton, IonButtons, IonItem, IonInput,
     IonTextarea, IonSelect, IonSelectOption, IonList, IonNote
   ],
   template: `

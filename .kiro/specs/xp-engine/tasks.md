@@ -51,8 +51,8 @@ XP calculation, award, daily cap enforcement, level-up detection, prestige syste
     - Call `XpService.awardXp()` with event data
     - Handle errors gracefully (log and continue, don't break the event chain)
 
-- [ ] 3. Implement Level-up system
-  - [ ] 3.1 Create LevelService
+- [x] 3. Implement Level-up system
+  - [x] 3.1 Create LevelService
     - Create `LevelService.java` in `xp/service/`
     - `checkAndProcessLevelUp(UUID userId, long newTotalXp, int currentLevel)`:
       1. Calculate new level from total XP
@@ -60,13 +60,13 @@ XP calculation, award, daily cap enforcement, level-up detection, prestige syste
       3. Publish `LevelUpEvent` for each level gained
       4. Determine unlocks: Level 10 → Leagues, Level 25 → Guilds, Level 100 → Prestige
       5. Return level-up info (new level, rewards)
-  - [ ] 3.2 Create LevelUpEvent
+  - [x] 3.2 Create LevelUpEvent
     - Create `LevelUpEvent.java` in `xp/event/`
     - Fields: userId, previousLevel, newLevel, unlockedFeatures (list)
     - Consumed by Notification, Achievement, and League modules
 
-- [ ] 4. Implement Perfect Day bonus
-  - [ ] 4.1 Create PerfectDayService
+- [x] 4. Implement Perfect Day bonus
+  - [x] 4.1 Create PerfectDayService
     - Create `PerfectDayService.java` in `xp/service/`
     - `checkPerfectDay(UUID userId)`:
       1. Count user's assigned daily missions for today
@@ -75,8 +75,8 @@ XP calculation, award, daily cap enforcement, level-up detection, prestige syste
       4. Publish `PerfectDayEvent`
     - Called after each quest completion to check if it was the last one
 
-- [ ] 5. Implement Prestige system
-  - [ ] 5.1 Create PrestigeService
+- [x] 5. Implement Prestige system
+  - [x] 5.1 Create PrestigeService
     - Create `PrestigeService.java` in `xp/service/`
     - `prestige(UUID userId)`:
       1. Verify user is Level 100+
@@ -86,16 +86,16 @@ XP calculation, award, daily cap enforcement, level-up detection, prestige syste
       5. Future XP formula: BaseXP × (1 + 0.1 × PrestigeLevel)
     - `getPrestigeMultiplier(int prestigeLevel)` — returns 1 + 0.1 × prestigeLevel
 
-- [ ] 6. Implement XP history and stats endpoints
-  - [ ] 6.1 Create XP DTOs and controller
+- [x] 6. Implement XP history and stats endpoints
+  - [x] 6.1 Create XP DTOs and controller
     - Create `XpSummaryResponse.java`: totalXp, level, xpToNextLevel, dailyXpEarned, dailyCap, prestigeLevel, comboMultiplier
     - Create `XpHistoryResponse.java`: list of transactions with source, amount, multiplier, stat, timestamp
     - Create `XpController.java` in `xp/controller/`
     - GET `/api/v1/xp/summary` — returns XP summary for authenticated user
     - GET `/api/v1/xp/history` — returns paginated XP history
 
-- [ ] 7. Implement stat gain on quest completion
-  - [ ] 7.1 Create StatService
+- [x] 7. Implement stat gain on quest completion
+  - [x] 7.1 Create StatService
     - Create `StatService.java` in `user/service/`
     - `awardStatPoints(UUID userId, StatType statType, QuestDifficulty difficulty)`:
       1. Calculate stat gain: BaseStat(1) × DifficultyMultiplier
@@ -103,12 +103,12 @@ XP calculation, award, daily cap enforcement, level-up detection, prestige syste
       3. Check for identity title unlocks (stat thresholds)
       4. Recalculate life_score
     - `getLifeScore(UserStats stats)` — formula: 0.25×Discipline + 0.2×Focus + 0.2×Vitality + 0.2×Wisdom + 0.15×(streak-based consistency)
-  - [ ] 7.2 Create stat gain event listener
+  - [x] 7.2 Create stat gain event listener
     - Create `StatEventListener.java` in `user/event/`
     - Listen for `QuestCompletedEvent`
     - Call `StatService.awardStatPoints()` with event's statType and difficulty
 
-- [ ] 8. Write property-based tests for XP calculations
+- [-] 8. Write property-based tests for XP calculations
   - [ ] 8.1 Add jqwik dependency and create XP property tests
     - Add `net.jqwik:jqwik` dependency to pom.xml (test scope)
     - Create `XpCalculatorPropertyTest.java`:

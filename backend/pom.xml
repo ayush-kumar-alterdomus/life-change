@@ -120,6 +120,12 @@
             <artifactId>spring-security-test</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>net.jqwik</groupId>
+            <artifactId>jqwik</artifactId>
+            <version>1.9.1</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -141,6 +147,7 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
                     <argLine>-Duser.timezone=Asia/Kolkata</argLine>
+                    <includeEngines>junit-jupiter,jqwik</includeEngines>
                 </configuration>
             </plugin>
             <plugin>

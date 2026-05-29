@@ -18,6 +18,7 @@ import com.ascend.user.entity.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -58,6 +59,15 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc(addFilters = false)
 class QuestCompletionIntegrationTest {
 
+    private static final String TEST_UID = "firebase-uid-quest-test";
+    private static final String TEST_EMAIL = "questuser@example.com";
+    private static final String QUEST_TITLE = "Morning Meditation";
+    private static final String QUEST_DESCRIPTION = "Meditate for 10 minutes";
+    private static final int QUEST_XP_REWARD = 25;
+    private static final String COMPLETION_MESSAGE = "Quest completed! You earned 25 XP.";
+    private static final String DUPLICATE_MESSAGE = "Quest 'Morning Meditation' has already been completed today";
+    private static final LocalDateTime FIXED_COMPLETED_AT = LocalDateTime.of(2026, 5, 29, 10, 0, 0);
+
     @Autowired
     private MockMvc mockMvc;
 
@@ -73,11 +83,9 @@ class QuestCompletionIntegrationTest {
     @MockBean
     private AuthService authService;
 
+    /** Mocked to satisfy application context — rate limiting is not under test here. */
     @MockBean
     private StringRedisTemplate redisTemplate;
-
-    private static final String TEST_UID = "firebase-uid-quest-test";
-    private static final String TEST_EMAIL = "questuser@example.com";
 
     private User testUser;
     private UUID userId;
@@ -104,6 +112,10 @@ class QuestCompletionIntegrationTest {
         when(authService.getCurrentUser(TEST_UID)).thenReturn(testUser);
     }
 
+    // ──────────────────────────────────────────────────────────────────────────
+    // Helper methods
+    // ──────────────────────────────────────────────────────────────────────────
+
     private UsernamePasswordAuthenticationToken createAuth() {
         FirebasePrincipal principal = new FirebasePrincipal(
                 TEST_UID, TEST_EMAIL, "google.com", Map.of());
@@ -111,127 +123,153 @@ class QuestCompletionIntegrationTest {
                 principal, null, List.of(new SimpleGrantedAuthority("ROLE_USER")));
     }
 
-    @Test
-    @DisplayName("Create quest → complete quest → verify completion record exists")
-    void createQuest_completeQuest_verifyCompletionExists() throws Exception {
-        // Step 1: Create a custom quest
-        CreateQuestRequest createRequest = new CreateQuestRequest(
-                "Morning Meditation", "Meditate for 10 minutes",
-                Difficulty.EASY, 25, StatType.FOCUS, Frequency.DAILY
-        );
-
-        QuestResponse createdQuest = QuestResponse.builder()
+    private QuestResponse buildQuestResponse(boolean completed) {
+        return QuestResponse.builder()
                 .id(questId)
-                .title("Morning Meditation")
-                .description("Meditate for 10 minutes")
-                .xpReward(25)
+                .title(QUEST_TITLE)
+                .description(QUEST_DESCRIPTION)
+                .xpReward(QUEST_XP_REWARD)
                 .difficulty(Difficulty.EASY)
                 .statType(StatType.FOCUS)
                 .frequency(Frequency.DAILY)
                 .recurring(true)
                 .isCustom(true)
-                .completed(false)
+                .completed(completed)
                 .build();
-
-        when(questService.createCustomQuest(eq(userId), any(CreateQuestRequest.class)))
-                .thenReturn(createdQuest);
-
-        mockMvc.perform(post("/api/v1/quests")
-                        .with(authentication(createAuth()))
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(createRequest)))
-                .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.success").value(true))
-                .andExpect(jsonPath("$.data.id").value(questId.toString()))
-                .andExpect(jsonPath("$.data.title").value("Morning Meditation"));
-
-        // Step 2: Complete the quest
-        CompleteQuestRequest completeRequest = new CompleteQuestRequest(questId);
-        LocalDateTime completedAt = LocalDateTime.now();
-
-        QuestCompletionResponse completionResponse = QuestCompletionResponse.builder()
-                .questId(questId)
-                .questTitle("Morning Meditation")
-                .xpEarned(25)
-                .completedAt(completedAt)
-                .message("Quest completed! You earned 25 XP.")
-                .build();
-
-        when(questCompletionService.completeQuest(userId, questId))
-                .thenReturn(completionResponse);
-
-        mockMvc.perform(post("/api/v1/quests/complete")
-                        .with(authentication(createAuth()))
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(completeRequest)))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.success").value(true))
-                .andExpect(jsonPath("$.data.questId").value(questId.toString()))
-                .andExpect(jsonPath("$.data.questTitle").value("Morning Meditation"))
-                .andExpect(jsonPath("$.data.xpEarned").value(25))
-                .andExpect(jsonPath("$.data.message").value("Quest completed! You earned 25 XP."));
-
-        // Step 3: Verify the quest shows as completed when fetching quest details
-        QuestResponse completedQuestResponse = QuestResponse.builder()
-                .id(questId)
-                .title("Morning Meditation")
-                .description("Meditate for 10 minutes")
-                .xpReward(25)
-                .difficulty(Difficulty.EASY)
-                .statType(StatType.FOCUS)
-                .frequency(Frequency.DAILY)
-                .recurring(true)
-                .isCustom(true)
-                .completed(true)
-                .build();
-
-        when(questService.getQuestById(questId)).thenReturn(completedQuestResponse);
-
-        mockMvc.perform(get("/api/v1/quests/" + questId)
-                        .with(authentication(createAuth())))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.success").value(true))
-                .andExpect(jsonPath("$.data.id").value(questId.toString()))
-                .andExpect(jsonPath("$.data.title").value("Morning Meditation"))
-                .andExpect(jsonPath("$.data.completed").value(true));
     }
 
-    @Test
-    @DisplayName("Duplicate quest completion returns 409 Conflict")
-    void duplicateCompletion_returns409Conflict() throws Exception {
-        // First completion succeeds
-        CompleteQuestRequest completeRequest = new CompleteQuestRequest(questId);
-
-        QuestCompletionResponse completionResponse = QuestCompletionResponse.builder()
+    private QuestCompletionResponse buildCompletionResponse() {
+        return QuestCompletionResponse.builder()
                 .questId(questId)
-                .questTitle("Morning Meditation")
-                .xpEarned(25)
-                .completedAt(LocalDateTime.now())
-                .message("Quest completed! You earned 25 XP.")
+                .questTitle(QUEST_TITLE)
+                .xpEarned(QUEST_XP_REWARD)
+                .completedAt(FIXED_COMPLETED_AT)
+                .message(COMPLETION_MESSAGE)
                 .build();
+    }
 
-        when(questCompletionService.completeQuest(userId, questId))
-                .thenReturn(completionResponse)
-                .thenThrow(new DuplicateCompletionException(
-                        "Quest 'Morning Meditation' has already been completed today"));
+    private CreateQuestRequest buildCreateQuestRequest() {
+        return new CreateQuestRequest(
+                QUEST_TITLE, QUEST_DESCRIPTION,
+                Difficulty.EASY, QUEST_XP_REWARD, StatType.FOCUS, Frequency.DAILY
+        );
+    }
 
-        // First attempt succeeds
-        mockMvc.perform(post("/api/v1/quests/complete")
-                        .with(authentication(createAuth()))
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(completeRequest)))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.success").value(true))
-                .andExpect(jsonPath("$.data.xpEarned").value(25));
+    private CompleteQuestRequest buildCompleteQuestRequest() {
+        return new CompleteQuestRequest(questId);
+    }
 
-        // Second attempt returns 409 Conflict
-        mockMvc.perform(post("/api/v1/quests/complete")
-                        .with(authentication(createAuth()))
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(completeRequest)))
-                .andExpect(status().isConflict())
-                .andExpect(jsonPath("$.success").value(false))
-                .andExpect(jsonPath("$.message").value(
-                        "Quest 'Morning Meditation' has already been completed today"));
+    // ──────────────────────────────────────────────────────────────────────────
+    // Scenario tests
+    // ──────────────────────────────────────────────────────────────────────────
+
+    @Nested
+    @DisplayName("Quest completion flow")
+    class QuestCompletionFlow {
+
+        @Test
+        @DisplayName("Create quest → complete quest → verify completion record exists")
+        void createQuest_completeQuest_verifyCompletionExists() throws Exception {
+            // Step 1: Create a custom quest
+            when(questService.createCustomQuest(eq(userId), any(CreateQuestRequest.class)))
+                    .thenReturn(buildQuestResponse(false));
+
+            mockMvc.perform(post("/api/v1/quests")
+                            .with(authentication(createAuth()))
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content(objectMapper.writeValueAsString(buildCreateQuestRequest())))
+                    .andExpect(status().isCreated())
+                    .andExpect(jsonPath("$.success").value(true))
+                    .andExpect(jsonPath("$.data.id").value(questId.toString()))
+                    .andExpect(jsonPath("$.data.title").value(QUEST_TITLE));
+
+            // Step 2: Complete the quest
+            when(questCompletionService.completeQuest(userId, questId))
+                    .thenReturn(buildCompletionResponse());
+
+            mockMvc.perform(post("/api/v1/quests/complete")
+                            .with(authentication(createAuth()))
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content(objectMapper.writeValueAsString(buildCompleteQuestRequest())))
+                    .andExpect(status().isOk())
+                    .andExpect(jsonPath("$.success").value(true))
+                    .andExpect(jsonPath("$.data.questId").value(questId.toString()))
+                    .andExpect(jsonPath("$.data.questTitle").value(QUEST_TITLE))
+                    .andExpect(jsonPath("$.data.xpEarned").value(QUEST_XP_REWARD))
+                    .andExpect(jsonPath("$.data.message").value(COMPLETION_MESSAGE));
+
+            // Step 3: Verify the quest shows as completed
+            when(questService.getQuestById(questId)).thenReturn(buildQuestResponse(true));
+
+            mockMvc.perform(get("/api/v1/quests/" + questId)
+                            .with(authentication(createAuth())))
+                    .andExpect(status().isOk())
+                    .andExpect(jsonPath("$.success").value(true))
+                    .andExpect(jsonPath("$.data.id").value(questId.toString()))
+                    .andExpect(jsonPath("$.data.title").value(QUEST_TITLE))
+                    .andExpect(jsonPath("$.data.completed").value(true));
+        }
+    }
+
+    @Nested
+    @DisplayName("Idempotency enforcement")
+    class IdempotencyEnforcement {
+
+        @Test
+        @DisplayName("Duplicate quest completion returns 409 Conflict")
+        void duplicateCompletion_returns409Conflict() throws Exception {
+            when(questCompletionService.completeQuest(userId, questId))
+                    .thenReturn(buildCompletionResponse())
+                    .thenThrow(new DuplicateCompletionException(DUPLICATE_MESSAGE));
+
+            // First attempt succeeds
+            mockMvc.perform(post("/api/v1/quests/complete")
+                            .with(authentication(createAuth()))
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content(objectMapper.writeValueAsString(buildCompleteQuestRequest())))
+                    .andExpect(status().isOk())
+                    .andExpect(jsonPath("$.success").value(true))
+                    .andExpect(jsonPath("$.data.xpEarned").value(QUEST_XP_REWARD));
+
+            // Second attempt returns 409 Conflict
+            mockMvc.perform(post("/api/v1/quests/complete")
+                            .with(authentication(createAuth()))
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content(objectMapper.writeValueAsString(buildCompleteQuestRequest())))
+                    .andExpect(status().isConflict())
+                    .andExpect(jsonPath("$.success").value(false))
+                    .andExpect(jsonPath("$.message").value(DUPLICATE_MESSAGE));
+        }
+    }
+
+    @Nested
+    @DisplayName("Validation and error handling")
+    class ValidationAndErrorHandling {
+
+        @Test
+        @DisplayName("Complete quest with null questId returns 400 Bad Request")
+        void completeQuest_nullQuestId_returns400() throws Exception {
+            mockMvc.perform(post("/api/v1/quests/complete")
+                            .with(authentication(createAuth()))
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content("{}"))
+                    .andExpect(status().isBadRequest());
+        }
+
+        @Test
+        @DisplayName("Create quest with blank title returns 400 Bad Request")
+        void createQuest_blankTitle_returns400() throws Exception {
+            CreateQuestRequest invalidRequest = new CreateQuestRequest(
+                    "", QUEST_DESCRIPTION,
+                    Difficulty.EASY, QUEST_XP_REWARD, StatType.FOCUS, Frequency.DAILY
+            );
+
+            mockMvc.perform(post("/api/v1/quests")
+                            .with(authentication(createAuth()))
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content(objectMapper.writeValueAsString(invalidRequest)))
+                    .andExpect(status().isBadRequest())
+                    .andExpect(jsonPath("$.success").value(false));
+        }
     }
 }

@@ -1,0 +1,1 @@
+ALTER TABLE users ADD COLUMN prestige_level INT NOT NULL DEFAULT 0;
