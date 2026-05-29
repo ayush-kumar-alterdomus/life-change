@@ -85,7 +85,7 @@ This plan implements the Ascend UI Design System in dependency order: SCSS token
 
 - [ ] 3. Implement Theme Service
   > ⚠️ **Hint:** Only create files. Do not run any build or test commands.
-  - [ ] 3.1 Create `src/core/services/theme.service.ts`
+  - [x] 3.1 Create `src/core/services/theme.service.ts`
     - Implement ThemeService as injectable with `providedIn: 'root'`
     - Create `currentTheme` WritableSignal<'dark' | 'light'> defaulting to 'dark'
     - Create `isDarkMode` computed signal

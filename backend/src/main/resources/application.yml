@@ -28,7 +28,7 @@ spring:
 firebase:
   enabled: ${FIREBASE_ENABLED:true}
   project-id: ${FIREBASE_PROJECT_ID:ascend-dev}
-  credentials-file: ${FIREBASE_CREDENTIALS_FILE:firebase-service-account.json}
+  credentials-file: ${FIREBASE_CREDENTIALS_FILE:file:firebase-service-account.json}
 
 # Application security
 app:
