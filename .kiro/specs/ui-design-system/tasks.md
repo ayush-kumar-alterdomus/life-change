@@ -404,23 +404,23 @@ This plan implements the Ascend UI Design System in dependency order: SCSS token
     - Export all game components
     - _Requirements: 12–21_
 
-- [ ] 12. Implement accessibility and focus indicators
+- [x] 12. Implement accessibility and focus indicators
   > ⚠️ **Hint:** Only create files. Do not run any build or test commands.
-  - [ ] 12.1 Add focus indicators to all interactive components
+  - [x] 12.1 Add focus indicators to all interactive components
     - Add visible focus ring styles to app-button, app-card (clickable), app-modal close button
     - Add focus indicators to game components with interactive elements (quest-card actions, boss-card challenge, etc.)
     - Ensure focus indicators are visible in both dark and light themes
     - Add keyboard navigation support where applicable (Enter/Space activation)
     - _Requirements: 30.1, 30.2, 30.4_
 
-  - [ ] 12.2 Verify color contrast compliance
+  - [x] 12.2 Verify color contrast compliance
     - Ensure text-primary on background meets 4.5:1 ratio in both themes
     - Ensure text-secondary on background meets 4.5:1 ratio or adjust
     - Ensure large text (headings) meets 3:1 ratio
     - Document any contrast adjustments made
     - _Requirements: 30.3_
 
-- [ ] 13. Final checkpoint - Ensure all tests pass
+- [x] 13. Final checkpoint - Ensure all tests pass
   > ⚠️ **Hint:** Only create files. Do not run any build or test commands.
   - Ensure all tests pass, ask the user if questions arise.
 

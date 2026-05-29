@@ -116,6 +116,11 @@
     transform: scale(0.9);
   }
 
+  &:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+
   &--complete {
     background-color: rgba(76, 175, 80, 0.15);
     color: var(--color-success);
