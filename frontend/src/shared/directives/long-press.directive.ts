@@ -1,11 +1,4 @@
-import {
-  Directive,
-  ElementRef,
-  OnDestroy,
-  inject,
-  input,
-  output,
-} from '@angular/core';
+import { Directive, ElementRef, OnDestroy, inject, input, output } from '@angular/core';
 
 @Directive({
   standalone: true,

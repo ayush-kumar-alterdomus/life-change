@@ -3,5 +3,5 @@ export enum StatType {
   Strength = 'strength',
   Wisdom = 'wisdom',
   Vitality = 'vitality',
-  Discipline = 'discipline'
+  Discipline = 'discipline',
 }

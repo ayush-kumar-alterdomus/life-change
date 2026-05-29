@@ -1,9 +1,4 @@
-import {
-  Component,
-  ChangeDetectionStrategy,
-  input,
-  computed,
-} from '@angular/core';
+import { Component, ChangeDetectionStrategy, input, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { XpFormatPipe } from '../../pipes/xp-format.pipe';
 
@@ -15,8 +10,8 @@ import { XpFormatPipe } from '../../pipes/xp-format.pipe';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CommonModule, XpFormatPipe],
   host: {
-    'class': 'xp-progress-bar',
-    'role': 'progressbar',
+    class: 'xp-progress-bar',
+    role: 'progressbar',
     '[attr.aria-valuenow]': 'currentXp()',
     '[attr.aria-valuemin]': '0',
     '[attr.aria-valuemax]': 'requiredXp()',

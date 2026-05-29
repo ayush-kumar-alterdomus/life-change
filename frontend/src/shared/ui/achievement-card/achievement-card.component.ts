@@ -1,10 +1,4 @@
-import {
-  Component,
-  ChangeDetectionStrategy,
-  input,
-  output,
-  computed,
-} from '@angular/core';
+import { Component, ChangeDetectionStrategy, input, output, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TimeAgoPipe } from '../../pipes/time-ago.pipe';
 
@@ -16,12 +10,12 @@ import { TimeAgoPipe } from '../../pipes/time-ago.pipe';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CommonModule, TimeAgoPipe],
   host: {
-    'class': 'achievement-card',
+    class: 'achievement-card',
     '[class.achievement-card--locked]': 'locked()',
     '[class.achievement-card--unlocked]': '!locked()',
     '(click)': 'onCardTap()',
-    'role': 'button',
-    'tabindex': '0',
+    role: 'button',
+    tabindex: '0',
     '(keydown.enter)': 'onCardTap()',
     '(keydown.space)': 'onCardTap()',
     '[attr.aria-label]': 'ariaLabel()',

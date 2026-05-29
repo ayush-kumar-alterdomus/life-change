@@ -3,8 +3,14 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import {
-  IonContent, IonButton, IonInput, IonItem, IonList, IonText,
-  IonIcon, IonNote
+  IonContent,
+  IonButton,
+  IonInput,
+  IonItem,
+  IonList,
+  IonText,
+  IonIcon,
+  IonNote,
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { logoGoogle, personOutline, mailOutline, lockClosedOutline } from 'ionicons/icons';
@@ -14,8 +20,17 @@ import { logoGoogle, personOutline, mailOutline, lockClosedOutline } from 'ionic
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [
-    CommonModule, FormsModule, RouterModule, IonContent,
-    IonButton, IonInput, IonItem, IonList, IonText, IonIcon, IonNote
+    CommonModule,
+    FormsModule,
+    RouterModule,
+    IonContent,
+    IonButton,
+    IonInput,
+    IonItem,
+    IonList,
+    IonText,
+    IonIcon,
+    IonNote,
   ],
   template: `
     <ion-content class="ion-padding">
@@ -36,7 +51,8 @@ import { logoGoogle, personOutline, mailOutline, lockClosedOutline } from 'ionic
                   labelPlacement="stacked"
                   type="email"
                   placeholder="your@email.com"
-                  [(ngModel)]="email">
+                  [(ngModel)]="email"
+                >
                 </ion-input>
               </ion-item>
               <ion-item>
@@ -45,12 +61,18 @@ import { logoGoogle, personOutline, mailOutline, lockClosedOutline } from 'ionic
                   labelPlacement="stacked"
                   type="password"
                   placeholder="••••••••"
-                  [(ngModel)]="password">
+                  [(ngModel)]="password"
+                >
                 </ion-input>
               </ion-item>
             </ion-list>
 
-            <ion-button expand="block" (click)="login()" [disabled]="loading()" class="ion-margin-top">
+            <ion-button
+              expand="block"
+              (click)="login()"
+              [disabled]="loading()"
+              class="ion-margin-top"
+            >
               {{ loading() ? 'Signing in...' : 'Sign In' }}
             </ion-button>
 
@@ -82,31 +104,61 @@ import { logoGoogle, personOutline, mailOutline, lockClosedOutline } from 'ionic
       </div>
     </ion-content>
   `,
-  styles: [`
-    .login-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 100%;
-      max-width: 400px;
-      margin: 0 auto;
-    }
-    .logo { text-align: center; margin-bottom: 24px; }
-    .logo h1 { font-size: 32px; font-weight: 800; margin: 0; }
-    .logo p { margin: 4px 0 0; }
-    ion-card { width: 100%; }
-    .divider {
-      text-align: center;
-      margin: 16px 0;
-      color: var(--ion-color-medium);
-      font-size: 14px;
-    }
-    .error-text { color: var(--ion-color-danger); text-align: center; font-size: 14px; margin-top: 12px; }
-    .signup-link { text-align: center; margin-top: 16px; }
-    .signup-link a { color: var(--ion-color-primary); text-decoration: none; font-weight: 600; }
-    .dev-notice { display: block; text-align: center; margin-top: 24px; font-size: 12px; }
-  `],
+  styles: [
+    `
+      .login-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100%;
+        max-width: 400px;
+        margin: 0 auto;
+      }
+      .logo {
+        text-align: center;
+        margin-bottom: 24px;
+      }
+      .logo h1 {
+        font-size: 32px;
+        font-weight: 800;
+        margin: 0;
+      }
+      .logo p {
+        margin: 4px 0 0;
+      }
+      ion-card {
+        width: 100%;
+      }
+      .divider {
+        text-align: center;
+        margin: 16px 0;
+        color: var(--ion-color-medium);
+        font-size: 14px;
+      }
+      .error-text {
+        color: var(--ion-color-danger);
+        text-align: center;
+        font-size: 14px;
+        margin-top: 12px;
+      }
+      .signup-link {
+        text-align: center;
+        margin-top: 16px;
+      }
+      .signup-link a {
+        color: var(--ion-color-primary);
+        text-decoration: none;
+        font-weight: 600;
+      }
+      .dev-notice {
+        display: block;
+        text-align: center;
+        margin-top: 24px;
+        font-size: 12px;
+      }
+    `,
+  ],
 })
 export class LoginPage {
   email = '';

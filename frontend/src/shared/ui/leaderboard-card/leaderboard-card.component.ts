@@ -1,9 +1,4 @@
-import {
-  Component,
-  ChangeDetectionStrategy,
-  input,
-  computed,
-} from '@angular/core';
+import { Component, ChangeDetectionStrategy, input, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { XpFormatPipe } from '../../pipes/xp-format.pipe';
 
@@ -15,7 +10,7 @@ import { XpFormatPipe } from '../../pipes/xp-format.pipe';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CommonModule, XpFormatPipe],
   host: {
-    'class': 'leaderboard-card',
+    class: 'leaderboard-card',
     '[class.leaderboard-card--current-user]': 'isCurrentUser()',
     '[class.leaderboard-card--gold]': 'rank() === 1',
     '[class.leaderboard-card--silver]': 'rank() === 2',
@@ -53,7 +48,6 @@ export class LeaderboardCardComponent {
 
   /** Computed aria label for accessibility */
   ariaLabel = computed(
-    () =>
-      `Rank ${this.rank()}, ${this.username()}, Level ${this.level()}, ${this.xpTotal()} XP`
+    () => `Rank ${this.rank()}, ${this.username()}, Level ${this.level()}, ${this.xpTotal()} XP`,
   );
 }

@@ -2,9 +2,22 @@ import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import {
-  IonContent, IonHeader, IonTitle, IonToolbar, IonCard, IonCardContent,
-  IonCardHeader, IonCardTitle, IonIcon, IonText, IonProgressBar,
-  IonGrid, IonRow, IonCol, IonBadge, IonButton
+  IonContent,
+  IonHeader,
+  IonTitle,
+  IonToolbar,
+  IonCard,
+  IonCardContent,
+  IonCardHeader,
+  IonCardTitle,
+  IonIcon,
+  IonText,
+  IonProgressBar,
+  IonGrid,
+  IonRow,
+  IonCol,
+  IonBadge,
+  IonButton,
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { flameOutline, trophyOutline, starOutline, arrowUpOutline } from 'ionicons/icons';
@@ -14,9 +27,24 @@ import { QuestService, DailyQuestsResponse } from '../../quests/services/quest.s
   selector: 'app-dashboard',
   standalone: true,
   imports: [
-    CommonModule, RouterModule, IonContent, IonHeader, IonTitle, IonToolbar,
-    IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonIcon, IonText,
-    IonProgressBar, IonGrid, IonRow, IonCol, IonBadge, IonButton
+    CommonModule,
+    RouterModule,
+    IonContent,
+    IonHeader,
+    IonTitle,
+    IonToolbar,
+    IonCard,
+    IonCardContent,
+    IonCardHeader,
+    IonCardTitle,
+    IonIcon,
+    IonText,
+    IonProgressBar,
+    IonGrid,
+    IonRow,
+    IonCol,
+    IonBadge,
+    IonButton,
   ],
   template: `
     <ion-header>
@@ -86,10 +114,20 @@ import { QuestService, DailyQuestsResponse } from '../../quests/services/quest.s
               <p>{{ questData()!.completedQuests }} of {{ questData()!.totalQuests }} completed</p>
             </ion-text>
             <ion-progress-bar
-              [value]="questData()!.totalQuests > 0 ? questData()!.completedQuests / questData()!.totalQuests : 0"
-              color="success">
+              [value]="
+                questData()!.totalQuests > 0
+                  ? questData()!.completedQuests / questData()!.totalQuests
+                  : 0
+              "
+              color="success"
+            >
             </ion-progress-bar>
-            <ion-button expand="block" fill="outline" routerLink="/tabs/quests" class="ion-margin-top">
+            <ion-button
+              expand="block"
+              fill="outline"
+              routerLink="/tabs/quests"
+              class="ion-margin-top"
+            >
               View Quests
             </ion-button>
           </div>
@@ -100,15 +138,38 @@ import { QuestService, DailyQuestsResponse } from '../../quests/services/quest.s
       </ion-card>
     </ion-content>
   `,
-  styles: [`
-    .welcome { padding: 8px 0 16px; }
-    .welcome h1 { font-size: 24px; font-weight: 700; margin: 0; }
-    .stat-card { text-align: center; margin: 4px; }
-    .stat-card ion-card-content { padding: 12px 8px; }
-    .stat-card h3 { font-size: 12px; color: var(--ion-color-medium); margin: 4px 0; }
-    .stat-card .stat-value { font-size: 20px; font-weight: 700; margin: 0; }
-    .quest-summary p { margin-bottom: 8px; }
-  `],
+  styles: [
+    `
+      .welcome {
+        padding: 8px 0 16px;
+      }
+      .welcome h1 {
+        font-size: 24px;
+        font-weight: 700;
+        margin: 0;
+      }
+      .stat-card {
+        text-align: center;
+        margin: 4px;
+      }
+      .stat-card ion-card-content {
+        padding: 12px 8px;
+      }
+      .stat-card h3 {
+        font-size: 12px;
+        color: var(--ion-color-medium);
+        margin: 4px 0;
+      }
+      .stat-card .stat-value {
+        font-size: 20px;
+        font-weight: 700;
+        margin: 0;
+      }
+      .quest-summary p {
+        margin-bottom: 8px;
+      }
+    `,
+  ],
 })
 export class DashboardPage implements OnInit {
   questData = signal<DailyQuestsResponse | null>(null);
@@ -123,7 +184,7 @@ export class DashboardPage implements OnInit {
       next: (data) => {
         this.questData.set(data);
         this.todayXp.set(
-          data.quests.filter((q) => q.completed).reduce((sum, q) => sum + q.xpReward, 0)
+          data.quests.filter((q) => q.completed).reduce((sum, q) => sum + q.xpReward, 0),
         );
       },
       error: () => {},

@@ -1,8 +1,4 @@
-import {
-  Component,
-  ChangeDetectionStrategy,
-  input,
-} from '@angular/core';
+import { Component, ChangeDetectionStrategy, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -13,7 +9,7 @@ import { CommonModule } from '@angular/common';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CommonModule],
   host: {
-    'class': 'level-badge',
+    class: 'level-badge',
     '[class.level-badge--small]': 'size() === "small"',
     '[class.level-badge--large]': 'size() === "large"',
     '[attr.aria-label]': '"Level " + level()',

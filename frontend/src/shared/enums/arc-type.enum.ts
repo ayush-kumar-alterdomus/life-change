@@ -3,5 +3,5 @@ export enum ArcType {
   Warrior = 'warrior',
   Scholar = 'scholar',
   Creator = 'creator',
-  Athlete = 'athlete'
+  Athlete = 'athlete',
 }

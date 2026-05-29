@@ -37,14 +37,11 @@ describe('Feature: ui-design-system, Property 14: Enum values are lowercase stri
 
   it('should have all enum member values matching /^[a-z]+$/ pattern', () => {
     fc.assert(
-      fc.property(
-        fc.constantFrom(...allEnumValues),
-        ({ enumName, key, value }) => {
-          expect(typeof value).toBe('string');
-          expect(value).toMatch(lowercasePattern);
-        }
-      ),
-      { numRuns: 100 }
+      fc.property(fc.constantFrom(...allEnumValues), ({ enumName, key, value }) => {
+        expect(typeof value).toBe('string');
+        expect(value).toMatch(lowercasePattern);
+      }),
+      { numRuns: 100 },
     );
   });
 
@@ -53,14 +50,11 @@ describe('Feature: ui-design-system, Property 14: Enum values are lowercase stri
     it('should have all values as lowercase strings', () => {
       const values = Object.values(Difficulty);
       fc.assert(
-        fc.property(
-          fc.constantFrom(...values),
-          (value) => {
-            expect(typeof value).toBe('string');
-            expect(value).toMatch(lowercasePattern);
-          }
-        ),
-        { numRuns: 100 }
+        fc.property(fc.constantFrom(...values), (value) => {
+          expect(typeof value).toBe('string');
+          expect(value).toMatch(lowercasePattern);
+        }),
+        { numRuns: 100 },
       );
     });
   });
@@ -69,14 +63,11 @@ describe('Feature: ui-design-system, Property 14: Enum values are lowercase stri
     it('should have all values as lowercase strings', () => {
       const values = Object.values(StatType);
       fc.assert(
-        fc.property(
-          fc.constantFrom(...values),
-          (value) => {
-            expect(typeof value).toBe('string');
-            expect(value).toMatch(lowercasePattern);
-          }
-        ),
-        { numRuns: 100 }
+        fc.property(fc.constantFrom(...values), (value) => {
+          expect(typeof value).toBe('string');
+          expect(value).toMatch(lowercasePattern);
+        }),
+        { numRuns: 100 },
       );
     });
   });
@@ -85,14 +76,11 @@ describe('Feature: ui-design-system, Property 14: Enum values are lowercase stri
     it('should have all values as lowercase strings', () => {
       const values = Object.values(League);
       fc.assert(
-        fc.property(
-          fc.constantFrom(...values),
-          (value) => {
-            expect(typeof value).toBe('string');
-            expect(value).toMatch(lowercasePattern);
-          }
-        ),
-        { numRuns: 100 }
+        fc.property(fc.constantFrom(...values), (value) => {
+          expect(typeof value).toBe('string');
+          expect(value).toMatch(lowercasePattern);
+        }),
+        { numRuns: 100 },
       );
     });
   });
@@ -101,14 +89,11 @@ describe('Feature: ui-design-system, Property 14: Enum values are lowercase stri
     it('should have all values as lowercase strings', () => {
       const values = Object.values(ArcType);
       fc.assert(
-        fc.property(
-          fc.constantFrom(...values),
-          (value) => {
-            expect(typeof value).toBe('string');
-            expect(value).toMatch(lowercasePattern);
-          }
-        ),
-        { numRuns: 100 }
+        fc.property(fc.constantFrom(...values), (value) => {
+          expect(typeof value).toBe('string');
+          expect(value).toMatch(lowercasePattern);
+        }),
+        { numRuns: 100 },
       );
     });
   });
@@ -117,14 +102,11 @@ describe('Feature: ui-design-system, Property 14: Enum values are lowercase stri
     it('should have all values as lowercase strings', () => {
       const values = Object.values(QuestFrequency);
       fc.assert(
-        fc.property(
-          fc.constantFrom(...values),
-          (value) => {
-            expect(typeof value).toBe('string');
-            expect(value).toMatch(lowercasePattern);
-          }
-        ),
-        { numRuns: 100 }
+        fc.property(fc.constantFrom(...values), (value) => {
+          expect(typeof value).toBe('string');
+          expect(value).toMatch(lowercasePattern);
+        }),
+        { numRuns: 100 },
       );
     });
   });

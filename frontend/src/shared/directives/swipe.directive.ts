@@ -2,7 +2,7 @@ import { Directive, ElementRef, OnInit, OnDestroy, input, output } from '@angula
 
 @Directive({
   standalone: true,
-  selector: '[appSwipe]'
+  selector: '[appSwipe]',
 })
 export class SwipeDirective implements OnInit, OnDestroy {
   disabled = input<boolean>(false);

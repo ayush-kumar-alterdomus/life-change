@@ -1,9 +1,4 @@
-import {
-  Component,
-  ChangeDetectionStrategy,
-  input,
-  computed,
-} from '@angular/core';
+import { Component, ChangeDetectionStrategy, input, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 export type StreakIntensity = 'inactive' | 'low' | 'active' | 'epic' | 'legendary';
@@ -16,7 +11,7 @@ export type StreakIntensity = 'inactive' | 'low' | 'active' | 'epic' | 'legendar
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CommonModule],
   host: {
-    'class': 'streak-flame',
+    class: 'streak-flame',
     '[class.streak-flame--inactive]': 'intensity() === "inactive"',
     '[class.streak-flame--low]': 'intensity() === "low"',
     '[class.streak-flame--active]': 'intensity() === "active"',

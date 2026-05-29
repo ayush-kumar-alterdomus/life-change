@@ -1,10 +1,4 @@
-import {
-  Component,
-  ChangeDetectionStrategy,
-  input,
-  output,
-  computed,
-} from '@angular/core';
+import { Component, ChangeDetectionStrategy, input, output, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ArcType } from '../../enums/arc-type.enum';
 import { AppProgressComponent } from '../../components/app-progress/app-progress.component';
@@ -17,15 +11,15 @@ import { AppProgressComponent } from '../../components/app-progress/app-progress
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CommonModule, AppProgressComponent],
   host: {
-    'class': 'arc-card',
+    class: 'arc-card',
     '[class.arc-card--monk]': 'arcType() === ArcType.Monk',
     '[class.arc-card--warrior]': 'arcType() === ArcType.Warrior',
     '[class.arc-card--scholar]': 'arcType() === ArcType.Scholar',
     '[class.arc-card--creator]': 'arcType() === ArcType.Creator',
     '[class.arc-card--athlete]': 'arcType() === ArcType.Athlete',
     '(click)': 'onCardTap()',
-    'role': 'button',
-    'tabindex': '0',
+    role: 'button',
+    tabindex: '0',
     '(keydown.enter)': 'onCardTap()',
     '(keydown.space)': 'onCardTap()',
     '[attr.aria-label]': 'ariaLabel()',
@@ -52,7 +46,7 @@ export class ArcCardComponent {
   /** Computed aria label for accessibility */
   ariaLabel = computed(
     () =>
-      `${this.arcName()} arc, ${this.progressPercentage()}% complete, current phase: ${this.currentPhase()}`
+      `${this.arcName()} arc, ${this.progressPercentage()}% complete, current phase: ${this.currentPhase()}`,
   );
 
   onCardTap(): void {

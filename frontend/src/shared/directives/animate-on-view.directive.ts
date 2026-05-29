@@ -5,13 +5,13 @@ import {
   OnDestroy,
   input,
   inject,
-  PLATFORM_ID
+  PLATFORM_ID,
 } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 
 @Directive({
   standalone: true,
-  selector: '[appAnimateOnView]'
+  selector: '[appAnimateOnView]',
 })
 export class AnimateOnViewDirective implements OnInit, OnDestroy {
   animationType = input<'fade-in' | 'slide-up' | 'slide-left' | 'scale-in'>('fade-in');
@@ -36,10 +36,9 @@ export class AnimateOnViewDirective implements OnInit, OnDestroy {
     // Hide element initially before animation triggers
     this.el.nativeElement.classList.add('animate-on-view--hidden');
 
-    this.observer = new IntersectionObserver(
-      (entries) => this.onIntersection(entries),
-      { threshold: 0.1 }
-    );
+    this.observer = new IntersectionObserver((entries) => this.onIntersection(entries), {
+      threshold: 0.1,
+    });
 
     this.observer.observe(this.el.nativeElement);
   }

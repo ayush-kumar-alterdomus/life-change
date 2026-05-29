@@ -1,15 +1,16 @@
 import { League } from '../enums';
 
 export interface User {
-  id: string;
-  firebaseUid: string;
-  username: string;
-  email: string;
-  avatarUrl?: string;
-  level: number;
-  totalXp: number;
-  currentStreak: number;
-  league: League;
-  premiumStatus: boolean;
-  createdAt: Date;
+  readonly id: string;
+  readonly firebaseUid: string;
+  readonly username: string;
+  readonly email: string;
+  readonly avatarUrl?: string;
+  readonly level: number;
+  readonly totalXp: number;
+  readonly currentStreak: number;
+  readonly league: League;
+  readonly premiumStatus: boolean;
+  readonly onboardingComplete: boolean;
+  readonly createdAt: string;
 }

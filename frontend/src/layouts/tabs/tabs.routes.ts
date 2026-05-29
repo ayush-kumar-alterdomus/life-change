@@ -9,37 +9,27 @@ export const TABS_ROUTES: Routes = [
       {
         path: 'home',
         loadChildren: () =>
-          import('../../features/dashboard/dashboard.routes').then(
-            (m) => m.DASHBOARD_ROUTES
-          ),
+          import('../../features/dashboard/dashboard.routes').then((m) => m.DASHBOARD_ROUTES),
       },
       {
         path: 'quests',
         loadChildren: () =>
-          import('../../features/quests/quests.routes').then(
-            (m) => m.QUESTS_ROUTES
-          ),
+          import('../../features/quests/quests.routes').then((m) => m.QUESTS_ROUTES),
       },
       {
         path: 'arc-mode',
         loadChildren: () =>
-          import('../../features/arc-mode/arc-mode.routes').then(
-            (m) => m.ARC_MODE_ROUTES
-          ),
+          import('../../features/arc-mode/arc-mode.routes').then((m) => m.ARC_MODE_ROUTES),
       },
       {
         path: 'social',
         loadChildren: () =>
-          import('../../features/social/social.routes').then(
-            (m) => m.SOCIAL_ROUTES
-          ),
+          import('../../features/social/social.routes').then((m) => m.SOCIAL_ROUTES),
       },
       {
         path: 'profile',
         loadChildren: () =>
-          import('../../features/profile/profile.routes').then(
-            (m) => m.PROFILE_ROUTES
-          ),
+          import('../../features/profile/profile.routes').then((m) => m.PROFILE_ROUTES),
       },
       {
         path: '',

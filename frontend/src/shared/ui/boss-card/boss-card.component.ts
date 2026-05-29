@@ -1,10 +1,4 @@
-import {
-  Component,
-  ChangeDetectionStrategy,
-  input,
-  output,
-  computed,
-} from '@angular/core';
+import { Component, ChangeDetectionStrategy, input, output, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AppProgressComponent } from '../../components/app-progress/app-progress.component';
 
@@ -16,9 +10,9 @@ import { AppProgressComponent } from '../../components/app-progress/app-progress
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CommonModule, AppProgressComponent],
   host: {
-    'class': 'boss-card',
+    class: 'boss-card',
     '[class.boss-card--defeated]': 'defeated()',
-    'role': 'article',
+    role: 'article',
     '[attr.aria-label]': 'ariaLabel()',
   },
 })
@@ -41,7 +35,7 @@ export class BossCardComponent {
   /** Computed aria label for accessibility */
   ariaLabel = computed(
     () =>
-      `Boss: ${this.bossName()}, Level ${this.bossLevel()}, ${this.healthPercentage()}% health remaining${this.defeated() ? ', defeated' : ''}`
+      `Boss: ${this.bossName()}, Level ${this.bossLevel()}, ${this.healthPercentage()}% health remaining${this.defeated() ? ', defeated' : ''}`,
   );
 
   onChallenge(): void {

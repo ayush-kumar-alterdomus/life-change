@@ -3,16 +3,33 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import {
-  IonContent, IonButton, IonInput, IonItem, IonList, IonText,
-  IonCard, IonCardContent, IonNote
+  IonContent,
+  IonButton,
+  IonInput,
+  IonItem,
+  IonList,
+  IonText,
+  IonCard,
+  IonCardContent,
+  IonNote,
 } from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-signup',
   standalone: true,
   imports: [
-    CommonModule, FormsModule, RouterModule, IonContent, IonButton, IonInput,
-    IonItem, IonList, IonText, IonCard, IonCardContent, IonNote
+    CommonModule,
+    FormsModule,
+    RouterModule,
+    IonContent,
+    IonButton,
+    IonInput,
+    IonItem,
+    IonList,
+    IonText,
+    IonCard,
+    IonCardContent,
+    IonNote,
   ],
   template: `
     <ion-content class="ion-padding">
@@ -26,13 +43,30 @@ import {
           <ion-card-content>
             <ion-list>
               <ion-item>
-                <ion-input label="Username" labelPlacement="stacked" placeholder="Your hero name" [(ngModel)]="username"></ion-input>
+                <ion-input
+                  label="Username"
+                  labelPlacement="stacked"
+                  placeholder="Your hero name"
+                  [(ngModel)]="username"
+                ></ion-input>
               </ion-item>
               <ion-item>
-                <ion-input label="Email" labelPlacement="stacked" type="email" placeholder="your@email.com" [(ngModel)]="email"></ion-input>
+                <ion-input
+                  label="Email"
+                  labelPlacement="stacked"
+                  type="email"
+                  placeholder="your@email.com"
+                  [(ngModel)]="email"
+                ></ion-input>
               </ion-item>
               <ion-item>
-                <ion-input label="Password" labelPlacement="stacked" type="password" placeholder="Min 8 characters" [(ngModel)]="password"></ion-input>
+                <ion-input
+                  label="Password"
+                  labelPlacement="stacked"
+                  type="password"
+                  placeholder="Min 8 characters"
+                  [(ngModel)]="password"
+                ></ion-input>
               </ion-item>
             </ion-list>
 
@@ -54,19 +88,52 @@ import {
       </div>
     </ion-content>
   `,
-  styles: [`
-    .signup-container {
-      display: flex; flex-direction: column; align-items: center;
-      justify-content: center; min-height: 100%; max-width: 400px; margin: 0 auto;
-    }
-    .logo { text-align: center; margin-bottom: 24px; }
-    .logo h1 { font-size: 28px; font-weight: 800; margin: 0; }
-    ion-card { width: 100%; }
-    .error-text { color: var(--ion-color-danger); text-align: center; font-size: 14px; margin-top: 12px; }
-    .login-link { text-align: center; margin-top: 16px; }
-    .login-link a { color: var(--ion-color-primary); text-decoration: none; font-weight: 600; }
-    .dev-notice { display: block; text-align: center; margin-top: 24px; font-size: 12px; }
-  `],
+  styles: [
+    `
+      .signup-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100%;
+        max-width: 400px;
+        margin: 0 auto;
+      }
+      .logo {
+        text-align: center;
+        margin-bottom: 24px;
+      }
+      .logo h1 {
+        font-size: 28px;
+        font-weight: 800;
+        margin: 0;
+      }
+      ion-card {
+        width: 100%;
+      }
+      .error-text {
+        color: var(--ion-color-danger);
+        text-align: center;
+        font-size: 14px;
+        margin-top: 12px;
+      }
+      .login-link {
+        text-align: center;
+        margin-top: 16px;
+      }
+      .login-link a {
+        color: var(--ion-color-primary);
+        text-decoration: none;
+        font-weight: 600;
+      }
+      .dev-notice {
+        display: block;
+        text-align: center;
+        margin-top: 24px;
+        font-size: 12px;
+      }
+    `,
+  ],
 })
 export class SignupPage {
   username = '';

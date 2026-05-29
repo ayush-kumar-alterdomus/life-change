@@ -1,8 +1,4 @@
-import {
-  Component,
-  ChangeDetectionStrategy,
-  input,
-} from '@angular/core';
+import { Component, ChangeDetectionStrategy, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -14,7 +10,7 @@ import { CommonModule } from '@angular/common';
   imports: [CommonModule],
   host: {
     '[class]': '"app-loader--" + mode() + " app-loader--" + size()',
-    'role': 'status',
+    role: 'status',
     'aria-label': 'Loading',
   },
 })

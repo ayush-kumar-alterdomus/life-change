@@ -1,10 +1,4 @@
-import {
-  Component,
-  ChangeDetectionStrategy,
-  input,
-  output,
-  computed,
-} from '@angular/core';
+import { Component, ChangeDetectionStrategy, input, output, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Difficulty } from '../../enums/difficulty.enum';
 import { StatType } from '../../enums/stat-type.enum';
@@ -19,7 +13,7 @@ import { XpFormatPipe } from '../../pipes/xp-format.pipe';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CommonModule, AppBadgeComponent, XpFormatPipe],
   host: {
-    'class': 'quest-card',
+    class: 'quest-card',
     '[class.quest-card--completed]': 'completed()',
   },
 })

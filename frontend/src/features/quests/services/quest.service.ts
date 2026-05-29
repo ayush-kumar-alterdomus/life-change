@@ -51,26 +51,22 @@ export class QuestService {
   constructor(private api: ApiService) {}
 
   getDailyQuests(): Observable<DailyQuestsResponse> {
-    return this.api.get<ApiResponse<DailyQuestsResponse>>('/quests/daily').pipe(
-      map((res) => res.data)
-    );
+    return this.api
+      .get<ApiResponse<DailyQuestsResponse>>('/quests/daily')
+      .pipe(map((res) => res.data));
   }
 
   completeQuest(questId: string): Observable<QuestCompletionResponse> {
-    return this.api.post<ApiResponse<QuestCompletionResponse>>('/quests/complete', { questId }).pipe(
-      map((res) => res.data)
-    );
+    return this.api
+      .post<ApiResponse<QuestCompletionResponse>>('/quests/complete', { questId })
+      .pipe(map((res) => res.data));
   }
 
   createQuest(request: CreateQuestRequest): Observable<Quest> {
-    return this.api.post<ApiResponse<Quest>>('/quests', request).pipe(
-      map((res) => res.data)
-    );
+    return this.api.post<ApiResponse<Quest>>('/quests', request).pipe(map((res) => res.data));
   }
 
   getQuestById(id: string): Observable<Quest> {
-    return this.api.get<ApiResponse<Quest>>(`/quests/${id}`).pipe(
-      map((res) => res.data)
-    );
+    return this.api.get<ApiResponse<Quest>>(`/quests/${id}`).pipe(map((res) => res.data));
   }
 }

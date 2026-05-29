@@ -20,7 +20,7 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./app-toast.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
-    'role': 'alert',
+    role: 'alert',
     'aria-live': 'polite',
     '[class.app-toast--success]': 'type() === "success"',
     '[class.app-toast--error]': 'type() === "error"',

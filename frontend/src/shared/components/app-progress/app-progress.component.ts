@@ -1,9 +1,4 @@
-import {
-  Component,
-  ChangeDetectionStrategy,
-  input,
-  computed,
-} from '@angular/core';
+import { Component, ChangeDetectionStrategy, input, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -14,10 +9,10 @@ import { CommonModule } from '@angular/common';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CommonModule],
   host: {
-    'class': 'app-progress',
+    class: 'app-progress',
     '[class.app-progress--striped]': 'striped()',
     '[class.app-progress--animated]': 'animated()',
-    'role': 'progressbar',
+    role: 'progressbar',
     '[attr.aria-valuenow]': 'clampedValue()',
     '[attr.aria-valuemin]': '0',
     '[attr.aria-valuemax]': '100',
