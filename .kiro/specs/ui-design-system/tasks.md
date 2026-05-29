@@ -353,9 +353,9 @@ This plan implements the Ascend UI Design System in dependency order: SCSS token
     - Emit navigate on card tap
     - _Requirements: 16.1, 16.2, 16.3, 16.4, 16.5_
 
-- [ ] 11. Implement game components (Part 2)
+- [x] 11. Implement game components (Part 2)
   > ⚠️ **Hint:** Only create files. Do not run any build or test commands.
-  - [ ] 11.1 Create `src/shared/ui/boss-card/` component
+  - [x] 11.1 Create `src/shared/ui/boss-card/` component
     - Create boss-card.component.ts as standalone with OnPush change detection
     - Use signal inputs: bossName (required), bossLevel (required), healthPercentage (required), defeated
     - Use output: challenge
@@ -364,7 +364,7 @@ This plan implements the Ascend UI Design System in dependency order: SCSS token
     - Emit challenge on button tap
     - _Requirements: 17.1, 17.2, 17.3, 17.4, 17.5_
 
-  - [ ] 11.2 Create `src/shared/ui/achievement-card/` component
+  - [x] 11.2 Create `src/shared/ui/achievement-card/` component
     - Create achievement-card.component.ts as standalone with OnPush change detection
     - Use signal inputs: title (required), description (required), iconUrl (required), unlockedAt, locked
     - Use output: tap
@@ -372,21 +372,21 @@ This plan implements the Ascend UI Design System in dependency order: SCSS token
     - Emit tap on card interaction
     - _Requirements: 18.1, 18.2, 18.3, 18.4_
 
-  - [ ] 11.3 Create `src/shared/ui/guild-card/` component
+  - [x] 11.3 Create `src/shared/ui/guild-card/` component
     - Create guild-card.component.ts as standalone with OnPush change detection
     - Use signal inputs: guildName (required), memberCount (required), guildLevel (required), guildRank
     - Use outputs: join, view
     - Create template with member count, guild level, optional rank badge
     - _Requirements: 19.1, 19.2, 19.3, 19.4_
 
-  - [ ] 11.4 Create `src/shared/ui/leaderboard-card/` component
+  - [x] 11.4 Create `src/shared/ui/leaderboard-card/` component
     - Create leaderboard-card.component.ts as standalone with OnPush change detection
     - Use signal inputs: rank (required), username (required), level (required), xpTotal (required), avatarUrl, isCurrentUser
     - Create template with rank display (gold/silver/bronze for top 3), avatar, username, level, XP (xp-format pipe)
     - Highlight current user entry with distinct border/background
     - _Requirements: 20.1, 20.2, 20.3, 20.4_
 
-  - [ ] 11.5 Create `src/shared/ui/stat-radar/` component
+  - [x] 11.5 Create `src/shared/ui/stat-radar/` component
     - Create stat-radar.component.ts as standalone with OnPush change detection
     - Use signal inputs: stats (required array of {name, value}), size (default 200)
     - Render SVG radar/spider chart with labeled axes
@@ -400,7 +400,7 @@ This plan implements the Ascend UI Design System in dependency order: SCSS token
     - For any array of N stats (N >= 3), verify SVG contains exactly N axis lines and N labels
     - **Validates: Requirements 21.2**
 
-  - [ ] 11.7 Create `src/shared/ui/index.ts` barrel export
+  - [x] 11.7 Create `src/shared/ui/index.ts` barrel export
     - Export all game components
     - _Requirements: 12–21_
 

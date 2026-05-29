@@ -1,0 +1,38 @@
+<div class="guild-card__content" (click)="onView()">
+  <div class="guild-card__header">
+    <h3 class="guild-card__name">{{ guildName() }}</h3>
+    @if (guildRank() !== null) {
+      <span class="guild-card__rank-badge" aria-label="Rank {{ guildRank() }}">
+        #{{ guildRank() }}
+      </span>
+    }
+  </div>
+
+  <div class="guild-card__stats">
+    <div class="guild-card__stat">
+      <span class="guild-card__stat-value">{{ memberCount() }}</span>
+      <span class="guild-card__stat-label">Members</span>
+    </div>
+    <div class="guild-card__stat">
+      <span class="guild-card__stat-value">{{ guildLevel() }}</span>
+      <span class="guild-card__stat-label">Level</span>
+    </div>
+  </div>
+
+  <div class="guild-card__actions">
+    <button
+      class="guild-card__btn guild-card__btn--join"
+      (click)="onJoin($event)"
+      aria-label="Join {{ guildName() }}"
+    >
+      Join
+    </button>
+    <button
+      class="guild-card__btn guild-card__btn--view"
+      (click)="onView()"
+      aria-label="View {{ guildName() }} details"
+    >
+      View
+    </button>
+  </div>
+</div>

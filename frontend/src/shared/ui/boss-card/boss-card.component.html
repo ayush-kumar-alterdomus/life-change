@@ -1,0 +1,31 @@
+<div class="boss-card__content">
+  <div class="boss-card__header">
+    <h3 class="boss-card__name">{{ bossName() }}</h3>
+    <span class="boss-card__level">Lv. {{ bossLevel() }}</span>
+  </div>
+
+  <div class="boss-card__health">
+    <app-progress
+      [value]="healthPercentage()"
+      [color]="'danger'"
+      [animated]="true"
+    ></app-progress>
+    <span class="boss-card__health-label">{{ healthPercentage() }}% HP</span>
+  </div>
+
+  <button
+    type="button"
+    class="boss-card__challenge-btn"
+    [disabled]="defeated()"
+    (click)="onChallenge()"
+    aria-label="Challenge boss"
+  >
+    Challenge
+  </button>
+</div>
+
+@if (defeated()) {
+  <div class="boss-card__defeated-overlay" aria-hidden="true">
+    <span class="boss-card__defeated-text">DEFEATED</span>
+  </div>
+}

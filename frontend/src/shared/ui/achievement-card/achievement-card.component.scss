@@ -1,0 +1,102 @@
+@use '../../../theme/mixins' as *;
+
+:host {
+  display: block;
+  position: relative;
+  padding: var(--space-4);
+  border-radius: var(--radius-lg);
+  background: rgba(22, 22, 22, 0.7);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--color-border);
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.3s ease;
+  overflow: hidden;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+
+  &:active {
+    transform: translateY(0);
+    box-shadow: var(--shadow-sm);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+
+  // Locked state: grayscale + reduced opacity
+  &.achievement-card--locked {
+    filter: grayscale(1);
+    opacity: 0.7;
+  }
+
+  // Unlocked state: subtle glow
+  &.achievement-card--unlocked {
+    border-color: rgba(255, 152, 0, 0.3);
+    box-shadow: var(--shadow-glow-primary);
+  }
+}
+
+.achievement-card__icon-wrapper {
+  position: relative;
+  width: 56px;
+  height: 56px;
+  margin-bottom: var(--space-3);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.achievement-card__icon {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: inherit;
+}
+
+.achievement-card__lock-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: inherit;
+}
+
+.achievement-card__lock-icon {
+  font-size: 1.25rem;
+}
+
+.achievement-card__content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.achievement-card__title {
+  margin: 0;
+  font-family: var(--font-display, 'Orbitron', sans-serif);
+  font-size: var(--text-md);
+  font-weight: var(--font-semibold);
+  color: var(--color-text-primary);
+}
+
+.achievement-card__description {
+  margin: 0;
+  font-family: var(--font-body, 'Inter', sans-serif);
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  line-height: 1.4;
+}
+
+.achievement-card__unlocked-date {
+  margin-top: var(--space-2);
+  font-family: var(--font-body, 'Inter', sans-serif);
+  font-size: var(--text-xs);
+  color: var(--color-primary);
+  font-weight: var(--font-medium);
+}

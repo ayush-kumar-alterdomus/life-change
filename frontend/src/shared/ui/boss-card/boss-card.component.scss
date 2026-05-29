@@ -1,0 +1,156 @@
+@use '../../../theme/mixins' as *;
+
+:host {
+  display: block;
+  position: relative;
+  padding: var(--space-4);
+  border-radius: var(--radius-lg);
+  background: rgba(22, 22, 22, 0.7);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--color-border);
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  // Secondary color glow accent
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(135deg, #A855F7, #7C3AED);
+    opacity: 0.15;
+    z-index: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+  }
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-glow-secondary);
+
+    &::before {
+      opacity: 0.25;
+    }
+  }
+
+  &:active {
+    transform: translateY(0);
+    box-shadow: var(--shadow-sm);
+  }
+
+  // Defeated state — reduced opacity
+  &.boss-card--defeated {
+    opacity: 0.6;
+    pointer-events: none;
+
+    &::before {
+      opacity: 0.05;
+    }
+  }
+}
+
+.boss-card__content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.boss-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.boss-card__name {
+  margin: 0;
+  font-family: var(--font-display, 'Orbitron', sans-serif);
+  font-size: var(--text-lg);
+  font-weight: var(--font-semibold);
+  color: var(--color-text-primary);
+}
+
+.boss-card__level {
+  font-family: var(--font-display, 'Orbitron', sans-serif);
+  font-size: var(--text-sm);
+  font-weight: var(--font-bold);
+  color: #A855F7;
+  background: rgba(168, 85, 247, 0.15);
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-sm);
+}
+
+.boss-card__health {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  width: 100%;
+}
+
+.boss-card__health-label {
+  font-family: var(--font-body, 'Inter', sans-serif);
+  font-size: var(--text-xs);
+  color: var(--color-text-secondary);
+  font-weight: var(--font-medium);
+  text-align: right;
+}
+
+.boss-card__challenge-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 44px;
+  padding: var(--space-2) var(--space-4);
+  border: none;
+  border-radius: var(--radius-md);
+  background: linear-gradient(135deg, #A855F7, #7C3AED);
+  color: #FFFFFF;
+  font-family: var(--font-display, 'Orbitron', sans-serif);
+  font-size: var(--text-base);
+  font-weight: var(--font-semibold);
+  cursor: pointer;
+  transition: opacity 0.2s ease, transform 0.1s ease;
+
+  &:hover:not(:disabled) {
+    opacity: 0.9;
+    transform: scale(1.02);
+  }
+
+  &:active:not(:disabled) {
+    transform: scale(0.98);
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+
+  &:focus-visible {
+    outline: 2px solid #A855F7;
+    outline-offset: 2px;
+  }
+}
+
+.boss-card__defeated-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: inherit;
+}
+
+.boss-card__defeated-text {
+  font-family: var(--font-display, 'Orbitron', sans-serif);
+  font-size: var(--text-xl);
+  font-weight: var(--font-bold);
+  color: #A855F7;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  text-shadow: 0 0 12px rgba(168, 85, 247, 0.6);
+}

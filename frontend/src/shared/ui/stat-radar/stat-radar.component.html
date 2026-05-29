@@ -1,0 +1,44 @@
+@if (canRender()) {
+  <svg
+    class="stat-radar__svg"
+    [attr.width]="size()"
+    [attr.height]="size()"
+    [attr.viewBox]="'0 0 ' + size() + ' ' + size()"
+  >
+    <!-- Outer boundary polygon -->
+    <polygon
+      class="stat-radar__boundary"
+      [attr.points]="outerPolygonPoints()"
+    />
+
+    <!-- Axis lines from center to each vertex -->
+    @for (axis of axisLines(); track $index) {
+      <line
+        class="stat-radar__axis"
+        [attr.x1]="center()"
+        [attr.y1]="center()"
+        [attr.x2]="axis.x2"
+        [attr.y2]="axis.y2"
+      />
+    }
+
+    <!-- Filled stat polygon -->
+    <polygon
+      class="stat-radar__fill"
+      [attr.points]="polygonPoints()"
+    />
+
+    <!-- Stat labels at each axis endpoint -->
+    @for (label of labels(); track $index) {
+      <text
+        class="stat-radar__label"
+        [attr.x]="label.x"
+        [attr.y]="label.y"
+        [attr.text-anchor]="label.anchor"
+        dominant-baseline="middle"
+      >
+        {{ label.name }}
+      </text>
+    }
+  </svg>
+}

@@ -1,0 +1,24 @@
+<div class="achievement-card__icon-wrapper">
+  <img
+    class="achievement-card__icon"
+    [src]="iconUrl()"
+    [title]="title()"
+    [alt]="title() + ' icon'"
+  />
+  @if (locked()) {
+    <div class="achievement-card__lock-overlay">
+      <span class="achievement-card__lock-icon">🔒</span>
+    </div>
+  }
+</div>
+
+<div class="achievement-card__content">
+  <h3 class="achievement-card__title">{{ title() }}</h3>
+  <p class="achievement-card__description">{{ description() }}</p>
+
+  @if (!locked() && unlockedAt()) {
+    <span class="achievement-card__unlocked-date">
+      Unlocked {{ unlockedAt() | timeAgo }}
+    </span>
+  }
+</div>

@@ -1,0 +1,27 @@
+<div class="leaderboard-card__rank" [ngClass]="'leaderboard-card__rank--' + rankClass()">
+  <span class="leaderboard-card__rank-number">{{ rank() }}</span>
+</div>
+
+<div class="leaderboard-card__avatar">
+  @if (avatarUrl()) {
+    <img
+      [src]="avatarUrl()"
+      [alt]="username() + ' avatar'"
+      title="avatar"
+      class="leaderboard-card__avatar-img"
+    />
+  } @else {
+    <div class="leaderboard-card__avatar-placeholder">
+      {{ username().charAt(0).toUpperCase() }}
+    </div>
+  }
+</div>
+
+<div class="leaderboard-card__info">
+  <span class="leaderboard-card__username">{{ username() }}</span>
+  <span class="leaderboard-card__level">Lv. {{ level() }}</span>
+</div>
+
+<div class="leaderboard-card__xp">
+  {{ xpTotal() | xpFormat }}
+</div>

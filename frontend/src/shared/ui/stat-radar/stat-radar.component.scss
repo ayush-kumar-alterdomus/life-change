@@ -1,0 +1,33 @@
+:host {
+  display: block;
+}
+
+.stat-radar__svg {
+  display: block;
+  margin: 0 auto;
+}
+
+.stat-radar__boundary {
+  fill: none;
+  stroke: var(--color-border, rgba(255, 255, 255, 0.08));
+  stroke-width: 1;
+}
+
+.stat-radar__axis {
+  stroke: var(--color-border, rgba(255, 255, 255, 0.08));
+  stroke-width: 1;
+}
+
+.stat-radar__fill {
+  fill: rgba(255, 152, 0, 0.25); // Accent color (#FF9800) with transparency
+  stroke: #a855f7; // Secondary color for border
+  stroke-width: 2;
+  transition: all 0.3s ease;
+}
+
+.stat-radar__label {
+  fill: var(--color-text-secondary, #b0b0b0);
+  font-family: var(--font-body, 'Inter', sans-serif);
+  font-size: 11px;
+  font-weight: var(--font-medium, 500);
+}

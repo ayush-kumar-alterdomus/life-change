@@ -1,0 +1,138 @@
+@use '../../../theme/mixins' as *;
+
+:host {
+  display: block;
+  position: relative;
+  padding: var(--space-4);
+  border-radius: var(--radius-lg);
+  background: rgba(22, 22, 22, 0.7);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--color-border);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  overflow: hidden;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+
+  &:active {
+    transform: translateY(0);
+    box-shadow: var(--shadow-sm);
+  }
+}
+
+.guild-card__content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  cursor: pointer;
+}
+
+.guild-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.guild-card__name {
+  margin: 0;
+  font-family: var(--font-display, 'Orbitron', sans-serif);
+  font-size: var(--text-lg);
+  font-weight: var(--font-semibold);
+  color: var(--color-text-primary);
+}
+
+.guild-card__rank-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 32px;
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-full);
+  background: var(--color-secondary);
+  font-family: var(--font-display, 'Orbitron', sans-serif);
+  font-size: var(--text-sm);
+  font-weight: var(--font-bold);
+  color: var(--color-text-primary);
+  box-shadow: var(--shadow-glow-secondary);
+}
+
+.guild-card__stats {
+  display: flex;
+  gap: var(--space-6);
+}
+
+.guild-card__stat {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+}
+
+.guild-card__stat-value {
+  font-family: var(--font-display, 'Orbitron', sans-serif);
+  font-size: var(--text-xl);
+  font-weight: var(--font-bold);
+  color: var(--color-primary);
+}
+
+.guild-card__stat-label {
+  font-family: var(--font-body, 'Inter', sans-serif);
+  font-size: var(--text-xs);
+  font-weight: var(--font-medium);
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.guild-card__actions {
+  display: flex;
+  gap: var(--space-2);
+  margin-top: var(--space-2);
+}
+
+.guild-card__btn {
+  flex: 1;
+  padding: var(--space-2) var(--space-4);
+  min-height: 44px;
+  border: none;
+  border-radius: var(--radius-md);
+  font-family: var(--font-body, 'Inter', sans-serif);
+  font-size: var(--text-sm);
+  font-weight: var(--font-semibold);
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.1s ease;
+
+  &:active {
+    transform: scale(0.96);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+
+  &--join {
+    background: var(--color-primary);
+    color: #000;
+
+    &:hover {
+      background: color-mix(in srgb, var(--color-primary) 85%, #fff);
+    }
+  }
+
+  &--view {
+    background: transparent;
+    border: 1px solid var(--color-border);
+    color: var(--color-text-primary);
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.05);
+    }
+  }
+}
