@@ -1,5 +1,6 @@
 package com.ascend.auth.controller;
 
+import com.ascend.auth.config.DevAuthFilter;
 import com.ascend.auth.config.FirebasePrincipal;
 import com.ascend.auth.config.RateLimitConfig;
 import com.ascend.auth.config.SecurityConfig;
@@ -31,14 +32,11 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.UUID;
 
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.authentication;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -53,7 +51,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(
         controllers = AuthController.class,
         includeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = GlobalExceptionHandler.class),
-        excludeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = SecurityConfig.class)
+        excludeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = {SecurityConfig.class, DevAuthFilter.class})
 )
 @AutoConfigureMockMvc(addFilters = false)
 class AuthControllerTest {
@@ -108,6 +106,14 @@ class AuthControllerTest {
                 user.getFirebaseUid(), user.getEmail(), "google.com", Map.of());
         return new UsernamePasswordAuthenticationToken(
                 principal, null, List.of(new SimpleGrantedAuthority("ROLE_" + user.getRole().name())));
+    }
+
+    private org.springframework.test.web.servlet.request.RequestPostProcessor withPrincipal(User user) {
+        return request -> {
+            org.springframework.security.core.context.SecurityContextHolder.getContext()
+                    .setAuthentication(createAuth(user));
+            return request;
+        };
     }
 
     @Nested
@@ -190,7 +196,7 @@ class AuthControllerTest {
             when(authService.getCurrentUser(TEST_UID)).thenReturn(user);
 
             mockMvc.perform(get("/api/v1/auth/me")
-                            .with(authentication(createAuth(user))))
+                            .with(withPrincipal(user)))
                     .andExpect(status().isOk())
                     .andExpect(jsonPath("$.success").value(true))
                     .andExpect(jsonPath("$.data.username").value("testuser"))
@@ -267,18 +273,14 @@ class AuthControllerTest {
             when(authService.getCurrentUser(TEST_UID)).thenReturn(user);
 
             mockMvc.perform(get("/api/v1/auth/me")
-                            .with(authentication(createAuth(user))))
+                            .with(withPrincipal(user)))
                     .andExpect(status().isOk())
                     .andExpect(jsonPath("$.success").value(true));
         }
 
         @Test
-        @DisplayName("Unauthenticated user gets 401 on protected endpoints")
+        @DisplayName("Unauthenticated user gets 500 on protected endpoints (no principal)")
         void unauthenticatedUser_cannotAccessProtected() throws Exception {
-            // Without authentication and without filters, the controller gets null principal
-            // which causes a NullPointerException handled by GlobalExceptionHandler as 500
-            // In real app, the security filter would return 401 before reaching controller
-            // This test verifies the endpoint requires authentication
             mockMvc.perform(get("/api/v1/auth/me"))
                     .andExpect(status().isInternalServerError());
         }

@@ -1,5 +1,6 @@
 package com.ascend.quest.controller;
 
+import com.ascend.auth.config.DevAuthFilter;
 import com.ascend.auth.config.FirebasePrincipal;
 import com.ascend.auth.config.SecurityConfig;
 import com.ascend.auth.service.AuthService;
@@ -40,7 +41,6 @@ import java.util.UUID;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.authentication;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -54,7 +54,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(
         controllers = QuestController.class,
         includeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = GlobalExceptionHandler.class),
-        excludeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = SecurityConfig.class)
+        excludeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = {SecurityConfig.class, DevAuthFilter.class})
 )
 @AutoConfigureMockMvc(addFilters = false)
 class QuestCompletionIntegrationTest {
@@ -123,6 +123,14 @@ class QuestCompletionIntegrationTest {
                 principal, null, List.of(new SimpleGrantedAuthority("ROLE_USER")));
     }
 
+    private org.springframework.test.web.servlet.request.RequestPostProcessor withPrincipal() {
+        return request -> {
+            org.springframework.security.core.context.SecurityContextHolder.getContext()
+                    .setAuthentication(createAuth());
+            return request;
+        };
+    }
+
     private QuestResponse buildQuestResponse(boolean completed) {
         return QuestResponse.builder()
                 .id(questId)
@@ -175,7 +183,7 @@ class QuestCompletionIntegrationTest {
                     .thenReturn(buildQuestResponse(false));
 
             mockMvc.perform(post("/api/v1/quests")
-                            .with(authentication(createAuth()))
+                            .with(withPrincipal())
                             .contentType(MediaType.APPLICATION_JSON)
                             .content(objectMapper.writeValueAsString(buildCreateQuestRequest())))
                     .andExpect(status().isCreated())
@@ -188,7 +196,7 @@ class QuestCompletionIntegrationTest {
                     .thenReturn(buildCompletionResponse());
 
             mockMvc.perform(post("/api/v1/quests/complete")
-                            .with(authentication(createAuth()))
+                            .with(withPrincipal())
                             .contentType(MediaType.APPLICATION_JSON)
                             .content(objectMapper.writeValueAsString(buildCompleteQuestRequest())))
                     .andExpect(status().isOk())
@@ -202,7 +210,7 @@ class QuestCompletionIntegrationTest {
             when(questService.getQuestById(questId)).thenReturn(buildQuestResponse(true));
 
             mockMvc.perform(get("/api/v1/quests/" + questId)
-                            .with(authentication(createAuth())))
+                            .with(withPrincipal()))
                     .andExpect(status().isOk())
                     .andExpect(jsonPath("$.success").value(true))
                     .andExpect(jsonPath("$.data.id").value(questId.toString()))
@@ -224,7 +232,7 @@ class QuestCompletionIntegrationTest {
 
             // First attempt succeeds
             mockMvc.perform(post("/api/v1/quests/complete")
-                            .with(authentication(createAuth()))
+                            .with(withPrincipal())
                             .contentType(MediaType.APPLICATION_JSON)
                             .content(objectMapper.writeValueAsString(buildCompleteQuestRequest())))
                     .andExpect(status().isOk())
@@ -233,7 +241,7 @@ class QuestCompletionIntegrationTest {
 
             // Second attempt returns 409 Conflict
             mockMvc.perform(post("/api/v1/quests/complete")
-                            .with(authentication(createAuth()))
+                            .with(withPrincipal())
                             .contentType(MediaType.APPLICATION_JSON)
                             .content(objectMapper.writeValueAsString(buildCompleteQuestRequest())))
                     .andExpect(status().isConflict())
@@ -250,7 +258,7 @@ class QuestCompletionIntegrationTest {
         @DisplayName("Complete quest with null questId returns 400 Bad Request")
         void completeQuest_nullQuestId_returns400() throws Exception {
             mockMvc.perform(post("/api/v1/quests/complete")
-                            .with(authentication(createAuth()))
+                            .with(withPrincipal())
                             .contentType(MediaType.APPLICATION_JSON)
                             .content("{}"))
                     .andExpect(status().isBadRequest());
@@ -265,7 +273,7 @@ class QuestCompletionIntegrationTest {
             );
 
             mockMvc.perform(post("/api/v1/quests")
-                            .with(authentication(createAuth()))
+                            .with(withPrincipal())
                             .contentType(MediaType.APPLICATION_JSON)
                             .content(objectMapper.writeValueAsString(invalidRequest)))
                     .andExpect(status().isBadRequest())

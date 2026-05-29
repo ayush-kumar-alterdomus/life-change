@@ -120,7 +120,7 @@ XP calculation, award, daily cap enforcement, level-up detection, prestige syste
       - Property 8: Prestige multiplier correctness
     - Minimum 100 iterations per property
 
-- [-] 9. Checkpoint - Verify XP engine
+- [x] 9. Checkpoint - Verify XP engine
   - Run property-based tests — all must pass
   - Integration test: complete quest → XP awarded → level up triggered
   - Integration test: daily cap enforcement (award XP up to cap, verify excess discarded)
