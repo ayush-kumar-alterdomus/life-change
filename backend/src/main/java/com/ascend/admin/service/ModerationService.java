@@ -85,7 +85,7 @@ public class ModerationService {
                 .email(user.getEmail())
                 .level(user.getLevel())
                 .premium(Boolean.TRUE.equals(user.getPremium()))
-                .role(user.getRole() != null ? user.getRole() : "USER")
+                .role(user.getRole() != null ? user.getRole().name() : "USER")
                 .createdAt(user.getCreatedAt())
                 .lastActive(user.getLastActive())
                 .flagged(Boolean.TRUE.equals(user.getFlagged()))

@@ -84,6 +84,24 @@ public class User {
     @Column(name = "last_skill_reset_at")
     private LocalDateTime lastSkillResetAt;
 
+    @Builder.Default
+    @Column(name = "suspended", nullable = false)
+    private Boolean suspended = false;
+
+    @Column(name = "suspended_until")
+    private LocalDateTime suspendedUntil;
+
+    @Builder.Default
+    @Column(name = "banned", nullable = false)
+    private Boolean banned = false;
+
+    @Builder.Default
+    @Column(name = "flagged", nullable = false)
+    private Boolean flagged = false;
+
+    @Column(name = "last_active")
+    private LocalDateTime lastActive;
+
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;

@@ -14,4 +14,6 @@ public interface StreakRepository extends JpaRepository<Streak, UUID> {
     Optional<Streak> findByUserId(UUID userId);
 
     List<Streak> findByComebackModeActiveTrue();
+
+    long countByCurrentStreakGreaterThan(int value);
 }
