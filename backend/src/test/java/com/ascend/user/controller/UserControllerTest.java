@@ -1,42 +1,36 @@
 package com.ascend.user.controller;
 
-import com.ascend.auth.config.FirebasePrincipal;
 import com.ascend.auth.service.AuthService;
 import com.ascend.common.exception.BusinessException;
 import com.ascend.user.entity.User;
 import com.ascend.user.repository.UserRepository;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.util.Map;
 import java.util.UUID;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(UserController.class)
+@WebMvcTest(controllers = UserController.class, properties = "spring.security.enabled=false")
+@AutoConfigureMockMvc(addFilters = false)
 @DisplayName("UserController")
 class UserControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
-
-    @Autowired
-    private ObjectMapper objectMapper;
 
     @MockBean
     private AuthService authService;
@@ -45,7 +39,6 @@ class UserControllerTest {
     private UserRepository userRepository;
 
     private User testUser;
-    private FirebasePrincipal principal;
 
     @BeforeEach
     void setUp() {
@@ -57,8 +50,7 @@ class UserControllerTest {
                 .xp(0L)
                 .build();
 
-        principal = new FirebasePrincipal("firebase-uid-456", "new@example.com", "password", Map.of());
-        when(authService.getCurrentUser("firebase-uid-456")).thenReturn(testUser);
+        when(authService.getCurrentUser(any())).thenReturn(testUser);
         when(userRepository.save(any(User.class))).thenReturn(testUser);
     }
 
@@ -80,11 +72,8 @@ class UserControllerTest {
                     """;
 
             mockMvc.perform(put("/api/v1/users/onboarding")
-                            .with(SecurityMockMvcRequestPostProcessors.user(principal.uid()))
-                            .with(csrf())
                             .contentType(MediaType.APPLICATION_JSON)
-                            .content(body)
-                            .principal(() -> principal.uid()))
+                            .content(body))
                     .andExpect(status().isOk())
                     .andExpect(jsonPath("$.success").value(true))
                     .andExpect(jsonPath("$.message").value("Onboarding completed"));
@@ -104,11 +93,8 @@ class UserControllerTest {
                     """;
 
             mockMvc.perform(put("/api/v1/users/onboarding")
-                            .with(SecurityMockMvcRequestPostProcessors.user(principal.uid()))
-                            .with(csrf())
                             .contentType(MediaType.APPLICATION_JSON)
-                            .content(body)
-                            .principal(() -> principal.uid()))
+                            .content(body))
                     .andExpect(status().isOk());
 
             verify(userRepository).save(any(User.class));
@@ -128,11 +114,8 @@ class UserControllerTest {
                     """;
 
             mockMvc.perform(put("/api/v1/users/onboarding")
-                            .with(SecurityMockMvcRequestPostProcessors.user(principal.uid()))
-                            .with(csrf())
                             .contentType(MediaType.APPLICATION_JSON)
-                            .content(body)
-                            .principal(() -> principal.uid()))
+                            .content(body))
                     .andExpect(status().isBadRequest());
         }
 
@@ -150,11 +133,8 @@ class UserControllerTest {
                     """;
 
             mockMvc.perform(put("/api/v1/users/onboarding")
-                            .with(SecurityMockMvcRequestPostProcessors.user(principal.uid()))
-                            .with(csrf())
                             .contentType(MediaType.APPLICATION_JSON)
-                            .content(body)
-                            .principal(() -> principal.uid()))
+                            .content(body))
                     .andExpect(status().isBadRequest());
         }
 
@@ -171,11 +151,8 @@ class UserControllerTest {
                     """;
 
             mockMvc.perform(put("/api/v1/users/onboarding")
-                            .with(SecurityMockMvcRequestPostProcessors.user(principal.uid()))
-                            .with(csrf())
                             .contentType(MediaType.APPLICATION_JSON)
-                            .content(body)
-                            .principal(() -> principal.uid()))
+                            .content(body))
                     .andExpect(status().isBadRequest());
         }
 
@@ -193,11 +170,8 @@ class UserControllerTest {
                     """;
 
             mockMvc.perform(put("/api/v1/users/onboarding")
-                            .with(SecurityMockMvcRequestPostProcessors.user(principal.uid()))
-                            .with(csrf())
                             .contentType(MediaType.APPLICATION_JSON)
-                            .content(body)
-                            .principal(() -> principal.uid()))
+                            .content(body))
                     .andExpect(status().isBadRequest());
         }
 
@@ -218,11 +192,8 @@ class UserControllerTest {
                     """;
 
             mockMvc.perform(put("/api/v1/users/onboarding")
-                            .with(SecurityMockMvcRequestPostProcessors.user(principal.uid()))
-                            .with(csrf())
                             .contentType(MediaType.APPLICATION_JSON)
-                            .content(body)
-                            .principal(() -> principal.uid()))
+                            .content(body))
                     .andExpect(status().isBadRequest())
                     .andExpect(jsonPath("$.success").value(false))
                     .andExpect(jsonPath("$.message").value("User not found for the authenticated account"));

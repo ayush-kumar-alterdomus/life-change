@@ -1,6 +1,5 @@
 package com.ascend.quest.controller;
 
-import com.ascend.auth.config.FirebasePrincipal;
 import com.ascend.auth.service.AuthService;
 import com.ascend.common.entity.Difficulty;
 import com.ascend.common.entity.Frequency;
@@ -12,22 +11,21 @@ import com.ascend.quest.exception.DuplicateCompletionException;
 import com.ascend.quest.service.QuestCompletionService;
 import com.ascend.quest.service.QuestService;
 import com.ascend.user.entity.User;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
-import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collections;
-import java.util.Map;
 import java.util.UUID;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -39,15 +37,13 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(QuestController.class)
+@WebMvcTest(controllers = QuestController.class, properties = "spring.security.enabled=false")
+@AutoConfigureMockMvc(addFilters = false)
 @DisplayName("QuestController")
 class QuestControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
-
-    @Autowired
-    private ObjectMapper objectMapper;
 
     @MockBean
     private QuestService questService;
@@ -59,7 +55,6 @@ class QuestControllerTest {
     private AuthService authService;
 
     private User testUser;
-    private FirebasePrincipal principal;
 
     @BeforeEach
     void setUp() {
@@ -71,8 +66,7 @@ class QuestControllerTest {
                 .xp(1200L)
                 .build();
 
-        principal = new FirebasePrincipal("firebase-uid-123", "test@example.com", "password", Map.of());
-        when(authService.getCurrentUser("firebase-uid-123")).thenReturn(testUser);
+        when(authService.getCurrentUser(any())).thenReturn(testUser);
     }
 
     @Nested
@@ -91,9 +85,7 @@ class QuestControllerTest {
 
             when(questService.getDailyQuests(testUser.getId())).thenReturn(response);
 
-            mockMvc.perform(get("/api/v1/quests/daily")
-                            .with(SecurityMockMvcRequestPostProcessors.user(principal.uid()))
-                            .principal(() -> principal.uid()))
+            mockMvc.perform(get("/api/v1/quests/daily"))
                     .andExpect(status().isOk())
                     .andExpect(jsonPath("$.success").value(true))
                     .andExpect(jsonPath("$.data.totalQuests").value(5))
@@ -125,11 +117,8 @@ class QuestControllerTest {
                     """.formatted(questId);
 
             mockMvc.perform(post("/api/v1/quests/complete")
-                            .with(SecurityMockMvcRequestPostProcessors.user(principal.uid()))
-                            .with(csrf())
                             .contentType(MediaType.APPLICATION_JSON)
-                            .content(body)
-                            .principal(() -> principal.uid()))
+                            .content(body))
                     .andExpect(status().isOk())
                     .andExpect(jsonPath("$.success").value(true))
                     .andExpect(jsonPath("$.data.xpEarned").value(50))
@@ -149,11 +138,8 @@ class QuestControllerTest {
                     """.formatted(questId);
 
             mockMvc.perform(post("/api/v1/quests/complete")
-                            .with(SecurityMockMvcRequestPostProcessors.user(principal.uid()))
-                            .with(csrf())
                             .contentType(MediaType.APPLICATION_JSON)
-                            .content(body)
-                            .principal(() -> principal.uid()))
+                            .content(body))
                     .andExpect(status().isConflict())
                     .andExpect(jsonPath("$.success").value(false))
                     .andExpect(jsonPath("$.message").value("Quest already completed today"));
@@ -163,11 +149,8 @@ class QuestControllerTest {
         @DisplayName("should return 400 when questId is missing")
         void shouldReturn400WhenQuestIdMissing() throws Exception {
             mockMvc.perform(post("/api/v1/quests/complete")
-                            .with(SecurityMockMvcRequestPostProcessors.user(principal.uid()))
-                            .with(csrf())
                             .contentType(MediaType.APPLICATION_JSON)
-                            .content("{}")
-                            .principal(() -> principal.uid()))
+                            .content("{}"))
                     .andExpect(status().isBadRequest());
         }
     }
@@ -202,11 +185,8 @@ class QuestControllerTest {
                     """;
 
             mockMvc.perform(post("/api/v1/quests")
-                            .with(SecurityMockMvcRequestPostProcessors.user(principal.uid()))
-                            .with(csrf())
                             .contentType(MediaType.APPLICATION_JSON)
-                            .content(body)
-                            .principal(() -> principal.uid()))
+                            .content(body))
                     .andExpect(status().isCreated())
                     .andExpect(jsonPath("$.success").value(true))
                     .andExpect(jsonPath("$.data.title").value("Meditate 10 min"))
@@ -227,11 +207,8 @@ class QuestControllerTest {
                     """;
 
             mockMvc.perform(post("/api/v1/quests")
-                            .with(SecurityMockMvcRequestPostProcessors.user(principal.uid()))
-                            .with(csrf())
                             .contentType(MediaType.APPLICATION_JSON)
-                            .content(body)
-                            .principal(() -> principal.uid()))
+                            .content(body))
                     .andExpect(status().isBadRequest());
         }
 
@@ -249,11 +226,8 @@ class QuestControllerTest {
                     """;
 
             mockMvc.perform(post("/api/v1/quests")
-                            .with(SecurityMockMvcRequestPostProcessors.user(principal.uid()))
-                            .with(csrf())
                             .contentType(MediaType.APPLICATION_JSON)
-                            .content(body)
-                            .principal(() -> principal.uid()))
+                            .content(body))
                     .andExpect(status().isBadRequest());
         }
 
@@ -271,11 +245,8 @@ class QuestControllerTest {
                     """;
 
             mockMvc.perform(post("/api/v1/quests")
-                            .with(SecurityMockMvcRequestPostProcessors.user(principal.uid()))
-                            .with(csrf())
                             .contentType(MediaType.APPLICATION_JSON)
-                            .content(body)
-                            .principal(() -> principal.uid()))
+                            .content(body))
                     .andExpect(status().isBadRequest());
         }
 
@@ -292,11 +263,8 @@ class QuestControllerTest {
                     """;
 
             mockMvc.perform(post("/api/v1/quests")
-                            .with(SecurityMockMvcRequestPostProcessors.user(principal.uid()))
-                            .with(csrf())
                             .contentType(MediaType.APPLICATION_JSON)
-                            .content(body)
-                            .principal(() -> principal.uid()))
+                            .content(body))
                     .andExpect(status().isBadRequest());
         }
     }
@@ -320,9 +288,7 @@ class QuestControllerTest {
 
             when(questService.getQuestById(questId)).thenReturn(questResponse);
 
-            mockMvc.perform(get("/api/v1/quests/{id}", questId)
-                            .with(SecurityMockMvcRequestPostProcessors.user(principal.uid()))
-                            .principal(() -> principal.uid()))
+            mockMvc.perform(get("/api/v1/quests/{id}", questId))
                     .andExpect(status().isOk())
                     .andExpect(jsonPath("$.success").value(true))
                     .andExpect(jsonPath("$.data.title").value("Read 30 pages"))
