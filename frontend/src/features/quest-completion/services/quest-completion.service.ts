@@ -75,9 +75,7 @@ export class QuestCompletionService {
 
     this._flowState.set({ status: 'confirming', quest, error: null });
 
-    return this._completionEvent$.pipe(
-      filter(result => result.questId === quest.id)
-    );
+    return this._completionEvent$.pipe(filter((result) => result.questId === quest.id));
   }
 
   // ─── Flow Lifecycle Methods ─────────────────────────────────────────────────
@@ -91,10 +89,13 @@ export class QuestCompletionService {
     if (!quest) return;
     this.hapticService.impact('light');
     this._flowState.set({ status: 'submitting', quest, error: null });
-    this.questService.completeQuest(quest.id).pipe(
-      tap((response) => this.handleSuccess(quest, response)),
-      catchError((error) => this.handleError(quest, error))
-    ).subscribe();
+    this.questService
+      .completeQuest(quest.id)
+      .pipe(
+        tap((response) => this.handleSuccess(quest, response)),
+        catchError((error) => this.handleError(quest, error)),
+      )
+      .subscribe();
   }
 
   /**
@@ -126,6 +127,20 @@ export class QuestCompletionService {
     } else {
       this._flowState.set({ status: 'idle', quest: null, error: null });
     }
+  }
+
+  /**
+   * Returns stats for the Perfect Day overlay.
+   */
+  getPerfectDayStats(): { totalXp: number; questsCompleted: number } {
+    const quest = this._flowState().quest;
+    return {
+      totalXp: quest?.xpReward ?? 0,
+      questsCompleted:
+        this.dashboardStore.todayQuests().status === 'loaded'
+          ? this.dashboardStore.todayQuests().data.length
+          : 0,
+    };
   }
 
   // ─── Private Methods ───────────────────────────────────────────────────────

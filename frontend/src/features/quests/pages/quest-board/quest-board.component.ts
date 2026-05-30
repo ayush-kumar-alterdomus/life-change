@@ -51,8 +51,8 @@ import { UpgradePromptComponent } from '../../components/upgrade-prompt/upgrade-
 @Component({
   standalone: true,
   selector: 'app-quest-board',
-  templateUrl: './quest-board.page.html',
-  styleUrls: ['./quest-board.page.scss'],
+  templateUrl: './quest-board.component.html',
+  styleUrls: ['./quest-board.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [
