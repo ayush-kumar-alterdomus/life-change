@@ -28,7 +28,7 @@ import { eyeOutline, eyeOffOutline } from 'ionicons/icons';
 
 import { AuthService } from '../../../../core/services/auth.service';
 import { HapticService } from '../../../../core/services/haptic.service';
-import { AuthError } from '../../../../core/models/auth-error.model';
+import { AuthError, toAuthError } from '../../../../core/models/auth-error.model';
 import { emailValidator } from '../../../../shared/validators/email.validator';
 import {
   passwordStrengthValidator,
@@ -136,8 +136,8 @@ export class SignupComponent {
       // Navigate to onboarding (new user always goes to onboarding)
       this.navCtrl.navigateRoot('/onboarding');
     } catch (error: unknown) {
-      const authError = error as AuthError;
-      this.errorMessage.set(authError.message || 'An unexpected error occurred. Please try again.');
+      const authError = toAuthError(error);
+      this.errorMessage.set(authError.message);
     } finally {
       this.loading.set(false);
     }

@@ -27,7 +27,7 @@ import { eyeOutline, eyeOffOutline } from 'ionicons/icons';
 
 import { AuthService } from '../../../../core/services/auth.service';
 import { HapticService } from '../../../../core/services/haptic.service';
-import { AuthError } from '../../../../core/models/auth-error.model';
+import { AuthError, toAuthError } from '../../../../core/models/auth-error.model';
 import { RETURN_URL_KEY } from '../../../../core/auth/auth.guard';
 import { emailValidator } from '../../../../shared/validators/email.validator';
 
@@ -109,15 +109,24 @@ export class LoginComponent {
       await this.hapticService.impact('light');
 
       // Navigate to stored redirect URL or default to /tabs/home
-      const redirectUrl = sessionStorage.getItem(RETURN_URL_KEY) || '/tabs/home';
+      const storedUrl = sessionStorage.getItem(RETURN_URL_KEY);
       sessionStorage.removeItem(RETURN_URL_KEY);
+      const redirectUrl = this.sanitizeRedirectUrl(storedUrl);
       this.navCtrl.navigateRoot(redirectUrl);
     } catch (error: unknown) {
-      const authError = error as AuthError;
-      this.errorMessage.set(authError.message || 'An unexpected error occurred. Please try again.');
+      const authError = toAuthError(error);
+      this.errorMessage.set(authError.message);
     } finally {
       this.loading.set(false);
     }
+  }
+
+  /** Validates redirect URL to prevent open redirect attacks. */
+  private sanitizeRedirectUrl(url: string | null): string {
+    const defaultUrl = '/tabs/home';
+    if (!url || !url.startsWith('/') || url.startsWith('//')) return defaultUrl;
+    const allowed = ['/tabs/', '/onboarding'];
+    return allowed.some((prefix) => url.startsWith(prefix)) ? url : defaultUrl;
   }
 
   private focusFirstInvalidField(): void {

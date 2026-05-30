@@ -56,9 +56,6 @@ Multiplayer features that add social accountability and competitive motivation.
 |-------|------|-------------|--------------|
 | 10 | `league-system` | Tiers, league score, weekly promotion/demotion, anti-cheat | Phase 2 (xp-engine, levels) |
 | 11 | `guild-system` | Guild CRUD, shared quests, chat (WebSocket), rankings | Phase 2, realtime-communication (partial) |
-
-
-skipped:
 | 12 | `boss-battles` | Multi-stage bosses, progress from quests, guild bosses | Phase 2, guild-system (for guild bosses) |
 
 **Phase 4 Deliverable:** Users compete in leagues, collaborate in guilds, and fight bosses together.

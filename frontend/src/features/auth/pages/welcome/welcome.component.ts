@@ -14,7 +14,7 @@ import { getAuthPlatform } from '../../utils/platform-detection';
 import { AuthService } from '../../../../core/services/auth.service';
 import { UserStore } from '../../../../core/services/user-store.service';
 import { HapticService } from '../../../../core/services/haptic.service';
-import { AuthError } from '../../../../core/models/auth-error.model';
+import { AuthError, toAuthError } from '../../../../core/models/auth-error.model';
 
 @Component({
   standalone: true,
@@ -107,12 +107,9 @@ export class WelcomeComponent {
    * remains on the welcome screen silently. Otherwise, shows an error toast.
    */
   private handleSignInError(error: unknown, fallbackMessage: string): void {
-    const authError = error as AuthError;
-    // User cancellation — empty message means silent dismiss
-    if (authError?.message === '') {
-      return;
-    }
-    this.showErrorToast(authError?.message || fallbackMessage);
+    const authError = toAuthError(error);
+    if (authError.message === '') return;
+    this.showErrorToast(authError.message || fallbackMessage);
   }
 
   /** Displays an error toast notification */

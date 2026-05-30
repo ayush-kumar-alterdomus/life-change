@@ -11,6 +11,8 @@ import java.util.UUID;
 @Repository
 public interface BossProgressRepository extends JpaRepository<BossProgress, UUID> {
 
+    List<BossProgress> findByUserId(UUID userId);
+
     List<BossProgress> findByUserIdAndDefeatedFalse(UUID userId);
 
     Optional<BossProgress> findByUserIdAndBossId(UUID userId, UUID bossId);
