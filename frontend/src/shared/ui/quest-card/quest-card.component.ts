@@ -7,7 +7,7 @@ import { XpFormatPipe } from '../../pipes/xp-format.pipe';
 
 @Component({
   standalone: true,
-  selector: 'game-quest-card',
+  selector: 'app-quest-card',
   templateUrl: './quest-card.component.html',
   styleUrls: ['./quest-card.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

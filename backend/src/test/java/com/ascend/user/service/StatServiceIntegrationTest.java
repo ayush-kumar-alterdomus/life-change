@@ -76,7 +76,6 @@ class StatServiceIntegrationTest {
         when(userStatsRepository.findByUserId(userId)).thenReturn(Optional.of(existingStats));
         when(userStatsRepository.save(any(UserStats.class))).thenAnswer(inv -> inv.getArgument(0));
         when(streakRepository.findByUserId(userId)).thenReturn(Optional.empty());
-        when(achievementRepository.findByUserId(userId)).thenReturn(List.of());
 
         StatGainResponse response = statService.awardStatPoints(userId, StatType.STRENGTH, Difficulty.EASY);
 

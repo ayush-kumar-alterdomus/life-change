@@ -21,4 +21,6 @@ public interface XpHistoryRepository extends JpaRepository<XpHistory, UUID> {
 
     @Query("SELECT COALESCE(SUM(x.xpAmount), 0) FROM XpHistory x WHERE x.userId = :userId AND x.createdAt BETWEEN :start AND :end")
     Long sumXpAmountByUserIdAndCreatedAtBetween(@Param("userId") UUID userId, @Param("start") LocalDateTime start, @Param("end") LocalDateTime end);
+
+    long countByUserIdAndSourceTypeAndCreatedAtAfter(UUID userId, String sourceType, LocalDateTime after);
 }

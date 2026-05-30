@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   standalone: true,
-  selector: 'game-level-badge',
+  selector: 'app-level-badge',
   templateUrl: './level-badge.component.html',
   styleUrls: ['./level-badge.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

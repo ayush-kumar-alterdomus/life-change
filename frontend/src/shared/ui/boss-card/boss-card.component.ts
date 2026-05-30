@@ -4,7 +4,7 @@ import { AppProgressComponent } from '../../components/app-progress/app-progress
 
 @Component({
   standalone: true,
-  selector: 'game-boss-card',
+  selector: 'app-boss-card',
   templateUrl: './boss-card.component.html',
   styleUrls: ['./boss-card.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

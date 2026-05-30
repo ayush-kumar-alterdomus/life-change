@@ -5,7 +5,7 @@ import { AppProgressComponent } from '../../components/app-progress/app-progress
 
 @Component({
   standalone: true,
-  selector: 'game-arc-card',
+  selector: 'app-arc-card',
   templateUrl: './arc-card.component.html',
   styleUrls: ['./arc-card.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

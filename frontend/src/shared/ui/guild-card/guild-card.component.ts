@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   standalone: true,
-  selector: 'game-guild-card',
+  selector: 'app-guild-card',
   templateUrl: './guild-card.component.html',
   styleUrls: ['./guild-card.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

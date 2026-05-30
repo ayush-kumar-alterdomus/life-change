@@ -1,0 +1,71 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Create Quest</ion-title>
+    <ion-button slot="end" fill="clear" (click)="close.emit()">Close</ion-button>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+  <ion-list>
+    <ion-item>
+      <ion-input
+        label="Title"
+        labelPlacement="stacked"
+        placeholder="e.g. Run 5km"
+        [(ngModel)]="newQuest.title"
+        maxlength="100"
+      ></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-textarea
+        label="Description"
+        labelPlacement="stacked"
+        placeholder="Optional"
+        [(ngModel)]="newQuest.description"
+        maxlength="500"
+      ></ion-textarea>
+    </ion-item>
+    <ion-item>
+      <ion-select label="Difficulty" labelPlacement="stacked" [(ngModel)]="newQuest.difficulty">
+        <ion-select-option value="EASY">Easy</ion-select-option>
+        <ion-select-option value="MEDIUM">Medium</ion-select-option>
+        <ion-select-option value="HARD">Hard</ion-select-option>
+        <ion-select-option value="LEGENDARY">Legendary</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-input
+        label="XP Reward (10-300)"
+        labelPlacement="stacked"
+        type="number"
+        [(ngModel)]="newQuest.xpReward"
+        min="10"
+        max="300"
+      ></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-select label="Stat Type" labelPlacement="stacked" [(ngModel)]="newQuest.statType">
+        <ion-select-option value="STRENGTH">💪 Strength</ion-select-option>
+        <ion-select-option value="WISDOM">📚 Wisdom</ion-select-option>
+        <ion-select-option value="FOCUS">👁️ Focus</ion-select-option>
+        <ion-select-option value="DISCIPLINE">🛡️ Discipline</ion-select-option>
+        <ion-select-option value="VITALITY">❤️ Vitality</ion-select-option>
+        <ion-select-option value="CHARISMA">🗣️ Charisma</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-select label="Frequency" labelPlacement="stacked" [(ngModel)]="newQuest.frequency">
+        <ion-select-option value="DAILY">Daily</ion-select-option>
+        <ion-select-option value="WEEKLY">Weekly</ion-select-option>
+        <ion-select-option value="ONE_TIME">One Time</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+  <ion-button
+    expand="block"
+    (click)="submit()"
+    [disabled]="!isValid()"
+    class="ion-margin-top"
+  >
+    Create Quest
+  </ion-button>
+</ion-content>

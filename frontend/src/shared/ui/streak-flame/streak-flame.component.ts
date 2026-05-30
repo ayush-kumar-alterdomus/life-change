@@ -5,7 +5,7 @@ export type StreakIntensity = 'inactive' | 'low' | 'active' | 'epic' | 'legendar
 
 @Component({
   standalone: true,
-  selector: 'game-streak-flame',
+  selector: 'app-streak-flame',
   templateUrl: './streak-flame.component.html',
   styleUrls: ['./streak-flame.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

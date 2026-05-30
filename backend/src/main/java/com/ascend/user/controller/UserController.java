@@ -37,7 +37,10 @@ public class UserController {
         userRepository.save(user);
 
         log.info("User {} completed onboarding: goals={}, difficulty={}, arc={}",
-                user.getId(), request.getSelectedGoals(), request.getDifficulty(), request.getSelectedArc());
+                user.getId(),
+                request.getSelectedGoals(),
+                request.getDifficulty().replaceAll("[\\r\\n]", "_"),
+                request.getSelectedArc().replaceAll("[\\r\\n]", "_"));
 
         return ResponseEntity.ok(ApiResponse.success("Onboarding completed"));
     }

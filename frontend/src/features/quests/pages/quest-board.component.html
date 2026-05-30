@@ -1,0 +1,107 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Quest Board</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="refresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <!-- Progress Card -->
+  <ion-card *ngIf="dailyQuests()">
+    <ion-card-content>
+      <div class="progress-header">
+        <ion-text color="medium"><p>Today's Progress</p></ion-text>
+        <ion-text color="primary">
+          <h2>{{ dailyQuests()!.completedQuests }} / {{ dailyQuests()!.totalQuests }}</h2>
+        </ion-text>
+      </div>
+      <ion-progress-bar
+        [value]="dailyQuests()!.totalQuests > 0
+          ? dailyQuests()!.completedQuests / dailyQuests()!.totalQuests
+          : 0"
+        color="success"
+      ></ion-progress-bar>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Loading State -->
+  <ion-list *ngIf="loading()">
+    <ion-item *ngFor="let i of [1, 2, 3, 4, 5]">
+      <ion-label>
+        <ion-skeleton-text [animated]="true" style="width: 60%"></ion-skeleton-text>
+        <ion-skeleton-text [animated]="true" style="width: 40%"></ion-skeleton-text>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <!-- Quest List -->
+  <ion-list *ngIf="!loading() && dailyQuests()">
+    <ion-item *ngFor="let quest of dailyQuests()!.quests" [class.completed]="quest.completed">
+      <ion-icon
+        slot="start"
+        [name]="quest.completed ? 'checkmark-circle' : 'checkmark-circle-outline'"
+        [color]="quest.completed ? 'success' : 'medium'"
+        size="large"
+      ></ion-icon>
+      <ion-label>
+        <h2 [class.line-through]="quest.completed">{{ quest.title }}</h2>
+        <p *ngIf="quest.description">{{ quest.description }}</p>
+        <div class="quest-meta">
+          <ion-badge [color]="getDifficultyColor(quest.difficulty)">{{ quest.difficulty }}</ion-badge>
+          <ion-badge color="tertiary">{{ quest.statType }}</ion-badge>
+        </div>
+      </ion-label>
+      <div slot="end" class="quest-end">
+        <ion-badge color="warning">+{{ quest.xpReward }} XP</ion-badge>
+        <ion-button
+          *ngIf="!quest.completed"
+          fill="solid"
+          size="small"
+          color="success"
+          (click)="completeQuest(quest)"
+          [disabled]="completing()"
+        >Complete</ion-button>
+        <ion-icon *ngIf="quest.completed" name="trophy-outline" color="success" size="small"></ion-icon>
+      </div>
+    </ion-item>
+  </ion-list>
+
+  <!-- Empty State -->
+  <div *ngIf="!loading() && dailyQuests() && dailyQuests()!.quests.length === 0" class="empty-state">
+    <ion-icon name="star-outline" size="large" color="medium"></ion-icon>
+    <ion-text color="medium">
+      <h3>No quests for today</h3>
+      <p>Create a custom quest to get started!</p>
+    </ion-text>
+  </div>
+
+  <!-- FAB -->
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="openCreateModal()">
+      <ion-icon name="add-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <!-- Create Quest Modal -->
+  <ion-modal [isOpen]="showCreateModal" (didDismiss)="showCreateModal = false">
+    <ng-template>
+      <app-create-quest-modal
+        (close)="showCreateModal = false"
+        (created)="onQuestCreated($event)"
+      />
+    </ng-template>
+  </ion-modal>
+
+  <!-- Toast -->
+  <ion-toast
+    [isOpen]="showToast()"
+    [message]="toastMessage()"
+    [color]="toastColor()"
+    [duration]="2000"
+    position="top"
+    (didDismiss)="showToast.set(false)"
+  ></ion-toast>
+</ion-content>

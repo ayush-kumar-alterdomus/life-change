@@ -4,7 +4,7 @@ import { XpFormatPipe } from '../../pipes/xp-format.pipe';
 
 @Component({
   standalone: true,
-  selector: 'game-xp-progress-bar',
+  selector: 'app-xp-progress-bar',
   templateUrl: './xp-progress-bar.component.html',
   styleUrls: ['./xp-progress-bar.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

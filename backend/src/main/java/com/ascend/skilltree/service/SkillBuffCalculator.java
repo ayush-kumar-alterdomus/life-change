@@ -68,7 +68,7 @@ public class SkillBuffCalculator {
             }
 
             double buffValue = node.getBuffPercent().doubleValue();
-            buffs.merge(statType, buffValue, Double::sum);
+            buffs.merge(statType, buffValue, (a, b) -> a + b);
         }
 
         log.debug("Active buffs for user={}: {}", userId, buffs);
@@ -88,6 +88,9 @@ public class SkillBuffCalculator {
         if (baseXp < 0) {
             throw new IllegalArgumentException("baseXp must be non-negative, got: " + baseXp);
         }
+        if (statType == null || buffs == null) {
+            return baseXp;
+        }
 
         double totalBuff = buffs.getOrDefault(statType, 0.0);
         double boosted = baseXp * (1.0 + totalBuff);
@@ -105,6 +108,7 @@ public class SkillBuffCalculator {
         try {
             return StatType.valueOf(statType.toUpperCase());
         } catch (IllegalArgumentException e) {
+            log.debug("Failed to parse stat type: {}", statType, e);
             return null;
         }
     }

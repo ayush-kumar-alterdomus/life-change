@@ -70,6 +70,10 @@ class XpServiceTest {
                 .xp(500L)
                 .firebaseUid("test-uid")
                 .build();
+
+        // Default: skillBuffCalculator returns empty buffs and passes through XP unchanged
+        lenient().when(skillBuffCalculator.getActiveBuffs(any(UUID.class))).thenReturn(java.util.Collections.emptyMap());
+        lenient().when(skillBuffCalculator.calculateBoostedXp(anyInt(), any(), any())).thenAnswer(inv -> inv.getArgument(0));
     }
 
     @Test

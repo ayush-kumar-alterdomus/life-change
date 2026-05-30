@@ -4,7 +4,7 @@ import { XpFormatPipe } from '../../pipes/xp-format.pipe';
 
 @Component({
   standalone: true,
-  selector: 'game-leaderboard-card',
+  selector: 'app-leaderboard-card',
   templateUrl: './leaderboard-card.component.html',
   styleUrls: ['./leaderboard-card.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

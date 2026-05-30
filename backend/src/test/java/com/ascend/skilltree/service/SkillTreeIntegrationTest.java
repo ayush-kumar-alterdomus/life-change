@@ -125,7 +125,7 @@ class SkillTreeIntegrationTest {
             assertThat(rootResult.getBuffPercent()).isEqualTo(0.10);
 
             // Verify event was published for root unlock
-            verify(eventPublisher).publishEvent(any());
+            verify(eventPublisher).publishEvent(any(Object.class));
 
             // --- Step 2: Unlock child node (parent is now unlocked) ---
             UserSkill rootUnlocked = UserSkill.builder()

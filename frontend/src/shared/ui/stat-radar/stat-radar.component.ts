@@ -8,7 +8,7 @@ export interface StatRadarPoint {
 
 @Component({
   standalone: true,
-  selector: 'game-stat-radar',
+  selector: 'app-stat-radar',
   templateUrl: './stat-radar.component.html',
   styleUrls: ['./stat-radar.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

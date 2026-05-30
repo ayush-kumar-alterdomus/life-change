@@ -1,0 +1,38 @@
+.progress-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+
+  p { margin: 0; }
+  h2 { margin: 0; font-weight: 700; }
+}
+
+.quest-meta {
+  display: flex;
+  gap: 4px;
+  margin-top: 4px;
+
+  ion-badge { font-size: 11px; }
+}
+
+.quest-end {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+}
+
+.completed { opacity: 0.6; }
+.line-through { text-decoration: line-through; }
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 64px 16px;
+  text-align: center;
+
+  ion-icon { font-size: 64px; margin-bottom: 16px; }
+}

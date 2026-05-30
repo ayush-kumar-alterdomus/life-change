@@ -1,10 +1,18 @@
-import { Component, ChangeDetectionStrategy, input, output, computed, HostBinding, HostListener } from '@angular/core';
+import {
+  Component,
+  ChangeDetectionStrategy,
+  input,
+  output,
+  computed,
+  HostBinding,
+  HostListener,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TimeAgoPipe } from '../../pipes/time-ago.pipe';
 
 @Component({
   standalone: true,
-  selector: 'game-achievement-card',
+  selector: 'app-achievement-card',
   templateUrl: './achievement-card.component.html',
   styleUrls: ['./achievement-card.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -12,15 +20,27 @@ import { TimeAgoPipe } from '../../pipes/time-ago.pipe';
 })
 export class AchievementCardComponent {
   @HostBinding('class') readonly hostClass = 'achievement-card';
-  @HostBinding('class.achievement-card--locked') get hostLocked() { return this.locked(); }
-  @HostBinding('class.achievement-card--unlocked') get hostUnlocked() { return !this.locked(); }
+  @HostBinding('class.achievement-card--locked') get hostLocked() {
+    return this.locked();
+  }
+  @HostBinding('class.achievement-card--unlocked') get hostUnlocked() {
+    return !this.locked();
+  }
   @HostBinding('attr.role') readonly hostRole = 'button';
   @HostBinding('attr.tabindex') readonly hostTabindex = '0';
-  @HostBinding('attr.aria-label') get hostAriaLabel() { return this.ariaLabel(); }
+  @HostBinding('attr.aria-label') get hostAriaLabel() {
+    return this.ariaLabel();
+  }
 
-  @HostListener('click') onClick() { this.onCardTap(); }
-  @HostListener('keydown.enter') onEnter() { this.onCardTap(); }
-  @HostListener('keydown.space') onSpace() { this.onCardTap(); }
+  @HostListener('click') onClick() {
+    this.onCardTap();
+  }
+  @HostListener('keydown.enter') onEnter() {
+    this.onCardTap();
+  }
+  @HostListener('keydown.space') onSpace() {
+    this.onCardTap();
+  }
   /** Achievement title */
   title = input.required<string>();
 
