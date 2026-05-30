@@ -1,0 +1,16 @@
+-- Add guild_rankings table
+CREATE TABLE IF NOT EXISTS guild_rankings (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    guild_id UUID NOT NULL,
+    total_xp BIGINT NOT NULL DEFAULT 0,
+    rank INTEGER,
+    season VARCHAR(50),
+    updated_at TIMESTAMP NOT NULL DEFAULT NOW()
+);
+
+-- Add moderation fields to users table
+ALTER TABLE users ADD COLUMN IF NOT EXISTS suspended BOOLEAN NOT NULL DEFAULT FALSE;
+ALTER TABLE users ADD COLUMN IF NOT EXISTS suspended_until TIMESTAMP;
+ALTER TABLE users ADD COLUMN IF NOT EXISTS banned BOOLEAN NOT NULL DEFAULT FALSE;
+ALTER TABLE users ADD COLUMN IF NOT EXISTS flagged BOOLEAN NOT NULL DEFAULT FALSE;
+ALTER TABLE users ADD COLUMN IF NOT EXISTS last_active TIMESTAMP;
