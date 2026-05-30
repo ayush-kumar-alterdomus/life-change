@@ -27,7 +27,7 @@ class ApiResponseTest {
         @Test
         @DisplayName("should set success to true")
         void shouldSetSuccessTrue() {
-            ApiResponse<String> response = ApiResponse.success("hello");
+            ApiResponse<String> response = ApiResponse.success("msg", "hello");
             assertThat(response.isSuccess()).isTrue();
         }
 
@@ -41,14 +41,16 @@ class ApiResponseTest {
         @Test
         @DisplayName("should have null message when not provided")
         void shouldHaveNullMessage() {
-            ApiResponse<String> response = ApiResponse.success("data");
-            assertThat(response.getMessage()).isNull();
+            ApiResponse<Integer> response = ApiResponse.success("msg", 1);
+            // message is provided in this factory method, test the data-only one
+            ApiResponse<Integer> dataOnly = ApiResponse.success(42);
+            assertThat(dataOnly.getMessage()).isNull();
         }
 
         @Test
         @DisplayName("should set timestamp automatically")
         void shouldSetTimestamp() {
-            ApiResponse<String> response = ApiResponse.success("data");
+            ApiResponse<Integer> response = ApiResponse.success(42);
             assertThat(response.getTimestamp()).isNotNull();
         }
 

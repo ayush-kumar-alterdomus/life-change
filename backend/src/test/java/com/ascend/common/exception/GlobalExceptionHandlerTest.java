@@ -14,8 +14,6 @@ import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.servlet.resource.NoResourceFoundException;
-import org.springframework.core.MethodParameter;
-import org.springframework.http.HttpHeaders;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -139,12 +137,7 @@ class GlobalExceptionHandlerTest {
             bindingResult.addError(new FieldError("request", "xpReward", "must be at least 10"));
 
             var ex = new MethodArgumentNotValidException(
-                    (MethodParameter) null, bindingResult) {
-                @Override
-                public org.springframework.validation.BindingResult getBindingResult() {
-                    return bindingResult;
-                }
-            };
+                    null, bindingResult);
 
             ResponseEntity<ApiResponse<Void>> response = handler.handleValidationException(ex);
 

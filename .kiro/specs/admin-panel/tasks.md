@@ -6,16 +6,16 @@ Administrative interface for content management (Arcs, Quests, Bosses), user mod
 
 ## Tasks
 
-- [ ] 1. Create Admin DTOs
-  - [ ] 1.1 Create admin data models
+- [x] 1. Create Admin DTOs
+  - [x] 1.1 Create admin data models
     - Create `AdminUserResponse.java`: id, username, email, level, premium, role, createdAt, lastActive, flagged, banned
     - Create `ModerationAction.java` enum: WARN, SUSPEND, BAN, LEADERBOARD_RESTRICT, UNFLAG
     - Create `ModerationRequest.java`: userId, action, reason, duration (for suspend)
     - Create `SystemAnalyticsResponse.java`: dau, wau, mau, retentionRate, premiumConversion, churnRate, streakSurvivalRate, avgSessionLength
     - Create `SeasonalEventRequest.java`: title, description, startDate, endDate, rewards (list), themedChallenges (list)
 
-- [ ] 2. Implement Admin Content Management
-  - [ ] 2.1 Create AdminService for Arc/Quest CMS
+- [x] 2. Implement Admin Content Management
+  - [x] 2.1 Create AdminService for Arc/Quest CMS
     - Create `AdminService.java` in `admin/service/`
     - `createArc(CreateArcRequest request)` — admin can create prebuilt arcs
     - `updateArc(UUID arcId, UpdateArcRequest request)` — edit existing arcs
@@ -24,8 +24,8 @@ Administrative interface for content management (Arcs, Quests, Bosses), user mod
     - `createBoss(CreateBossRequest request)` — create boss challenges
     - All operations invalidate relevant Redis caches
 
-- [ ] 3. Implement User Moderation
-  - [ ] 3.1 Create ModerationService
+- [x] 3. Implement User Moderation
+  - [x] 3.1 Create ModerationService
     - Create `ModerationService.java` in `admin/service/`
     - `moderateUser(UUID adminId, ModerationRequest request)`:
       - WARN: Send warning notification, log event
@@ -36,8 +36,8 @@ Administrative interface for content management (Arcs, Quests, Bosses), user mod
     - `getflaggedUsers(int page)` — users flagged by anti-cheat
     - `getUserDetail(UUID userId)` — full admin view of user
 
-- [ ] 4. Implement System Analytics
-  - [ ] 4.1 Create SystemAnalyticsService
+- [x] 4. Implement System Analytics
+  - [x] 4.1 Create SystemAnalyticsService
     - Create `SystemAnalyticsService.java` in `admin/service/`
     - `getSystemAnalytics()`:
       1. DAU: distinct users with activity today
@@ -47,16 +47,16 @@ Administrative interface for content management (Arcs, Quests, Bosses), user mod
       5. Streak survival: users with streak > 0 / total active users
     - Cache results (refresh every 15 min)
 
-- [ ] 5. Implement Seasonal Events
-  - [ ] 5.1 Create EventService
+- [x] 5. Implement Seasonal Events
+  - [x] 5.1 Create EventService
     - Create `EventService.java` in `admin/service/`
     - Create `seasonal_events` table (migration `V29__create_seasonal_events.sql`): id, title, description, start_date, end_date, active, rewards (JSONB), challenges (JSONB)
     - `createEvent(SeasonalEventRequest request)` — create new event
     - `getActiveEvents()` — return currently active events
     - `endEvent(UUID eventId)` — deactivate event
 
-- [ ] 6. Create Admin Controller
-  - [ ] 6.1 Implement REST endpoints (ADMIN role required)
+- [x] 6. Create Admin Controller
+  - [x] 6.1 Implement REST endpoints (ADMIN role required)
     - Create `AdminController.java` in `admin/controller/`
     - All endpoints require @RequireRole(ADMIN) or @PreAuthorize("hasRole('ADMIN')")
     - POST `/api/v1/admin/arcs` — create arc
@@ -68,7 +68,7 @@ Administrative interface for content management (Arcs, Quests, Bosses), user mod
     - GET `/api/v1/admin/analytics` — system analytics
     - POST `/api/v1/admin/events` — create seasonal event
 
-- [ ] 7. Checkpoint - Verify admin panel
+- [x] 7. Checkpoint - Verify admin panel
   - Integration test: admin creates arc → arc appears in catalog
   - Integration test: admin bans user → user cannot login
   - Integration test: non-admin user → 403 on admin endpoints

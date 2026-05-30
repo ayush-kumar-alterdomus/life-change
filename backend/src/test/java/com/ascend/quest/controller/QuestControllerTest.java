@@ -24,7 +24,8 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.Map;
 import java.util.UUID;
@@ -82,7 +83,7 @@ class QuestControllerTest {
         @DisplayName("should return 200 with daily quests")
         void shouldReturn200WithDailyQuests() throws Exception {
             var response = DailyQuestsResponse.builder()
-                    .date("2024-01-15")
+                    .date(LocalDate.of(2024, 1, 15))
                     .quests(Collections.emptyList())
                     .totalQuests(5)
                     .completedQuests(2)
@@ -112,7 +113,7 @@ class QuestControllerTest {
                     .questId(questId)
                     .questTitle("Run 5km")
                     .xpEarned(50)
-                    .completedAt(Instant.now().toString())
+                    .completedAt(LocalDateTime.now())
                     .message("Quest completed!")
                     .build();
 

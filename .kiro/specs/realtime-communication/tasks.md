@@ -85,8 +85,22 @@ WebSocket STOMP channels for guild chat, leaderboard updates, XP notifications, 
 
 ## Notes
 
+- **RULE: Do NOT run any mvn, gradle, or test commands. Only create/edit files. No build or test verification steps.**
 - WebSocket uses STOMP over SockJS for broad browser compatibility
 - Private channels use /user prefix (Spring handles routing by principal)
 - Leaderboard broadcasts are debounced to prevent flooding
 - Presence uses Firestore (not WebSocket) for simplicity and offline detection
 - Reconnection is automatic with exponential backoff
+
+## Task Dependency Graph
+
+```json
+{
+  "waves": [
+    { "id": 0, "tasks": ["1.1", "1.2"] },
+    { "id": 1, "tasks": ["2.1", "2.2", "3.1"] },
+    { "id": 2, "tasks": ["4.1", "4.2", "5.1", "5.2"] },
+    { "id": 3, "tasks": ["6"] }
+  ]
+}
+```
