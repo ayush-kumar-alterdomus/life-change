@@ -12,7 +12,8 @@ export const AUTH_ROUTES: Routes = [
   },
   {
     path: 'welcome',
-    loadComponent: () => import('./pages/welcome/welcome.component').then((m) => m.WelcomeComponent),
+    loadComponent: () =>
+      import('./pages/welcome/welcome.component').then((m) => m.WelcomeComponent),
   },
   {
     path: 'login',
@@ -25,6 +26,8 @@ export const AUTH_ROUTES: Routes = [
   {
     path: 'forgot-password',
     loadComponent: () =>
-      import('./pages/forgot-password/forgot-password.component').then((m) => m.ForgotPasswordComponent),
+      import('./pages/forgot-password/forgot-password.component').then(
+        (m) => m.ForgotPasswordComponent,
+      ),
   },
 ];

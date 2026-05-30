@@ -17,7 +17,7 @@ Six RPG character stats (Strength, Wisdom, Focus, Discipline, Vitality, Charisma
       - 500: "The Focused One" / "The Strong One" / etc.
       - 1000: "The Master" (per stat)
 
-- [ ] 2. Implement Stat Service
+- [x] 2. Implement Stat Service
   - [x] 2.1 Create StatService (if not already in xp-engine)
     - Create or update `StatService.java` in `user/service/`
     - `awardStatPoints(UUID userId, StatType statType, QuestDifficulty difficulty)`:
@@ -77,7 +77,7 @@ Six RPG character stats (Strength, Wisdom, Focus, Discipline, Vitality, Charisma
       - Life Score always in [0, 100] range
     - Minimum 100 iterations per property
 
-- [-] 7. Checkpoint - Verify character stats
+- [x] 7. Checkpoint - Verify character stats
   - Integration test: complete quest → stat increases by correct amount
   - Integration test: stat reaches threshold → title unlocked
   - Integration test: Hard Mode decay applies after 7 days inactivity
