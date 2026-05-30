@@ -62,6 +62,17 @@ public class QuestController {
     }
 
     /**
+     * GET /api/v1/quests/today
+     * Alias for /daily — returns today's quests.
+     */
+    @GetMapping("/today")
+    public ResponseEntity<ApiResponse<DailyQuestsResponse>> getTodayQuests(
+            @AuthenticationPrincipal FirebasePrincipal principal) {
+
+        return getDailyQuests(principal);
+    }
+
+    /**
      * POST /api/v1/quests/complete
      * Completes a quest for the authenticated user.
      * Returns 409 Conflict if the quest was already completed today.

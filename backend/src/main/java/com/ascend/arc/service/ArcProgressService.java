@@ -186,6 +186,38 @@ public class ArcProgressService {
     }
 
     /**
+     * Returns the user's currently active arc progress, or null if none.
+     *
+     * @param userId the user's ID
+     * @return arc progress response or null
+     */
+    @Transactional(readOnly = true)
+    public ArcProgressResponse getActiveArc(UUID userId) {
+        log.debug("Fetching active arc for user={}", userId);
+
+        return userArcProgressRepository.findByUserIdAndStatus(userId, ArcStatus.ACTIVE.name())
+                .stream()
+                .findFirst()
+                .map(progress -> {
+                    Arc arc = arcRepository.findById(progress.getArcId()).orElse(null);
+                    List<ArcMilestone> allMilestones = arcMilestoneRepository.findByArcIdOrderByOrderIndex(progress.getArcId());
+                    int completedCount = userMilestoneCompletionRepository.countByUserIdAndArcId(userId, progress.getArcId());
+
+                    return ArcProgressResponse.builder()
+                            .arcId(progress.getArcId())
+                            .arcName(arc != null ? arc.getName() : "Unknown")
+                            .progressPercent(progress.getProgressPercent())
+                            .currentPhase(phaseFromOrdinal(progress.getCurrentPhase()))
+                            .startedAt(progress.getStartedAt())
+                            .status(ArcStatus.ACTIVE)
+                            .milestonesCompleted(completedCount)
+                            .totalMilestones(allMilestones.size())
+                            .build();
+                })
+                .orElse(null);
+    }
+
+    /**
      * Determines the arc phase based on progress percentage.
      * 0-24% → BEGINNER, 25-49% → INTERMEDIATE, 50-74% → ELITE, 75-100% → MASTER
      */

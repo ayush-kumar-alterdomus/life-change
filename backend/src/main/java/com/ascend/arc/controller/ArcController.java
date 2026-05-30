@@ -60,6 +60,20 @@ public class ArcController {
     }
 
     /**
+     * GET /api/v1/arcs/active
+     * Returns the user's currently active arc progress.
+     */
+    @GetMapping("/active")
+    public ResponseEntity<ApiResponse<ArcProgressResponse>> getActiveArc(
+            @AuthenticationPrincipal FirebasePrincipal principal) {
+
+        User user = authService.getCurrentUser(principal.uid());
+        ArcProgressResponse progress = arcProgressService.getActiveArc(user.getId());
+
+        return ResponseEntity.ok(ApiResponse.success(progress));
+    }
+
+    /**
      * GET /api/v1/arcs/{id}
      * Returns arc detail with milestones.
      */
