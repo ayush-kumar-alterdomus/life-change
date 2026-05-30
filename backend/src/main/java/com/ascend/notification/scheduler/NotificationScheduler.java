@@ -35,7 +35,7 @@ public class NotificationScheduler {
         log.info("Starting daily reminder notification job");
 
         List<User> activeUsers = userRepository.findAll().stream()
-                .filter(user -> !user.isGuest())
+                .filter(user -> !Boolean.TRUE.equals(user.getGuest()))
                 .toList();
 
         int sent = 0;

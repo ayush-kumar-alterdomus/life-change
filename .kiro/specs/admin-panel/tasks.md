@@ -76,8 +76,22 @@ Administrative interface for content management (Arcs, Quests, Bosses), user mod
 
 ## Notes
 
+- **RULE: Do NOT run any mvn, gradle, or test commands. Only create/edit files. No build or test verification steps.**
 - Admin panel is API-only (frontend can be a separate Angular admin app or same app with admin routes)
 - All admin actions are logged for audit trail
 - System analytics are cached to avoid expensive queries on every request
 - Seasonal events use JSONB for flexible reward/challenge definitions
 - Moderation actions are reversible (unsuspend, unban)
+
+## Task Dependency Graph
+
+```json
+{
+  "waves": [
+    { "id": 0, "tasks": ["1.1"] },
+    { "id": 1, "tasks": ["2.1", "3.1", "4.1", "5.1"] },
+    { "id": 2, "tasks": ["6.1"] },
+    { "id": 3, "tasks": ["7"] }
+  ]
+}
+```
