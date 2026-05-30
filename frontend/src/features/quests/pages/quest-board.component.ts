@@ -1,4 +1,11 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA, DestroyRef, inject, OnInit, signal } from '@angular/core';
+import {
+  Component,
+  CUSTOM_ELEMENTS_SCHEMA,
+  DestroyRef,
+  inject,
+  OnInit,
+  signal,
+} from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { CommonModule } from '@angular/common';
 import {
@@ -86,46 +93,55 @@ export class QuestBoardComponent implements OnInit {
 
   loadQuests() {
     this.loading.set(true);
-    this.questService.getDailyQuests().pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
-      next: (data) => {
-        this.dailyQuests.set(data);
-        this.loading.set(false);
-      },
-      error: () => {
-        this.loading.set(false);
-        this.toast('Failed to load quests', 'danger');
-      },
-    });
+    this.questService
+      .getDailyQuests()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: (data) => {
+          this.dailyQuests.set(data);
+          this.loading.set(false);
+        },
+        error: () => {
+          this.loading.set(false);
+          this.toast('Failed to load quests', 'danger');
+        },
+      });
   }
 
   completeQuest(quest: Quest) {
     this.completing.set(true);
-    this.questService.completeQuest(quest.id).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
-      next: (res) => {
-        quest.completed = true;
-        const current = this.dailyQuests()!;
-        this.dailyQuests.set({ ...current, completedQuests: current.completedQuests + 1 });
-        this.completing.set(false);
-        this.toast(`+${res.xpEarned} XP earned!`, 'success');
-      },
-      error: (err) => {
-        this.completing.set(false);
-        this.toast(
-          err.status === 409 ? 'Quest already completed today' : 'Failed to complete quest',
-          'warning',
-        );
-      },
-    });
+    this.questService
+      .completeQuest(quest.id)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: (res) => {
+          quest.completed = true;
+          const current = this.dailyQuests()!;
+          this.dailyQuests.set({ ...current, completedQuests: current.completedQuests + 1 });
+          this.completing.set(false);
+          this.toast(`+${res.xpEarned} XP earned!`, 'success');
+        },
+        error: (err) => {
+          this.completing.set(false);
+          this.toast(
+            err.status === 409 ? 'Quest already completed today' : 'Failed to complete quest',
+            'warning',
+          );
+        },
+      });
   }
 
   refresh(event: { target: { complete: () => void } }) {
-    this.questService.getDailyQuests().pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
-      next: (data) => {
-        this.dailyQuests.set(data);
-        event.target.complete();
-      },
-      error: () => event.target.complete(),
-    });
+    this.questService
+      .getDailyQuests()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: (data) => {
+          this.dailyQuests.set(data);
+          event.target.complete();
+        },
+        error: () => event.target.complete(),
+      });
   }
 
   openCreateModal() {
@@ -133,14 +149,17 @@ export class QuestBoardComponent implements OnInit {
   }
 
   onQuestCreated(payload: CreateQuestPayload) {
-    this.questService.createQuest(payload).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
-      next: () => {
-        this.showCreateModal = false;
-        this.loadQuests();
-        this.toast('Custom quest created!', 'success');
-      },
-      error: () => this.toast('Failed to create quest', 'danger'),
-    });
+    this.questService
+      .createQuest(payload)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: () => {
+          this.showCreateModal = false;
+          this.loadQuests();
+          this.toast('Custom quest created!', 'success');
+        },
+        error: () => this.toast('Failed to create quest', 'danger'),
+      });
   }
 
   getDifficultyColor(difficulty: string): string {

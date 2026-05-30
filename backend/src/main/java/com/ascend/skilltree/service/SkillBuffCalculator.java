@@ -82,7 +82,7 @@ public class SkillBuffCalculator {
      * @param baseXp   the base XP before buff application (must be >= 0)
      * @param statType the stat type of the XP being awarded
      * @param buffs    map of active buffs (StatType → totalBuffPercent)
-     * @return the boosted XP value (floor of the calculation)
+     * @return the boosted XP value (rounded to nearest integer)
      */
     public int calculateBoostedXp(int baseXp, StatType statType, Map<StatType, Double> buffs) {
         if (baseXp < 0) {
@@ -94,7 +94,7 @@ public class SkillBuffCalculator {
 
         double totalBuff = buffs.getOrDefault(statType, 0.0);
         double boosted = baseXp * (1.0 + totalBuff);
-        return (int) Math.floor(boosted);
+        return (int) Math.round(boosted);
     }
 
     /**

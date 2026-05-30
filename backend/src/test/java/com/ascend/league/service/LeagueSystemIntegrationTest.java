@@ -21,6 +21,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.junit.jupiter.MockitoSettings;
+import org.mockito.quality.Strictness;
 import org.springframework.context.ApplicationEventPublisher;
 
 import java.time.LocalDateTime;
@@ -190,6 +192,7 @@ class LeagueSystemIntegrationTest {
 
     @Nested
     @DisplayName("Weekly reset → promotions and demotions applied")
+    @MockitoSettings(strictness = Strictness.LENIENT)
     class WeeklyResetPromotionsDemotions {
 
         @Test

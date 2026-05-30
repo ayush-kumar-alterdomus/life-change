@@ -156,7 +156,7 @@ public class LeagueResetScheduler {
         // Publish promotion event
         LeaguePromotionEvent event = new LeaguePromotionEvent(
                 this, userId, currentTier, nextTier, rank);
-        eventPublisher.publishEvent(event);
+        eventPublisher.publishEvent((Object) event);
 
         log.debug("Promoted user {} from {} to {} (rank {})", userId, currentTier, nextTier, rank);
     }
@@ -176,7 +176,7 @@ public class LeagueResetScheduler {
         // Publish demotion event
         LeagueDemotionEvent event = new LeagueDemotionEvent(
                 this, userId, currentTier, previousTier, rank);
-        eventPublisher.publishEvent(event);
+        eventPublisher.publishEvent((Object) event);
 
         log.debug("Demoted user {} from {} to {} (rank {})", userId, currentTier, previousTier, rank);
     }
