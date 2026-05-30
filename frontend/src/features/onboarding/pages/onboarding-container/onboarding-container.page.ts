@@ -40,7 +40,7 @@ import { ONBOARDING_CONSTANTS } from '../../constants';
     AvatarSelectionStep,
   ],
 })
-export class OnboardingContainerPage implements OnInit {
+export class OnboardingContainerComponent implements OnInit {
   protected readonly onboardingService = inject(OnboardingService);
   protected readonly store = inject(OnboardingStore);
 

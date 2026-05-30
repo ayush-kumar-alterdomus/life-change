@@ -5,7 +5,7 @@ export const ONBOARDING_ROUTES: Routes = [
     path: '',
     loadComponent: () =>
       import('./pages/onboarding-container/onboarding-container.page').then(
-        (m) => m.OnboardingContainerPage,
+        (m) => m.OnboardingContainerComponent,
       ),
   },
   {

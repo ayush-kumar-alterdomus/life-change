@@ -91,3 +91,18 @@ Six RPG character stats (Strength, Wisdom, Focus, Discipline, Vitality, Charisma
 - Hard Mode decay is optional and only for users who explicitly enable it
 - Life Score is a composite metric for the analytics dashboard
 - Identity titles are achievements — permanent once earned
+
+## Task Dependency Graph
+
+```json
+{
+  "waves": [
+    { "id": 0, "tasks": ["1.1"] },
+    { "id": 1, "tasks": ["2.1", "2.2"] },
+    { "id": 2, "tasks": ["3.1", "4.1"] },
+    { "id": 3, "tasks": ["3.2", "5.1"] },
+    { "id": 4, "tasks": ["6.1"] },
+    { "id": 5, "tasks": ["7"] }
+  ]
+}
+```
