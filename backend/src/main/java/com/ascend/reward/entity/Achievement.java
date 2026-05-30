@@ -12,7 +12,7 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
+@Entity(name = "RewardAchievement")
 @Table(name = "achievements", uniqueConstraints = @UniqueConstraint(columnNames = {"user_id", "name"}))
 public class Achievement {
 
