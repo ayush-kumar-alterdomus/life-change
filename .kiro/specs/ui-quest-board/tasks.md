@@ -142,14 +142,14 @@ Replace the existing quest-board page with a fresh implementation featuring tab-
     - Call `event.target.complete()` when done
     - _Requirements: 7.1, 7.2, 7.3, 1.6_
 
-- [ ] 6. Update routing and remove old component
-  - [-] 6.1 Update quests.routes.ts to point to new QuestBoardPage
+- [x] 6. Update routing and remove old component
+  - [x] 6.1 Update quests.routes.ts to point to new QuestBoardPage
     - ⚠️ **Do not run any commands — only create files.**
     - Update the route to lazy-load `quest-board.page.ts` from the new path
     - Remove or archive the old `quest-board.component.ts`, `.html`, `.scss` files
     - _Requirements: 1.1_
 
-- [~] 7. Checkpoint - Full integration verification
+- [x] 7. Checkpoint - Full integration verification
   - ⚠️ **Do not run any commands — only create files.** Simply verify that all created files are consistent and correctly wired together.
   - Ensure all files are syntactically correct and properly integrated, ask the user if questions arise.
 
