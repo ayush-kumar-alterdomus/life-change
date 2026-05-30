@@ -13,18 +13,18 @@ import { arrowBack } from 'ionicons/icons';
 import { StepperComponent } from '@shared/components';
 import { OnboardingService } from '../../services/onboarding.service';
 import { OnboardingStore } from '../../services/onboarding.store';
-import { GoalSelectionComponent } from '../../steps/goal-selection/goal-selection.step';
-import { DifficultySelectionComponent } from '../../steps/difficulty-selection/difficulty-selection.step';
-import { QuizComponent } from '../../steps/quiz/quiz.step';
-import { ArcRecommendationComponent } from '../../steps/arc-recommendation/arc-recommendation.step';
-import { AvatarSelectionComponent } from '../../steps/avatar-selection/avatar-selection.step';
+import { GoalSelectionComponent } from '../../steps/goal-selection/goal-selection.component';
+import { DifficultySelectionComponent } from '../../steps/difficulty-selection/difficulty-selection.component';
+import { QuizComponent } from '../../steps/quiz/quiz.component';
+import { ArcRecommendationComponent } from '../../steps/arc-recommendation/arc-recommendation.component';
+import { AvatarSelectionComponent } from '../../steps/avatar-selection/avatar-selection.component';
 import { ONBOARDING_CONSTANTS } from '../../constants';
 
 @Component({
   standalone: true,
   selector: 'app-onboarding',
-  templateUrl: './onboarding-container.page.html',
-  styleUrls: ['./onboarding-container.page.scss'],
+  templateUrl: './onboarding-container.component.html',
+  styleUrls: ['./onboarding-container.component.scss'],
   imports: [
     IonContent,
     IonHeader,

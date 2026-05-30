@@ -21,8 +21,8 @@ import { GoalCategory } from '../../models';
 @Component({
   standalone: true,
   selector: 'app-goal-selection',
-  templateUrl: './goal-selection.step.html',
-  styleUrls: ['./goal-selection.step.scss'],
+  templateUrl: './goal-selection.component.html',
+  styleUrls: ['./goal-selection.component.scss'],
   imports: [IonIcon, GlowCardDirective],
 })
 export class GoalSelectionComponent {

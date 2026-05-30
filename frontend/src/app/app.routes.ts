@@ -8,7 +8,7 @@ export const routes: Routes = [
   {
     path: '',
     loadComponent: () =>
-      import('../features/auth/pages/splash/splash.page').then((m) => m.SplashComponent),
+      import('../features/auth/pages/splash/splash.component').then((m) => m.SplashComponent),
   },
   {
     path: 'auth',

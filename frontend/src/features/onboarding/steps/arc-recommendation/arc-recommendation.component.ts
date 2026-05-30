@@ -18,8 +18,8 @@ import { ArcDefinition } from '../../models';
 @Component({
   standalone: true,
   selector: 'app-arc-recommendation',
-  templateUrl: './arc-recommendation.step.html',
-  styleUrls: ['./arc-recommendation.step.scss'],
+  templateUrl: './arc-recommendation.component.html',
+  styleUrls: ['./arc-recommendation.component.scss'],
   imports: [IonIcon, IonButton],
 })
 export class ArcRecommendationComponent implements OnInit {

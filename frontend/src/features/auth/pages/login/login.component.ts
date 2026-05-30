@@ -27,8 +27,8 @@ import { emailValidator } from '../../../../shared/validators/email.validator';
 @Component({
   standalone: true,
   selector: 'app-login',
-  templateUrl: './login.page.html',
-  styleUrls: ['./login.page.scss'],
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     ReactiveFormsModule,

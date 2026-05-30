@@ -10,8 +10,8 @@ import { AvatarOption } from '../../models';
 @Component({
   standalone: true,
   selector: 'app-avatar-selection',
-  templateUrl: './avatar-selection.step.html',
-  styleUrls: ['./avatar-selection.step.scss'],
+  templateUrl: './avatar-selection.component.html',
+  styleUrls: ['./avatar-selection.component.scss'],
   imports: [IonButton, IonSpinner, GlowCardDirective],
 })
 export class AvatarSelectionComponent {

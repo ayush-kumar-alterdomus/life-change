@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { TabsComponent } from './tabs.page';
+import { TabsComponent } from './tabs.component';
 import { premiumGuard } from '../../core/auth/premium.guard';
 
 export const TABS_ROUTES: Routes = [

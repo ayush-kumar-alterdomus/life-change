@@ -19,8 +19,8 @@ import { AuthError } from '../../../../core/models/auth-error.model';
 @Component({
   standalone: true,
   selector: 'app-welcome',
-  templateUrl: './welcome.page.html',
-  styleUrls: ['./welcome.page.scss'],
+  templateUrl: './welcome.component.html',
+  styleUrls: ['./welcome.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [IonContent, IonButton, IonIcon, IonRouterLink, RouterLink],
 })

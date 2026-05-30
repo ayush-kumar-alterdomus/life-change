@@ -39,8 +39,8 @@ import { PasswordStrength } from '../../models/password-strength.model';
 @Component({
   standalone: true,
   selector: 'app-signup',
-  templateUrl: './signup.page.html',
-  styleUrls: ['./signup.page.scss'],
+  templateUrl: './signup.component.html',
+  styleUrls: ['./signup.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     ReactiveFormsModule,

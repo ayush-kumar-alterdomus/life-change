@@ -11,8 +11,8 @@ import { UserStore } from '../../../../core/services/user-store.service';
 @Component({
   standalone: true,
   selector: 'app-splash',
-  templateUrl: './splash.page.html',
-  styleUrls: ['./splash.page.scss'],
+  templateUrl: './splash.component.html',
+  styleUrls: ['./splash.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [IonContent],
 })

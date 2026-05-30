@@ -13,8 +13,8 @@ import { DifficultyTier } from '../../models';
 @Component({
   standalone: true,
   selector: 'app-difficulty-selection',
-  templateUrl: './difficulty-selection.step.html',
-  styleUrls: ['./difficulty-selection.step.scss'],
+  templateUrl: './difficulty-selection.component.html',
+  styleUrls: ['./difficulty-selection.component.scss'],
   imports: [IonIcon, GlowCardDirective],
 })
 export class DifficultySelectionComponent {

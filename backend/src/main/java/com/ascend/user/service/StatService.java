@@ -7,6 +7,7 @@ import com.ascend.common.entity.StatType;
 import com.ascend.streak.entity.Streak;
 import com.ascend.streak.repository.StreakRepository;
 import com.ascend.user.dto.IdentityTitle;
+import com.ascend.user.dto.RadarChartResponse;
 import com.ascend.user.dto.StatGainResponse;
 import com.ascend.user.dto.StatThresholds;
 import com.ascend.user.dto.UserStatsResponse;
@@ -268,12 +269,54 @@ public class StatService {
     }
 
     /**
+     * Returns stats formatted for radar chart display.
+     * Each stat becomes an entry with label, statType, and value.
+     *
+     * @param userId the user ID
+     * @return RadarChartResponse with entries and max value
+     */
+    @Transactional(readOnly = true)
+    public RadarChartResponse getRadarChartData(UUID userId) {
+        UserStats stats = userStatsRepository.findByUserId(userId)
+                .orElseGet(() -> createDefaultStats(userId));
+
+        List<RadarChartResponse.RadarChartEntry> entries = List.of(
+                RadarChartResponse.RadarChartEntry.builder()
+                        .label("Strength").statType(StatType.STRENGTH.name()).value(stats.getStrength()).build(),
+                RadarChartResponse.RadarChartEntry.builder()
+                        .label("Wisdom").statType(StatType.WISDOM.name()).value(stats.getWisdom()).build(),
+                RadarChartResponse.RadarChartEntry.builder()
+                        .label("Focus").statType(StatType.FOCUS.name()).value(stats.getFocus()).build(),
+                RadarChartResponse.RadarChartEntry.builder()
+                        .label("Discipline").statType(StatType.DISCIPLINE.name()).value(stats.getDiscipline()).build(),
+                RadarChartResponse.RadarChartEntry.builder()
+                        .label("Vitality").statType(StatType.VITALITY.name()).value(stats.getVitality()).build(),
+                RadarChartResponse.RadarChartEntry.builder()
+                        .label("Charisma").statType(StatType.CHARISMA.name()).value(stats.getCharisma()).build()
+        );
+
+        int maxValue = entries.stream()
+                .mapToInt(RadarChartResponse.RadarChartEntry::getValue)
+                .max()
+                .orElse(100);
+
+        // Ensure maxValue is at least 100 for meaningful chart display
+        maxValue = Math.max(maxValue, 100);
+
+        return RadarChartResponse.builder()
+                .entries(entries)
+                .maxValue(maxValue)
+                .build();
+    }
+
+    /**
      * Retrieves all earned identity titles for a user from the achievements table.
      *
      * @param userId the user ID
      * @return list of earned IdentityTitle records
      */
-    private List<IdentityTitle> getEarnedTitles(UUID userId) {
+    @Transactional(readOnly = true)
+    public List<IdentityTitle> getEarnedTitles(UUID userId) {
         List<Achievement> titleAchievements = achievementRepository.findByUserId(userId)
                 .stream()
                 .filter(a -> ACHIEVEMENT_TYPE_IDENTITY_TITLE.equals(a.getAchievementType()))
@@ -318,7 +361,7 @@ public class StatService {
             int threshold = Integer.parseInt(remainder.substring(lastUnderscore + 1));
             StatType statType = StatType.valueOf(statTypeName);
             return StatThresholds.getTitleForThreshold(statType, threshold);
-        } catch (IllegalArgumentException | NumberFormatException e) {
+        } catch (IllegalArgumentException e) {
             log.warn("Could not parse achievement name to IdentityTitle: {}", name);
             return null;
         }

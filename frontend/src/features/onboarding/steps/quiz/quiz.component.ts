@@ -9,8 +9,8 @@ import { QuizQuestion, QuizOption } from '../../models';
 @Component({
   standalone: true,
   selector: 'app-quiz',
-  templateUrl: './quiz.step.html',
-  styleUrls: ['./quiz.step.scss'],
+  templateUrl: './quiz.component.html',
+  styleUrls: ['./quiz.component.scss'],
 })
 export class QuizComponent {
   private readonly onboardingService = inject(OnboardingService);

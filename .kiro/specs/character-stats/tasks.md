@@ -36,7 +36,7 @@ Six RPG character stats (Strength, Wisdom, Focus, Discipline, Vitality, Charisma
       3. If new title → create Achievement record, publish AchievementUnlockedEvent
       4. Titles are permanent — never revoked even if stat decreases
 
-- [ ] 3. Implement Hard Mode stat decay
+- [x] 3. Implement Hard Mode stat decay
   - [x] 3.1 Create StatDecayService
     - Create `StatDecayService.java` in `user/service/`
     - `evaluateStatDecay(UUID userId)`:
@@ -46,7 +46,7 @@ Six RPG character stats (Strength, Wisdom, Focus, Discipline, Vitality, Charisma
       4. Minimum stat value is 0 (never negative)
       5. Log decay event
     - Called by daily scheduler for Hard Mode users
-  - [-] 3.2 Create stat decay scheduler
+  - [x] 3.2 Create stat decay scheduler
     - Create `StatDecayScheduler.java` in `user/scheduler/`
     - Run daily for users with hard_mode = true
     - Call `evaluateStatDecay` for each Hard Mode user
@@ -60,15 +60,15 @@ Six RPG character stats (Strength, Wisdom, Focus, Discipline, Vitality, Charisma
     - Normalize to 0-100 scale based on max possible values
     - Consistency derived from streak data (current_streak / 30, capped at 1.0)
 
-- [ ] 5. Create Stats Controller
-  - [-] 5.1 Implement REST endpoints
+- [x] 5. Create Stats Controller
+  - [x] 5.1 Implement REST endpoints
     - Create `StatsController.java` in `user/controller/` (or extend UserController)
     - GET `/api/v1/stats` — returns user's character stats and life score
     - GET `/api/v1/stats/titles` — returns all earned identity titles
     - GET `/api/v1/stats/radar` — returns stats formatted for radar chart display
 
-- [ ] 6. Write property-based tests
-  - [~] 6.1 Create stat property tests
+- [x] 6. Write property-based tests
+  - [x] 6.1 Create stat property tests
     - Create `StatServicePropertyTest.java`:
       - Property 24: Stat gain = BaseStat × DifficultyMultiplier for all valid inputs
       - Property 25: Title unlock is permanent (once unlocked, always available)
@@ -77,7 +77,7 @@ Six RPG character stats (Strength, Wisdom, Focus, Discipline, Vitality, Charisma
       - Life Score always in [0, 100] range
     - Minimum 100 iterations per property
 
-- [~] 7. Checkpoint - Verify character stats
+- [-] 7. Checkpoint - Verify character stats
   - Integration test: complete quest → stat increases by correct amount
   - Integration test: stat reaches threshold → title unlocked
   - Integration test: Hard Mode decay applies after 7 days inactivity
