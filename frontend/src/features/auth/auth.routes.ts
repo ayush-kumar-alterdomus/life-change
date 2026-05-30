@@ -12,19 +12,19 @@ export const AUTH_ROUTES: Routes = [
   },
   {
     path: 'welcome',
-    loadComponent: () => import('./pages/welcome/welcome.page').then((m) => m.WelcomePage),
+    loadComponent: () => import('./pages/welcome/welcome.page').then((m) => m.WelcomeComponent),
   },
   {
     path: 'login',
-    loadComponent: () => import('./pages/login/login.page').then((m) => m.LoginPage),
+    loadComponent: () => import('./pages/login/login.page').then((m) => m.LoginComponent),
   },
   {
     path: 'signup',
-    loadComponent: () => import('./pages/signup/signup.page').then((m) => m.SignupPage),
+    loadComponent: () => import('./pages/signup/signup.page').then((m) => m.SignupComponent),
   },
   {
     path: 'forgot-password',
     loadComponent: () =>
-      import('./pages/forgot-password/forgot-password.page').then((m) => m.ForgotPasswordPage),
+      import('./pages/forgot-password/forgot-password.page').then((m) => m.ForgotPasswordComponent),
   },
 ];

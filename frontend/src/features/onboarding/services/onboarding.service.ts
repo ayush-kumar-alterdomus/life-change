@@ -72,9 +72,7 @@ export class OnboardingService {
   /** Adds a quiz answer, computes personality type if final answer, persists. */
   addQuizAnswer(answer: QuizAnswer): void {
     const current = this.store.quizAnswers();
-    const existingIndex = current.findIndex(
-      (a) => a.questionId === answer.questionId
-    );
+    const existingIndex = current.findIndex((a) => a.questionId === answer.questionId);
 
     let updated: QuizAnswer[];
     if (existingIndex >= 0) {
@@ -125,7 +123,7 @@ export class OnboardingService {
         this.haptic.impact('medium');
         this.navCtrl.navigateRoot('/tabs/home');
         this.store.reset();
-      })
+      }),
     );
   }
 

@@ -45,7 +45,9 @@ $deep-black: #0a0a0a;
     left: 10%;
     animation-delay: 0s;
     animation-duration: 8s;
-    box-shadow: 0 0 6px $neon-cyan, 0 0 12px rgba($neon-cyan, 0.4);
+    box-shadow:
+      0 0 6px $neon-cyan,
+      0 0 12px rgba($neon-cyan, 0.4);
   }
 
   &--2 {
@@ -56,7 +58,9 @@ $deep-black: #0a0a0a;
     left: 85%;
     animation-delay: 1.5s;
     animation-duration: 7s;
-    box-shadow: 0 0 6px $neon-purple, 0 0 12px rgba($neon-purple, 0.4);
+    box-shadow:
+      0 0 6px $neon-purple,
+      0 0 12px rgba($neon-purple, 0.4);
   }
 
   &--3 {
@@ -67,7 +71,9 @@ $deep-black: #0a0a0a;
     left: 20%;
     animation-delay: 3s;
     animation-duration: 9s;
-    box-shadow: 0 0 8px $neon-cyan, 0 0 16px rgba($neon-cyan, 0.3);
+    box-shadow:
+      0 0 8px $neon-cyan,
+      0 0 16px rgba($neon-cyan, 0.3);
   }
 
   &--4 {
@@ -78,7 +84,9 @@ $deep-black: #0a0a0a;
     left: 75%;
     animation-delay: 2s;
     animation-duration: 6.5s;
-    box-shadow: 0 0 6px $neon-purple, 0 0 12px rgba($neon-purple, 0.4);
+    box-shadow:
+      0 0 6px $neon-purple,
+      0 0 12px rgba($neon-purple, 0.4);
   }
 
   &--5 {
@@ -89,7 +97,9 @@ $deep-black: #0a0a0a;
     left: 92%;
     animation-delay: 0.5s;
     animation-duration: 7.5s;
-    box-shadow: 0 0 6px $neon-cyan, 0 0 12px rgba($neon-cyan, 0.4);
+    box-shadow:
+      0 0 6px $neon-cyan,
+      0 0 12px rgba($neon-cyan, 0.4);
   }
 
   &--6 {
@@ -100,7 +110,9 @@ $deep-black: #0a0a0a;
     left: 5%;
     animation-delay: 4s;
     animation-duration: 8.5s;
-    box-shadow: 0 0 4px $neon-purple, 0 0 8px rgba($neon-purple, 0.3);
+    box-shadow:
+      0 0 4px $neon-purple,
+      0 0 8px rgba($neon-purple, 0.3);
   }
 }
 

@@ -2,7 +2,7 @@
   <div class="guild-card__header">
     <h3 class="guild-card__name">{{ guildName() }}</h3>
     @if (guildRank() !== null) {
-      <span class="guild-card__rank-badge" aria-label="Rank {{ guildRank() }}">
+      <span class="guild-card__rank-badge" [attr.aria-label]="'Rank ' + guildRank()">
         #{{ guildRank() }}
       </span>
     }
@@ -23,14 +23,14 @@
     <button
       class="guild-card__btn guild-card__btn--join"
       (click)="onJoin($event)"
-      aria-label="Join {{ guildName() }}"
+      [attr.aria-label]="'Join ' + guildName()"
     >
       Join
     </button>
     <button
       class="guild-card__btn guild-card__btn--view"
       (click)="onView()"
-      aria-label="View {{ guildName() }} details"
+      [attr.aria-label]="'View ' + guildName() + ' details'"
     >
       View
     </button>

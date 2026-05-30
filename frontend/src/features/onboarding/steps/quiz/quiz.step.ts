@@ -12,7 +12,7 @@ import { QuizQuestion, QuizOption } from '../../models';
   templateUrl: './quiz.step.html',
   styleUrls: ['./quiz.step.scss'],
 })
-export class QuizStep {
+export class QuizComponent {
   private readonly onboardingService = inject(OnboardingService);
   private readonly store = inject(OnboardingStore);
   private readonly hapticService = inject(HapticService);
@@ -31,12 +31,12 @@ export class QuizStep {
 
   /** The current question based on index. */
   readonly currentQuestion = computed<QuizQuestion>(
-    () => this.questions[this.currentQuestionIndex()]
+    () => this.questions[this.currentQuestionIndex()],
   );
 
   /** Progress label: "Question X of Y". */
   readonly progressLabel = computed<string>(
-    () => `Question ${this.currentQuestionIndex() + 1} of ${this.totalQuestions}`
+    () => `Question ${this.currentQuestionIndex() + 1} of ${this.totalQuestions}`,
   );
 
   /** Whether the back button should be shown. */

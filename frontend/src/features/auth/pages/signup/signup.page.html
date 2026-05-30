@@ -23,7 +23,7 @@
           ></ion-input>
         </ion-item>
         @if (emailInvalid) {
-          <p class="signup__error">Please enter a valid email address</p>
+        <p class="signup__error">Please enter a valid email address</p>
         }
       </div>
 
@@ -53,21 +53,27 @@
             class="signup__strength-item"
             [class.signup__strength-item--met]="passwordStrength().minLength"
           >
-            <span class="signup__strength-icon">{{ passwordStrength().minLength ? '✓' : '✗' }}</span>
+            <span class="signup__strength-icon"
+              >{{ passwordStrength().minLength ? '✓' : '✗' }}</span
+            >
             At least 8 characters
           </li>
           <li
             class="signup__strength-item"
             [class.signup__strength-item--met]="passwordStrength().hasUppercase"
           >
-            <span class="signup__strength-icon">{{ passwordStrength().hasUppercase ? '✓' : '✗' }}</span>
+            <span class="signup__strength-icon"
+              >{{ passwordStrength().hasUppercase ? '✓' : '✗' }}</span
+            >
             One uppercase letter
           </li>
           <li
             class="signup__strength-item"
             [class.signup__strength-item--met]="passwordStrength().hasSpecial"
           >
-            <span class="signup__strength-icon">{{ passwordStrength().hasSpecial ? '✓' : '✗' }}</span>
+            <span class="signup__strength-icon"
+              >{{ passwordStrength().hasSpecial ? '✓' : '✗' }}</span
+            >
             One special character
           </li>
         </ul>
@@ -84,13 +90,13 @@
           ></ion-input>
         </ion-item>
         @if (passwordMismatch) {
-          <p class="signup__error">Passwords do not match</p>
+        <p class="signup__error">Passwords do not match</p>
         }
       </div>
 
       <!-- Inline Error Message -->
       @if (errorMessage()) {
-        <p class="signup__form-error" role="alert">{{ errorMessage() }}</p>
+      <p class="signup__form-error" role="alert">{{ errorMessage() }}</p>
       }
 
       <!-- Create Account Button -->
@@ -101,10 +107,8 @@
         type="submit"
       >
         @if (loading()) {
-          <ion-spinner name="crescent" class="signup__spinner"></ion-spinner>
-        } @else {
-          Create Account
-        }
+        <ion-spinner name="crescent" class="signup__spinner"></ion-spinner>
+        } @else { Create Account }
       </ion-button>
     </form>
 

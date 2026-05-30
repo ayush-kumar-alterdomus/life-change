@@ -2,12 +2,9 @@
   <ion-toolbar>
     <ion-buttons slot="start">
       @if (showBackButton) {
-        <ion-button
-          fill="clear"
-          (click)="onBack()"
-          aria-label="Go back">
-          <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
-        </ion-button>
+      <ion-button fill="clear" (click)="onBack()" aria-label="Go back">
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-button>
       }
     </ion-buttons>
   </ion-toolbar>
@@ -17,46 +14,40 @@
   <div class="onboarding-container">
     <!-- Stepper progress indicator -->
     <div class="stepper-wrapper">
-      <app-stepper
-        [totalSteps]="totalSteps"
-        [currentStep]="store.currentStep()" />
+      <app-stepper [totalSteps]="totalSteps" [currentStep]="store.currentStep()" />
     </div>
 
     <!-- Step content with slide transitions -->
     <div
       class="step-content"
       [class.slide-left]="slideDirection() === 'left'"
-      [class.slide-right]="slideDirection() === 'right'">
-      @switch (store.currentStep()) {
-        @case (0) {
-          <app-goal-selection />
-        }
-        @case (1) {
-          <app-difficulty-selection />
-        }
-        @case (2) {
-          <app-quiz />
-        }
-        @case (3) {
-          <app-arc-recommendation />
-        }
-        @case (4) {
-          <app-avatar-selection />
-        }
-      }
+      [class.slide-right]="slideDirection() === 'right'"
+    >
+      @switch (store.currentStep()) { @case (0) {
+      <app-goal-selection />
+      } @case (1) {
+      <app-difficulty-selection />
+      } @case (2) {
+      <app-quiz />
+      } @case (3) {
+      <app-arc-recommendation />
+      } @case (4) {
+      <app-avatar-selection />
+      } }
     </div>
 
     <!-- Continue button (hidden on quiz step 2 and avatar step 4) -->
     @if (showContinueButton) {
-      <div class="action-footer">
-        <ion-button
-          expand="block"
-          class="continue-button"
-          [disabled]="!store.isStepValid()"
-          (click)="onContinue()">
-          Continue
-        </ion-button>
-      </div>
+    <div class="action-footer">
+      <ion-button
+        expand="block"
+        class="continue-button"
+        [disabled]="!store.isStepValid()"
+        (click)="onContinue()"
+      >
+        Continue
+      </ion-button>
+    </div>
     }
   </div>
 </ion-content>

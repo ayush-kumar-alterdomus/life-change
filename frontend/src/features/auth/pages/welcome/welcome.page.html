@@ -12,9 +12,7 @@
   <div class="welcome-container">
     <!-- Tagline -->
     <section class="welcome-tagline">
-      <h1 class="welcome-tagline__text">
-        Become the strongest version of yourself
-      </h1>
+      <h1 class="welcome-tagline__text">Become the strongest version of yourself</h1>
     </section>
 
     <!-- Hero Illustration -->
@@ -41,17 +39,17 @@
 
       <!-- Apple Sign-In (iOS and web only) -->
       @if (showAppleButton()) {
-        <ion-button
-          expand="block"
-          fill="outline"
-          class="welcome-actions__btn welcome-actions__btn--apple"
-          aria-label="Continue with Apple"
-          [disabled]="loading()"
-          (click)="onAppleSignIn()"
-        >
-          <ion-icon slot="start" name="logo-apple"></ion-icon>
-          Continue with Apple
-        </ion-button>
+      <ion-button
+        expand="block"
+        fill="outline"
+        class="welcome-actions__btn welcome-actions__btn--apple"
+        aria-label="Continue with Apple"
+        [disabled]="loading()"
+        (click)="onAppleSignIn()"
+      >
+        <ion-icon slot="start" name="logo-apple"></ion-icon>
+        Continue with Apple
+      </ion-button>
       }
 
       <!-- Email Sign-In -->

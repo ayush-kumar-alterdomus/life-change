@@ -1,11 +1,11 @@
 import { Routes } from '@angular/router';
-import { TabsPage } from './tabs.page';
+import { TabsComponent } from './tabs.page';
 import { premiumGuard } from '../../core/auth/premium.guard';
 
 export const TABS_ROUTES: Routes = [
   {
     path: '',
-    component: TabsPage,
+    component: TabsComponent,
     children: [
       {
         path: 'home',

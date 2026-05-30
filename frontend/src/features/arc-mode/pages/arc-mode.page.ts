@@ -16,4 +16,4 @@ import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/stan
     </ion-content>
   `,
 })
-export class ArcModePage {}
+export class ArcModeComponent {}

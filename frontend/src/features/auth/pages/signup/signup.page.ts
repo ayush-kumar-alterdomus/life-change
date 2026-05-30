@@ -1,4 +1,11 @@
-import { Component, ChangeDetectionStrategy, DestroyRef, inject, signal, computed } from '@angular/core';
+import {
+  Component,
+  ChangeDetectionStrategy,
+  DestroyRef,
+  inject,
+  signal,
+  computed,
+} from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
@@ -22,7 +29,10 @@ import { AuthService } from '../../../../core/services/auth.service';
 import { HapticService } from '../../../../core/services/haptic.service';
 import { AuthError } from '../../../../core/models/auth-error.model';
 import { emailValidator } from '../../../../shared/validators/email.validator';
-import { passwordStrengthValidator, getPasswordStrength } from '../../../../shared/validators/password-strength.validator';
+import {
+  passwordStrengthValidator,
+  getPasswordStrength,
+} from '../../../../shared/validators/password-strength.validator';
 import { passwordMatchValidator } from '../../../../shared/validators/password-match.validator';
 import { PasswordStrength } from '../../models/password-strength.model';
 
@@ -47,7 +57,7 @@ import { PasswordStrength } from '../../models/password-strength.model';
     IonSpinner,
   ],
 })
-export class SignupPage {
+export class SignupComponent {
   private readonly fb = inject(FormBuilder);
   private readonly authService = inject(AuthService);
   private readonly navCtrl = inject(NavController);
@@ -65,7 +75,7 @@ export class SignupPage {
       password: ['', [Validators.required, Validators.minLength(8), passwordStrengthValidator()]],
       confirmPassword: ['', [Validators.required]],
     },
-    { validators: [passwordMatchValidator()] }
+    { validators: [passwordMatchValidator()] },
   );
 
   readonly passwordStrength = computed<PasswordStrength>(() => {
@@ -79,10 +89,7 @@ export class SignupPage {
 
   get passwordMismatch(): boolean {
     const confirmControl = this.signupForm.get('confirmPassword');
-    return !!(
-      this.signupForm.hasError('passwordMismatch') &&
-      confirmControl?.dirty
-    );
+    return !!(this.signupForm.hasError('passwordMismatch') && confirmControl?.dirty);
   }
 
   constructor() {
@@ -138,7 +145,9 @@ export class SignupPage {
     const controls = this.signupForm.controls;
     for (const key of Object.keys(controls)) {
       if (controls[key].invalid) {
-        const element = document.querySelector<HTMLElement>(`[formControlName="${key}"] input, [formControlName="${key}"]`);
+        const element = document.querySelector<HTMLElement>(
+          `[formControlName="${key}"] input, [formControlName="${key}"]`,
+        );
         if (element) {
           element.focus();
           element.scrollIntoView({ behavior: 'smooth', block: 'center' });

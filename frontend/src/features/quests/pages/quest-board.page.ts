@@ -319,7 +319,7 @@ import { Quest, DailyQuestsResponse, QuestService } from '../services/quest.serv
     `,
   ],
 })
-export class QuestBoardPage implements OnInit {
+export class QuestBoardComponent implements OnInit {
   dailyQuests = signal<DailyQuestsResponse | null>(null);
   loading = signal(true);
   completing = signal(false);

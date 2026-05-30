@@ -10,6 +10,6 @@ export const ONBOARDING_ROUTES: Routes = [
   },
   {
     path: 'welcome',
-    loadComponent: () => import('./pages/welcome.page').then((m) => m.WelcomePage),
+    loadComponent: () => import('./pages/welcome.page').then((m) => m.WelcomeComponent),
   },
 ];

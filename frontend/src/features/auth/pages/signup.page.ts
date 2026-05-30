@@ -135,7 +135,7 @@ import {
     `,
   ],
 })
-export class SignupPage {
+export class SignupComponent {
   username = '';
   email = '';
   password = '';

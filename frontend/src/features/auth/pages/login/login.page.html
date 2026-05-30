@@ -24,7 +24,7 @@
           ></ion-input>
         </ion-item>
         @if (emailInvalid) {
-          <p class="login__error">Please enter a valid email address</p>
+        <p class="login__error">Please enter a valid email address</p>
         }
       </div>
 
@@ -50,7 +50,7 @@
 
       <!-- Inline Error Message -->
       @if (errorMessage()) {
-        <p class="login__form-error" role="alert">{{ errorMessage() }}</p>
+      <p class="login__form-error" role="alert">{{ errorMessage() }}</p>
       }
 
       <!-- Log In Button -->
@@ -61,17 +61,13 @@
         type="submit"
       >
         @if (loading()) {
-          <ion-spinner name="crescent" class="login__spinner"></ion-spinner>
-        } @else {
-          Log In
-        }
+        <ion-spinner name="crescent" class="login__spinner"></ion-spinner>
+        } @else { Log In }
       </ion-button>
     </form>
 
     <!-- Forgot Password Link -->
-    <a routerLink="/auth/forgot-password" class="login__forgot-link">
-      Forgot Password?
-    </a>
+    <a routerLink="/auth/forgot-password" class="login__forgot-link"> Forgot Password? </a>
 
     <!-- Sign Up Link -->
     <p class="login__signup-prompt">

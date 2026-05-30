@@ -1,5 +1,11 @@
 import { Component, ChangeDetectionStrategy, computed, inject, signal } from '@angular/core';
-import { IonContent, IonButton, IonIcon, IonRouterLink, ToastController } from '@ionic/angular/standalone';
+import {
+  IonContent,
+  IonButton,
+  IonIcon,
+  IonRouterLink,
+  ToastController,
+} from '@ionic/angular/standalone';
 import { NavController } from '@ionic/angular';
 import { RouterLink } from '@angular/router';
 import { addIcons } from 'ionicons';
@@ -18,7 +24,7 @@ import { AuthError } from '../../../../core/models/auth-error.model';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [IonContent, IonButton, IonIcon, IonRouterLink, RouterLink],
 })
-export class WelcomePage {
+export class WelcomeComponent {
   private readonly authService = inject(AuthService);
   private readonly userStore = inject(UserStore);
   private readonly navCtrl = inject(NavController);

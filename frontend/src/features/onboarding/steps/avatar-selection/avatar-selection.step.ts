@@ -14,7 +14,7 @@ import { AvatarOption } from '../../models';
   styleUrls: ['./avatar-selection.step.scss'],
   imports: [IonButton, IonSpinner, GlowCardDirective],
 })
-export class AvatarSelectionStep {
+export class AvatarSelectionComponent {
   private readonly onboardingService = inject(OnboardingService);
   protected readonly store = inject(OnboardingStore);
   private readonly hapticService = inject(HapticService);

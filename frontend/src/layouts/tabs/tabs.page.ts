@@ -22,7 +22,7 @@ import {
   templateUrl: './tabs.page.html',
   styleUrls: ['./tabs.page.scss'],
 })
-export class TabsPage {
+export class TabsComponent {
   @ViewChild(IonTabs) tabs!: IonTabs;
 
   activeTab = 'home';

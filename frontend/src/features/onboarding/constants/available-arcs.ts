@@ -6,7 +6,12 @@ export const AVAILABLE_ARCS: ArcDefinition[] = [
     name: 'The Monk',
     description: 'Master discipline through mindfulness and routine',
     themeColor: '#4CAF50',
-    sampleQuests: ['Morning meditation', 'Digital detox hour', 'Gratitude journal', 'Breathwork session'],
+    sampleQuests: [
+      'Morning meditation',
+      'Digital detox hour',
+      'Gratitude journal',
+      'Breathwork session',
+    ],
     icon: 'leaf-outline',
   },
   {
@@ -30,7 +35,12 @@ export const AVAILABLE_ARCS: ArcDefinition[] = [
     name: 'The Creator',
     description: 'Build and express through creative output',
     themeColor: '#9C27B0',
-    sampleQuests: ['Create something new', 'Share your work', 'Brainstorm 10 ideas', 'Ship a project'],
+    sampleQuests: [
+      'Create something new',
+      'Share your work',
+      'Brainstorm 10 ideas',
+      'Ship a project',
+    ],
     icon: 'color-palette-outline',
   },
   {

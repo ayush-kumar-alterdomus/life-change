@@ -25,10 +25,7 @@ const PERSONALITY_PRIORITY: readonly string[] = [
  *
  * This function is pure and deterministic: same inputs always produce the same output.
  */
-export function computePersonalityType(
-  answers: QuizAnswer[],
-  questions: QuizQuestion[]
-): string {
+export function computePersonalityType(answers: QuizAnswer[], questions: QuizQuestion[]): string {
   const scores: Record<string, number> = {};
 
   for (const answer of answers) {
@@ -37,9 +34,7 @@ export function computePersonalityType(
       continue;
     }
 
-    const selectedOption = question.options.find(
-      (opt) => opt.id === answer.selectedOptionId
-    );
+    const selectedOption = question.options.find((opt) => opt.id === answer.selectedOptionId);
     if (!selectedOption) {
       continue;
     }

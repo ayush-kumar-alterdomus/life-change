@@ -1,14 +1,14 @@
 <div class="quiz">
   <div class="quiz__header">
     @if (canGoBack()) {
-      <button
-        class="quiz__back-btn"
-        type="button"
-        (click)="goBack()"
-        aria-label="Go to previous question"
-      >
-        ← Back
-      </button>
+    <button
+      class="quiz__back-btn"
+      type="button"
+      (click)="goBack()"
+      aria-label="Go to previous question"
+    >
+      ← Back
+    </button>
     }
     <span class="quiz__progress">{{ progressLabel() }}</span>
   </div>
@@ -24,16 +24,16 @@
 
   <div class="quiz__options">
     @for (option of currentQuestion().options; track option.id) {
-      <button
-        class="quiz__option-card"
-        [class.quiz__option-card--selected]="isOptionHighlighted(option.id)"
-        [attr.aria-pressed]="isOptionHighlighted(option.id)"
-        [disabled]="isAdvancing()"
-        type="button"
-        (click)="selectOption(option)"
-      >
-        <span class="quiz__option-text">{{ option.text }}</span>
-      </button>
+    <button
+      class="quiz__option-card"
+      [class.quiz__option-card--selected]="isOptionHighlighted(option.id)"
+      [attr.aria-pressed]="isOptionHighlighted(option.id)"
+      [disabled]="isAdvancing()"
+      type="button"
+      (click)="selectOption(option)"
+    >
+      <span class="quiz__option-text">{{ option.text }}</span>
+    </button>
     }
   </div>
 </div>

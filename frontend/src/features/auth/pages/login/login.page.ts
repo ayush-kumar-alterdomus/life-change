@@ -45,7 +45,7 @@ import { emailValidator } from '../../../../shared/validators/email.validator';
     IonSpinner,
   ],
 })
-export class LoginPage {
+export class LoginComponent {
   private readonly fb = inject(FormBuilder);
   private readonly authService = inject(AuthService);
   private readonly navCtrl = inject(NavController);
@@ -116,7 +116,9 @@ export class LoginPage {
     const controls = this.loginForm.controls;
     for (const key of Object.keys(controls)) {
       if (controls[key].invalid) {
-        const element = document.querySelector<HTMLElement>(`[formControlName="${key}"] input, [formControlName="${key}"]`);
+        const element = document.querySelector<HTMLElement>(
+          `[formControlName="${key}"] input, [formControlName="${key}"]`,
+        );
         if (element) {
           element.focus();
           element.scrollIntoView({ behavior: 'smooth', block: 'center' });

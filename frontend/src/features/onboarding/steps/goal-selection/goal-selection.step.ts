@@ -25,7 +25,7 @@ import { GoalCategory } from '../../models';
   styleUrls: ['./goal-selection.step.scss'],
   imports: [IonIcon, GlowCardDirective],
 })
-export class GoalSelectionStep {
+export class GoalSelectionComponent {
   private readonly onboardingService = inject(OnboardingService);
   private readonly store = inject(OnboardingStore);
   private readonly hapticService = inject(HapticService);

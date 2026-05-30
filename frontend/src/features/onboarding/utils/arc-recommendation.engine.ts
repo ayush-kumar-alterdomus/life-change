@@ -41,13 +41,7 @@ const PERSONALITY_BIAS: Record<string, Record<string, number>> = {
  * When two or more Arcs have the same combined score,
  * the Arc appearing earlier in this array wins.
  */
-const ARC_PRIORITY: readonly string[] = [
-  'monk',
-  'warrior',
-  'scholar',
-  'creator',
-  'beast',
-] as const;
+const ARC_PRIORITY: readonly string[] = ['monk', 'warrior', 'scholar', 'creator', 'beast'] as const;
 
 /**
  * Computes the recommended Arc based on user inputs.
@@ -64,7 +58,7 @@ const ARC_PRIORITY: readonly string[] = [
 export function computeRecommendedArc(
   goals: string[],
   difficulty: string,
-  personalityType: string
+  personalityType: string,
 ): string {
   const arcIds = AVAILABLE_ARCS.map((arc) => arc.id);
   const scores: Record<string, number> = {};

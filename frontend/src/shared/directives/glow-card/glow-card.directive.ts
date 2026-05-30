@@ -48,7 +48,7 @@ export class GlowCardDirective implements OnDestroy {
     this.renderer.setStyle(
       nativeEl,
       'transition',
-      'box-shadow 200ms ease-in, border-color 200ms ease-in, transform 100ms ease'
+      'box-shadow 200ms ease-in, border-color 200ms ease-in, transform 100ms ease',
     );
 
     // Register press event listeners

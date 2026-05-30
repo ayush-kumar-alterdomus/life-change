@@ -1,18 +1,28 @@
 package com.ascend.user.service;
 
+import com.ascend.analytics.entity.Achievement;
+import com.ascend.analytics.repository.AchievementRepository;
 import com.ascend.common.entity.Difficulty;
 import com.ascend.common.entity.StatType;
 import com.ascend.streak.entity.Streak;
 import com.ascend.streak.repository.StreakRepository;
+import com.ascend.user.dto.IdentityTitle;
+import com.ascend.user.dto.StatGainResponse;
+import com.ascend.user.dto.StatThresholds;
+import com.ascend.user.dto.UserStatsResponse;
 import com.ascend.user.entity.UserStats;
+import com.ascend.user.event.AchievementUnlockedEvent;
 import com.ascend.user.repository.UserStatsRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -24,6 +34,12 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class StatService {
 
+    private static final int BASE_STAT = 1;
+    private static final double EASY_MULTIPLIER = 1.0;
+    private static final double MEDIUM_MULTIPLIER = 1.5;
+    private static final double HARD_MULTIPLIER = 2.0;
+    private static final double LEGENDARY_MULTIPLIER = 3.0;
+
     private static final double DISCIPLINE_WEIGHT = 0.25;
     private static final double FOCUS_WEIGHT = 0.20;
     private static final double VITALITY_WEIGHT = 0.20;
@@ -31,35 +47,118 @@ public class StatService {
     private static final double CONSISTENCY_WEIGHT = 0.15;
     private static final double CONSISTENCY_MAX_STREAK_DAYS = 30.0;
 
+    private static final String ACHIEVEMENT_TYPE_IDENTITY_TITLE = "IDENTITY_TITLE";
+
     private final UserStatsRepository userStatsRepository;
     private final StreakRepository streakRepository;
+    private final AchievementRepository achievementRepository;
+    private final ApplicationEventPublisher eventPublisher;
 
     /**
      * Awards stat points to a user based on quest difficulty and stat type.
-     * Updates the relevant stat, recalculates life_score, and checks for title unlocks.
+     * Steps:
+     * 1. Calculate gain: BaseStat(1) × DifficultyMultiplier
+     * 2. Fetch current user_stats
+     * 3. Increment the relevant stat
+     * 4. Check title unlock thresholds
+     * 5. Recalculate life_score
+     * 6. Save updated stats
+     * 7. Return StatGainResponse
      *
      * @param userId     the user receiving stat points
      * @param statType   the stat category to increase
      * @param difficulty the quest difficulty determining point gain
+     * @return StatGainResponse with previous/new values and any title unlocked
      */
     @Transactional
-    public void awardStatPoints(UUID userId, StatType statType, Difficulty difficulty) {
+    public StatGainResponse awardStatPoints(UUID userId, StatType statType, Difficulty difficulty) {
+        // 1. Calculate gain
+        int statGain = calculateStatGain(difficulty);
+
+        // 2. Fetch current user_stats
         UserStats stats = userStatsRepository.findByUserId(userId)
                 .orElseGet(() -> createDefaultStats(userId));
 
-        int statGain = calculateStatGain(difficulty);
+        // Record previous value
+        int previousValue = getStatValue(stats, statType);
 
+        // 3. Increment the relevant stat
         applyStatGain(stats, statType, statGain);
+        int newValue = getStatValue(stats, statType);
 
-        BigDecimal newLifeScore = getLifeScore(stats, userId);
+        // 4. Check title unlock thresholds
+        String titleUnlocked = checkTitleUnlocks(userId, statType, newValue, previousValue);
+
+        // 5. Recalculate life_score
+        BigDecimal newLifeScore = calculateLifeScore(stats, userId);
         stats.setLifeScore(newLifeScore);
 
+        // 6. Save updated stats
         userStatsRepository.save(stats);
 
-        log.debug("Awarded {} {} points to user {}. New life_score: {}",
-                statGain, statType, userId, newLifeScore);
+        log.debug("Awarded {} {} points to user {}. Previous: {}, New: {}, Life score: {}",
+                statGain, statType, userId, previousValue, newValue, newLifeScore);
 
-        checkIdentityTitleUnlocks(userId, stats, statType);
+        // 7. Return StatGainResponse
+        return StatGainResponse.builder()
+                .statType(statType)
+                .previousValue(previousValue)
+                .newValue(newValue)
+                .gain(statGain)
+                .titleUnlocked(titleUnlocked)
+                .build();
+    }
+
+    /**
+     * Returns the full user stats with earned identity titles.
+     *
+     * @param userId the user ID
+     * @return UserStatsResponse with all stats, life score, and earned titles
+     */
+    @Transactional(readOnly = true)
+    public UserStatsResponse getUserStats(UUID userId) {
+        UserStats stats = userStatsRepository.findByUserId(userId)
+                .orElseGet(() -> createDefaultStats(userId));
+
+        List<IdentityTitle> earnedTitles = getEarnedTitles(userId);
+
+        return UserStatsResponse.builder()
+                .strength(stats.getStrength())
+                .wisdom(stats.getWisdom())
+                .focus(stats.getFocus())
+                .discipline(stats.getDiscipline())
+                .vitality(stats.getVitality())
+                .charisma(stats.getCharisma())
+                .lifeScore(stats.getLifeScore())
+                .titles(earnedTitles)
+                .build();
+    }
+
+    /**
+     * Calculates stat gain from quest difficulty.
+     * Formula: BaseStat(1) × DifficultyMultiplier (EASY=1, MEDIUM=1.5, HARD=2, LEGENDARY=3).
+     *
+     * @param difficulty the quest difficulty
+     * @return integer stat points to award (rounded down)
+     */
+    int calculateStatGain(Difficulty difficulty) {
+        double multiplier = getDifficultyMultiplier(difficulty);
+        return (int) (BASE_STAT * multiplier);
+    }
+
+    /**
+     * Returns the difficulty multiplier for stat gain calculation.
+     *
+     * @param difficulty the quest difficulty
+     * @return the multiplier value
+     */
+    double getDifficultyMultiplier(Difficulty difficulty) {
+        return switch (difficulty) {
+            case EASY -> EASY_MULTIPLIER;
+            case MEDIUM -> MEDIUM_MULTIPLIER;
+            case HARD -> HARD_MULTIPLIER;
+            case LEGENDARY -> LEGENDARY_MULTIPLIER;
+        };
     }
 
     /**
@@ -69,9 +168,9 @@ public class StatService {
      *
      * @param stats  the user's current stats
      * @param userId the user ID (for streak lookup)
-     * @return the calculated life_score
+     * @return the calculated life_score normalized to 0-100 scale
      */
-    public BigDecimal getLifeScore(UserStats stats, UUID userId) {
+    public BigDecimal calculateLifeScore(UserStats stats, UUID userId) {
         double consistency = getConsistencyScore(userId);
 
         double score = (DISCIPLINE_WEIGHT * stats.getDiscipline())
@@ -84,19 +183,51 @@ public class StatService {
     }
 
     /**
-     * Calculates stat gain from quest difficulty.
-     * BaseStat(1) × DifficultyMultiplier (EASY=1, MEDIUM=1, HARD=2, LEGENDARY=3).
+     * Checks if the user has crossed any stat thresholds for identity title unlocks.
+     * Titles are permanent — once unlocked, they are never revoked even if stat decreases.
      *
-     * @param difficulty the quest difficulty
-     * @return integer stat points to award
+     * @param userId        the user ID
+     * @param statType      the stat type that was incremented
+     * @param newValue      the new stat value after increment
+     * @param previousValue the stat value before increment
+     * @return the title name if a new title was unlocked, null otherwise
      */
-    int calculateStatGain(Difficulty difficulty) {
-        return switch (difficulty) {
-            case EASY -> 1;
-            case MEDIUM -> 1;
-            case HARD -> 2;
-            case LEGENDARY -> 3;
-        };
+    String checkTitleUnlocks(UUID userId, StatType statType, int newValue, int previousValue) {
+        String unlockedTitle = null;
+
+        for (int threshold : StatThresholds.ALL_THRESHOLDS) {
+            // Check if this increment crossed the threshold
+            if (newValue >= threshold && previousValue < threshold) {
+                IdentityTitle title = StatThresholds.getTitleForThreshold(statType, threshold);
+                if (title != null) {
+                    String achievementName = buildAchievementName(statType, threshold);
+
+                    // Check if title already unlocked (idempotency)
+                    if (!achievementRepository.existsByUserIdAndAchievementName(userId, achievementName)) {
+                        // Create Achievement record
+                        Achievement achievement = Achievement.builder()
+                                .userId(userId)
+                                .achievementName(achievementName)
+                                .achievementType(ACHIEVEMENT_TYPE_IDENTITY_TITLE)
+                                .description(title.description())
+                                .build();
+                        achievementRepository.save(achievement);
+
+                        // Publish AchievementUnlockedEvent for notification/analytics modules
+                        AchievementUnlockedEvent event = new AchievementUnlockedEvent(
+                                this, userId, statType, threshold, title.titleName());
+                        eventPublisher.publishEvent(event);
+
+                        unlockedTitle = title.titleName();
+
+                        log.info("User {} unlocked identity title '{}' for {} at threshold {}",
+                                userId, title.titleName(), statType, threshold);
+                    }
+                }
+            }
+        }
+
+        return unlockedTitle;
     }
 
     private void applyStatGain(UserStats stats, StatType statType, int gain) {
@@ -108,6 +239,17 @@ public class StatService {
             case VITALITY -> stats.setVitality(stats.getVitality() + gain);
             case CHARISMA -> stats.setCharisma(stats.getCharisma() + gain);
         }
+    }
+
+    int getStatValue(UserStats stats, StatType statType) {
+        return switch (statType) {
+            case STRENGTH -> stats.getStrength();
+            case WISDOM -> stats.getWisdom();
+            case FOCUS -> stats.getFocus();
+            case DISCIPLINE -> stats.getDiscipline();
+            case VITALITY -> stats.getVitality();
+            case CHARISMA -> stats.getCharisma();
+        };
     }
 
     private double getConsistencyScore(UUID userId) {
@@ -126,30 +268,59 @@ public class StatService {
     }
 
     /**
-     * Checks if the user has crossed any stat thresholds for identity title unlocks.
-     * Thresholds: 25, 50, 100, 200, 500 per stat.
+     * Retrieves all earned identity titles for a user from the achievements table.
+     *
+     * @param userId the user ID
+     * @return list of earned IdentityTitle records
      */
-    private void checkIdentityTitleUnlocks(UUID userId, UserStats stats, StatType statType) {
-        int statValue = getStatValue(stats, statType);
-        int[] thresholds = {25, 50, 100, 200, 500};
+    private List<IdentityTitle> getEarnedTitles(UUID userId) {
+        List<Achievement> titleAchievements = achievementRepository.findByUserId(userId)
+                .stream()
+                .filter(a -> ACHIEVEMENT_TYPE_IDENTITY_TITLE.equals(a.getAchievementType()))
+                .toList();
 
-        for (int threshold : thresholds) {
-            if (statValue >= threshold && (statValue - calculateStatGain(Difficulty.EASY)) < threshold) {
-                log.info("User {} unlocked identity title for {} at threshold {}",
-                        userId, statType, threshold);
-                // Future: publish IdentityTitleUnlockedEvent for notification/achievement modules
+        List<IdentityTitle> titles = new ArrayList<>();
+        for (Achievement achievement : titleAchievements) {
+            IdentityTitle title = parseAchievementToTitle(achievement);
+            if (title != null) {
+                titles.add(title);
             }
         }
+        return titles;
     }
 
-    private int getStatValue(UserStats stats, StatType statType) {
-        return switch (statType) {
-            case STRENGTH -> stats.getStrength();
-            case WISDOM -> stats.getWisdom();
-            case FOCUS -> stats.getFocus();
-            case DISCIPLINE -> stats.getDiscipline();
-            case VITALITY -> stats.getVitality();
-            case CHARISMA -> stats.getCharisma();
-        };
+    /**
+     * Builds a unique achievement name for a stat/threshold combination.
+     * Format: "IDENTITY_TITLE_{STAT_TYPE}_{THRESHOLD}"
+     */
+    private String buildAchievementName(StatType statType, int threshold) {
+        return "IDENTITY_TITLE_" + statType.name() + "_" + threshold;
+    }
+
+    /**
+     * Parses an Achievement entity back into an IdentityTitle DTO.
+     */
+    private IdentityTitle parseAchievementToTitle(Achievement achievement) {
+        String name = achievement.getAchievementName();
+        if (!name.startsWith("IDENTITY_TITLE_")) {
+            return null;
+        }
+
+        // Parse format: IDENTITY_TITLE_{STAT_TYPE}_{THRESHOLD}
+        String remainder = name.substring("IDENTITY_TITLE_".length());
+        int lastUnderscore = remainder.lastIndexOf('_');
+        if (lastUnderscore < 0) {
+            return null;
+        }
+
+        try {
+            String statTypeName = remainder.substring(0, lastUnderscore);
+            int threshold = Integer.parseInt(remainder.substring(lastUnderscore + 1));
+            StatType statType = StatType.valueOf(statTypeName);
+            return StatThresholds.getTitleForThreshold(statType, threshold);
+        } catch (IllegalArgumentException | NumberFormatException e) {
+            log.warn("Could not parse achievement name to IdentityTitle: {}", name);
+            return null;
+        }
     }
 }

@@ -36,7 +36,7 @@ import { AuthService } from '../../../../core/services/auth.service';
     IonSpinner,
   ],
 })
-export class ForgotPasswordPage {
+export class ForgotPasswordComponent {
   private readonly fb = inject(FormBuilder);
   private readonly authService = inject(AuthService);
   private readonly destroyRef = inject(DestroyRef);
@@ -91,7 +91,9 @@ export class ForgotPasswordPage {
       if (authError.code === 'auth/network-request-failed') {
         this.errorMessage.set('Network error. Check your connection and try again.');
       } else {
-        this.errorMessage.set(authError.message || 'An unexpected error occurred. Please try again.');
+        this.errorMessage.set(
+          authError.message || 'An unexpected error occurred. Please try again.',
+        );
       }
     } finally {
       this.loading.set(false);

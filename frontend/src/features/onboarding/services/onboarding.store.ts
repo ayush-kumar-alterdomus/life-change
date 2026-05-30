@@ -25,23 +25,43 @@ export class OnboardingStore {
   // --- Computed Signals ---
   readonly isStepValid: Signal<boolean> = computed(() => {
     switch (this._currentStep()) {
-      case 0: return this._selectedGoals().length >= 1 && this._selectedGoals().length <= 3;
-      case 1: return this._selectedDifficulty() !== null;
-      case 2: return this._quizAnswers().length === ONBOARDING_CONSTANTS.QUIZ_QUESTION_COUNT;
-      case 3: return this._selectedArc() !== null;
-      case 4: return this._selectedAvatar() !== null;
-      default: return false;
+      case 0:
+        return this._selectedGoals().length >= 1 && this._selectedGoals().length <= 3;
+      case 1:
+        return this._selectedDifficulty() !== null;
+      case 2:
+        return this._quizAnswers().length === ONBOARDING_CONSTANTS.QUIZ_QUESTION_COUNT;
+      case 3:
+        return this._selectedArc() !== null;
+      case 4:
+        return this._selectedAvatar() !== null;
+      default:
+        return false;
     }
   });
 
   // --- Mutators ---
-  setCurrentStep(step: number): void { this._currentStep.set(step); }
-  setGoals(goals: string[]): void { this._selectedGoals.set(goals); }
-  setDifficulty(tier: string | null): void { this._selectedDifficulty.set(tier); }
-  setQuizAnswers(answers: QuizAnswer[]): void { this._quizAnswers.set(answers); }
-  setPersonalityType(type: string | null): void { this._personalityType.set(type); }
-  setArc(arcId: string | null): void { this._selectedArc.set(arcId); }
-  setAvatar(avatarId: string | null): void { this._selectedAvatar.set(avatarId); }
+  setCurrentStep(step: number): void {
+    this._currentStep.set(step);
+  }
+  setGoals(goals: string[]): void {
+    this._selectedGoals.set(goals);
+  }
+  setDifficulty(tier: string | null): void {
+    this._selectedDifficulty.set(tier);
+  }
+  setQuizAnswers(answers: QuizAnswer[]): void {
+    this._quizAnswers.set(answers);
+  }
+  setPersonalityType(type: string | null): void {
+    this._personalityType.set(type);
+  }
+  setArc(arcId: string | null): void {
+    this._selectedArc.set(arcId);
+  }
+  setAvatar(avatarId: string | null): void {
+    this._selectedAvatar.set(avatarId);
+  }
 
   /** Returns a plain object snapshot for serialization. */
   getSnapshot(): OnboardingState {

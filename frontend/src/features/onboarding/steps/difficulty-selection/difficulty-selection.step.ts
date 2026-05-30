@@ -17,7 +17,7 @@ import { DifficultyTier } from '../../models';
   styleUrls: ['./difficulty-selection.step.scss'],
   imports: [IonIcon, GlowCardDirective],
 })
-export class DifficultySelectionStep {
+export class DifficultySelectionComponent {
   private readonly onboardingService = inject(OnboardingService);
   private readonly hapticService = inject(HapticService);
   protected readonly store = inject(OnboardingStore);

@@ -4,18 +4,18 @@
 
   <div class="goal-selection__grid">
     @for (goal of goals; track goal.id) {
-      <button
-        class="goal-card"
-        [appGlowCard]="isSelected(goal.id)"
-        (click)="toggleGoal(goal)"
-        type="button"
-        [attr.aria-pressed]="isSelected(goal.id)"
-        [attr.aria-label]="goal.name + ': ' + goal.description"
-      >
-        <ion-icon [name]="goal.icon" class="goal-card__icon" aria-hidden="true"></ion-icon>
-        <span class="goal-card__name">{{ goal.name }}</span>
-        <span class="goal-card__description">{{ goal.description }}</span>
-      </button>
+    <button
+      class="goal-card"
+      [appGlowCard]="isSelected(goal.id)"
+      (click)="toggleGoal(goal)"
+      type="button"
+      [attr.aria-pressed]="isSelected(goal.id)"
+      [attr.aria-label]="goal.name + ': ' + goal.description"
+    >
+      <ion-icon [name]="goal.icon" class="goal-card__icon" aria-hidden="true"></ion-icon>
+      <span class="goal-card__name">{{ goal.name }}</span>
+      <span class="goal-card__description">{{ goal.description }}</span>
+    </button>
     }
   </div>
 </div>

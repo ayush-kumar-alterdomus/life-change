@@ -171,7 +171,7 @@ import { QuestService, DailyQuestsResponse } from '../../quests/services/quest.s
     `,
   ],
 })
-export class DashboardPage implements OnInit {
+export class DashboardComponent implements OnInit {
   questData = signal<DailyQuestsResponse | null>(null);
   todayXp = signal(0);
 

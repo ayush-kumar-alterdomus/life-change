@@ -22,7 +22,7 @@ import { ArcDefinition } from '../../models';
   styleUrls: ['./arc-recommendation.step.scss'],
   imports: [IonIcon, IonButton],
 })
-export class ArcRecommendationStep implements OnInit {
+export class ArcRecommendationComponent implements OnInit {
   private readonly onboardingService = inject(OnboardingService);
   protected readonly store = inject(OnboardingStore);
 
