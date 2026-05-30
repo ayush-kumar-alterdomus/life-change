@@ -28,10 +28,11 @@ import {
   IonModal,
 } from '@ionic/angular/standalone';
 
-import { QuestService } from '../../services/quest.service';
+import { QuestService, CreateQuestRequest } from '../../services/quest.service';
 import { UserStore } from '../../../../core/stores/user.store';
 import { Quest } from '../../../../shared/models/quest.model';
 import { QuestFrequency } from '../../../../shared/enums/quest-frequency.enum';
+import { QuestCompletionService } from '../../../quest-completion/services/quest-completion.service';
 import {
   filterQuestsByFrequency,
   computeProgress,
@@ -76,10 +77,11 @@ import { UpgradePromptComponent } from '../../components/upgrade-prompt/upgrade-
     UpgradePromptComponent,
   ],
 })
-export class QuestBoardPage implements OnInit {
+export class QuestBoardComponent implements OnInit {
   private readonly questService = inject(QuestService);
   private readonly userStore = inject(UserStore);
   private readonly destroyRef = inject(DestroyRef);
+  private readonly questCompletionService = inject(QuestCompletionService);
 
   // ─── State Signals ─────────────────────────────────────────────────────────
   allQuests = signal<Quest[]>([]);
@@ -93,20 +95,14 @@ export class QuestBoardPage implements OnInit {
   toastColor = signal<'success' | 'danger' | 'warning'>('success');
 
   // ─── Computed Signals ──────────────────────────────────────────────────────
-  filteredQuests = computed(() =>
-    filterQuestsByFrequency(this.allQuests(), this.activeTab())
-  );
+  filteredQuests = computed(() => filterQuestsByFrequency(this.allQuests(), this.activeTab()));
 
-  progressSummary = computed(() =>
-    computeProgress(this.allQuests())
-  );
+  progressSummary = computed(() => computeProgress(this.allQuests()));
 
-  activeCustomQuestCount = computed(() =>
-    countActiveCustomQuests(this.allQuests())
-  );
+  activeCustomQuestCount = computed(() => countActiveCustomQuests(this.allQuests()));
 
   canCreateQuest = computed(() =>
-    canUserCreateQuest(this.userStore.isPremium(), this.activeCustomQuestCount())
+    canUserCreateQuest(this.userStore.isPremium(), this.activeCustomQuestCount()),
   );
 
   // ─── Lifecycle ─────────────────────────────────────────────────────────────
@@ -138,25 +134,22 @@ export class QuestBoardPage implements OnInit {
   onCompleteQuest(): void {
     const quest = this.selectedQuest();
     if (!quest) return;
-
-    this.questService.completeQuest(quest.id)
+    this.selectedQuest.set(null);
+    this.questCompletionService
+      .completeQuest(quest)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
-        next: () => {
-          this.allQuests.update(quests =>
-            quests.map(q => q.id === quest.id ? { ...q, completed: true } : q)
+        next: (result) => {
+          this.allQuests.update((quests) =>
+            quests.map((q) => (q.id === result.questId ? { ...q, completed: true } : q)),
           );
-          this.selectedQuest.set(null);
-          this.showSuccessToast('Quest completed! XP awarded.');
-        },
-        error: () => {
-          this.showErrorToast('Failed to complete quest.');
         },
       });
   }
 
-  onCreateQuest(payload: any): void {
-    this.questService.createQuest(payload)
+  onCreateQuest(payload: CreateQuestRequest): void {
+    this.questService
+      .createQuest(payload)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: () => {
@@ -178,8 +171,9 @@ export class QuestBoardPage implements OnInit {
     this.showUpgradePrompt.set(false);
   }
 
-  onRefresh(event: any): void {
-    this.questService.getAllQuests()
+  onRefresh(event: { target: { complete: () => void } }): void {
+    this.questService
+      .getAllQuests()
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: (quests) => {
@@ -196,7 +190,8 @@ export class QuestBoardPage implements OnInit {
   // ─── Private Helpers ───────────────────────────────────────────────────────
   private loadQuests(): void {
     this.loading.set(true);
-    this.questService.getAllQuests()
+    this.questService
+      .getAllQuests()
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: (quests) => {

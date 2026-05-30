@@ -15,6 +15,7 @@ import { DashboardStore } from '../state/dashboard.store';
 import { DashboardService } from '../services/dashboard.service';
 import { ConnectivityService } from '../../../core/services/connectivity.service';
 import { HapticService } from '../../../core/services/haptic.service';
+import { QuestCompletionService } from '../../quest-completion/services/quest-completion.service';
 
 import { HeaderSectionComponent } from '../components/header-section/header-section.component';
 import { XpProgressCardComponent } from '../components/xp-progress-card/xp-progress-card.component';
@@ -54,6 +55,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   private readonly connectivity = inject(ConnectivityService);
   private readonly router = inject(Router);
   private readonly haptic = inject(HapticService);
+  private readonly questCompletionService = inject(QuestCompletionService);
 
   // ─── Expose store signals to template ──────────────────────────────────────
 
@@ -115,15 +117,11 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   // ─── Quest Swipe Action Handlers ──────────────────────────────────────────
 
   onCompleteQuest(questId: string): void {
-    this.dashboardService.completeQuest(questId).subscribe({
-      next: (result) => {
-        this.haptic.notification('success');
-        this.store.completeQuest(questId, result.xpEarned);
-      },
-      error: () => {
-        this.haptic.notification('error');
-      },
-    });
+    const questsState = this.todayQuests();
+    if (questsState.status !== 'loaded') return;
+    const quest = questsState.data.find(q => q.id === questId);
+    if (!quest) return;
+    this.questCompletionService.completeQuest(quest).subscribe();
   }
 
   onSkipQuest(questId: string): void {

@@ -1,4 +1,10 @@
-import { Component, ChangeDetectionStrategy, computed, input, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import {
+  Component,
+  ChangeDetectionStrategy,
+  computed,
+  input,
+  CUSTOM_ELEMENTS_SCHEMA,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonProgressBar, IonText, IonCard, IonCardContent } from '@ionic/angular/standalone';
 
@@ -18,5 +24,5 @@ export class ProgressSummaryComponent {
   total = input.required<number>();
 
   /** Computed ratio of completed to total (0 when total is 0) */
-  ratio = computed(() => this.total() > 0 ? this.completed() / this.total() : 0);
+  ratio = computed(() => (this.total() > 0 ? this.completed() / this.total() : 0));
 }

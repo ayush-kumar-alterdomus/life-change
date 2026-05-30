@@ -105,7 +105,7 @@ Implement the Quest Completion UI flow as a shared orchestration layer using Ang
   - ⚠️ Do not run any commands — only create or update files.
   - Ensure all tests pass, ask the user if questions arise.
 
-- [ ] 5. Implement ConfirmationSheetComponent
+- [x] 5. Implement ConfirmationSheetComponent
   - ⚠️ Do not run any commands — only create or update files.
   - [x] 5.1 Create the standalone component with template and styles
     - ⚠️ Do not run any commands — only create or update files.
@@ -206,9 +206,9 @@ Implement the Quest Completion UI flow as a shared orchestration layer using Ang
     - Sync text update with bar fill animation using requestAnimationFrame
     - _Requirements: 4.5_
 
-- [ ] 9. Wire orchestration into calling components
+- [x] 9. Wire orchestration into calling components
   - ⚠️ Do not run any commands — only create or update files.
-  - [ ] 9.1 Wire QuestCompletionService into the host view
+  - [x] 9.1 Wire QuestCompletionService into the host view
     - ⚠️ Do not run any commands — only create or update files.
     - Create a host-level template section (or app-level component) that listens to `flowState` signal
     - Conditionally render ConfirmationSheetComponent when status is `confirming` or `submitting`
@@ -217,14 +217,14 @@ Implement the Quest Completion UI flow as a shared orchestration layer using Ang
     - Pass appropriate inputs and wire outputs to service methods (onConfirm, onCancel, onAnimationComplete, onPerfectDayDismiss)
     - _Requirements: 1.3, 1.4_
 
-  - [~] 9.2 Integrate with Dashboard and Quest Board pages
+  - [x] 9.2 Integrate with Dashboard and Quest Board pages
     - ⚠️ Do not run any commands — only create or update files.
     - Add `completeQuest(quest)` call from Dashboard page's quest card action
     - Add `completeQuest(quest)` call from Quest Board page's quest item action
     - Subscribe to `completionEvent$` for local state updates (e.g., removing quest from list)
     - _Requirements: 1.6_
 
-- [~] 10. Final checkpoint - Ensure all tests pass
+- [x] 10. Final checkpoint - Ensure all tests pass
   - ⚠️ Do not run any commands — only create or update files.
   - Ensure all tests pass, ask the user if questions arise.
 
