@@ -1,0 +1,83 @@
+<ion-content [fullscreen]="true" class="welcome-content" scroll-y="false">
+  <!-- Background particles -->
+  <div class="welcome-background">
+    <div class="welcome-particle welcome-particle--1"></div>
+    <div class="welcome-particle welcome-particle--2"></div>
+    <div class="welcome-particle welcome-particle--3"></div>
+    <div class="welcome-particle welcome-particle--4"></div>
+    <div class="welcome-particle welcome-particle--5"></div>
+    <div class="welcome-particle welcome-particle--6"></div>
+  </div>
+
+  <div class="welcome-container">
+    <!-- Tagline -->
+    <section class="welcome-tagline">
+      <h1 class="welcome-tagline__text">
+        Become the strongest version of yourself
+      </h1>
+    </section>
+
+    <!-- Hero Illustration -->
+    <div class="welcome-hero" aria-label="Hero avatar illustration">
+      <div class="welcome-hero__avatar">
+        <div class="welcome-hero__silhouette"></div>
+        <div class="welcome-hero__glow"></div>
+      </div>
+    </div>
+
+    <!-- Sign-in Options -->
+    <div class="welcome-actions">
+      <!-- Google Sign-In -->
+      <ion-button
+        expand="block"
+        class="welcome-actions__btn welcome-actions__btn--google"
+        aria-label="Continue with Google"
+        [disabled]="loading()"
+        (click)="onGoogleSignIn()"
+      >
+        <ion-icon slot="start" name="logo-google"></ion-icon>
+        Continue with Google
+      </ion-button>
+
+      <!-- Apple Sign-In (iOS and web only) -->
+      @if (showAppleButton()) {
+        <ion-button
+          expand="block"
+          fill="outline"
+          class="welcome-actions__btn welcome-actions__btn--apple"
+          aria-label="Continue with Apple"
+          [disabled]="loading()"
+          (click)="onAppleSignIn()"
+        >
+          <ion-icon slot="start" name="logo-apple"></ion-icon>
+          Continue with Apple
+        </ion-button>
+      }
+
+      <!-- Email Sign-In -->
+      <ion-button
+        expand="block"
+        fill="clear"
+        class="welcome-actions__btn welcome-actions__btn--email"
+        [routerLink]="'/auth/login'"
+        [disabled]="loading()"
+        aria-label="Sign in with Email"
+      >
+        <ion-icon slot="start" name="mail-outline"></ion-icon>
+        Sign in with Email
+      </ion-button>
+
+      <!-- Guest Mode -->
+      <div class="welcome-actions__guest">
+        <a
+          class="welcome-actions__guest-link"
+          aria-label="Continue as Guest"
+          [class.welcome-actions__guest-link--disabled]="loading()"
+          (click)="onGuestSignIn()"
+        >
+          Continue as Guest
+        </a>
+      </div>
+    </div>
+  </div>
+</ion-content>

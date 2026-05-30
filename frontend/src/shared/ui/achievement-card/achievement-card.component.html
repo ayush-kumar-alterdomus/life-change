@@ -17,8 +17,6 @@
   <p class="achievement-card__description">{{ description() }}</p>
 
   @if (!locked() && unlockedAt()) {
-    <span class="achievement-card__unlocked-date">
-      Unlocked {{ unlockedAt() | timeAgo }}
-    </span>
+    <span class="achievement-card__unlocked-date"> Unlocked {{ unlockedAt() | timeAgo }} </span>
   }
 </div>

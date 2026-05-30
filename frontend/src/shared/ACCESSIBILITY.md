@@ -14,29 +14,29 @@ This document verifies that the Ascend UI Design System color tokens meet [WCAG 
 
 ### Color Tokens
 
-| Token | Hex Value | Role |
-|-------|-----------|------|
-| Background | `#0A0A0A` | Page background |
-| Card | `#161616` | Card/surface background |
-| Text-primary | `#FFFFFF` | Primary text, headings |
-| Text-secondary | `#B0B0B0` | Secondary/muted text |
-| Primary/Accent | `#FF9800` | Buttons, links, highlights |
-| Secondary | `#A855F7` | Orbitron headings, display elements |
-| Success | `#4CAF50` | Success states, completion indicators |
-| Error | `#F44336` | Error states, danger actions |
+| Token          | Hex Value | Role                                  |
+| -------------- | --------- | ------------------------------------- |
+| Background     | `#0A0A0A` | Page background                       |
+| Card           | `#161616` | Card/surface background               |
+| Text-primary   | `#FFFFFF` | Primary text, headings                |
+| Text-secondary | `#B0B0B0` | Secondary/muted text                  |
+| Primary/Accent | `#FF9800` | Buttons, links, highlights            |
+| Secondary      | `#A855F7` | Orbitron headings, display elements   |
+| Success        | `#4CAF50` | Success states, completion indicators |
+| Error          | `#F44336` | Error states, danger actions          |
 
 ### Contrast Ratio Table
 
-| Foreground | Background | Ratio | Normal Text (4.5:1) | Large Text (3:1) | Status |
-|------------|------------|-------|---------------------|-------------------|--------|
-| `#FFFFFF` (text-primary) | `#0A0A0A` (background) | ~19.5:1 | ✅ Pass | ✅ Pass | Compliant |
-| `#FFFFFF` (text-primary) | `#161616` (card) | ~17.4:1 | ✅ Pass | ✅ Pass | Compliant |
-| `#B0B0B0` (text-secondary) | `#0A0A0A` (background) | ~8.5:1 | ✅ Pass | ✅ Pass | Compliant |
-| `#B0B0B0` (text-secondary) | `#161616` (card) | ~7.5:1 | ✅ Pass | ✅ Pass | Compliant |
-| `#FF9800` (primary) | `#0A0A0A` (background) | ~5.9:1 | ✅ Pass | ✅ Pass | Compliant |
-| `#A855F7` (secondary) | `#0A0A0A` (background) | ~4.3:1 | ⚠️ Fail | ✅ Pass | Large text only |
-| `#4CAF50` (success) | `#0A0A0A` (background) | ~5.1:1 | ✅ Pass | ✅ Pass | Compliant |
-| `#F44336` (error) | `#0A0A0A` (background) | ~4.6:1 | ✅ Pass | ✅ Pass | Compliant |
+| Foreground                 | Background             | Ratio   | Normal Text (4.5:1) | Large Text (3:1) | Status          |
+| -------------------------- | ---------------------- | ------- | ------------------- | ---------------- | --------------- |
+| `#FFFFFF` (text-primary)   | `#0A0A0A` (background) | ~19.5:1 | ✅ Pass             | ✅ Pass          | Compliant       |
+| `#FFFFFF` (text-primary)   | `#161616` (card)       | ~17.4:1 | ✅ Pass             | ✅ Pass          | Compliant       |
+| `#B0B0B0` (text-secondary) | `#0A0A0A` (background) | ~8.5:1  | ✅ Pass             | ✅ Pass          | Compliant       |
+| `#B0B0B0` (text-secondary) | `#161616` (card)       | ~7.5:1  | ✅ Pass             | ✅ Pass          | Compliant       |
+| `#FF9800` (primary)        | `#0A0A0A` (background) | ~5.9:1  | ✅ Pass             | ✅ Pass          | Compliant       |
+| `#A855F7` (secondary)      | `#0A0A0A` (background) | ~4.3:1  | ⚠️ Fail             | ✅ Pass          | Large text only |
+| `#4CAF50` (success)        | `#0A0A0A` (background) | ~5.1:1  | ✅ Pass             | ✅ Pass          | Compliant       |
+| `#F44336` (error)          | `#0A0A0A` (background) | ~4.6:1  | ✅ Pass             | ✅ Pass          | Compliant       |
 
 ---
 
@@ -47,6 +47,7 @@ This document verifies that the Ascend UI Design System color tokens meet [WCAG 
 The secondary color achieves a contrast ratio of ~4.3:1 against the background, which **does not meet** the 4.5:1 threshold for normal-sized text. However, it **does meet** the 3:1 threshold for large text.
 
 **Restriction:** `#A855F7` is used exclusively for:
+
 - Orbitron display headings (large text, ≥ 18pt)
 - Decorative glow effects (non-informational)
 - UI component borders and accents (3:1 requirement applies)
@@ -67,12 +68,12 @@ The light theme uses dark text colors on light backgrounds, which inherently pro
 
 ## Compliance Summary
 
-| Requirement | Status |
-|-------------|--------|
-| WCAG 2.1 AA — Normal text contrast (4.5:1) | ✅ All text tokens compliant |
-| WCAG 2.1 AA — Large text contrast (3:1) | ✅ All tokens compliant |
-| WCAG 2.1 AA — UI component contrast (3:1) | ✅ All accent colors compliant |
-| Secondary color restricted to large text | ✅ Enforced by design system guidelines |
+| Requirement                                | Status                                  |
+| ------------------------------------------ | --------------------------------------- |
+| WCAG 2.1 AA — Normal text contrast (4.5:1) | ✅ All text tokens compliant            |
+| WCAG 2.1 AA — Large text contrast (3:1)    | ✅ All tokens compliant                 |
+| WCAG 2.1 AA — UI component contrast (3:1)  | ✅ All accent colors compliant          |
+| Secondary color restricted to large text   | ✅ Enforced by design system guidelines |
 
 ---
 
@@ -89,4 +90,4 @@ The light theme uses dark text colors on light backgrounds, which inherently pro
 
 ---
 
-*Last updated: 2025*
+_Last updated: 2025_

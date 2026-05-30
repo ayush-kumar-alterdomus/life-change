@@ -1,9 +1,4 @@
-<div
-  class="modal-backdrop"
-  role="dialog"
-  aria-modal="true"
-  (click)="onBackdropClick()"
->
+<div class="modal-backdrop" role="dialog" aria-modal="true" (click)="onBackdropClick()">
   <div class="modal-container" (click)="onContentClick($event)">
     <!-- Close button -->
     @if (closable()) {

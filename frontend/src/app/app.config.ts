@@ -49,7 +49,9 @@ export const appConfig: ApplicationConfig = {
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     provideIonicAngular({ mode: 'md' }),
     provideRouter(routes, withPreloading(PreloadAllModules)),
-    provideHttpClient(withInterceptors([authInterceptor, loadingInterceptor, retryInterceptor, errorInterceptor])),
+    provideHttpClient(
+      withInterceptors([authInterceptor, loadingInterceptor, retryInterceptor, errorInterceptor]),
+    ),
     provideAnimations(),
   ],
 };

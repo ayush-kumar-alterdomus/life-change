@@ -12,7 +12,11 @@
   font-family: var(--font-body);
   font-weight: var(--font-semibold);
   cursor: pointer;
-  transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease, opacity 0.2s ease;
+  transition:
+    background-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.15s ease,
+    opacity 0.2s ease;
   min-height: 44px; // Minimum touch target height
   min-width: 44px; // Minimum touch target width
   padding: var(--space-2) var(--space-4);

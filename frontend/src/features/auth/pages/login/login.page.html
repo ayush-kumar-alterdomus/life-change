@@ -1,0 +1,82 @@
+<ion-header class="login-header">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/auth/welcome"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="login-content">
+  <div class="login">
+    <h1 class="login__title">Welcome Back</h1>
+    <p class="login__subtitle">Sign in to continue your journey</p>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login__form">
+      <!-- Email Field -->
+      <div class="login__field">
+        <ion-item class="login__input-wrapper" lines="none">
+          <ion-input
+            formControlName="email"
+            type="email"
+            placeholder="Email address"
+            autocomplete="email"
+            inputmode="email"
+          ></ion-input>
+        </ion-item>
+        @if (emailInvalid) {
+          <p class="login__error">Please enter a valid email address</p>
+        }
+      </div>
+
+      <!-- Password Field -->
+      <div class="login__field">
+        <ion-item class="login__input-wrapper" lines="none">
+          <ion-input
+            formControlName="password"
+            [type]="showPassword() ? 'text' : 'password'"
+            placeholder="Password"
+            autocomplete="current-password"
+          ></ion-input>
+          <ion-icon
+            slot="end"
+            [name]="showPassword() ? 'eye-off-outline' : 'eye-outline'"
+            class="login__visibility-toggle"
+            (click)="togglePasswordVisibility()"
+            role="button"
+            aria-label="Toggle password visibility"
+          ></ion-icon>
+        </ion-item>
+      </div>
+
+      <!-- Inline Error Message -->
+      @if (errorMessage()) {
+        <p class="login__form-error" role="alert">{{ errorMessage() }}</p>
+      }
+
+      <!-- Log In Button -->
+      <ion-button
+        expand="block"
+        class="login__submit-btn"
+        [disabled]="loginForm.invalid || loading()"
+        type="submit"
+      >
+        @if (loading()) {
+          <ion-spinner name="crescent" class="login__spinner"></ion-spinner>
+        } @else {
+          Log In
+        }
+      </ion-button>
+    </form>
+
+    <!-- Forgot Password Link -->
+    <a routerLink="/auth/forgot-password" class="login__forgot-link">
+      Forgot Password?
+    </a>
+
+    <!-- Sign Up Link -->
+    <p class="login__signup-prompt">
+      Don't have an account?
+      <a routerLink="/auth/signup" class="login__signup-link">Sign Up</a>
+    </p>
+  </div>
+</ion-content>

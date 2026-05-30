@@ -9,7 +9,9 @@
   -webkit-backdrop-filter: blur(12px);
   backdrop-filter: blur(12px);
   border: 1px solid var(--color-border);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
   overflow: hidden;
 
   &:hover {
@@ -106,7 +108,9 @@
   font-size: var(--text-sm);
   font-weight: var(--font-semibold);
   cursor: pointer;
-  transition: background 0.2s ease, transform 0.1s ease;
+  transition:
+    background 0.2s ease,
+    transform 0.1s ease;
 
   &:active {
     transform: scale(0.96);

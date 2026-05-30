@@ -1,0 +1,332 @@
+// =============================================================================
+// Welcome Page Styles
+// =============================================================================
+// Premium dark gaming aesthetic with neon accents — sign-in options screen.
+
+$neon-cyan: #00e5ff;
+$neon-purple: #7c4dff;
+$deep-black: #0a0a0a;
+
+// ---------------------------------------------------------------------------
+// Host & Content
+// ---------------------------------------------------------------------------
+:host {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.welcome-content {
+  --background: #{$deep-black};
+}
+
+// ---------------------------------------------------------------------------
+// Background Particles
+// ---------------------------------------------------------------------------
+.welcome-background {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.welcome-particle {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0;
+  animation: welcome-particle-float 7s ease-in-out infinite;
+
+  &--1 {
+    width: 4px;
+    height: 4px;
+    background: $neon-cyan;
+    top: 15%;
+    left: 10%;
+    animation-delay: 0s;
+    animation-duration: 8s;
+    box-shadow: 0 0 6px $neon-cyan, 0 0 12px rgba($neon-cyan, 0.4);
+  }
+
+  &--2 {
+    width: 3px;
+    height: 3px;
+    background: $neon-purple;
+    top: 25%;
+    left: 85%;
+    animation-delay: 1.5s;
+    animation-duration: 7s;
+    box-shadow: 0 0 6px $neon-purple, 0 0 12px rgba($neon-purple, 0.4);
+  }
+
+  &--3 {
+    width: 5px;
+    height: 5px;
+    background: $neon-cyan;
+    top: 70%;
+    left: 20%;
+    animation-delay: 3s;
+    animation-duration: 9s;
+    box-shadow: 0 0 8px $neon-cyan, 0 0 16px rgba($neon-cyan, 0.3);
+  }
+
+  &--4 {
+    width: 3px;
+    height: 3px;
+    background: $neon-purple;
+    top: 80%;
+    left: 75%;
+    animation-delay: 2s;
+    animation-duration: 6.5s;
+    box-shadow: 0 0 6px $neon-purple, 0 0 12px rgba($neon-purple, 0.4);
+  }
+
+  &--5 {
+    width: 4px;
+    height: 4px;
+    background: $neon-cyan;
+    top: 50%;
+    left: 92%;
+    animation-delay: 0.5s;
+    animation-duration: 7.5s;
+    box-shadow: 0 0 6px $neon-cyan, 0 0 12px rgba($neon-cyan, 0.4);
+  }
+
+  &--6 {
+    width: 2px;
+    height: 2px;
+    background: $neon-purple;
+    top: 40%;
+    left: 5%;
+    animation-delay: 4s;
+    animation-duration: 8.5s;
+    box-shadow: 0 0 4px $neon-purple, 0 0 8px rgba($neon-purple, 0.3);
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Main Container
+// ---------------------------------------------------------------------------
+.welcome-container {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 100%;
+  padding: var(--space-6, 24px);
+  padding-top: env(safe-area-inset-top, 48px);
+  padding-bottom: env(safe-area-inset-bottom, 32px);
+}
+
+// ---------------------------------------------------------------------------
+// Tagline
+// ---------------------------------------------------------------------------
+.welcome-tagline {
+  flex: 0 0 auto;
+  text-align: center;
+  padding-top: var(--space-8, 32px);
+}
+
+.welcome-tagline__text {
+  font-family: var(--font-display, 'Orbitron', sans-serif);
+  font-size: clamp(28px, 7vw, 40px);
+  font-weight: var(--font-bold, 700);
+  line-height: 1.2;
+  color: var(--color-text-primary, #ffffff);
+  margin: 0;
+  text-shadow:
+    0 0 10px rgba($neon-cyan, 0.3),
+    0 0 30px rgba($neon-cyan, 0.1);
+}
+
+// ---------------------------------------------------------------------------
+// Hero Illustration
+// ---------------------------------------------------------------------------
+.welcome-hero {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-4, 16px) 0;
+}
+
+.welcome-hero__avatar {
+  position: relative;
+  width: 180px;
+  height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.welcome-hero__silhouette {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: linear-gradient(
+    135deg,
+    rgba($neon-cyan, 0.3) 0%,
+    rgba($neon-purple, 0.5) 50%,
+    rgba($neon-cyan, 0.2) 100%
+  );
+  border: 2px solid rgba($neon-cyan, 0.4);
+  box-shadow:
+    0 0 20px rgba($neon-cyan, 0.3),
+    0 0 40px rgba($neon-purple, 0.2),
+    inset 0 0 20px rgba($neon-purple, 0.2);
+
+  // Stylized avatar silhouette using radial gradients
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -55%);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba($neon-cyan, 0.5);
+    box-shadow: 0 0 10px rgba($neon-cyan, 0.4);
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, 0);
+    width: 60px;
+    height: 40px;
+    border-radius: 30px 30px 0 0;
+    background: rgba($neon-purple, 0.4);
+    box-shadow: 0 0 10px rgba($neon-purple, 0.3);
+  }
+}
+
+.welcome-hero__glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse at center,
+    rgba($neon-cyan, 0.08) 0%,
+    rgba($neon-purple, 0.04) 40%,
+    transparent 70%
+  );
+  animation: welcome-glow-pulse 4s ease-in-out infinite;
+  pointer-events: none;
+}
+
+// ---------------------------------------------------------------------------
+// Actions (Buttons)
+// ---------------------------------------------------------------------------
+.welcome-actions {
+  flex: 0 0 auto;
+  width: 100%;
+  max-width: 340px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3, 12px);
+}
+
+.welcome-actions__btn {
+  --border-radius: 12px;
+  font-weight: 600;
+  font-size: 15px;
+  letter-spacing: 0.3px;
+  min-height: 48px;
+
+  &--google {
+    --background: #{$neon-cyan};
+    --color: #{$deep-black};
+    --background-hover: lighten($neon-cyan, 5%);
+    --box-shadow: 0 0 12px rgba($neon-cyan, 0.4), 0 4px 12px rgba(0, 0, 0, 0.3);
+
+    ion-icon {
+      color: $deep-black;
+      font-size: 20px;
+    }
+  }
+
+  &--apple {
+    --border-color: rgba(255, 255, 255, 0.3);
+    --color: #ffffff;
+    --background: transparent;
+    --background-hover: rgba(255, 255, 255, 0.05);
+
+    ion-icon {
+      color: #ffffff;
+      font-size: 20px;
+    }
+  }
+
+  &--email {
+    --color: #{$neon-purple};
+
+    ion-icon {
+      color: $neon-purple;
+      font-size: 20px;
+    }
+  }
+}
+
+.welcome-actions__guest {
+  text-align: center;
+  margin-top: var(--space-2, 8px);
+}
+
+.welcome-actions__guest-link {
+  font-size: 14px;
+  color: var(--color-text-secondary, rgba(255, 255, 255, 0.6));
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.2s ease;
+
+  &:hover,
+  &:focus {
+    color: $neon-cyan;
+    text-decoration: underline;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Keyframe Animations
+// ---------------------------------------------------------------------------
+@keyframes welcome-particle-float {
+  0% {
+    opacity: 0;
+    transform: translateY(0) scale(1);
+  }
+  20% {
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 0.5;
+    transform: translateY(-25px) scale(1.1);
+  }
+  80% {
+    opacity: 0.3;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-50px) scale(0.9);
+  }
+}
+
+@keyframes welcome-glow-pulse {
+  0%,
+  100% {
+    opacity: 0.6;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+}

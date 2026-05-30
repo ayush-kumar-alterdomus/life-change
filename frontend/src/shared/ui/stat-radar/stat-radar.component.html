@@ -6,10 +6,7 @@
     [attr.viewBox]="'0 0 ' + size() + ' ' + size()"
   >
     <!-- Outer boundary polygon -->
-    <polygon
-      class="stat-radar__boundary"
-      [attr.points]="outerPolygonPoints()"
-    />
+    <polygon class="stat-radar__boundary" [attr.points]="outerPolygonPoints()" />
 
     <!-- Axis lines from center to each vertex -->
     @for (axis of axisLines(); track $index) {
@@ -23,10 +20,7 @@
     }
 
     <!-- Filled stat polygon -->
-    <polygon
-      class="stat-radar__fill"
-      [attr.points]="polygonPoints()"
-    />
+    <polygon class="stat-radar__fill" [attr.points]="polygonPoints()" />
 
     <!-- Stat labels at each axis endpoint -->
     @for (label of labels(); track $index) {

@@ -30,7 +30,8 @@ type BannerState = 'hidden' | 'offline' | 'back-online';
       [class.offline-banner--visible]="bannerState() !== 'hidden'"
       role="status"
       aria-live="polite"
-      [attr.aria-hidden]="bannerState() === 'hidden'">
+      [attr.aria-hidden]="bannerState() === 'hidden'"
+    >
       <span class="offline-banner__message">{{ bannerMessage() }}</span>
     </div>
   `,
@@ -41,9 +42,7 @@ export class OfflineBannerComponent implements OnDestroy {
   private readonly connectivity = inject(ConnectivityService);
 
   /** Current banner display state. */
-  readonly bannerState = signal<BannerState>(
-    this.connectivity.isOnline() ? 'hidden' : 'offline'
-  );
+  readonly bannerState = signal<BannerState>(this.connectivity.isOnline() ? 'hidden' : 'offline');
 
   /** Message displayed in the banner based on current state. */
   readonly bannerMessage = computed(() => {

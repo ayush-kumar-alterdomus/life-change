@@ -7,11 +7,7 @@
 
   <!-- Optional action button -->
   @if (actionLabel()) {
-    <button
-      class="toast-action-btn"
-      type="button"
-      (click)="onActionClick()"
-    >
+    <button class="toast-action-btn" type="button" (click)="onActionClick()">
       {{ actionLabel() }}
     </button>
   }

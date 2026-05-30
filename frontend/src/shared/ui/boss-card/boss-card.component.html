@@ -5,11 +5,7 @@
   </div>
 
   <div class="boss-card__health">
-    <app-progress
-      [value]="healthPercentage()"
-      [color]="'danger'"
-      [animated]="true"
-    ></app-progress>
+    <app-progress [value]="healthPercentage()" [color]="'danger'" [animated]="true"></app-progress>
     <span class="boss-card__health-label">{{ healthPercentage() }}% HP</span>
   </div>
 

@@ -16,60 +16,60 @@
   // ---------------------------------------------------------------------------
   // Color Tokens
   // ---------------------------------------------------------------------------
-  --color-background: #0A0A0A;
+  --color-background: #0a0a0a;
   --color-card: #161616;
-  --color-primary: #FF9800;
-  --color-secondary: #A855F7;
-  --color-success: #4CAF50;
-  --color-error: #F44336;
-  --color-warning: #F59E0B;
-  --color-text-primary: #FFFFFF;
-  --color-text-secondary: #B0B0B0;
+  --color-primary: #ff9800;
+  --color-secondary: #a855f7;
+  --color-success: #4caf50;
+  --color-error: #f44336;
+  --color-warning: #f59e0b;
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #b0b0b0;
   --color-border: rgba(255, 255, 255, 0.08);
 
   // ---------------------------------------------------------------------------
   // Ionic Color Overrides
   // ---------------------------------------------------------------------------
-  --ion-color-primary: #FF9800;
+  --ion-color-primary: #ff9800;
   --ion-color-primary-rgb: 255, 152, 0;
   --ion-color-primary-contrast: #000000;
   --ion-color-primary-contrast-rgb: 0, 0, 0;
-  --ion-color-primary-shade: #E08600;
-  --ion-color-primary-tint: #FFA21A;
+  --ion-color-primary-shade: #e08600;
+  --ion-color-primary-tint: #ffa21a;
 
-  --ion-color-secondary: #A855F7;
+  --ion-color-secondary: #a855f7;
   --ion-color-secondary-rgb: 168, 85, 247;
-  --ion-color-secondary-contrast: #FFFFFF;
+  --ion-color-secondary-contrast: #ffffff;
   --ion-color-secondary-contrast-rgb: 255, 255, 255;
-  --ion-color-secondary-shade: #944BD9;
-  --ion-color-secondary-tint: #B166F8;
+  --ion-color-secondary-shade: #944bd9;
+  --ion-color-secondary-tint: #b166f8;
 
-  --ion-color-success: #4CAF50;
+  --ion-color-success: #4caf50;
   --ion-color-success-rgb: 76, 175, 80;
-  --ion-color-success-contrast: #FFFFFF;
+  --ion-color-success-contrast: #ffffff;
   --ion-color-success-contrast-rgb: 255, 255, 255;
-  --ion-color-success-shade: #439A46;
-  --ion-color-success-tint: #5EB762;
+  --ion-color-success-shade: #439a46;
+  --ion-color-success-tint: #5eb762;
 
-  --ion-color-danger: #F44336;
+  --ion-color-danger: #f44336;
   --ion-color-danger-rgb: 244, 67, 54;
-  --ion-color-danger-contrast: #FFFFFF;
+  --ion-color-danger-contrast: #ffffff;
   --ion-color-danger-contrast-rgb: 255, 255, 255;
-  --ion-color-danger-shade: #D73B30;
-  --ion-color-danger-tint: #F5564A;
+  --ion-color-danger-shade: #d73b30;
+  --ion-color-danger-tint: #f5564a;
 
-  --ion-color-warning: #F59E0B;
+  --ion-color-warning: #f59e0b;
   --ion-color-warning-rgb: 245, 158, 11;
   --ion-color-warning-contrast: #000000;
   --ion-color-warning-contrast-rgb: 0, 0, 0;
-  --ion-color-warning-shade: #D88B0A;
-  --ion-color-warning-tint: #F6A823;
+  --ion-color-warning-shade: #d88b0a;
+  --ion-color-warning-tint: #f6a823;
 
-  --ion-background-color: #0A0A0A;
+  --ion-background-color: #0a0a0a;
   --ion-background-color-rgb: 10, 10, 10;
   --ion-card-background: #161616;
 
-  --ion-text-color: #FFFFFF;
+  --ion-text-color: #ffffff;
   --ion-text-color-rgb: 255, 255, 255;
 
   // ---------------------------------------------------------------------------
@@ -137,52 +137,52 @@
 // =============================================================================
 // Dark Theme (default)
 // =============================================================================
-:root[data-theme="dark"],
+:root[data-theme='dark'],
 :root:not([data-theme]) {
-  --color-background: #0A0A0A;
+  --color-background: #0a0a0a;
   --color-card: #161616;
-  --color-primary: #FF9800;
-  --color-secondary: #A855F7;
-  --color-success: #4CAF50;
-  --color-error: #F44336;
-  --color-warning: #F59E0B;
-  --color-text-primary: #FFFFFF;
-  --color-text-secondary: #B0B0B0;
+  --color-primary: #ff9800;
+  --color-secondary: #a855f7;
+  --color-success: #4caf50;
+  --color-error: #f44336;
+  --color-warning: #f59e0b;
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #b0b0b0;
   --color-border: rgba(255, 255, 255, 0.08);
 
-  --ion-background-color: #0A0A0A;
+  --ion-background-color: #0a0a0a;
   --ion-background-color-rgb: 10, 10, 10;
   --ion-card-background: #161616;
-  --ion-text-color: #FFFFFF;
+  --ion-text-color: #ffffff;
   --ion-text-color-rgb: 255, 255, 255;
-  --ion-toolbar-background: #0A0A0A;
-  --ion-tab-bar-background: #0A0A0A;
+  --ion-toolbar-background: #0a0a0a;
+  --ion-tab-bar-background: #0a0a0a;
   --ion-item-background: #161616;
 }
 
 // =============================================================================
 // Light Theme
 // =============================================================================
-:root[data-theme="light"] {
-  --color-background: #F5F5F5;
-  --color-card: #FFFFFF;
-  --color-primary: #FF9800;
-  --color-secondary: #A855F7;
-  --color-success: #4CAF50;
-  --color-error: #F44336;
-  --color-warning: #F59E0B;
-  --color-text-primary: #1A1A1A;
-  --color-text-secondary: #6B6B6B;
+:root[data-theme='light'] {
+  --color-background: #f5f5f5;
+  --color-card: #ffffff;
+  --color-primary: #ff9800;
+  --color-secondary: #a855f7;
+  --color-success: #4caf50;
+  --color-error: #f44336;
+  --color-warning: #f59e0b;
+  --color-text-primary: #1a1a1a;
+  --color-text-secondary: #6b6b6b;
   --color-border: rgba(0, 0, 0, 0.08);
 
-  --ion-background-color: #F5F5F5;
+  --ion-background-color: #f5f5f5;
   --ion-background-color-rgb: 245, 245, 245;
-  --ion-card-background: #FFFFFF;
-  --ion-text-color: #1A1A1A;
+  --ion-card-background: #ffffff;
+  --ion-text-color: #1a1a1a;
   --ion-text-color-rgb: 26, 26, 26;
-  --ion-toolbar-background: #FFFFFF;
-  --ion-tab-bar-background: #FFFFFF;
-  --ion-item-background: #FFFFFF;
+  --ion-toolbar-background: #ffffff;
+  --ion-tab-bar-background: #ffffff;
+  --ion-item-background: #ffffff;
 }
 
 // =============================================================================
@@ -191,57 +191,109 @@
 
 // Animate-on-View Directive Animations
 @keyframes fade-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes slide-up {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes slide-left {
-  from { opacity: 0; transform: translateX(20px); }
-  to { opacity: 1; transform: translateX(0); }
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 @keyframes scale-in {
-  from { opacity: 0; transform: scale(0.9); }
-  to { opacity: 1; transform: scale(1); }
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 // Modal Animations
 @keyframes modal-scale-up {
-  from { opacity: 0; transform: scale(0.85); }
-  to { opacity: 1; transform: scale(1); }
+  from {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 @keyframes modal-fade-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 // Toast Animations
 @keyframes toast-slide-in {
-  from { opacity: 0; transform: translateY(-100%); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes toast-slide-out {
-  from { opacity: 1; transform: translateY(0); }
-  to { opacity: 0; transform: translateY(-100%); }
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
 }
 
 // Skeleton Shimmer
 @keyframes skeleton-shimmer {
-  0% { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
 }
 
 // Progress Bar Fill
 @keyframes progress-fill {
-  from { width: 0%; }
-  to { width: var(--progress-value, 0%); }
+  from {
+    width: 0%;
+  }
+  to {
+    width: var(--progress-value, 0%);
+  }
 }
 
 // Animation Utility Classes (for directive use)

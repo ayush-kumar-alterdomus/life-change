@@ -1,0 +1,117 @@
+<ion-header class="signup-header">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/auth/welcome"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="signup-content">
+  <div class="signup">
+    <h1 class="signup__title">Create Account</h1>
+    <p class="signup__subtitle">Start your journey to becoming stronger</p>
+
+    <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" class="signup__form">
+      <!-- Email Field -->
+      <div class="signup__field">
+        <ion-item class="signup__input-wrapper" lines="none">
+          <ion-input
+            formControlName="email"
+            type="email"
+            placeholder="Email address"
+            autocomplete="email"
+          ></ion-input>
+        </ion-item>
+        @if (emailInvalid) {
+          <p class="signup__error">Please enter a valid email address</p>
+        }
+      </div>
+
+      <!-- Password Field -->
+      <div class="signup__field">
+        <ion-item class="signup__input-wrapper" lines="none">
+          <ion-input
+            formControlName="password"
+            [type]="showPassword() ? 'text' : 'password'"
+            placeholder="Create password"
+            autocomplete="new-password"
+            (ionInput)="onPasswordInput()"
+          ></ion-input>
+          <ion-icon
+            slot="end"
+            [name]="showPassword() ? 'eye-off-outline' : 'eye-outline'"
+            class="signup__visibility-toggle"
+            (click)="togglePasswordVisibility()"
+            role="button"
+            aria-label="Toggle password visibility"
+          ></ion-icon>
+        </ion-item>
+
+        <!-- Password Strength Indicators -->
+        <ul class="signup__strength-list">
+          <li
+            class="signup__strength-item"
+            [class.signup__strength-item--met]="passwordStrength().minLength"
+          >
+            <span class="signup__strength-icon">{{ passwordStrength().minLength ? '✓' : '✗' }}</span>
+            At least 8 characters
+          </li>
+          <li
+            class="signup__strength-item"
+            [class.signup__strength-item--met]="passwordStrength().hasUppercase"
+          >
+            <span class="signup__strength-icon">{{ passwordStrength().hasUppercase ? '✓' : '✗' }}</span>
+            One uppercase letter
+          </li>
+          <li
+            class="signup__strength-item"
+            [class.signup__strength-item--met]="passwordStrength().hasSpecial"
+          >
+            <span class="signup__strength-icon">{{ passwordStrength().hasSpecial ? '✓' : '✗' }}</span>
+            One special character
+          </li>
+        </ul>
+      </div>
+
+      <!-- Confirm Password Field -->
+      <div class="signup__field">
+        <ion-item class="signup__input-wrapper" lines="none">
+          <ion-input
+            formControlName="confirmPassword"
+            type="password"
+            placeholder="Confirm password"
+            autocomplete="new-password"
+          ></ion-input>
+        </ion-item>
+        @if (passwordMismatch) {
+          <p class="signup__error">Passwords do not match</p>
+        }
+      </div>
+
+      <!-- Inline Error Message -->
+      @if (errorMessage()) {
+        <p class="signup__form-error" role="alert">{{ errorMessage() }}</p>
+      }
+
+      <!-- Create Account Button -->
+      <ion-button
+        expand="block"
+        class="signup__submit-btn"
+        [disabled]="signupForm.invalid || loading()"
+        type="submit"
+      >
+        @if (loading()) {
+          <ion-spinner name="crescent" class="signup__spinner"></ion-spinner>
+        } @else {
+          Create Account
+        }
+      </ion-button>
+    </form>
+
+    <!-- Login Link -->
+    <p class="signup__login-prompt">
+      Already have an account?
+      <a routerLink="/auth/login" class="signup__login-link">Log In</a>
+    </p>
+  </div>
+</ion-content>

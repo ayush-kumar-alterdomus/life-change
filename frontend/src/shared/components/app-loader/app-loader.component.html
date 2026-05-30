@@ -1,8 +1,11 @@
 <!-- Spinner Mode -->
 <ng-container *ngIf="mode() === 'spinner'">
-  <div class="loader-spinner" [class.loader-spinner--small]="size() === 'small'"
-       [class.loader-spinner--medium]="size() === 'medium'"
-       [class.loader-spinner--large]="size() === 'large'">
+  <div
+    class="loader-spinner"
+    [class.loader-spinner--small]="size() === 'small'"
+    [class.loader-spinner--medium]="size() === 'medium'"
+    [class.loader-spinner--large]="size() === 'large'"
+  >
     <div class="loader-spinner__circle"></div>
   </div>
 </ng-container>

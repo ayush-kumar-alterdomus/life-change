@@ -8,7 +8,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: transform 0.3s ease, filter 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    filter 0.3s ease;
 }
 
 .streak-flame__emoji {
@@ -21,7 +23,9 @@
   font-weight: var(--font-bold);
   font-size: var(--text-lg);
   color: var(--color-text-primary);
-  transition: color 0.3s ease, text-shadow 0.3s ease;
+  transition:
+    color 0.3s ease,
+    text-shadow 0.3s ease;
 }
 
 // =============================================================================
@@ -99,7 +103,7 @@
 
   .streak-flame__count {
     font-size: var(--text-xl);
-    background: linear-gradient(135deg, #FF9800, #F44336, #A855F7);
+    background: linear-gradient(135deg, #ff9800, #f44336, #a855f7);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -107,7 +111,9 @@
   }
 
   .streak-flame__icon {
-    animation: flame-pulse 0.8s ease-in-out infinite, flame-glow 2s ease-in-out infinite alternate;
+    animation:
+      flame-pulse 0.8s ease-in-out infinite,
+      flame-glow 2s ease-in-out infinite alternate;
     filter: drop-shadow(0 0 10px rgba(255, 152, 0, 0.6));
   }
 }
