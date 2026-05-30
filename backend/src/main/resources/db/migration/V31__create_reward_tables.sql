@@ -46,19 +46,14 @@ CREATE TABLE loot_chests (
     CONSTRAINT fk_loot_chests_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
-CREATE TABLE achievements (
-    id          UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-    user_id     UUID NOT NULL,
-    name        VARCHAR(255) NOT NULL,
-    type        VARCHAR(50) NOT NULL,
-    description TEXT,
-    badge       VARCHAR(255),
-    unlocked_at TIMESTAMP NOT NULL DEFAULT now(),
+-- Alter existing achievements table to add reward-economy columns
+ALTER TABLE achievements ADD COLUMN IF NOT EXISTS name VARCHAR(255);
+ALTER TABLE achievements ADD COLUMN IF NOT EXISTS type VARCHAR(50);
+ALTER TABLE achievements ADD COLUMN IF NOT EXISTS badge VARCHAR(255);
 
-    CONSTRAINT fk_achievements_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
-    CONSTRAINT uq_achievements_user_name UNIQUE (user_id, name)
-);
+-- Backfill name/type from existing columns if they exist
+UPDATE achievements SET name = achievement_name WHERE name IS NULL;
+UPDATE achievements SET type = achievement_type WHERE type IS NULL;
 
-CREATE INDEX idx_loot_chests_user ON loot_chests(user_id);
-CREATE INDEX idx_user_cosmetics_user ON user_cosmetics(user_id);
-CREATE INDEX idx_achievements_user ON achievements(user_id);
+CREATE UNIQUE INDEX IF NOT EXISTS uq_achievements_user_name ON achievements(user_id, name);
+CREATE INDEX IF NOT EXISTS idx_achievements_user ON achievements(user_id);

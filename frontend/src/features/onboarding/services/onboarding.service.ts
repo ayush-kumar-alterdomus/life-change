@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { NavController } from '@ionic/angular/standalone';
-import { Observable, tap } from 'rxjs';
+import { Observable, tap, map } from 'rxjs';
 
 import { StorageService } from '@core/services/storage.service';
 import { HapticService } from '@core/services/haptic.service';
@@ -124,6 +124,7 @@ export class OnboardingService {
         this.navCtrl.navigateRoot('/tabs/home');
         this.store.reset();
       }),
+      map(() => undefined),
     );
   }
 

@@ -4,6 +4,7 @@ import { Auth, authState } from '@angular/fire/auth';
 import { firstValueFrom, first, timeout, catchError, of } from 'rxjs';
 
 import { StorageService } from '@core/services/storage.service';
+import { OnboardingApiService } from '../services/onboarding-api.service';
 
 /** Storage key for the onboarding completion flag. */
 const ONBOARDING_COMPLETE_KEY = 'onboarding_complete';
@@ -29,6 +30,7 @@ export const onboardingAccessGuard: CanActivateFn = async () => {
   const auth = inject(Auth);
   const router = inject(Router);
   const storage = inject(StorageService);
+  const onboardingApi = inject(OnboardingApiService);
 
   try {
     // Check authentication state
@@ -41,22 +43,36 @@ export const onboardingAccessGuard: CanActivateFn = async () => {
     );
 
     if (!user) {
-      // Not authenticated — redirect to welcome/login
       return router.createUrlTree(['/auth/welcome']);
     }
 
-    // Authenticated — check if onboarding is already complete
-    const onboardingComplete = await storage.get<boolean>(ONBOARDING_COMPLETE_KEY);
-
-    if (onboardingComplete === true) {
-      // Already completed onboarding — redirect to main app
+    // Fast path: check local cache first
+    const localComplete = await storage.get<boolean>(ONBOARDING_COMPLETE_KEY);
+    if (localComplete === true) {
       return router.createUrlTree(['/tabs/home']);
+    }
+
+    // Verify with backend for cross-device consistency
+    try {
+      const status = await firstValueFrom(
+        onboardingApi.getOnboardingStatus().pipe(
+          timeout(3000),
+          catchError(() => of(null)),
+        ),
+      );
+
+      if (status?.data?.complete) {
+        // Sync local cache with backend
+        await storage.set(ONBOARDING_COMPLETE_KEY, true);
+        return router.createUrlTree(['/tabs/home']);
+      }
+    } catch {
+      // Backend check failed — fall through to allow access
     }
 
     // Authenticated and onboarding not complete — allow access
     return true;
   } catch {
-    // Timeout or unexpected error — redirect to welcome as safe default
     return router.createUrlTree(['/auth/welcome']);
   }
 };

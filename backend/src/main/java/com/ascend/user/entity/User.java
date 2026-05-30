@@ -112,6 +112,20 @@ public class User {
     @Column(name = "notification_preferences", columnDefinition = "jsonb")
     private String notificationPreferences;
 
+    @Builder.Default
+    @Column(name = "onboarding_complete", nullable = false)
+    private Boolean onboardingComplete = false;
+
+    @JdbcTypeCode(SqlTypes.JSON)
+    @Column(name = "selected_goals", columnDefinition = "jsonb")
+    private String selectedGoals;
+
+    @Column(name = "personality_type", length = 30)
+    private String personalityType;
+
+    @Column(name = "difficulty_preference", length = 20)
+    private String difficultyPreference;
+
     @Column(name = "last_active")
     private LocalDateTime lastActive;
 

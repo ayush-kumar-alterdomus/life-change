@@ -4,8 +4,10 @@ import com.ascend.auth.config.FirebasePrincipal;
 import com.ascend.auth.service.AuthService;
 import com.ascend.common.dto.ApiResponse;
 import com.ascend.user.dto.OnboardingRequest;
+import com.ascend.user.dto.OnboardingResponse;
+import com.ascend.user.dto.OnboardingStatusResponse;
 import com.ascend.user.entity.User;
-import com.ascend.user.repository.UserRepository;
+import com.ascend.user.service.OnboardingService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,32 +26,29 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
     private final AuthService authService;
-    private final UserRepository userRepository;
+    private final OnboardingService onboardingService;
 
     @PutMapping("/onboarding")
-    public ResponseEntity<ApiResponse<Void>> completeOnboarding(
+    public ResponseEntity<ApiResponse<OnboardingResponse>> completeOnboarding(
             @AuthenticationPrincipal FirebasePrincipal principal,
             @Valid @RequestBody OnboardingRequest request) {
 
         User user = authService.getCurrentUser(principal.uid());
+        OnboardingResponse response = onboardingService.completeOnboarding(user.getId(), request);
 
-        user.setAvatarUrl(request.getSelectedAvatar());
-        user.setHardMode("legendary".equalsIgnoreCase(request.getDifficulty()));
-        userRepository.save(user);
-
-        log.info("User {} completed onboarding: goals={}, difficulty={}, arc={}",
-                user.getId(),
-                request.getSelectedGoals(),
-                request.getDifficulty().replaceAll("[\\r\\n]", "_"),
-                request.getSelectedArc().replaceAll("[\\r\\n]", "_"));
-
-        return ResponseEntity.ok(ApiResponse.success("Onboarding completed"));
+        return ResponseEntity.ok(ApiResponse.success("Onboarding completed", response));
     }
 
-    /**
-     * GET /api/v1/users/me/summary
-     * Returns a summary of the current user for the dashboard.
-     */
+    @GetMapping("/me/onboarding-status")
+    public ResponseEntity<ApiResponse<OnboardingStatusResponse>> getOnboardingStatus(
+            @AuthenticationPrincipal FirebasePrincipal principal) {
+
+        User user = authService.getCurrentUser(principal.uid());
+        OnboardingStatusResponse response = onboardingService.getOnboardingStatus(user.getId());
+
+        return ResponseEntity.ok(ApiResponse.success(response));
+    }
+
     @GetMapping("/me/summary")
     public ResponseEntity<ApiResponse<User>> getUserSummary(
             @AuthenticationPrincipal FirebasePrincipal principal) {
