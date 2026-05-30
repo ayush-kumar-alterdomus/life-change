@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Quest Limit Reached</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div class="upgrade-prompt">
+    <ion-icon name="lock-closed-outline" class="upgrade-prompt__icon" aria-hidden="true"></ion-icon>
+
+    <ion-text color="dark">
+      <h2 class="upgrade-prompt__title">Quest Limit Reached</h2>
+    </ion-text>
+
+    <ion-text color="medium">
+      <p class="upgrade-prompt__message">
+        You've reached the limit of {{ maxQuests() }} custom quests on the free plan.
+      </p>
+      <p class="upgrade-prompt__sub-message">
+        Upgrade to Premium for unlimited custom quests and exclusive features.
+      </p>
+    </ion-text>
+
+    <div class="upgrade-prompt__actions">
+      <ion-button expand="block" color="primary" (click)="upgrade.emit()">
+        Upgrade to Premium
+      </ion-button>
+
+      <ion-button expand="block" fill="clear" color="medium" (click)="dismissed.emit()">
+        Maybe Later
+      </ion-button>
+    </div>
+  </div>
+</ion-content>

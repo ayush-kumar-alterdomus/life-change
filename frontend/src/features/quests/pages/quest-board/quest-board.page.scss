@@ -1,0 +1,23 @@
+:host {
+  display: block;
+  height: 100%;
+}
+
+.skeleton-container {
+  padding: 16px;
+}
+
+app-progress-summary {
+  display: block;
+  padding: 16px 16px 0;
+}
+
+app-quest-list {
+  display: block;
+  padding: 0 16px 80px;
+}
+
+ion-fab {
+  margin-bottom: 16px;
+  margin-right: 16px;
+}

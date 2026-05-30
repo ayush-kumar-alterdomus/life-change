@@ -1,0 +1,111 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-button slot="start" fill="clear" (click)="onDismiss()">Cancel</ion-button>
+    <ion-title>Create Quest</ion-title>
+    <ion-button slot="end" fill="solid" color="primary" (click)="onSubmit()">Create</ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <ion-list>
+      <!-- Title -->
+      <ion-item>
+        <ion-input
+          label="Title"
+          labelPlacement="stacked"
+          placeholder="e.g. Run 5km"
+          formControlName="title"
+          maxlength="100"
+        ></ion-input>
+      </ion-item>
+      <ion-text color="danger" *ngIf="submitted() && form.get('title')?.hasError('required')">
+        <p class="validation-error">Title is required</p>
+      </ion-text>
+      <ion-text color="danger" *ngIf="submitted() && form.get('title')?.hasError('minlength') && !form.get('title')?.hasError('required')">
+        <p class="validation-error">Title must be at least 3 characters</p>
+      </ion-text>
+
+      <!-- Description -->
+      <ion-item>
+        <ion-textarea
+          label="Description (optional)"
+          labelPlacement="stacked"
+          placeholder="What does this quest involve?"
+          formControlName="description"
+          maxlength="500"
+          [autoGrow]="true"
+        ></ion-textarea>
+      </ion-item>
+
+      <!-- Difficulty -->
+      <ion-item>
+        <ion-select
+          label="Difficulty"
+          labelPlacement="stacked"
+          placeholder="Select difficulty"
+          formControlName="difficulty"
+          (ionChange)="onDifficultyChange()"
+        >
+          <ion-select-option *ngFor="let d of difficultyOptions" [value]="d">
+            {{ d | titlecase }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-text color="danger" *ngIf="submitted() && form.get('difficulty')?.hasError('required')">
+        <p class="validation-error">Difficulty is required</p>
+      </ion-text>
+
+      <!-- XP Calculation Display -->
+      <ion-item *ngIf="calculatedXp() > 0">
+        <ion-label>
+          <p class="xp-display">XP Reward: <strong>{{ calculatedXp() }} XP</strong></p>
+        </ion-label>
+      </ion-item>
+
+      <!-- Stat Type -->
+      <ion-item>
+        <ion-select
+          label="Stat Type"
+          labelPlacement="stacked"
+          placeholder="Which stat does this improve?"
+          formControlName="statType"
+        >
+          <ion-select-option *ngFor="let s of statTypeOptions" [value]="s">
+            {{ s | titlecase }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-text color="danger" *ngIf="submitted() && form.get('statType')?.hasError('required')">
+        <p class="validation-error">Stat type is required</p>
+      </ion-text>
+
+      <!-- Frequency -->
+      <ion-item>
+        <ion-select
+          label="Frequency"
+          labelPlacement="stacked"
+          placeholder="How often?"
+          formControlName="frequency"
+        >
+          <ion-select-option *ngFor="let f of frequencyOptions" [value]="f">
+            {{ f | titlecase }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-text color="danger" *ngIf="submitted() && form.get('frequency')?.hasError('required')">
+        <p class="validation-error">Frequency is required</p>
+      </ion-text>
+
+      <!-- Time Estimate -->
+      <ion-item>
+        <ion-input
+          label="Time Estimate (optional)"
+          labelPlacement="stacked"
+          placeholder="e.g. 30 minutes"
+          formControlName="timeEstimate"
+        ></ion-input>
+      </ion-item>
+    </ion-list>
+  </form>
+</ion-content>

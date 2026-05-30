@@ -1,0 +1,104 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Quest Board</ion-title>
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-segment [value]="activeTab()" (ionChange)="onTabChange($any($event).detail.value)">
+      <ion-segment-button value="daily">
+        <ion-label>Daily</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="weekly">
+        <ion-label>Weekly</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="custom">
+        <ion-label>Custom</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- Pull-to-refresh -->
+  <ion-refresher slot="fixed" (ionRefresh)="onRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <!-- Progress Summary -->
+  <app-progress-summary
+    [completed]="progressSummary().completed"
+    [total]="progressSummary().total">
+  </app-progress-summary>
+
+  <!-- Loading Skeleton -->
+  @if (loading()) {
+    <div class="skeleton-container">
+      <ion-skeleton-text [animated]="true" style="width: 100%; height: 80px; margin-bottom: 12px;"></ion-skeleton-text>
+      <ion-skeleton-text [animated]="true" style="width: 100%; height: 80px; margin-bottom: 12px;"></ion-skeleton-text>
+      <ion-skeleton-text [animated]="true" style="width: 100%; height: 80px; margin-bottom: 12px;"></ion-skeleton-text>
+    </div>
+  }
+
+  <!-- Quest List -->
+  @if (!loading()) {
+    <app-quest-list
+      [quests]="filteredQuests()"
+      (questTapped)="onQuestTapped($event)">
+    </app-quest-list>
+  }
+
+  <!-- FAB Button -->
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="onFabTapped()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <!-- Quest Detail Bottom Sheet -->
+  @if (selectedQuest(); as quest) {
+    <ion-modal
+      [isOpen]="true"
+      [breakpoints]="[0, 0.5, 0.75]"
+      [initialBreakpoint]="0.5"
+      (didDismiss)="onDetailDismissed()">
+      <ng-template>
+        <app-quest-detail-sheet
+          [quest]="quest"
+          [isOpen]="true"
+          (complete)="onCompleteQuest()"
+          (dismissed)="onDetailDismissed()">
+        </app-quest-detail-sheet>
+      </ng-template>
+    </ion-modal>
+  }
+
+  <!-- Create Quest Form Modal -->
+  <ion-modal [isOpen]="showCreateForm()" (didDismiss)="onCreateFormDismissed()">
+    <ng-template>
+      <app-create-quest-form
+        [isOpen]="showCreateForm()"
+        (created)="onCreateQuest($event)"
+        (dismissed)="onCreateFormDismissed()">
+      </app-create-quest-form>
+    </ng-template>
+  </ion-modal>
+
+  <!-- Upgrade Prompt Modal -->
+  <ion-modal [isOpen]="showUpgradePrompt()" (didDismiss)="onUpgradeDismissed()">
+    <ng-template>
+      <app-upgrade-prompt
+        [isOpen]="showUpgradePrompt()"
+        [activeQuestCount]="activeCustomQuestCount()"
+        (dismissed)="onUpgradeDismissed()">
+      </app-upgrade-prompt>
+    </ng-template>
+  </ion-modal>
+
+  <!-- Toast -->
+  <ion-toast
+    [isOpen]="showToast()"
+    [message]="toastMessage()"
+    [color]="toastColor()"
+    [duration]="3000"
+    (didDismiss)="showToast.set(false)">
+  </ion-toast>
+</ion-content>

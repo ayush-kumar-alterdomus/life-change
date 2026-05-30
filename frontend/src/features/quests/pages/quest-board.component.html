@@ -31,8 +31,8 @@
   <ion-list *ngIf="loading()">
     <ion-item *ngFor="let i of [1, 2, 3, 4, 5]">
       <ion-label>
-        <ion-skeleton-text [animated]="true" style="width: 60%"></ion-skeleton-text>
-        <ion-skeleton-text [animated]="true" style="width: 40%"></ion-skeleton-text>
+        <ion-skeleton-text [animated]="true" class="skeleton-w60"></ion-skeleton-text>
+        <ion-skeleton-text [animated]="true" class="skeleton-w40"></ion-skeleton-text>
       </ion-label>
     </ion-item>
   </ion-list>

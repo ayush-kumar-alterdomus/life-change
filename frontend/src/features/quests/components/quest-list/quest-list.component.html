@@ -1,0 +1,30 @@
+@if (quests().length === 0) {
+  <div class="quest-list__empty">
+    <ion-icon name="clipboard-outline" class="quest-list__empty-icon" aria-hidden="true"></ion-icon>
+    <ion-text color="medium">
+      <p class="quest-list__empty-message">{{ emptyMessage() }}</p>
+    </ion-text>
+  </div>
+} @else {
+  <ion-list lines="none" class="quest-list">
+    @for (quest of quests(); track quest.id) {
+      <div
+        class="quest-list__item"
+        role="button"
+        tabindex="0"
+        (click)="questTapped.emit(quest)"
+        (keydown.enter)="questTapped.emit(quest)"
+        (keydown.space)="questTapped.emit(quest)"
+      >
+        <app-quest-card
+          [title]="quest.title"
+          [xpReward]="quest.xpReward"
+          [difficulty]="quest.difficulty"
+          [timeEstimate]="quest.timeEstimate ?? ''"
+          [statType]="quest.statType"
+          [completed]="quest.completed"
+        />
+      </div>
+    }
+  </ion-list>
+}

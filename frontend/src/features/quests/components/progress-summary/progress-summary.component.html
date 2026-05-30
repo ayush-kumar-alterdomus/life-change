@@ -1,0 +1,12 @@
+<ion-card class="progress-summary">
+  <ion-card-content>
+    <ion-text color="medium">
+      <p class="progress-summary__label">{{ completed() }} / {{ total() }} quests completed</p>
+    </ion-text>
+    <ion-progress-bar
+      [value]="ratio()"
+      color="success"
+      aria-label="Quest completion progress"
+    ></ion-progress-bar>
+  </ion-card-content>
+</ion-card>

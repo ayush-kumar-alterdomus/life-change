@@ -1,0 +1,77 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Quest Details</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <h2>{{ quest().title }}</h2>
+
+  <p *ngIf="quest().description">{{ quest().description }}</p>
+
+  <ion-list>
+    <!-- XP Reward with formula breakdown -->
+    <ion-item>
+      <ion-label>
+        <h3>XP Reward</h3>
+        <p>{{ xpBreakdown() }}</p>
+      </ion-label>
+      <ion-badge slot="end" color="success">{{ quest().xpReward }} XP</ion-badge>
+    </ion-item>
+
+    <!-- Difficulty -->
+    <ion-item>
+      <ion-label>
+        <h3>Difficulty</h3>
+      </ion-label>
+      <ion-badge slot="end" color="medium">{{ difficultyLabel() }}</ion-badge>
+    </ion-item>
+
+    <!-- Stat Type -->
+    <ion-item>
+      <ion-label>
+        <h3>Stat Type</h3>
+      </ion-label>
+      <ion-badge slot="end" color="tertiary">{{ statTypeLabel() }}</ion-badge>
+    </ion-item>
+
+    <!-- Time Estimate -->
+    <ion-item *ngIf="quest().timeEstimate">
+      <ion-label>
+        <h3>Time Estimate</h3>
+        <p>{{ quest().timeEstimate }}</p>
+      </ion-label>
+    </ion-item>
+
+    <!-- Frequency -->
+    <ion-item>
+      <ion-label>
+        <h3>Frequency</h3>
+      </ion-label>
+      <ion-badge slot="end" color="primary">{{ frequencyLabel() }}</ion-badge>
+    </ion-item>
+  </ion-list>
+
+  <!-- Completion status for completed quests -->
+  <div *ngIf="quest().completed" class="completion-status">
+    <ion-text color="success">
+      <p><ion-icon name="checkmark-circle"></ion-icon> Quest Completed</p>
+    </ion-text>
+  </div>
+
+  <!-- Action bar for incomplete quests -->
+  <div *ngIf="!quest().completed" class="action-bar">
+    <ion-button expand="block" color="success" (click)="complete.emit()">
+      <ion-icon name="checkmark-circle" slot="start"></ion-icon>
+      Complete
+    </ion-button>
+    <ion-button expand="block" color="medium" (click)="edit.emit()">
+      <ion-icon name="create" slot="start"></ion-icon>
+      Edit
+    </ion-button>
+    <ion-button expand="block" color="warning" (click)="skip.emit()">
+      <ion-icon name="play-skip-forward" slot="start"></ion-icon>
+      Skip
+    </ion-button>
+  </div>
+</ion-content>

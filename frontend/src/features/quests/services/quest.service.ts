@@ -11,6 +11,7 @@ export interface Quest {
   difficulty: 'EASY' | 'MEDIUM' | 'HARD' | 'LEGENDARY';
   statType: 'STRENGTH' | 'WISDOM' | 'FOCUS' | 'DISCIPLINE' | 'VITALITY' | 'CHARISMA';
   frequency: 'DAILY' | 'WEEKLY' | 'ONE_TIME';
+  timeEstimate?: string;
   recurring: boolean;
   isCustom: boolean;
   completed: boolean;
@@ -68,5 +69,17 @@ export class QuestService {
 
   getQuestById(id: string): Observable<Quest> {
     return this.api.get<ApiResponse<Quest>>(`/quests/${id}`).pipe(map((res) => res.data));
+  }
+
+  getAllQuests(): Observable<Quest[]> {
+    return this.api.get<ApiResponse<Quest[]>>('/quests').pipe(map((res) => res.data));
+  }
+
+  getWeeklyQuests(): Observable<Quest[]> {
+    return this.api.get<ApiResponse<Quest[]>>('/quests/weekly').pipe(map((res) => res.data));
+  }
+
+  getCustomQuests(): Observable<Quest[]> {
+    return this.api.get<ApiResponse<Quest[]>>('/quests/custom').pipe(map((res) => res.data));
   }
 }
