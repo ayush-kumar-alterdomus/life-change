@@ -1,5 +1,5 @@
 <div class="xp-progress-card" aria-label="XP Progress">
-  <span class="xp-progress-card__level" aria-label="Level {{ currentLevel() }}">
+  <span class="xp-progress-card__level" [attr.aria-label]="'Level ' + currentLevel()">
     {{ currentLevel() }}
   </span>
 

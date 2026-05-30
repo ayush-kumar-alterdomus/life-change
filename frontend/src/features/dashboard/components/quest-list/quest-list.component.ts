@@ -1,6 +1,7 @@
 import {
   Component,
   ChangeDetectionStrategy,
+  CUSTOM_ELEMENTS_SCHEMA,
   input,
   output,
   computed,
@@ -30,6 +31,7 @@ import { QuestCardComponent } from '@shared/ui/quest-card/quest-card.component';
   templateUrl: './quest-list.component.html',
   styleUrls: ['./quest-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [
     CommonModule,
     IonList,
