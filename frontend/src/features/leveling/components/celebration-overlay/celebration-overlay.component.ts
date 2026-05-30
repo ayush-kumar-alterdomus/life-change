@@ -37,7 +37,7 @@ import { fadeInAnimation, fadeOutAnimation } from './celebration-overlay.animati
 
         @if (step() === 'glow-explosion' || step() === 'level-title' || step() === 'xp-fly-up') {
           <app-glow-explosion
-            (glowProgress)="onGlowProgress($event)"
+            (glowProgress)="onGlowProgress($any($event))"
             (glowComplete)="onGlowComplete()"
           />
         }
