@@ -47,6 +47,20 @@ public class StatsController {
     }
 
     /**
+     * GET /api/v1/stats/daily
+     * Returns today's stats summary for the dashboard.
+     */
+    @GetMapping("/daily")
+    public ResponseEntity<ApiResponse<UserStatsResponse>> getDailyStats(
+            @AuthenticationPrincipal FirebasePrincipal principal) {
+
+        User user = authService.getCurrentUser(principal.uid());
+        UserStatsResponse response = statService.getUserStats(user.getId());
+
+        return ResponseEntity.ok(ApiResponse.success(response));
+    }
+
+    /**
      * GET /api/v1/stats/titles
      * Returns all earned identity titles for the authenticated user.
      */

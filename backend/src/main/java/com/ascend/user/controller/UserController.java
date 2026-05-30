@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,5 +44,17 @@ public class UserController {
                 request.getSelectedArc().replaceAll("[\\r\\n]", "_"));
 
         return ResponseEntity.ok(ApiResponse.success("Onboarding completed"));
+    }
+
+    /**
+     * GET /api/v1/users/me/summary
+     * Returns a summary of the current user for the dashboard.
+     */
+    @GetMapping("/me/summary")
+    public ResponseEntity<ApiResponse<User>> getUserSummary(
+            @AuthenticationPrincipal FirebasePrincipal principal) {
+
+        User user = authService.getCurrentUser(principal.uid());
+        return ResponseEntity.ok(ApiResponse.success(user));
     }
 }

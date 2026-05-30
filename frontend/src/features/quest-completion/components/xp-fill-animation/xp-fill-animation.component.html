@@ -1,0 +1,15 @@
+<div class="xp-fill-animation" [class.xp-fill-animation--animating]="isAnimating()">
+  <!-- Progress bar track with animated fill -->
+  <div class="xp-fill-animation__track">
+    <div
+      class="xp-fill-animation__fill"
+      [class.xp-fill-animation__fill--animating]="isAnimating()"
+      [style.width.%]="fillPercentage()">
+    </div>
+  </div>
+
+  <!-- Counting-up XP text display -->
+  <span class="xp-fill-animation__text" aria-live="polite">
+    {{ displayText() }}
+  </span>
+</div>

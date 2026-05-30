@@ -1,0 +1,165 @@
+// ─── Design Tokens ─────────────────────────────────────────────────────────
+$overlay-bg: #0a0a0a;
+$overlay-gradient: radial-gradient(
+  circle at 50% 40%,
+  rgba(255, 152, 0, 0.2) 0%,
+  rgba(168, 85, 247, 0.1) 40%,
+  transparent 70%
+);
+$btn-complete-min-size: 44px;
+$dismiss-duration: 300ms;
+
+$color-orange: #ff9800;
+$color-purple: #a855f7;
+$color-text-primary: #ffffff;
+$color-text-secondary: rgba(255, 255, 255, 0.7);
+
+// ─── Host ──────────────────────────────────────────────────────────────────
+:host {
+  display: block;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+}
+
+// ─── Screen-reader only utility ────────────────────────────────────────────
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+// ─── Overlay Container ─────────────────────────────────────────────────────
+.overlay-container {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: $overlay-bg;
+  overflow: hidden;
+}
+
+// ─── Gradient Glow Background ──────────────────────────────────────────────
+.gradient-glow {
+  position: absolute;
+  inset: 0;
+  background: $overlay-gradient;
+  pointer-events: none;
+}
+
+// ─── Confetti Layer ────────────────────────────────────────────────────────
+.confetti-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+// ─── Content ───────────────────────────────────────────────────────────────
+.overlay-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 48px;
+  padding: 32px 24px;
+  text-align: center;
+  width: 100%;
+  max-width: 400px;
+}
+
+// ─── Title ─────────────────────────────────────────────────────────────────
+.perfect-day-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: clamp(2rem, 8vw, 3.5rem);
+  font-weight: 700;
+  letter-spacing: 4px;
+  color: $color-text-primary;
+  margin: 0;
+  text-shadow:
+    0 0 20px rgba($color-orange, 0.6),
+    0 0 40px rgba($color-purple, 0.3);
+}
+
+// ─── Stats Container ───────────────────────────────────────────────────────
+.stats-container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.stat-value {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: $color-orange;
+  line-height: 1.2;
+
+  // Counting animation via CSS (enhanced by JS if needed)
+  animation: countUp 600ms ease-out forwards;
+}
+
+.stat-label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: $color-text-secondary;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+// ─── Continue Button ───────────────────────────────────────────────────────
+.btn-continue {
+  min-width: $btn-complete-min-size;
+  min-height: $btn-complete-min-size;
+  padding: 14px 48px;
+  border: 1px solid rgba($color-orange, 0.5);
+  border-radius: 8px;
+  background: transparent;
+  color: $color-text-primary;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: background-color 200ms ease, border-color 200ms ease;
+  margin-top: 16px;
+
+  &:hover,
+  &:focus-visible {
+    background: rgba($color-orange, 0.15);
+    border-color: $color-orange;
+    outline: none;
+  }
+
+  &:active {
+    background: rgba($color-orange, 0.25);
+  }
+}
+
+// ─── Animations ────────────────────────────────────────────────────────────
+@keyframes countUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

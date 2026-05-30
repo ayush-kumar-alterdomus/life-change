@@ -24,52 +24,46 @@ export class DashboardService {
   private readonly skipLoadingContext = new HttpContext().set(SKIP_LOADING, true);
 
   getUserSummary(): Observable<DashboardUserSummary> {
-    return this.http.get<DashboardUserSummary>(
-      `${this.baseUrl}/users/me/summary`,
-      { context: this.skipLoadingContext }
-    );
+    return this.http.get<DashboardUserSummary>(`${this.baseUrl}/users/me/summary`, {
+      context: this.skipLoadingContext,
+    });
   }
 
   getXpProgress(): Observable<DashboardXpProgress> {
-    return this.http.get<DashboardXpProgress>(
-      `${this.baseUrl}/xp/progress`,
-      { context: this.skipLoadingContext }
-    );
+    return this.http.get<DashboardXpProgress>(`${this.baseUrl}/xp/summary`, {
+      context: this.skipLoadingContext,
+    });
   }
 
   getDailyStats(): Observable<DashboardDailyStats> {
-    return this.http.get<DashboardDailyStats>(
-      `${this.baseUrl}/stats/daily`,
-      { context: this.skipLoadingContext }
-    );
+    return this.http.get<DashboardDailyStats>(`${this.baseUrl}/stats/daily`, {
+      context: this.skipLoadingContext,
+    });
   }
 
   getActiveArc(): Observable<DashboardActiveArc | null> {
-    return this.http.get<DashboardActiveArc | null>(
-      `${this.baseUrl}/arcs/active`,
-      { context: this.skipLoadingContext }
-    );
+    return this.http.get<DashboardActiveArc | null>(`${this.baseUrl}/arcs/active`, {
+      context: this.skipLoadingContext,
+    });
   }
 
   getTodayQuests(): Observable<Quest[]> {
-    return this.http.get<Quest[]>(
-      `${this.baseUrl}/quests/today`,
-      { context: this.skipLoadingContext }
-    );
+    return this.http.get<Quest[]>(`${this.baseUrl}/quests/today`, {
+      context: this.skipLoadingContext,
+    });
   }
 
   getLeaderboardPreview(): Observable<DashboardLeaderboardPreview> {
-    return this.http.get<DashboardLeaderboardPreview>(
-      `${this.baseUrl}/leagues/preview`,
-      { context: this.skipLoadingContext }
-    );
+    return this.http.get<DashboardLeaderboardPreview>(`${this.baseUrl}/league/leaderboard`, {
+      context: this.skipLoadingContext,
+    });
   }
 
   completeQuest(questId: string): Observable<{ xpEarned: number }> {
     return this.http.post<{ xpEarned: number }>(
       `${this.baseUrl}/quests/complete`,
       { questId },
-      { context: this.skipLoadingContext }
+      { context: this.skipLoadingContext },
     );
   }
 
@@ -77,7 +71,7 @@ export class DashboardService {
     return this.http.post<void>(
       `${this.baseUrl}/quests/skip`,
       { questId },
-      { context: this.skipLoadingContext }
+      { context: this.skipLoadingContext },
     );
   }
 }

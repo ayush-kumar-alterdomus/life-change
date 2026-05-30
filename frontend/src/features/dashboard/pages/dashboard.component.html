@@ -101,13 +101,13 @@
     @if (todayQuests().status === 'loaded') {
       <section aria-labelledby="quests-heading">
         <h2 id="quests-heading" class="section-title">Today's Quests</h2>
-        <app-quest-list
+        <app-dashboard-quest-list
           [quests]="$any(todayQuests()).data"
           (completeQuest)="onCompleteQuest($event)"
           (skipQuest)="onSkipQuest($event)"
           (editQuest)="onEditQuest($event)"
           (viewAll)="onViewAllQuests()"
-        ></app-quest-list>
+        ></app-dashboard-quest-list>
       </section>
     } @else if (todayQuests().status === 'loading') {
       <div class="skeleton-quest-list" aria-hidden="true">

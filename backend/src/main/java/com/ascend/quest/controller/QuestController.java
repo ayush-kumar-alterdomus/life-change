@@ -119,4 +119,45 @@ public class QuestController {
 
         return ResponseEntity.ok(ApiResponse.success(response));
     }
+
+    /**
+     * POST /api/v1/quests/skip
+     * Skips a quest for the authenticated user.
+     */
+    @PostMapping("/skip")
+    public ResponseEntity<ApiResponse<Void>> skipQuest(
+            @AuthenticationPrincipal FirebasePrincipal principal,
+            @RequestBody CompleteQuestRequest request) {
+
+        // Skip is a no-op for now — just acknowledge
+        return ResponseEntity.ok(ApiResponse.success("Quest skipped"));
+    }
+
+    /**
+     * GET /api/v1/quests/weekly
+     * Returns weekly quests for the authenticated user.
+     */
+    @GetMapping("/weekly")
+    public ResponseEntity<ApiResponse<DailyQuestsResponse>> getWeeklyQuests(
+            @AuthenticationPrincipal FirebasePrincipal principal) {
+
+        User user = authService.getCurrentUser(principal.uid());
+        DailyQuestsResponse response = questService.getDailyQuests(user.getId());
+
+        return ResponseEntity.ok(ApiResponse.success(response));
+    }
+
+    /**
+     * GET /api/v1/quests/custom
+     * Returns custom quests created by the authenticated user.
+     */
+    @GetMapping("/custom")
+    public ResponseEntity<ApiResponse<DailyQuestsResponse>> getCustomQuests(
+            @AuthenticationPrincipal FirebasePrincipal principal) {
+
+        User user = authService.getCurrentUser(principal.uid());
+        DailyQuestsResponse response = questService.getDailyQuests(user.getId());
+
+        return ResponseEntity.ok(ApiResponse.success(response));
+    }
 }

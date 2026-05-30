@@ -1,0 +1,21 @@
+<div class="reward-overlay" role="presentation">
+  <!-- Screen reader announcement -->
+  <div class="sr-only" aria-live="polite">{{ xpAnnouncement() }}</div>
+
+  <!-- Lottie particle burst container -->
+  <div class="particle-burst-container">
+    <div
+      class="lottie-player"
+      [attr.data-animation]="animationData()"
+      aria-hidden="true"
+    ></div>
+  </div>
+
+  <!-- Floating XP text -->
+  <div class="xp-float-text" @xpFloat>
+    +{{ xpEarned() }} XP
+  </div>
+
+  <!-- Glow effect on XP progress bar area -->
+  <div class="glow-bar-area" @glow></div>
+</div>

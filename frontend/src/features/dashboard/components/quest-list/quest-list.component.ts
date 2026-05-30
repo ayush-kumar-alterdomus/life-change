@@ -27,7 +27,7 @@ import { QuestCardComponent } from '@shared/ui/quest-card/quest-card.component';
 
 @Component({
   standalone: true,
-  selector: 'app-quest-list',
+  selector: 'app-dashboard-quest-list',
   templateUrl: './quest-list.component.html',
   styleUrls: ['./quest-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

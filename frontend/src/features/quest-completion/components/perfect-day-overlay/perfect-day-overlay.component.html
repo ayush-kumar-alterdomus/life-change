@@ -1,0 +1,48 @@
+<!-- Perfect Day Overlay - Full-screen cinematic celebration -->
+<div class="overlay-container" @fadeOut>
+  <!-- Lottie confetti background animation -->
+  @if (confettiData()) {
+    <div class="confetti-layer" aria-hidden="true">
+      <!-- Lottie player renders here; host component provides animation data -->
+    </div>
+  }
+
+  <!-- Radial gradient glow background -->
+  <div class="gradient-glow" aria-hidden="true"></div>
+
+  <!-- Content -->
+  <div class="overlay-content">
+    <!-- Aria-live announcement for screen readers -->
+    <div class="sr-only" aria-live="polite">Perfect Day achieved</div>
+
+    <!-- Title with scale-in animation -->
+    <h1 class="perfect-day-title" @scaleIn>PERFECT DAY</h1>
+
+    <!-- Animated stat counters -->
+    <div class="stats-container" role="list" aria-label="Today's achievements">
+      <div class="stat-item" role="listitem">
+        <span class="stat-value">{{ stats().totalQuestsCompleted }}</span>
+        <span class="stat-label">Quests Completed</span>
+      </div>
+
+      <div class="stat-item" role="listitem">
+        <span class="stat-value">{{ stats().totalXpEarnedToday }}</span>
+        <span class="stat-label">XP Earned Today</span>
+      </div>
+
+      <div class="stat-item" role="listitem">
+        <span class="stat-value">{{ stats().currentStreak }}</span>
+        <span class="stat-label">Day Streak</span>
+      </div>
+    </div>
+
+    <!-- Dismiss button -->
+    <button
+      #continueBtn
+      class="btn-continue"
+      (click)="onDismiss()"
+      aria-label="Continue and dismiss Perfect Day overlay">
+      Continue
+    </button>
+  </div>
+</div>
