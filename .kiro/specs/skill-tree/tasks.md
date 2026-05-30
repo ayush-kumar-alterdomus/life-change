@@ -6,20 +6,20 @@ Skill node progression system tied to Arcs. Users unlock nodes that grant passiv
 
 ## Tasks
 
-- [ ] 1. Create Skill Tree data models
-  - [-] 1.1 Create skill tree tables migration
+- [x] 1. Create Skill Tree data models
+  - [x] 1.1 Create skill tree tables migration
     - Create `V24__create_skill_tree_tables.sql`
     - skill_nodes: id (UUID PK), arc_id (UUID FK), name (VARCHAR NOT NULL), description (TEXT), stat_type (VARCHAR), buff_percent (DECIMAL NOT NULL), parent_node_id (UUID FK nullable — self-referencing), order_index (INT), created_at (TIMESTAMP)
     - Add `last_skill_reset_at` column to users table
     - Update user_skills to reference skill_nodes.id
-  - [-] 1.2 Create DTOs
+  - [x] 1.2 Create DTOs
     - Create `SkillTreeResponse.java`: arcId, arcName, nodes (list of SkillNodeResponse)
     - Create `SkillNodeResponse.java`: id, name, description, statType, buffPercent, parentNodeId, unlocked, unlockedAt, children (list)
     - Create `UnlockSkillRequest.java`: skillNodeId
     - Create `SkillBuffSummary.java`: statType, totalBuffPercent (sum of all unlocked buffs for that stat)
 
-- [ ] 2. Implement Skill Tree Service
-  - [~] 2.1 Create SkillTreeService
+- [x] 2. Implement Skill Tree Service
+  - [x] 2.1 Create SkillTreeService
     - Create `SkillTreeService.java` in `skilltree/service/`
     - `getSkillTree(UUID userId, UUID arcId)`:
       1. Fetch all skill_nodes for the arc
@@ -33,7 +33,7 @@ Skill node progression system tied to Arcs. Users unlock nodes that grant passiv
       4. Create user_skills record (unlocked=true, unlocked_at=now())
       5. Return updated node with buff info
       6. Publish SkillUnlockedEvent
-  - [~] 2.2 Create prerequisite validation
+  - [x] 2.2 Create prerequisite validation
     - `validatePrerequisites(UUID userId, UUID skillNodeId)`:
       1. Fetch the node's parent_node_id
       2. If parent is null → root node, always unlockable
@@ -42,7 +42,7 @@ Skill node progression system tied to Arcs. Users unlock nodes that grant passiv
     - Recursive check not needed (single parent per node)
 
 - [ ] 3. Implement Skill Buff Calculator
-  - [~] 3.1 Create SkillBuffCalculator
+  - [-] 3.1 Create SkillBuffCalculator
     - Create `SkillBuffCalculator.java` in `skilltree/service/`
     - `getActiveBuffs(UUID userId)`:
       1. Fetch all unlocked skills for user
@@ -55,7 +55,7 @@ Skill node progression system tied to Arcs. Users unlock nodes that grant passiv
     - Integrate with XpService — call during XP calculation
 
 - [ ] 4. Implement Skill Reset (Premium)
-  - [~] 4.1 Create skill reset logic
+  - [-] 4.1 Create skill reset logic
     - `resetSkillTree(UUID userId, UUID arcId)`:
       1. Verify user is premium
       2. Check cooldown: last_skill_reset_at must be > 30 days ago (or null)

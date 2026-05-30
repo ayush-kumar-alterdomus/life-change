@@ -2,8 +2,10 @@ package com.ascend.xp.service;
 
 import com.ascend.arc.entity.UserArcProgress;
 import com.ascend.arc.repository.UserArcProgressRepository;
+import com.ascend.common.entity.StatType;
 import com.ascend.quest.event.QuestCompletedEvent;
 import com.ascend.skilltree.repository.UserSkillRepository;
+import com.ascend.skilltree.service.SkillBuffCalculator;
 import com.ascend.streak.entity.Streak;
 import com.ascend.streak.repository.StreakRepository;
 import com.ascend.user.entity.User;
@@ -22,6 +24,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -43,6 +46,7 @@ public class XpService {
     private final UserSkillRepository userSkillRepository;
     private final XpHistoryRepository xpHistoryRepository;
     private final ApplicationEventPublisher eventPublisher;
+    private final SkillBuffCalculator skillBuffCalculator;
 
     /**
      * Awards XP to a user based on a quest completion event.
@@ -73,6 +77,12 @@ public class XpService {
                 arcMultiplier,
                 bonusXp
         );
+
+        // 4b. Apply stat-type-specific skill tree buff
+        if (event.getStatType() != null) {
+            Map<StatType, Double> activeBuffs = skillBuffCalculator.getActiveBuffs(userId);
+            calculatedXp = skillBuffCalculator.calculateBoostedXp(calculatedXp, event.getStatType(), activeBuffs);
+        }
 
         // 5. Check daily cap — reduce award if it would exceed
         long dailyXpEarned = getDailyXpEarned(userId);

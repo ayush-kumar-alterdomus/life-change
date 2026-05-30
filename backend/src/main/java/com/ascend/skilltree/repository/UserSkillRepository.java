@@ -13,4 +13,6 @@ public interface UserSkillRepository extends JpaRepository<UserSkill, UUID> {
     List<UserSkill> findByUserIdAndArcId(UUID userId, UUID arcId);
 
     List<UserSkill> findByUserIdAndUnlockedTrue(UUID userId);
+
+    void deleteByUserIdAndArcId(UUID userId, UUID arcId);
 }

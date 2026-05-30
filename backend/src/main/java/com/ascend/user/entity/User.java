@@ -81,6 +81,9 @@ public class User {
     @Column(name = "timezone", nullable = false, length = 50)
     private String timezone = "UTC";
 
+    @Column(name = "last_skill_reset_at")
+    private LocalDateTime lastSkillResetAt;
+
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
