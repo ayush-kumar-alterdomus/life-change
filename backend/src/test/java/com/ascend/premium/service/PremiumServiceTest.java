@@ -2,6 +2,7 @@ package com.ascend.premium.service;
 
 import com.ascend.premium.entity.Subscription;
 import com.ascend.premium.repository.SubscriptionRepository;
+import com.ascend.user.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -21,13 +22,17 @@ class PremiumServiceTest {
     @Mock
     private SubscriptionRepository subscriptionRepository;
 
+    @Mock
+    private UserRepository userRepository;
+
     private PremiumService premiumService;
 
     private UUID userId;
 
     @BeforeEach
     void setUp() {
-        premiumService = new PremiumService(subscriptionRepository);
+        SubscriptionService subscriptionService = new SubscriptionService(subscriptionRepository, userRepository);
+        premiumService = new PremiumService(subscriptionService);
         userId = UUID.randomUUID();
     }
 

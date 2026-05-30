@@ -50,4 +50,8 @@ public class Subscription {
     @Builder.Default
     @Column(name = "auto_renew", nullable = false)
     private Boolean autoRenew = false;
+
+    @Builder.Default
+    @Column(name = "trial_used", nullable = false)
+    private Boolean trialUsed = false;
 }

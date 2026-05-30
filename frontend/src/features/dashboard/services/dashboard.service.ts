@@ -6,9 +6,9 @@ import { SKIP_LOADING } from '../../../core/interceptors/http-context-tokens';
 import {
   DashboardUserSummary,
   DashboardXpProgress,
-  DashboardDailyStats,
   DashboardActiveArc,
   DashboardLeaderboardPreview,
+  DashboardAggregatedResponse,
 } from '../models/dashboard.models';
 import { Quest } from '../../../shared/models/quest.model';
 
@@ -23,6 +23,12 @@ export class DashboardService {
   private readonly baseUrl = environment.apiUrl;
   private readonly skipLoadingContext = new HttpContext().set(SKIP_LOADING, true);
 
+  getDashboard(): Observable<DashboardAggregatedResponse> {
+    return this.http.get<DashboardAggregatedResponse>(`${this.baseUrl}/dashboard`, {
+      context: this.skipLoadingContext,
+    });
+  }
+
   getUserSummary(): Observable<DashboardUserSummary> {
     return this.http.get<DashboardUserSummary>(`${this.baseUrl}/users/me/summary`, {
       context: this.skipLoadingContext,
@@ -31,12 +37,6 @@ export class DashboardService {
 
   getXpProgress(): Observable<DashboardXpProgress> {
     return this.http.get<DashboardXpProgress>(`${this.baseUrl}/xp/summary`, {
-      context: this.skipLoadingContext,
-    });
-  }
-
-  getDailyStats(): Observable<DashboardDailyStats> {
-    return this.http.get<DashboardDailyStats>(`${this.baseUrl}/stats/daily`, {
       context: this.skipLoadingContext,
     });
   }

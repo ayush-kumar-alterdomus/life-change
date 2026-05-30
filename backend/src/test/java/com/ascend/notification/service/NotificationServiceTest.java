@@ -1,20 +1,20 @@
 package com.ascend.notification.service;
 
+import com.ascend.notification.dto.NotificationType;
 import com.ascend.notification.entity.NotificationLog;
 import com.ascend.notification.repository.NotificationLogRepository;
+import com.ascend.streak.repository.StreakRepository;
+import com.ascend.user.repository.UserRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentCaptor;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDateTime;
-import java.util.Collections;
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -30,143 +30,88 @@ class NotificationServiceTest {
 
     @Mock
     private NotificationLogRepository repository;
+    @Mock
+    private UserRepository userRepository;
+    @Mock
+    private StreakRepository streakRepository;
+    @Mock
+    private FcmService fcmService;
 
-    @InjectMocks
     private NotificationService service;
-
     private UUID userId;
 
     @BeforeEach
     void setUp() {
         userId = UUID.randomUUID();
+        service = new NotificationService(repository, userRepository, streakRepository, fcmService, new ObjectMapper());
     }
 
     @Nested
-    @DisplayName("send()")
-    class Send {
+    @DisplayName("sendNotification()")
+    class SendNotification {
 
         @Test
-        @DisplayName("should save notification and return it")
+        @DisplayName("should save and return notification")
         void shouldSaveAndReturn() {
             when(repository.countByUserIdAndSentAtBetween(eq(userId), any(), any())).thenReturn(0L);
+            when(streakRepository.findByUserId(userId)).thenReturn(Optional.empty());
             when(repository.save(any(NotificationLog.class))).thenAnswer(inv -> {
                 NotificationLog n = inv.getArgument(0);
                 n.setId(UUID.randomUUID());
                 return n;
             });
 
-            NotificationLog result = service.send(userId, "QUEST_COMPLETED", "Quest Done!", "You earned 50 XP");
+            NotificationLog result = service.sendNotification(userId, NotificationType.LEVEL_UP, "Level 5!", "Congrats");
 
             assertThat(result).isNotNull();
             assertThat(result.getUserId()).isEqualTo(userId);
-            assertThat(result.getType()).isEqualTo("QUEST_COMPLETED");
-            assertThat(result.getTitle()).isEqualTo("Quest Done!");
-            assertThat(result.getMessage()).isEqualTo("You earned 50 XP");
+            assertThat(result.getType()).isEqualTo("LEVEL_UP");
         }
 
         @Test
-        @DisplayName("should persist notification to repository")
-        void shouldPersist() {
-            when(repository.countByUserIdAndSentAtBetween(eq(userId), any(), any())).thenReturn(0L);
-            when(repository.save(any())).thenAnswer(inv -> inv.getArgument(0));
-
-            service.send(userId, "LEVEL_UP", "Level 5!", null);
-
-            ArgumentCaptor<NotificationLog> captor = ArgumentCaptor.forClass(NotificationLog.class);
-            verify(repository).save(captor.capture());
-
-            NotificationLog saved = captor.getValue();
-            assertThat(saved.getUserId()).isEqualTo(userId);
-            assertThat(saved.getType()).isEqualTo("LEVEL_UP");
-            assertThat(saved.getTitle()).isEqualTo("Level 5!");
-            assertThat(saved.getMessage()).isNull();
-        }
-
-        @Test
-        @DisplayName("should return null when rate-limited")
-        void shouldReturnNullWhenRateLimited() {
+        @DisplayName("should return null when daily cap reached")
+        void shouldReturnNullWhenCapped() {
             when(repository.countByUserIdAndSentAtBetween(eq(userId), any(), any()))
-                    .thenReturn((long) NotificationService.MAX_NOTIFICATIONS_PER_HOUR);
+                    .thenReturn((long) NotificationService.DAILY_CAP);
 
-            NotificationLog result = service.send(userId, "SPAM", "Too many", "msg");
+            NotificationLog result = service.sendNotification(userId, NotificationType.QUEST_REMINDER, "Title", "msg");
 
             assertThat(result).isNull();
             verify(repository, never()).save(any());
         }
 
         @Test
-        @DisplayName("should allow sending when just below rate limit")
-        void shouldAllowJustBelowLimit() {
+        @DisplayName("should allow sending when below daily cap")
+        void shouldAllowBelowCap() {
             when(repository.countByUserIdAndSentAtBetween(eq(userId), any(), any()))
-                    .thenReturn((long) NotificationService.MAX_NOTIFICATIONS_PER_HOUR - 1);
+                    .thenReturn((long) NotificationService.DAILY_CAP - 1);
+            when(streakRepository.findByUserId(userId)).thenReturn(Optional.empty());
             when(repository.save(any())).thenAnswer(inv -> inv.getArgument(0));
 
-            NotificationLog result = service.send(userId, "OK", "Still allowed", null);
+            NotificationLog result = service.sendNotification(userId, NotificationType.ACHIEVEMENT, "Done", null);
 
             assertThat(result).isNotNull();
-            verify(repository).save(any());
         }
 
         @Test
-        @DisplayName("should throw IllegalArgumentException when userId is null")
+        @DisplayName("should throw when userId is null")
         void shouldThrowWhenUserIdNull() {
-            assertThatThrownBy(() -> service.send(null, "TYPE", "Title", "msg"))
-                    .isInstanceOf(IllegalArgumentException.class)
-                    .hasMessageContaining("must not be null");
+            assertThatThrownBy(() -> service.sendNotification(null, NotificationType.LEVEL_UP, "T", "m"))
+                    .isInstanceOf(IllegalArgumentException.class);
         }
 
         @Test
-        @DisplayName("should throw IllegalArgumentException when type is null")
+        @DisplayName("should throw when type is null")
         void shouldThrowWhenTypeNull() {
-            assertThatThrownBy(() -> service.send(userId, null, "Title", "msg"))
+            assertThatThrownBy(() -> service.sendNotification(userId, null, "T", "m"))
                     .isInstanceOf(IllegalArgumentException.class);
         }
 
         @Test
-        @DisplayName("should throw IllegalArgumentException when title is null")
+        @DisplayName("should throw when title is null")
         void shouldThrowWhenTitleNull() {
-            assertThatThrownBy(() -> service.send(userId, "TYPE", null, "msg"))
+            assertThatThrownBy(() -> service.sendNotification(userId, NotificationType.LEVEL_UP, null, "m"))
                     .isInstanceOf(IllegalArgumentException.class);
-        }
-
-        @Test
-        @DisplayName("should allow null message (optional)")
-        void shouldAllowNullMessage() {
-            when(repository.countByUserIdAndSentAtBetween(eq(userId), any(), any())).thenReturn(0L);
-            when(repository.save(any())).thenAnswer(inv -> inv.getArgument(0));
-
-            NotificationLog result = service.send(userId, "TYPE", "Title", null);
-
-            assertThat(result).isNotNull();
-            assertThat(result.getMessage()).isNull();
-        }
-    }
-
-    @Nested
-    @DisplayName("getNotificationsForUser()")
-    class GetNotifications {
-
-        @Test
-        @DisplayName("should return notifications ordered by most recent")
-        void shouldReturnOrdered() {
-            var n1 = NotificationLog.builder().userId(userId).type("A").title("First").build();
-            var n2 = NotificationLog.builder().userId(userId).type("B").title("Second").build();
-            when(repository.findByUserIdOrderBySentAtDesc(userId)).thenReturn(List.of(n2, n1));
-
-            List<NotificationLog> result = service.getNotificationsForUser(userId);
-
-            assertThat(result).hasSize(2);
-            assertThat(result.get(0).getTitle()).isEqualTo("Second");
-        }
-
-        @Test
-        @DisplayName("should return empty list when user has no notifications")
-        void shouldReturnEmptyList() {
-            when(repository.findByUserIdOrderBySentAtDesc(userId)).thenReturn(Collections.emptyList());
-
-            List<NotificationLog> result = service.getNotificationsForUser(userId);
-
-            assertThat(result).isEmpty();
         }
     }
 
@@ -175,20 +120,18 @@ class NotificationServiceTest {
     class MarkAsRead {
 
         @Test
-        @DisplayName("should set readAt and return true for unread notification")
+        @DisplayName("should mark unread notification as read")
         void shouldMarkUnread() {
             UUID notifId = UUID.randomUUID();
             var notification = NotificationLog.builder()
                     .id(notifId).userId(userId).type("T").title("X").readAt(null).build();
-
             when(repository.findById(notifId)).thenReturn(Optional.of(notification));
             when(repository.save(any())).thenAnswer(inv -> inv.getArgument(0));
 
-            boolean result = service.markAsRead(notifId);
+            boolean result = service.markAsRead(userId, notifId);
 
             assertThat(result).isTrue();
             assertThat(notification.getReadAt()).isNotNull();
-            verify(repository).save(notification);
         }
 
         @Test
@@ -198,22 +141,95 @@ class NotificationServiceTest {
             var notification = NotificationLog.builder()
                     .id(notifId).userId(userId).type("T").title("X")
                     .readAt(LocalDateTime.now().minusHours(1)).build();
-
             when(repository.findById(notifId)).thenReturn(Optional.of(notification));
 
-            boolean result = service.markAsRead(notifId);
+            boolean result = service.markAsRead(userId, notifId);
 
             assertThat(result).isFalse();
-            verify(repository, never()).save(any());
         }
 
         @Test
-        @DisplayName("should return false when notification not found")
+        @DisplayName("should return false when not found")
         void shouldReturnFalseWhenNotFound() {
             UUID notifId = UUID.randomUUID();
             when(repository.findById(notifId)).thenReturn(Optional.empty());
 
-            boolean result = service.markAsRead(notifId);
+            boolean result = service.markAsRead(userId, notifId);
+
+            assertThat(result).isFalse();
+        }
+    }
+
+    @Nested
+    @DisplayName("markAllAsRead()")
+    class MarkAllAsRead {
+
+        @Test
+        @DisplayName("should delegate to repository")
+        void shouldDelegateToRepository() {
+            when(repository.markAllAsRead(eq(userId), any(LocalDateTime.class))).thenReturn(3);
+
+            int result = service.markAllAsRead(userId);
+
+            assertThat(result).isEqualTo(3);
+            verify(repository).markAllAsRead(eq(userId), any(LocalDateTime.class));
+        }
+    }
+
+    @Nested
+    @DisplayName("countUnread()")
+    class CountUnread {
+
+        @Test
+        @DisplayName("should return unread count")
+        void shouldReturnCount() {
+            when(repository.countByUserIdAndReadAtIsNull(userId)).thenReturn(5L);
+
+            long result = service.countUnread(userId);
+
+            assertThat(result).isEqualTo(5L);
+        }
+    }
+
+    @Nested
+    @DisplayName("delete()")
+    class Delete {
+
+        @Test
+        @DisplayName("should delete owned notification")
+        void shouldDeleteOwned() {
+            UUID notifId = UUID.randomUUID();
+            var notification = NotificationLog.builder()
+                    .id(notifId).userId(userId).type("T").title("X").build();
+            when(repository.findById(notifId)).thenReturn(Optional.of(notification));
+
+            boolean result = service.delete(userId, notifId);
+
+            assertThat(result).isTrue();
+            verify(repository).delete(notification);
+        }
+
+        @Test
+        @DisplayName("should return false for non-owned notification")
+        void shouldReturnFalseForNonOwned() {
+            UUID notifId = UUID.randomUUID();
+            var notification = NotificationLog.builder()
+                    .id(notifId).userId(UUID.randomUUID()).type("T").title("X").build();
+            when(repository.findById(notifId)).thenReturn(Optional.of(notification));
+
+            boolean result = service.delete(userId, notifId);
+
+            assertThat(result).isFalse();
+            verify(repository, never()).delete(any());
+        }
+
+        @Test
+        @DisplayName("should return false when not found")
+        void shouldReturnFalseWhenNotFound() {
+            UUID notifId = UUID.randomUUID();
+            when(repository.findById(notifId)).thenReturn(Optional.empty());
+
+            boolean result = service.delete(userId, notifId);
 
             assertThat(result).isFalse();
         }

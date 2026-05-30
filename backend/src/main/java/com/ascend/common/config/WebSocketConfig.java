@@ -1,38 +1,48 @@
 package com.ascend.common.config;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.messaging.simp.config.ChannelRegistration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
 import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
 import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer;
+import org.springframework.web.socket.config.annotation.WebSocketTransportRegistration;
 
-/**
- * WebSocket configuration enabling STOMP over SockJS for real-time features
- * including guild chat, notifications, and user-specific messaging.
- */
 @Configuration
 @EnableWebSocketMessageBroker
+@RequiredArgsConstructor
 public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
     @Value("${app.cors.allowed-origins:http://localhost:4200}")
     private String allowedOrigins;
 
+    private final WebSocketAuthInterceptor authInterceptor;
+
     @Override
     public void configureMessageBroker(MessageBrokerRegistry config) {
-        // Enable simple broker for topic broadcasts and user-specific queues
-        config.enableSimpleBroker("/topic", "/user");
-        // Application destination prefix for messages routed to @MessageMapping methods
+        config.enableSimpleBroker("/topic", "/queue");
         config.setApplicationDestinationPrefixes("/app");
-        // User destination prefix for user-specific messages (e.g., /user/queue/notifications)
         config.setUserDestinationPrefix("/user");
     }
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-        // STOMP endpoint with SockJS fallback for browser compatibility
         registry.addEndpoint("/ws")
                 .setAllowedOrigins(allowedOrigins.split(","))
                 .withSockJS();
+    }
+
+    @Override
+    public void configureClientInboundChannel(ChannelRegistration registration) {
+        registration.interceptors(authInterceptor);
+    }
+
+    @Override
+    public void configureWebSocketTransport(WebSocketTransportRegistration registration) {
+        registration.setMessageSizeLimit(64 * 1024);
+        registration.setSendBufferSizeLimit(512 * 1024);
+        registration.setSendTimeLimit(20000);
     }
 }

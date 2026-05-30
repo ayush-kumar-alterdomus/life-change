@@ -23,6 +23,7 @@ import { authInterceptor } from '../core/interceptors/auth.interceptor';
 import { loadingInterceptor } from '../core/interceptors/loading.interceptor';
 import { retryInterceptor } from '../core/interceptors/retry.interceptor';
 import { errorInterceptor } from '../core/interceptors/error.interceptor';
+import { levelUpInterceptor } from '../features/leveling/interceptors/level-up.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -50,7 +51,13 @@ export const appConfig: ApplicationConfig = {
     provideIonicAngular({ mode: 'md' }),
     provideRouter(routes, withPreloading(PreloadAllModules)),
     provideHttpClient(
-      withInterceptors([authInterceptor, loadingInterceptor, retryInterceptor, errorInterceptor]),
+      withInterceptors([
+        authInterceptor,
+        loadingInterceptor,
+        retryInterceptor,
+        errorInterceptor,
+        levelUpInterceptor,
+      ]),
     ),
     provideAnimations(),
   ],

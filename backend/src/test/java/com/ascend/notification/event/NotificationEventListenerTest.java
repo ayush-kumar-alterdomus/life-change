@@ -1,7 +1,12 @@
 package com.ascend.notification.event;
 
+import com.ascend.boss.event.BossDefeatedEvent;
+import com.ascend.notification.dto.NotificationType;
 import com.ascend.notification.entity.NotificationLog;
 import com.ascend.notification.service.NotificationService;
+import com.ascend.streak.dto.StreakMilestone;
+import com.ascend.streak.event.StreakMilestoneEvent;
+import com.ascend.xp.event.LevelUpEvent;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -12,6 +17,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.List;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -35,144 +41,91 @@ class NotificationEventListenerTest {
     @BeforeEach
     void setUp() {
         userId = UUID.randomUUID();
-        when(notificationService.send(any(), any(), any(), any()))
+        when(notificationService.sendNotification(any(), any(), any(), any()))
                 .thenReturn(NotificationLog.builder().build());
     }
 
     @Nested
-    @DisplayName("onQuestCompleted")
-    class QuestCompleted {
-
-        @Test
-        @DisplayName("should send notification with QUEST_COMPLETED type")
-        void shouldSendWithCorrectType() {
-            var event = new NotificationEventListener.QuestCompletedEvent(userId, "Run 5km", 50);
-
-            listener.onQuestCompleted(event);
-
-            verify(notificationService).send(eq(userId), eq("QUEST_COMPLETED"), any(), any());
-        }
-
-        @Test
-        @DisplayName("should include quest title and XP in message")
-        void shouldIncludeDetailsInMessage() {
-            var event = new NotificationEventListener.QuestCompletedEvent(userId, "Read 30 pages", 75);
-
-            listener.onQuestCompleted(event);
-
-            ArgumentCaptor<String> messageCaptor = ArgumentCaptor.forClass(String.class);
-            verify(notificationService).send(eq(userId), any(), any(), messageCaptor.capture());
-
-            assertThat(messageCaptor.getValue()).contains("75 XP");
-            assertThat(messageCaptor.getValue()).contains("Read 30 pages");
-        }
-    }
-
-    @Nested
-    @DisplayName("onStreakMilestone")
-    class StreakMilestone {
-
-        @Test
-        @DisplayName("should send notification with STREAK_MILESTONE type")
-        void shouldSendWithCorrectType() {
-            var event = new NotificationEventListener.StreakMilestoneEvent(userId, 7);
-
-            listener.onStreakMilestone(event);
-
-            verify(notificationService).send(eq(userId), eq("STREAK_MILESTONE"), any(), any());
-        }
-
-        @Test
-        @DisplayName("should include streak days in title")
-        void shouldIncludeStreakDaysInTitle() {
-            var event = new NotificationEventListener.StreakMilestoneEvent(userId, 30);
-
-            listener.onStreakMilestone(event);
-
-            ArgumentCaptor<String> titleCaptor = ArgumentCaptor.forClass(String.class);
-            verify(notificationService).send(eq(userId), any(), titleCaptor.capture(), any());
-
-            assertThat(titleCaptor.getValue()).contains("30");
-        }
-
-        @Test
-        @DisplayName("should have specific message for 7-day milestone")
-        void shouldHaveMessageFor7Days() {
-            var event = new NotificationEventListener.StreakMilestoneEvent(userId, 7);
-
-            listener.onStreakMilestone(event);
-
-            ArgumentCaptor<String> messageCaptor = ArgumentCaptor.forClass(String.class);
-            verify(notificationService).send(eq(userId), any(), any(), messageCaptor.capture());
-
-            assertThat(messageCaptor.getValue()).contains("One week");
-        }
-
-        @Test
-        @DisplayName("should have specific message for 100-day milestone")
-        void shouldHaveMessageFor100Days() {
-            var event = new NotificationEventListener.StreakMilestoneEvent(userId, 100);
-
-            listener.onStreakMilestone(event);
-
-            ArgumentCaptor<String> messageCaptor = ArgumentCaptor.forClass(String.class);
-            verify(notificationService).send(eq(userId), any(), any(), messageCaptor.capture());
-
-            assertThat(messageCaptor.getValue()).contains("epic");
-        }
-
-        @Test
-        @DisplayName("should have fallback message for non-standard milestones")
-        void shouldHaveFallbackMessage() {
-            var event = new NotificationEventListener.StreakMilestoneEvent(userId, 50);
-
-            listener.onStreakMilestone(event);
-
-            ArgumentCaptor<String> messageCaptor = ArgumentCaptor.forClass(String.class);
-            verify(notificationService).send(eq(userId), any(), any(), messageCaptor.capture());
-
-            assertThat(messageCaptor.getValue()).contains("50 days");
-        }
-    }
-
-    @Nested
     @DisplayName("onLevelUp")
-    class LevelUp {
+    class OnLevelUp {
 
         @Test
-        @DisplayName("should send notification with LEVEL_UP type")
+        @DisplayName("should send LEVEL_UP notification")
         void shouldSendWithCorrectType() {
-            var event = new NotificationEventListener.LevelUpEvent(userId, 10);
+            var event = new LevelUpEvent(this, userId, 9, 10, List.of());
 
             listener.onLevelUp(event);
 
-            verify(notificationService).send(eq(userId), eq("LEVEL_UP"), any(), any());
+            verify(notificationService).sendNotification(eq(userId), eq(NotificationType.LEVEL_UP), any(), any());
         }
 
         @Test
         @DisplayName("should include new level in title")
         void shouldIncludeLevelInTitle() {
-            var event = new NotificationEventListener.LevelUpEvent(userId, 25);
+            var event = new LevelUpEvent(this, userId, 24, 25, List.of());
 
             listener.onLevelUp(event);
 
             ArgumentCaptor<String> titleCaptor = ArgumentCaptor.forClass(String.class);
-            verify(notificationService).send(eq(userId), any(), titleCaptor.capture(), any());
+            verify(notificationService).sendNotification(eq(userId), any(), titleCaptor.capture(), any());
 
             assertThat(titleCaptor.getValue()).contains("25");
         }
+    }
+
+    @Nested
+    @DisplayName("onStreakMilestone")
+    class OnStreakMilestone {
 
         @Test
-        @DisplayName("should include level in message body")
-        void shouldIncludeLevelInMessage() {
-            var event = new NotificationEventListener.LevelUpEvent(userId, 5);
+        @DisplayName("should send REWARD_ALERT notification")
+        void shouldSendWithCorrectType() {
+            var event = new StreakMilestoneEvent(this, userId, StreakMilestone.WEEK, 7, 50);
 
-            listener.onLevelUp(event);
+            listener.onStreakMilestone(event);
+
+            verify(notificationService).sendNotification(eq(userId), eq(NotificationType.REWARD_ALERT), any(), any());
+        }
+
+        @Test
+        @DisplayName("should include streak days in title")
+        void shouldIncludeStreakDaysInTitle() {
+            var event = new StreakMilestoneEvent(this, userId, StreakMilestone.MONTH, 30, 250);
+
+            listener.onStreakMilestone(event);
+
+            ArgumentCaptor<String> titleCaptor = ArgumentCaptor.forClass(String.class);
+            verify(notificationService).sendNotification(eq(userId), any(), titleCaptor.capture(), any());
+
+            assertThat(titleCaptor.getValue()).contains("30");
+        }
+    }
+
+    @Nested
+    @DisplayName("onBossDefeated")
+    class OnBossDefeated {
+
+        @Test
+        @DisplayName("should send ACHIEVEMENT notification")
+        void shouldSendWithCorrectType() {
+            var event = new BossDefeatedEvent(this, userId, UUID.randomUUID(), "Dragon", 500, "Dragonslayer");
+
+            listener.onBossDefeated(event);
+
+            verify(notificationService).sendNotification(eq(userId), eq(NotificationType.ACHIEVEMENT), any(), any());
+        }
+
+        @Test
+        @DisplayName("should include boss name in message")
+        void shouldIncludeBossNameInMessage() {
+            var event = new BossDefeatedEvent(this, userId, UUID.randomUUID(), "Shadow King", 1000, "Shadow Conqueror");
+
+            listener.onBossDefeated(event);
 
             ArgumentCaptor<String> messageCaptor = ArgumentCaptor.forClass(String.class);
-            verify(notificationService).send(eq(userId), any(), any(), messageCaptor.capture());
+            verify(notificationService).sendNotification(eq(userId), any(), any(), messageCaptor.capture());
 
-            assertThat(messageCaptor.getValue()).contains("level 5");
+            assertThat(messageCaptor.getValue()).contains("Shadow King");
         }
     }
 }

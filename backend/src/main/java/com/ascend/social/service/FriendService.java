@@ -228,6 +228,14 @@ public class FriendService {
     }
 
     /**
+     * Saves an updated user entity.
+     */
+    @Transactional
+    public void updateUser(User user) {
+        userRepository.save(user);
+    }
+
+    /**
      * Maps a User entity to a FriendResponse DTO, including streak information.
      */
     private FriendResponse toFriendResponse(User user, String status) {

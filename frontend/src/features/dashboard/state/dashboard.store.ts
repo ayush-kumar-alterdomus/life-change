@@ -1,5 +1,4 @@
 import { Injectable, inject, computed, signal } from '@angular/core';
-import { forkJoin } from 'rxjs';
 import { DashboardService } from '../services/dashboard.service';
 import { StorageService } from '../../../core/services/storage.service';
 import {
@@ -39,17 +38,20 @@ export class DashboardStore {
   readonly dailyStats = signal<SectionState<DashboardDailyStats>>({ status: 'idle' });
   readonly activeArc = signal<SectionState<DashboardActiveArc | null>>({ status: 'idle' });
   readonly todayQuests = signal<SectionState<Quest[]>>({ status: 'idle' });
-  readonly leaderboardPreview = signal<SectionState<DashboardLeaderboardPreview>>({ status: 'idle' });
+  readonly leaderboardPreview = signal<SectionState<DashboardLeaderboardPreview>>({
+    status: 'idle',
+  });
 
   // ─── Computed: Global Loading ──────────────────────────────────────────────
 
-  readonly isLoading = computed(() =>
-    this.userSummary().status === 'loading' ||
-    this.xpProgress().status === 'loading' ||
-    this.dailyStats().status === 'loading' ||
-    this.activeArc().status === 'loading' ||
-    this.todayQuests().status === 'loading' ||
-    this.leaderboardPreview().status === 'loading'
+  readonly isLoading = computed(
+    () =>
+      this.userSummary().status === 'loading' ||
+      this.xpProgress().status === 'loading' ||
+      this.dailyStats().status === 'loading' ||
+      this.activeArc().status === 'loading' ||
+      this.todayQuests().status === 'loading' ||
+      this.leaderboardPreview().status === 'loading',
   );
 
   // ─── Computed: Per-Section Loading ─────────────────────────────────────────
@@ -118,7 +120,7 @@ export class DashboardStore {
     if (currentQuests.status === 'loaded') {
       this.todayQuests.set({
         status: 'loaded',
-        data: currentQuests.data.filter(q => q.id !== questId),
+        data: currentQuests.data.filter((q) => q.id !== questId),
       });
     }
 
@@ -221,29 +223,82 @@ export class DashboardStore {
   }
 
   /**
-   * Fetch all sections in parallel using forkJoin.
-   * Each section updates independently on success/error.
+   * Fetch all dashboard data via the aggregated endpoint.
+   * Falls back to individual fetches if the aggregated call fails.
    */
   private fetchAllSections(): void {
-    forkJoin({
-      userSummary: this.dashboardService.getUserSummary(),
-      xpProgress: this.dashboardService.getXpProgress(),
-      dailyStats: this.dashboardService.getDailyStats(),
-      activeArc: this.dashboardService.getActiveArc(),
-      todayQuests: this.dashboardService.getTodayQuests(),
-    }).subscribe({
-      next: (results) => {
-        this.userSummary.set({ status: 'loaded', data: results.userSummary });
-        this.xpProgress.set({ status: 'loaded', data: results.xpProgress });
-        this.dailyStats.set({ status: 'loaded', data: results.dailyStats });
-        this.activeArc.set({ status: 'loaded', data: results.activeArc });
-        this.todayQuests.set({ status: 'loaded', data: results.todayQuests });
+    this.dashboardService.getDashboard().subscribe({
+      next: (response) => {
+        const d = response.data;
+        if (d.user) {
+          this.userSummary.set({
+            status: 'loaded',
+            data: {
+              displayName: d.user.displayName,
+              level: d.user.level,
+              currentStreak: d.streak?.currentStreak ?? 0,
+            },
+          });
+        }
+        if (d.xp) {
+          this.xpProgress.set({
+            status: 'loaded',
+            data: {
+              currentLevel: d.xp.level,
+              currentXp: d.xp.totalXp,
+              requiredXp: d.xp.xpToNextLevel,
+            },
+          });
+        } else {
+          this.xpProgress.set({ status: 'error', message: 'XP data unavailable' });
+        }
+        if (d.dailyStats) {
+          this.dailyStats.set({
+            status: 'loaded',
+            data: {
+              questsCompleted: d.dailyStats.questsCompleted,
+              questsTotal: d.dailyStats.questsTotal,
+              currentStreak: d.streak?.currentStreak ?? 0,
+              focusScore: 0,
+              lifeScore: 0,
+            },
+          });
+        } else {
+          this.dailyStats.set({ status: 'error', message: 'Daily stats unavailable' });
+        }
+        this.activeArc.set({ status: 'loaded', data: d.activeArc ?? null });
+        if (d.quests) {
+          this.todayQuests.set({ status: 'loaded', data: d.quests as unknown as Quest[] });
+        } else {
+          this.todayQuests.set({ status: 'error', message: 'Quests unavailable' });
+        }
 
-        // Persist to cache on success
-        this.persistToCache(results);
+        // Persist to cache
+        const userSummaryData = {
+          displayName: d.user.displayName,
+          level: d.user.level,
+          currentStreak: d.streak?.currentStreak ?? 0,
+        };
+        this.storageService.set(CACHE_KEYS.userSummary, userSummaryData);
+        if (d.xp)
+          this.storageService.set(CACHE_KEYS.xpProgress, {
+            currentLevel: d.xp.level,
+            currentXp: d.xp.totalXp,
+            requiredXp: d.xp.xpToNextLevel,
+          });
+        if (d.dailyStats)
+          this.storageService.set(CACHE_KEYS.dailyStats, {
+            questsCompleted: d.dailyStats.questsCompleted,
+            questsTotal: d.dailyStats.questsTotal,
+            currentStreak: d.streak?.currentStreak ?? 0,
+            focusScore: 0,
+            lifeScore: 0,
+          });
+        this.storageService.set(CACHE_KEYS.activeArc, d.activeArc);
+        if (d.quests) this.storageService.set(CACHE_KEYS.todayQuests, d.quests);
       },
       error: () => {
-        // forkJoin fails if any observable errors — fall back to individual fetches
+        // Aggregated call failed — fall back to individual fetches
         this.fetchUserSummary();
         this.fetchXpProgress();
         this.fetchDailyStats();
@@ -260,7 +315,10 @@ export class DashboardStore {
         this.storageService.set(CACHE_KEYS.userSummary, data);
       },
       error: (err) => {
-        this.userSummary.set({ status: 'error', message: err?.message ?? 'Failed to load user summary' });
+        this.userSummary.set({
+          status: 'error',
+          message: err?.message ?? 'Failed to load user summary',
+        });
       },
     });
   }
@@ -272,19 +330,38 @@ export class DashboardStore {
         this.storageService.set(CACHE_KEYS.xpProgress, data);
       },
       error: (err) => {
-        this.xpProgress.set({ status: 'error', message: err?.message ?? 'Failed to load XP progress' });
+        this.xpProgress.set({
+          status: 'error',
+          message: err?.message ?? 'Failed to load XP progress',
+        });
       },
     });
   }
 
   private fetchDailyStats(): void {
-    this.dashboardService.getDailyStats().subscribe({
+    // Daily stats are now served by the aggregated endpoint.
+    // This fallback re-derives stats from the quests endpoint.
+    this.dashboardService.getTodayQuests().subscribe({
       next: (data) => {
-        this.dailyStats.set({ status: 'loaded', data });
-        this.storageService.set(CACHE_KEYS.dailyStats, data);
+        const quests = data as unknown as { completed?: boolean }[];
+        const total = quests.length;
+        const completed = quests.filter((q) => q.completed).length;
+        this.dailyStats.set({
+          status: 'loaded',
+          data: {
+            questsCompleted: completed,
+            questsTotal: total,
+            currentStreak: 0,
+            focusScore: 0,
+            lifeScore: 0,
+          },
+        });
       },
       error: (err) => {
-        this.dailyStats.set({ status: 'error', message: err?.message ?? 'Failed to load daily stats' });
+        this.dailyStats.set({
+          status: 'error',
+          message: err?.message ?? 'Failed to load daily stats',
+        });
       },
     });
   }
@@ -296,7 +373,10 @@ export class DashboardStore {
         this.storageService.set(CACHE_KEYS.activeArc, data);
       },
       error: (err) => {
-        this.activeArc.set({ status: 'error', message: err?.message ?? 'Failed to load active arc' });
+        this.activeArc.set({
+          status: 'error',
+          message: err?.message ?? 'Failed to load active arc',
+        });
       },
     });
   }
@@ -320,7 +400,10 @@ export class DashboardStore {
         this.storageService.set(CACHE_KEYS.leaderboardPreview, data);
       },
       error: (err) => {
-        this.leaderboardPreview.set({ status: 'error', message: err?.message ?? 'Failed to load leaderboard' });
+        this.leaderboardPreview.set({
+          status: 'error',
+          message: err?.message ?? 'Failed to load leaderboard',
+        });
       },
     });
   }
@@ -360,27 +443,12 @@ export class DashboardStore {
       }
     });
 
-    this.storageService.get<DashboardLeaderboardPreview>(CACHE_KEYS.leaderboardPreview).then((data) => {
-      if (data && this.leaderboardPreview().status === 'idle') {
-        this.leaderboardPreview.set({ status: 'loaded', data });
-      }
-    });
-  }
-
-  /**
-   * Persist all section data to StorageService after a successful parallel fetch.
-   */
-  private persistToCache(results: {
-    userSummary: DashboardUserSummary;
-    xpProgress: DashboardXpProgress;
-    dailyStats: DashboardDailyStats;
-    activeArc: DashboardActiveArc | null;
-    todayQuests: Quest[];
-  }): void {
-    this.storageService.set(CACHE_KEYS.userSummary, results.userSummary);
-    this.storageService.set(CACHE_KEYS.xpProgress, results.xpProgress);
-    this.storageService.set(CACHE_KEYS.dailyStats, results.dailyStats);
-    this.storageService.set(CACHE_KEYS.activeArc, results.activeArc);
-    this.storageService.set(CACHE_KEYS.todayQuests, results.todayQuests);
+    this.storageService
+      .get<DashboardLeaderboardPreview>(CACHE_KEYS.leaderboardPreview)
+      .then((data) => {
+        if (data && this.leaderboardPreview().status === 'idle') {
+          this.leaderboardPreview.set({ status: 'loaded', data });
+        }
+      });
   }
 }

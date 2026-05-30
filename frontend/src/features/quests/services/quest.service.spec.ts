@@ -2,6 +2,9 @@ import { TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
 import { QuestService, DailyQuestsResponse, Quest } from './quest.service';
 import { ApiService } from '../../../core/services/api.service';
+import { Difficulty } from '@shared/enums/difficulty.enum';
+import { StatType } from '@shared/enums/stat-type.enum';
+import { QuestFrequency } from '@shared/enums/quest-frequency.enum';
 
 describe('QuestService', () => {
   let service: QuestService;
@@ -12,11 +15,9 @@ describe('QuestService', () => {
     title: 'Run 5km',
     description: 'Morning run',
     xpReward: 50,
-    difficulty: 'MEDIUM',
-    statType: 'STRENGTH',
-    frequency: 'DAILY',
-    recurring: true,
-    isCustom: false,
+    difficulty: Difficulty.Medium,
+    statType: StatType.Strength,
+    frequency: QuestFrequency.Daily,
     completed: false,
   };
 
@@ -31,10 +32,7 @@ describe('QuestService', () => {
     mockApi = jasmine.createSpyObj('ApiService', ['get', 'post']);
 
     TestBed.configureTestingModule({
-      providers: [
-        QuestService,
-        { provide: ApiService, useValue: mockApi },
-      ],
+      providers: [QuestService, { provide: ApiService, useValue: mockApi }],
     });
 
     service = TestBed.inject(QuestService);

@@ -6,23 +6,23 @@ In-game currency system (Coins and Gems), loot chests with tiered drop rates, ac
 
 ## Tasks
 
-- [ ] 1. Create Reward Economy data models
-  - [ ] 1.1 Create tables migration
-    - Create `V28__create_reward_tables.sql`:
+- [x] 1. Create Reward Economy data models
+  - [x] 1.1 Create tables migration
+    - Create `V31__create_reward_tables.sql`:
       - user_currency: id (UUID PK), user_id (UUID FK UNIQUE), coins (BIGINT default 0), gems (BIGINT default 0), updated_at (TIMESTAMP)
       - cosmetics: id (UUID PK), name (VARCHAR), type (VARCHAR — avatar, frame, aura, title, animation), rarity (VARCHAR), description (TEXT), gem_cost (INT nullable), coin_cost (INT nullable)
       - user_cosmetics: id (UUID PK), user_id (UUID FK), cosmetic_id (UUID FK), unlocked_at (TIMESTAMP) — UNIQUE(user_id, cosmetic_id)
       - loot_chests: id (UUID PK), user_id (UUID FK), tier (VARCHAR), source (VARCHAR), opened (BOOLEAN default false), contents (JSONB), earned_at (TIMESTAMP), opened_at (TIMESTAMP)
-  - [ ] 1.2 Create DTOs
+  - [x] 1.2 Create DTOs
     - Create `CurrencyResponse.java`: coins, gems
     - Create `CosmeticResponse.java`: id, name, type, rarity, owned, equipped
     - Create `LootChestResponse.java`: id, tier, source, opened, contents
     - Create `ChestOpenResult.java`: items (list of CosmeticResponse), coinsEarned, gemsEarned
     - Create `AchievementResponse.java`: name, type, description, unlockedAt, badge
 
-- [ ] 2. Implement Currency Service
-  - [ ] 2.1 Create CurrencyService
-    - Create `CurrencyService.java` in `premium/service/` (or new `reward/` module)
+- [x] 2. Implement Currency Service
+  - [x] 2.1 Create CurrencyService
+    - Create `CurrencyService.java` in `reward/service/`
     - `getBalance(UUID userId)` — return coins and gems
     - `awardCoins(UUID userId, int amount, String source)`:
       1. Check daily coin cap (max 500 coins/day)
@@ -32,8 +32,8 @@ In-game currency system (Coins and Gems), loot chests with tiered drop rates, ac
     - `spendCoins(UUID userId, int amount)` — deduct with insufficient funds check
     - `spendGems(UUID userId, int amount)` — deduct with insufficient funds check
 
-- [ ] 3. Implement Loot Chest System
-  - [ ] 3.1 Create LootChestService
+- [x] 3. Implement Loot Chest System
+  - [x] 3.1 Create LootChestService
     - Create `LootChestService.java`
     - `awardChest(UUID userId, String tier, String source)`:
       1. Create loot_chests record (unopened)
@@ -44,7 +44,7 @@ In-game currency system (Coins and Gems), loot chests with tiered drop rates, ac
       3. Award contents (cosmetics, coins, gems)
       4. Mark chest as opened
       5. Return ChestOpenResult
-  - [ ] 3.2 Create DropRateCalculator
+  - [x] 3.2 Create DropRateCalculator
     - Create `DropRateCalculator.java`
     - `calculateDropRates(String tier, double streakBonus, double eventMultiplier)`:
       - Formula: DropRate = BaseRate × StreakBonus × EventMultiplier
@@ -53,8 +53,8 @@ In-game currency system (Coins and Gems), loot chests with tiered drop rates, ac
       - Sum must equal 1.0
     - `rollLoot(Map<String, Double> rates)` — random selection based on rates
 
-- [ ] 4. Implement Achievement System
-  - [ ] 4.1 Create AchievementService
+- [x] 4. Implement Achievement System
+  - [x] 4.1 Create AchievementService
     - Create `AchievementService.java`
     - `checkAndUnlock(UUID userId, String achievementName, String type)`:
       1. Check if already unlocked (idempotent)
@@ -63,22 +63,22 @@ In-game currency system (Coins and Gems), loot chests with tiered drop rates, ac
     - `getAchievements(UUID userId)` — list all earned achievements
     - Define achievement criteria (can be event-driven):
       - First quest completed, 7-day streak, Level 10, First boss defeated, etc.
-  - [ ] 4.2 Create achievement event listeners
+  - [x] 4.2 Create achievement event listeners
     - Listen for various events and check achievement criteria:
       - QuestCompletedEvent → "First Quest", "100 Quests", "1000 Quests"
       - StreakMilestoneEvent → "Week Warrior", "Month Master"
       - LevelUpEvent → "Level 10", "Level 50", "Level 100"
       - BossDefeatedEvent → "Boss Slayer"
 
-- [ ] 5. Implement Anti-Inflation Mechanics
-  - [ ] 5.1 Create reward cap enforcement
+- [x] 5. Implement Anti-Inflation Mechanics
+  - [x] 5.1 Create reward cap enforcement
     - Daily coin cap: 500 coins/day
     - Diminishing returns: Nth repetition of same action yields coins × (1 / N)
     - Track daily earnings in user_currency or separate daily_rewards table
     - Reset daily at user's local midnight
 
-- [ ] 6. Create Reward Controller
-  - [ ] 6.1 Implement REST endpoints
+- [x] 6. Create Reward Controller
+  - [x] 6.1 Implement REST endpoints
     - Create `RewardController.java`
     - GET `/api/v1/rewards/currency` — coin and gem balance
     - GET `/api/v1/rewards/cosmetics` — owned cosmetics
@@ -88,15 +88,15 @@ In-game currency system (Coins and Gems), loot chests with tiered drop rates, ac
     - POST `/api/v1/rewards/chests/{id}/open` — open a chest
     - GET `/api/v1/rewards/achievements` — earned achievements
 
-- [ ] 7. Write property-based tests
-  - [ ] 7.1 Create reward property tests
+- [x] 7. Write property-based tests
+  - [x] 7.1 Create reward property tests
     - Create `DropRatePropertyTest.java`:
       - Property 46: Drop rates sum to 1.0 for all valid inputs
     - Create `CurrencyPropertyTest.java`:
       - Property 47: Daily cap never exceeded, diminishing returns applied
     - Minimum 100 iterations per property
 
-- [ ] 8. Checkpoint - Verify reward economy
+- [x] 8. Checkpoint - Verify reward economy
   - Integration test: complete quest → coins awarded → daily cap enforced
   - Integration test: earn chest → open → contents generated by drop rates
   - Integration test: achievement criteria met → achievement unlocked

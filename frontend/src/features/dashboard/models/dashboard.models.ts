@@ -56,3 +56,43 @@ export interface DashboardUserSummary {
   level: number;
   currentStreak: number;
 }
+
+/** Aggregated dashboard response from GET /api/v1/dashboard */
+export interface DashboardAggregatedResponse {
+  success: boolean;
+  data: {
+    user: { displayName: string; level: number; avatarUrl: string; premium: boolean };
+    xp: {
+      totalXp: number;
+      level: number;
+      xpToNextLevel: number;
+      dailyXpEarned: number;
+      dailyCap: number;
+      comboMultiplier: number;
+    } | null;
+    streak: {
+      currentStreak: number;
+      longestStreak: number;
+      shieldAvailable: boolean;
+      comebackModeActive: boolean;
+    } | null;
+    dailyStats: {
+      questsCompleted: number;
+      questsTotal: number;
+      completionPercentage: number;
+    } | null;
+    quests:
+      | {
+          id: string;
+          title: string;
+          difficulty: string;
+          xpReward: number;
+          completed: boolean;
+          statType: string;
+          frequency: string;
+        }[]
+      | null;
+    activeArc: DashboardActiveArc | null;
+    notifications: { unreadCount: number };
+  };
+}

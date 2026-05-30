@@ -9,14 +9,9 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ConnectivityService } from '../../../core/services/connectivity.service';
+import { SyncService } from '../../../core/services/sync.service';
 
-/**
- * Banner state:
- * - 'hidden': no banner shown
- * - 'offline': amber banner indicating offline mode
- * - 'back-online': green banner confirming reconnection (auto-dismisses after 3s)
- */
-type BannerState = 'hidden' | 'offline' | 'back-online';
+type BannerState = 'hidden' | 'offline' | 'syncing' | 'sync-error' | 'back-online';
 
 @Component({
   standalone: true,
@@ -26,6 +21,8 @@ type BannerState = 'hidden' | 'offline' | 'back-online';
     <div
       class="offline-banner"
       [class.offline-banner--offline]="bannerState() === 'offline'"
+      [class.offline-banner--syncing]="bannerState() === 'syncing'"
+      [class.offline-banner--sync-error]="bannerState() === 'sync-error'"
       [class.offline-banner--back-online]="bannerState() === 'back-online'"
       [class.offline-banner--visible]="bannerState() !== 'hidden'"
       role="status"
@@ -33,6 +30,9 @@ type BannerState = 'hidden' | 'offline' | 'back-online';
       [attr.aria-hidden]="bannerState() === 'hidden'"
     >
       <span class="offline-banner__message">{{ bannerMessage() }}</span>
+      @if (bannerState() === 'sync-error') {
+        <button class="offline-banner__retry" (click)="retrySyncFn()">Retry</button>
+      }
     </div>
   `,
   styleUrls: ['./offline-banner.component.scss'],
@@ -40,15 +40,18 @@ type BannerState = 'hidden' | 'offline' | 'back-online';
 })
 export class OfflineBannerComponent implements OnDestroy {
   private readonly connectivity = inject(ConnectivityService);
+  private readonly syncService = inject(SyncService);
 
-  /** Current banner display state. */
   readonly bannerState = signal<BannerState>(this.connectivity.isOnline() ? 'hidden' : 'offline');
 
-  /** Message displayed in the banner based on current state. */
   readonly bannerMessage = computed(() => {
     switch (this.bannerState()) {
       case 'offline':
         return "You're in Offline Mode. Progress will sync later.";
+      case 'syncing':
+        return `Syncing ${this.syncService.syncingCount()} actions...`;
+      case 'sync-error':
+        return "Some actions couldn't be synced.";
       case 'back-online':
         return 'Back online';
       default:
@@ -62,13 +65,19 @@ export class OfflineBannerComponent implements OnDestroy {
   constructor() {
     effect(() => {
       const isOnline = this.connectivity.isOnline();
+      const isSyncing = this.syncService.isSyncing();
+      const rejected = this.syncService.rejectedActions();
 
-      if (!isOnline && this.previousOnline) {
-        // Went offline
+      if (!isOnline) {
         this.clearAutoDismissTimer();
         this.bannerState.set('offline');
+      } else if (isSyncing) {
+        this.clearAutoDismissTimer();
+        this.bannerState.set('syncing');
+      } else if (rejected.length > 0) {
+        this.clearAutoDismissTimer();
+        this.bannerState.set('sync-error');
       } else if (isOnline && !this.previousOnline) {
-        // Came back online
         this.bannerState.set('back-online');
         this.startAutoDismiss();
       }
@@ -79,6 +88,10 @@ export class OfflineBannerComponent implements OnDestroy {
 
   ngOnDestroy(): void {
     this.clearAutoDismissTimer();
+  }
+
+  retrySyncFn(): void {
+    this.syncService.syncPendingActions();
   }
 
   private startAutoDismiss(): void {

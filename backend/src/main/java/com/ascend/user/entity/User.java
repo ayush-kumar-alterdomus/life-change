@@ -9,6 +9,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -98,6 +100,17 @@ public class User {
     @Builder.Default
     @Column(name = "flagged", nullable = false)
     private Boolean flagged = false;
+
+    @Builder.Default
+    @Column(name = "privacy_level", nullable = false, length = 20)
+    private String privacyLevel = "PUBLIC";
+
+    @Column(name = "fcm_token", length = 512)
+    private String fcmToken;
+
+    @JdbcTypeCode(SqlTypes.JSON)
+    @Column(name = "notification_preferences", columnDefinition = "jsonb")
+    private String notificationPreferences;
 
     @Column(name = "last_active")
     private LocalDateTime lastActive;

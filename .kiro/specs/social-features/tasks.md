@@ -31,8 +31,8 @@ Friend system, challenges between friends, activity feed, accountability partner
     - `getFriends(UUID userId)` — list accepted friends
     - `getPendingRequests(UUID userId)` — list incoming requests
 
-- [ ] 3. Implement Challenge System
-  - [-] 3.1 Create ChallengeService
+- [x] 3. Implement Challenge System
+  - [x] 3.1 Create ChallengeService
     - Create `ChallengeService.java` in `social/service/`
     - `createChallenge(UUID challengerId, CreateChallengeRequest request)`:
       1. Verify users are friends
@@ -44,8 +44,8 @@ Friend system, challenges between friends, activity feed, accountability partner
       3. Publish ChallengeCompletedEvent
     - Listen for QuestCompletedEvent → auto-contribute to active challenges
 
-- [ ] 4. Implement Activity Feed
-  - [-] 4.1 Create ActivityFeedService
+- [x] 4. Implement Activity Feed
+  - [x] 4.1 Create ActivityFeedService
     - Create `ActivityFeedService.java` in `social/service/`
     - `publishActivity(UUID userId, String eventType, String title, String description)`:
       1. Create activity_feed record
@@ -57,8 +57,8 @@ Friend system, challenges between friends, activity feed, accountability partner
       4. Return paginated feed
     - Listen for events: LevelUpEvent, AchievementUnlockedEvent, ArcCompletedEvent → publish to feed
 
-- [ ] 5. Implement Accountability Partners
-  - [-] 5.1 Create AccountabilityService
+- [x] 5. Implement Accountability Partners
+  - [x] 5.1 Create AccountabilityService
     - Create `AccountabilityService.java` in `social/service/`
     - `pairPartner(UUID userId, UUID partnerId)` — create partnership
     - `notifyPartnerMissedQuest(UUID userId)`:
@@ -66,8 +66,8 @@ Friend system, challenges between friends, activity feed, accountability partner
       2. Send notification to partner about missed quest
     - Listen for StreakBrokenEvent → notify accountability partner
 
-- [ ] 6. Create Social Controller
-  - [~] 6.1 Implement REST endpoints
+- [x] 6. Create Social Controller
+  - [x] 6.1 Implement REST endpoints
     - Create `SocialController.java` in `social/controller/`
     - GET `/api/v1/social/friends` — list friends
     - POST `/api/v1/social/friends/request` — send friend request
@@ -78,13 +78,13 @@ Friend system, challenges between friends, activity feed, accountability partner
     - POST `/api/v1/social/accountability/pair` — pair accountability partner
     - PUT `/api/v1/social/privacy` — update privacy level
 
-- [ ] 7. Write property-based tests
-  - [~] 7.1 Create social property tests
+- [x] 7. Write property-based tests
+  - [x] 7.1 Create social property tests
     - Create `PrivacyPropertyTest.java`:
       - Property 52: Privacy enforcement (PRIVATE users never in public feeds/search)
     - Minimum 100 iterations per property
 
-- [~] 8. Checkpoint - Verify social features
+- [x] 8. Checkpoint - Verify social features
   - Integration test: send friend request → accept → appears in friends list
   - Integration test: create challenge → contribute → winner declared
   - Integration test: private user's activities not visible in feed
