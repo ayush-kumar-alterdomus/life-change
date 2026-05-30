@@ -1,4 +1,4 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import {
@@ -21,7 +21,7 @@ import {
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { flameOutline, trophyOutline, starOutline, arrowUpOutline } from 'ionicons/icons';
-import { QuestService, DailyQuestsResponse } from '../../quests/services/quest.service';
+import { DashboardStore } from '../services/dashboard.store';
 
 @Component({
   selector: 'app-dashboard',
@@ -172,22 +172,16 @@ import { QuestService, DailyQuestsResponse } from '../../quests/services/quest.s
   ],
 })
 export class DashboardComponent implements OnInit {
-  questData = signal<DailyQuestsResponse | null>(null);
-  todayXp = signal(0);
+  private readonly store = inject(DashboardStore);
 
-  constructor(private questService: QuestService) {
+  readonly questData = this.store.questData;
+  readonly todayXp = this.store.todayXp;
+
+  constructor() {
     addIcons({ flameOutline, trophyOutline, starOutline, arrowUpOutline });
   }
 
   ngOnInit() {
-    this.questService.getDailyQuests().subscribe({
-      next: (data) => {
-        this.questData.set(data);
-        this.todayXp.set(
-          data.quests.filter((q) => q.completed).reduce((sum, q) => sum + q.xpReward, 0),
-        );
-      },
-      error: () => {},
-    });
+    this.store.loadDashboard();
   }
 }

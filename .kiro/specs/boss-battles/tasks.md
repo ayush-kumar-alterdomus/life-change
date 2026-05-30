@@ -84,3 +84,18 @@ Multi-stage boss challenges requiring sustained effort over days/weeks. Includes
 - Guild bosses aggregate damage from all members
 - Legendary rewards include XP, titles, and cosmetics
 - Bosses are tied to Arcs (optional) or standalone challenges
+
+## Task Dependency Graph
+
+```json
+{
+  "waves": [
+    { "id": 0, "tasks": ["1.1", "1.2"] },
+    { "id": 1, "tasks": ["2.1", "2.2"] },
+    { "id": 2, "tasks": ["3.1", "4.1"] },
+    { "id": 3, "tasks": ["5.1"] },
+    { "id": 4, "tasks": ["6.1"] },
+    { "id": 5, "tasks": ["7"] }
+  ]
+}
+```

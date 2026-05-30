@@ -37,7 +37,7 @@ describe('Feature: ui-design-system, Property 14: Enum values are lowercase stri
 
   it('should have all enum member values matching /^[a-z]+$/ pattern', () => {
     fc.assert(
-      fc.property(fc.constantFrom(...allEnumValues), ({ value }) => {
+      fc.property(fc.constantFrom(...allEnumValues), ({ value }: { value: string }) => {
         expect(typeof value).toBe('string');
         expect(value).toMatch(lowercasePattern);
       }),
@@ -50,7 +50,7 @@ describe('Feature: ui-design-system, Property 14: Enum values are lowercase stri
     it('should have all values as lowercase strings', () => {
       const values = Object.values(Difficulty);
       fc.assert(
-        fc.property(fc.constantFrom(...values), (value) => {
+        fc.property(fc.constantFrom(...values), (value: string) => {
           expect(typeof value).toBe('string');
           expect(value).toMatch(lowercasePattern);
         }),
@@ -63,7 +63,7 @@ describe('Feature: ui-design-system, Property 14: Enum values are lowercase stri
     it('should have all values as lowercase strings', () => {
       const values = Object.values(StatType);
       fc.assert(
-        fc.property(fc.constantFrom(...values), (value) => {
+        fc.property(fc.constantFrom(...values), (value: string) => {
           expect(typeof value).toBe('string');
           expect(value).toMatch(lowercasePattern);
         }),
@@ -76,7 +76,7 @@ describe('Feature: ui-design-system, Property 14: Enum values are lowercase stri
     it('should have all values as lowercase strings', () => {
       const values = Object.values(League);
       fc.assert(
-        fc.property(fc.constantFrom(...values), (value) => {
+        fc.property(fc.constantFrom(...values), (value: string) => {
           expect(typeof value).toBe('string');
           expect(value).toMatch(lowercasePattern);
         }),
@@ -89,7 +89,7 @@ describe('Feature: ui-design-system, Property 14: Enum values are lowercase stri
     it('should have all values as lowercase strings', () => {
       const values = Object.values(ArcType);
       fc.assert(
-        fc.property(fc.constantFrom(...values), (value) => {
+        fc.property(fc.constantFrom(...values), (value: string) => {
           expect(typeof value).toBe('string');
           expect(value).toMatch(lowercasePattern);
         }),
@@ -102,7 +102,7 @@ describe('Feature: ui-design-system, Property 14: Enum values are lowercase stri
     it('should have all values as lowercase strings', () => {
       const values = Object.values(QuestFrequency);
       fc.assert(
-        fc.property(fc.constantFrom(...values), (value) => {
+        fc.property(fc.constantFrom(...values), (value: string) => {
           expect(typeof value).toBe('string');
           expect(value).toMatch(lowercasePattern);
         }),

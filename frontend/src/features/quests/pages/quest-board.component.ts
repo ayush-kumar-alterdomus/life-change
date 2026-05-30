@@ -1,4 +1,5 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit, signal } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, DestroyRef, inject, OnInit, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { CommonModule } from '@angular/common';
 import {
   IonContent,
@@ -30,7 +31,10 @@ import {
 } from 'ionicons/icons';
 
 import { Quest, DailyQuestsResponse, QuestService } from '../services/quest.service';
-import { CreateQuestModalComponent, CreateQuestPayload } from './create-quest-modal/create-quest-modal.component';
+import {
+  CreateQuestModalComponent,
+  CreateQuestPayload,
+} from './create-quest-modal/create-quest-modal.component';
 
 @Component({
   selector: 'app-quest-board',
@@ -62,6 +66,8 @@ import { CreateQuestModalComponent, CreateQuestPayload } from './create-quest-mo
   ],
 })
 export class QuestBoardComponent implements OnInit {
+  private readonly destroyRef = inject(DestroyRef);
+
   dailyQuests = signal<DailyQuestsResponse | null>(null);
   loading = signal(true);
   completing = signal(false);
@@ -80,7 +86,7 @@ export class QuestBoardComponent implements OnInit {
 
   loadQuests() {
     this.loading.set(true);
-    this.questService.getDailyQuests().subscribe({
+    this.questService.getDailyQuests().pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
       next: (data) => {
         this.dailyQuests.set(data);
         this.loading.set(false);
@@ -94,7 +100,7 @@ export class QuestBoardComponent implements OnInit {
 
   completeQuest(quest: Quest) {
     this.completing.set(true);
-    this.questService.completeQuest(quest.id).subscribe({
+    this.questService.completeQuest(quest.id).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
       next: (res) => {
         quest.completed = true;
         const current = this.dailyQuests()!;
@@ -113,7 +119,7 @@ export class QuestBoardComponent implements OnInit {
   }
 
   refresh(event: { target: { complete: () => void } }) {
-    this.questService.getDailyQuests().subscribe({
+    this.questService.getDailyQuests().pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
       next: (data) => {
         this.dailyQuests.set(data);
         event.target.complete();
@@ -127,7 +133,7 @@ export class QuestBoardComponent implements OnInit {
   }
 
   onQuestCreated(payload: CreateQuestPayload) {
-    this.questService.createQuest(payload).subscribe({
+    this.questService.createQuest(payload).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
       next: () => {
         this.showCreateModal = false;
         this.loadQuests();

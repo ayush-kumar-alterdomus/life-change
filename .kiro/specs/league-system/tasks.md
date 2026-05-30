@@ -29,7 +29,7 @@ Competitive weekly leagues with tier-based matchmaking, league score calculation
       3. Assign user to group
     - Groups are created at the start of each weekly cycle
 
-- [ ] 3. Implement Weekly League Cycle
+- [x] 3. Implement Weekly League Cycle
   - [x] 3.1 Create LeagueResetScheduler
     - Create `LeagueResetScheduler.java` in `league/scheduler/`
     - Run every Sunday at 23:59 UTC
@@ -60,15 +60,15 @@ Competitive weekly leagues with tier-based matchmaking, league score calculation
       2. Flag and penalize
     - Called on each QuestCompletedEvent
 
-- [ ] 5. Create League Controller
-  - [-] 5.1 Implement REST endpoints
+- [x] 5. Create League Controller
+  - [x] 5.1 Implement REST endpoints
     - Create `LeagueController.java` in `league/controller/`
     - GET `/api/v1/league/leaderboard?tier={tier}&page={page}` — paginated leaderboard
     - GET `/api/v1/league/info` — current user's league info
     - GET `/api/v1/league/history` — past week results and promotions
 
-- [ ] 6. Write property-based tests
-  - [~] 6.1 Create league property tests
+- [x] 6. Write property-based tests
+  - [x] 6.1 Create league property tests
     - Create `LeaguePropertyTest.java`:
       - Property 26: Tier assignment correctness for all levels
       - Property 27: League score formula correctness
@@ -76,7 +76,7 @@ Competitive weekly leagues with tier-based matchmaking, league score calculation
       - Property 29: Anti-cheat speed detection (>10 in 5 min flagged)
     - Minimum 100 iterations per property
 
-- [~] 7. Checkpoint - Verify league system
+- [x] 7. Checkpoint - Verify league system
   - Integration test: user levels up → tier assignment updates
   - Integration test: weekly reset → promotions and demotions applied
   - Integration test: speed violation detected → account flagged

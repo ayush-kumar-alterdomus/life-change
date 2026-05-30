@@ -1,4 +1,11 @@
-import { Component, ChangeDetectionStrategy, DestroyRef, inject, signal } from '@angular/core';
+import {
+  Component,
+  ChangeDetectionStrategy,
+  DestroyRef,
+  ElementRef,
+  inject,
+  signal,
+} from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
@@ -50,6 +57,7 @@ export class LoginComponent {
   private readonly authService = inject(AuthService);
   private readonly navCtrl = inject(NavController);
   private readonly hapticService = inject(HapticService);
+  private readonly el = inject(ElementRef);
   private readonly destroyRef = inject(DestroyRef);
 
   readonly showPassword = signal(false);
@@ -116,7 +124,7 @@ export class LoginComponent {
     const controls = this.loginForm.controls;
     for (const key of Object.keys(controls)) {
       if (controls[key].invalid) {
-        const element = document.querySelector<HTMLElement>(
+        const element = (this.el.nativeElement as HTMLElement).querySelector<HTMLElement>(
           `[formControlName="${key}"] input, [formControlName="${key}"]`,
         );
         if (element) {

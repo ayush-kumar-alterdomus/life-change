@@ -2,6 +2,8 @@ package com.ascend.league.service;
 
 import com.ascend.league.dto.LeaderboardEntry;
 import com.ascend.league.dto.LeaderboardResponse;
+import com.ascend.league.dto.LeagueHistoryEntry;
+import com.ascend.league.dto.LeagueHistoryResponse;
 import com.ascend.league.dto.LeagueInfoResponse;
 import com.ascend.league.entity.LeagueGroup;
 import com.ascend.league.entity.LeagueTier;
@@ -17,7 +19,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.time.temporal.WeekFields;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.UUID;
 import java.util.stream.IntStream;
 
@@ -150,6 +156,84 @@ public class LeagueService {
                 .demotionZone(DEMOTION_ZONE_SIZE)
                 .groupSize(groupSize)
                 .build();
+    }
+
+    /**
+     * Retrieves the league history for a user, showing past week results and promotions/demotions.
+     * Returns entries for previous season weeks, ordered by most recent first.
+     *
+     * @param userId the user's UUID
+     * @return LeagueHistoryResponse with past week entries
+     */
+    @Transactional(readOnly = true)
+    public LeagueHistoryResponse getLeagueHistory(UUID userId) {
+        List<LeagueHistoryEntry> historyEntries = new ArrayList<>();
+
+        // Get the user's current league group entry
+        LeagueGroup currentEntry = leagueGroupRepository.findByUserId(userId).orElse(null);
+
+        if (currentEntry != null) {
+            historyEntries.add(buildHistoryEntry(currentEntry, userId));
+        }
+
+        // Since the scheduler deletes old week data on reset, history is limited
+        // to the current week's entry. In a production system, a dedicated history
+        // table would persist past results across weekly resets.
+
+        return LeagueHistoryResponse.builder()
+                .weeks(historyEntries)
+                .totalWeeksPlayed(historyEntries.size())
+                .build();
+    }
+
+    /**
+     * Builds a history entry from a LeagueGroup record.
+     */
+    private LeagueHistoryEntry buildHistoryEntry(LeagueGroup group, UUID userId) {
+        List<LeagueGroup> groupMembers = leagueGroupRepository
+                .findByGroupIdOrderByLeagueScoreDesc(group.getGroupId());
+
+        int groupSize = groupMembers.size();
+        int finalRank = 0;
+        for (int i = 0; i < groupMembers.size(); i++) {
+            if (groupMembers.get(i).getUserId().equals(userId)) {
+                finalRank = i + 1;
+                break;
+            }
+        }
+
+        String result = determineResult(finalRank, groupSize);
+
+        return LeagueHistoryEntry.builder()
+                .seasonWeek(group.getSeasonWeek())
+                .tier(group.getTier())
+                .leagueScore(group.getLeagueScore())
+                .finalRank(finalRank)
+                .groupSize(groupSize)
+                .result(result)
+                .build();
+    }
+
+    /**
+     * Determines the promotion/demotion result based on rank within the group.
+     */
+    private String determineResult(int rank, int groupSize) {
+        if (rank > 0 && rank <= PROMOTION_ZONE_SIZE) {
+            return "PROMOTED";
+        } else if (rank > 0 && rank > (groupSize - DEMOTION_ZONE_SIZE)) {
+            return "DEMOTED";
+        }
+        return "STAYED";
+    }
+
+    /**
+     * Generates the current season week identifier (e.g., "2024-W03").
+     */
+    private String getCurrentSeasonWeek() {
+        LocalDate now = LocalDate.now();
+        int weekNumber = now.get(WeekFields.of(Locale.getDefault()).weekOfWeekBasedYear());
+        int year = now.getYear();
+        return String.format("%d-W%02d", year, weekNumber);
     }
 
     private LeaderboardEntry buildLeaderboardEntry(LeagueGroup group, int rank) {

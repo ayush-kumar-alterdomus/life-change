@@ -2,6 +2,7 @@ import {
   Component,
   ChangeDetectionStrategy,
   DestroyRef,
+  ElementRef,
   inject,
   signal,
   computed,
@@ -62,6 +63,7 @@ export class SignupComponent {
   private readonly authService = inject(AuthService);
   private readonly navCtrl = inject(NavController);
   private readonly hapticService = inject(HapticService);
+  private readonly el = inject(ElementRef);
   private readonly destroyRef = inject(DestroyRef);
 
   readonly showPassword = signal(false);
@@ -145,7 +147,7 @@ export class SignupComponent {
     const controls = this.signupForm.controls;
     for (const key of Object.keys(controls)) {
       if (controls[key].invalid) {
-        const element = document.querySelector<HTMLElement>(
+        const element = (this.el.nativeElement as HTMLElement).querySelector<HTMLElement>(
           `[formControlName="${key}"] input, [formControlName="${key}"]`,
         );
         if (element) {
