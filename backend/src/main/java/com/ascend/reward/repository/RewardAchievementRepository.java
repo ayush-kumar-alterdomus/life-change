@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Repository
-public interface AchievementRepository extends JpaRepository<Achievement, UUID> {
+public interface RewardAchievementRepository extends JpaRepository<Achievement, UUID> {
     List<Achievement> findByUserId(UUID userId);
     boolean existsByUserIdAndName(UUID userId, String name);
 }

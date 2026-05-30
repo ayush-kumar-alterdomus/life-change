@@ -3,7 +3,7 @@ package com.ascend.reward.service;
 import com.ascend.reward.dto.AchievementResponse;
 import com.ascend.reward.entity.Achievement;
 import com.ascend.reward.event.AchievementUnlockedEvent;
-import com.ascend.reward.repository.AchievementRepository;
+import com.ascend.reward.repository.RewardAchievementRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationEventPublisher;
@@ -18,7 +18,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class AchievementService {
 
-    private final AchievementRepository achievementRepository;
+    private final RewardAchievementRepository achievementRepository;
     private final ApplicationEventPublisher eventPublisher;
 
     @Transactional

@@ -30,6 +30,15 @@ export interface CreateQuestRequest {
   frequency: string;
 }
 
+export interface UpdateQuestRequest {
+  title?: string;
+  description?: string;
+  difficulty?: string;
+  xpReward?: number;
+  statType?: string;
+  frequency?: string;
+}
+
 interface ApiResponse<T> {
   success: boolean;
   data: T;
@@ -70,5 +79,13 @@ export class QuestService {
 
   getCustomQuests(): Observable<Quest[]> {
     return this.api.get<ApiResponse<Quest[]>>('/quests/custom').pipe(map((res) => res.data));
+  }
+
+  updateQuest(id: string, request: UpdateQuestRequest): Observable<Quest> {
+    return this.api.put<ApiResponse<Quest>>(`/quests/${id}`, request).pipe(map((res) => res.data));
+  }
+
+  deleteQuest(id: string): Observable<void> {
+    return this.api.delete<void>(`/quests/${id}`);
   }
 }

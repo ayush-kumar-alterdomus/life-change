@@ -8,6 +8,7 @@ import com.ascend.quest.dto.CreateQuestRequest;
 import com.ascend.quest.dto.DailyQuestsResponse;
 import com.ascend.quest.dto.QuestCompletionResponse;
 import com.ascend.quest.dto.QuestResponse;
+import com.ascend.quest.dto.UpdateQuestRequest;
 import com.ascend.quest.service.QuestCompletionService;
 import com.ascend.quest.service.QuestService;
 import com.ascend.user.entity.User;
@@ -16,9 +17,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -132,6 +135,37 @@ public class QuestController {
         QuestResponse response = questService.getQuestById(id);
 
         return ResponseEntity.ok(ApiResponse.success(response));
+    }
+
+    /**
+     * PUT /api/v1/quests/{id}
+     * Updates a custom quest owned by the authenticated user.
+     */
+    @PutMapping("/{id}")
+    public ResponseEntity<ApiResponse<QuestResponse>> updateQuest(
+            @AuthenticationPrincipal FirebasePrincipal principal,
+            @PathVariable UUID id,
+            @Valid @RequestBody UpdateQuestRequest request) {
+
+        User user = authService.getCurrentUser(principal.uid());
+        QuestResponse response = questService.updateQuest(user.getId(), id, request);
+
+        return ResponseEntity.ok(ApiResponse.success("Quest updated", response));
+    }
+
+    /**
+     * DELETE /api/v1/quests/{id}
+     * Deletes a custom quest owned by the authenticated user.
+     */
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteQuest(
+            @AuthenticationPrincipal FirebasePrincipal principal,
+            @PathVariable UUID id) {
+
+        User user = authService.getCurrentUser(principal.uid());
+        questService.deleteQuest(user.getId(), id);
+
+        return ResponseEntity.noContent().build();
     }
 
     /**

@@ -6,6 +6,7 @@ import com.ascend.premium.service.PremiumService;
 import com.ascend.quest.dto.CreateQuestRequest;
 import com.ascend.quest.dto.DailyQuestsResponse;
 import com.ascend.quest.dto.QuestResponse;
+import com.ascend.quest.dto.UpdateQuestRequest;
 import com.ascend.quest.entity.Quest;
 import com.ascend.quest.entity.QuestCompletion;
 import com.ascend.quest.exception.CustomQuestLimitException;
@@ -214,5 +215,94 @@ public class QuestService {
         return completions.stream()
                 .map(QuestCompletion::getQuestId)
                 .collect(Collectors.toSet());
+    }
+
+    /**
+     * Updates a custom quest owned by the user.
+     * Only non-null fields in the request are applied (partial update).
+     *
+     * @param userId  the authenticated user's ID
+     * @param questId the quest to update
+     * @param request the update request with optional fields
+     * @return the updated quest response
+     */
+    @Transactional
+    public QuestResponse updateQuest(UUID userId, UUID questId, UpdateQuestRequest request) {
+        log.info("Updating quest={} for user={}", questId, userId);
+
+        Quest quest = questRepository.findById(questId)
+                .orElseThrow(() -> new BusinessException("QUEST_NOT_FOUND",
+                        "Quest not found with id: " + questId));
+
+        if (!quest.isCustom()) {
+            throw new BusinessException("SYSTEM_QUEST", "System quests cannot be modified");
+        }
+
+        if (quest.getCreatedBy() == null || !quest.getCreatedBy().getId().equals(userId)) {
+            throw new BusinessException("NOT_QUEST_OWNER", "You can only update your own quests");
+        }
+
+        if (request.getTitle() != null) {
+            if (request.getTitle().isBlank() || request.getTitle().length() > 100) {
+                throw new BusinessException("VALIDATION_FAILED", "Title must be 1-100 characters");
+            }
+            quest.setTitle(request.getTitle());
+        }
+        if (request.getDescription() != null) {
+            quest.setDescription(request.getDescription());
+        }
+        if (request.getDifficulty() != null) {
+            quest.setDifficulty(request.getDifficulty());
+        }
+        if (request.getXpReward() != null) {
+            if (request.getXpReward() < 10 || request.getXpReward() > 300) {
+                throw new BusinessException("VALIDATION_FAILED", "XP reward must be between 10 and 300");
+            }
+            quest.setXpReward(request.getXpReward());
+        }
+        if (request.getStatType() != null) {
+            quest.setStatType(request.getStatType());
+        }
+        if (request.getFrequency() != null) {
+            quest.setFrequency(request.getFrequency());
+            quest.setRecurring(request.getFrequency() == Frequency.DAILY || request.getFrequency() == Frequency.WEEKLY);
+        }
+
+        Quest saved = questRepository.save(quest);
+        log.info("Quest updated: id={}, user={}", questId, userId);
+        return QuestMapper.toResponse(saved);
+    }
+
+    /**
+     * Deletes a custom quest owned by the user.
+     * Also removes associated completion history.
+     *
+     * @param userId  the authenticated user's ID
+     * @param questId the quest to delete
+     */
+    @Transactional
+    public void deleteQuest(UUID userId, UUID questId) {
+        log.info("Deleting quest={} for user={}", questId, userId);
+
+        Quest quest = questRepository.findById(questId)
+                .orElseThrow(() -> new BusinessException("QUEST_NOT_FOUND",
+                        "Quest not found with id: " + questId));
+
+        if (!quest.isCustom()) {
+            throw new BusinessException("SYSTEM_QUEST", "System quests cannot be deleted");
+        }
+
+        if (quest.getCreatedBy() == null || !quest.getCreatedBy().getId().equals(userId)) {
+            throw new BusinessException("NOT_QUEST_OWNER", "You can only delete your own quests");
+        }
+
+        if (quest.getArcId() != null) {
+            throw new BusinessException("ARC_LINKED_QUEST",
+                    "Cannot delete a quest linked to an arc. Abandon the arc first.");
+        }
+
+        questCompletionRepository.deleteByQuestId(questId);
+        questRepository.delete(quest);
+        log.info("Quest deleted: id={}, user={}", questId, userId);
     }
 }
