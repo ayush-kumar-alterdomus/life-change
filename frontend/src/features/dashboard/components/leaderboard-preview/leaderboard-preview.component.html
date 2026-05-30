@@ -1,0 +1,38 @@
+<section class="leaderboard-preview" aria-label="Leaderboard Preview">
+  <h2 class="leaderboard-preview__title">Leaderboard</h2>
+
+  <div class="leaderboard-preview__user-stats">
+    <span class="leaderboard-preview__rank" aria-label="Your rank">
+      #{{ preview().userRank }}
+    </span>
+    <span class="leaderboard-preview__xp">
+      {{ preview().userXpTotal | number }} XP
+    </span>
+    <span class="leaderboard-preview__league">
+      {{ preview().leagueName }}
+    </span>
+  </div>
+
+  <div class="leaderboard-preview__top-three">
+    @for (entry of preview().topThree; track entry.rank) {
+      <app-leaderboard-card
+        [rank]="entry.rank"
+        [username]="entry.username"
+        [level]="entry.level"
+        [xpTotal]="entry.xpTotal"
+        [avatarUrl]="entry.avatarUrl"
+        [isCurrentUser]="entry.isCurrentUser"
+      />
+    }
+  </div>
+
+  <ion-button
+    expand="block"
+    fill="outline"
+    class="leaderboard-preview__cta"
+    aria-label="View Full Rankings"
+    (click)="viewFullRankings.emit()"
+  >
+    View Full Rankings
+  </ion-button>
+</section>

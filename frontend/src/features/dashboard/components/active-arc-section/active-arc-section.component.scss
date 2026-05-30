@@ -1,0 +1,73 @@
+:host {
+  display: block;
+}
+
+.active-arc-section {
+  &__title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #ffffff;
+    margin: 0 0 12px;
+  }
+
+  &__card-wrapper {
+    position: relative;
+  }
+
+  &__progress-label {
+    display: block;
+    margin-top: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #b0b0b0;
+    text-align: right;
+  }
+
+  &__prompt-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 32px 24px;
+    background: #161616;
+    border-radius: 12px;
+    text-align: center;
+  }
+
+  &__prompt-icon {
+    font-size: 40px;
+    margin-bottom: 12px;
+  }
+
+  &__prompt-text {
+    font-size: 16px;
+    font-weight: 600;
+    color: #ffffff;
+    margin: 0 0 16px;
+  }
+
+  &__cta-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 140px;
+    min-height: 44px;
+    padding: 12px 24px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #0a0a0a;
+    background: linear-gradient(135deg, #ff9800, #a855f7);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+
+    &:hover {
+      opacity: 0.9;
+    }
+
+    &:active {
+      opacity: 0.8;
+    }
+  }
+}

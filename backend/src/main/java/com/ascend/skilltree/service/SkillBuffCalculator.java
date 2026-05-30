@@ -94,7 +94,7 @@ public class SkillBuffCalculator {
 
         double totalBuff = buffs.getOrDefault(statType, 0.0);
         double boosted = baseXp * (1.0 + totalBuff);
-        return (int) Math.round(boosted);
+        return (int) Math.floor(boosted);
     }
 
     /**

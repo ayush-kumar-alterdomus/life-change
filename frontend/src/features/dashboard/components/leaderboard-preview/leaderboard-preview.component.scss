@@ -1,0 +1,69 @@
+:host {
+  display: block;
+}
+
+.leaderboard-preview {
+  background: #161616;
+  border-radius: 12px;
+  padding: var(--space-4, 16px);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.leaderboard-preview__title {
+  font-family: var(--font-body, 'Inter', sans-serif);
+  font-size: var(--text-lg, 18px);
+  font-weight: 600;
+  color: var(--color-text-primary, #ffffff);
+  margin: 0 0 var(--space-3, 12px);
+}
+
+.leaderboard-preview__user-stats {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3, 12px);
+  margin-bottom: var(--space-4, 16px);
+  padding: var(--space-3, 12px);
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 8px;
+}
+
+.leaderboard-preview__rank {
+  font-family: 'Orbitron', var(--font-display, sans-serif);
+  font-size: var(--text-xl, 20px);
+  font-weight: 700;
+  color: var(--color-accent, #FF9800);
+}
+
+.leaderboard-preview__xp {
+  font-family: var(--font-body, 'Inter', sans-serif);
+  font-size: var(--text-sm, 14px);
+  color: var(--color-text-secondary, #B0B0B0);
+}
+
+.leaderboard-preview__league {
+  margin-left: auto;
+  font-family: var(--font-body, 'Inter', sans-serif);
+  font-size: var(--text-sm, 14px);
+  font-weight: 500;
+  color: var(--color-text-primary, #ffffff);
+  padding: 2px 8px;
+  background: rgba(168, 85, 247, 0.15);
+  border-radius: 4px;
+}
+
+.leaderboard-preview__top-three {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2, 8px);
+  margin-bottom: var(--space-4, 16px);
+}
+
+.leaderboard-preview__cta {
+  --border-color: var(--color-accent, #FF9800);
+  --color: var(--color-accent, #FF9800);
+  --border-radius: 8px;
+  font-weight: 500;
+  min-height: 44px;
+}

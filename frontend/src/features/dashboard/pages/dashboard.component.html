@@ -1,0 +1,169 @@
+<ion-content [fullscreen]="true" class="dashboard-content">
+  <!-- Pull-to-Refresh -->
+  <ion-refresher slot="fixed" (ionRefresh)="onRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="chevron-down-circle-outline"
+      refreshingSpinner="crescent"
+    ></ion-refresher-content>
+  </ion-refresher>
+
+  <div class="dashboard-container">
+    <!-- ═══ Header Section ═══ -->
+    @if (userSummary().status === 'loaded') {
+      <app-header-section
+        [displayName]="$any(userSummary()).data.displayName"
+        [level]="$any(userSummary()).data.level"
+        [streakDays]="$any(userSummary()).data.currentStreak"
+        aria-label="User greeting and stats"
+      ></app-header-section>
+    } @else if (userSummary().status === 'loading') {
+      <div class="skeleton-header" aria-hidden="true">
+        <div class="skeleton-text skeleton-shimmer"></div>
+        <div class="skeleton-header-icons">
+          <div class="skeleton-circle skeleton-shimmer"></div>
+          <div class="skeleton-circle skeleton-shimmer"></div>
+        </div>
+      </div>
+    } @else if (userSummary().status === 'error') {
+      <div class="section-error" role="alert">
+        <p>Failed to load header</p>
+        <button type="button" class="retry-btn" (click)="onRetrySection('userSummary')" aria-label="Retry loading header">
+          Retry
+        </button>
+      </div>
+    }
+
+    <!-- ═══ XP Progress Card ═══ -->
+    @if (xpProgress().status === 'loaded') {
+      <app-xp-progress-card
+        [currentLevel]="$any(xpProgress()).data.currentLevel"
+        [currentXp]="$any(xpProgress()).data.currentXp"
+        [requiredXp]="$any(xpProgress()).data.requiredXp"
+        aria-label="XP progress toward next level"
+      ></app-xp-progress-card>
+    } @else if (xpProgress().status === 'loading') {
+      <div class="skeleton-xp-card skeleton-shimmer" aria-hidden="true"></div>
+    } @else if (xpProgress().status === 'error') {
+      <div class="section-error" role="alert">
+        <p>Failed to load XP progress</p>
+        <button type="button" class="retry-btn" (click)="onRetrySection('xpProgress')" aria-label="Retry loading XP progress">
+          Retry
+        </button>
+      </div>
+    }
+
+    <!-- ═══ Daily Summary ═══ -->
+    @if (dailyStats().status === 'loaded') {
+      <section aria-labelledby="daily-summary-heading">
+        <h2 id="daily-summary-heading" class="section-title">Today's Summary</h2>
+        <app-daily-summary [stats]="$any(dailyStats()).data"></app-daily-summary>
+      </section>
+    } @else if (dailyStats().status === 'loading') {
+      <div class="skeleton-daily-summary" aria-hidden="true">
+        <div class="skeleton-mini-grid">
+          <div class="skeleton-mini-card skeleton-shimmer"></div>
+          <div class="skeleton-mini-card skeleton-shimmer"></div>
+          <div class="skeleton-mini-card skeleton-shimmer"></div>
+          <div class="skeleton-mini-card skeleton-shimmer"></div>
+        </div>
+      </div>
+    } @else if (dailyStats().status === 'error') {
+      <div class="section-error" role="alert">
+        <p>Failed to load daily summary</p>
+        <button type="button" class="retry-btn" (click)="onRetrySection('dailyStats')" aria-label="Retry loading daily summary">
+          Retry
+        </button>
+      </div>
+    }
+
+    <!-- ═══ Active Arc ═══ -->
+    @if (activeArc().status === 'loaded') {
+      <section aria-labelledby="active-arc-heading">
+        <h2 id="active-arc-heading" class="section-title">Active Arc</h2>
+        <app-active-arc-section
+          [activeArc]="$any(activeArc()).data"
+          (navigateToArc)="onNavigateToArc()"
+          (navigateToArcSelection)="onNavigateToArcSelection()"
+        ></app-active-arc-section>
+      </section>
+    } @else if (activeArc().status === 'loading') {
+      <div class="skeleton-arc-card skeleton-shimmer" aria-hidden="true"></div>
+    } @else if (activeArc().status === 'error') {
+      <div class="section-error" role="alert">
+        <p>Failed to load active arc</p>
+        <button type="button" class="retry-btn" (click)="onRetrySection('activeArc')" aria-label="Retry loading active arc">
+          Retry
+        </button>
+      </div>
+    }
+
+    <!-- ═══ Quest List ═══ -->
+    @if (todayQuests().status === 'loaded') {
+      <section aria-labelledby="quests-heading">
+        <h2 id="quests-heading" class="section-title">Today's Quests</h2>
+        <app-quest-list
+          [quests]="$any(todayQuests()).data"
+          (completeQuest)="onCompleteQuest($event)"
+          (skipQuest)="onSkipQuest($event)"
+          (editQuest)="onEditQuest($event)"
+          (viewAll)="onViewAllQuests()"
+        ></app-quest-list>
+      </section>
+    } @else if (todayQuests().status === 'loading') {
+      <div class="skeleton-quest-list" aria-hidden="true">
+        <div class="skeleton-quest-card skeleton-shimmer"></div>
+        <div class="skeleton-quest-card skeleton-shimmer skeleton-delay-1"></div>
+        <div class="skeleton-quest-card skeleton-shimmer skeleton-delay-2"></div>
+      </div>
+    } @else if (todayQuests().status === 'error') {
+      <div class="section-error" role="alert">
+        <p>Failed to load quests</p>
+        <button type="button" class="retry-btn" (click)="onRetrySection('todayQuests')" aria-label="Retry loading quests">
+          Retry
+        </button>
+      </div>
+    }
+
+    <!-- ═══ Motivation Widget ═══ -->
+    <app-motivation-widget></app-motivation-widget>
+
+    <!-- ═══ Leaderboard Preview ═══ -->
+    @if (leaderboardPreview().status === 'loaded') {
+      <section aria-labelledby="leaderboard-heading">
+        <h2 id="leaderboard-heading" class="section-title">Leaderboard</h2>
+        <app-leaderboard-preview
+          [preview]="$any(leaderboardPreview()).data"
+          (viewFullRankings)="onViewFullRankings()"
+        ></app-leaderboard-preview>
+      </section>
+    } @else if (leaderboardPreview().status === 'loading') {
+      <div class="skeleton-leaderboard skeleton-shimmer" aria-hidden="true"></div>
+    } @else if (leaderboardPreview().status === 'error') {
+      <div class="section-error" role="alert">
+        <p>Failed to load leaderboard</p>
+        <button type="button" class="retry-btn" (click)="onRetrySection('leaderboardPreview')" aria-label="Retry loading leaderboard">
+          Retry
+        </button>
+      </div>
+    }
+  </div>
+
+  <!-- Full-page error overlay when ALL sections fail -->
+  @if (
+    userSummary().status === 'error' &&
+    xpProgress().status === 'error' &&
+    dailyStats().status === 'error' &&
+    activeArc().status === 'error' &&
+    todayQuests().status === 'error' &&
+    leaderboardPreview().status === 'error'
+  ) {
+    <div class="full-page-error" role="alert">
+      <ion-icon name="cloud-offline-outline" class="error-icon"></ion-icon>
+      <h2>Something went wrong</h2>
+      <p>We couldn't load your dashboard. Please check your connection and try again.</p>
+      <button type="button" class="retry-btn retry-btn--large" (click)="onRetryAll()" aria-label="Try loading dashboard again">
+        Try Again
+      </button>
+    </div>
+  }
+</ion-content>

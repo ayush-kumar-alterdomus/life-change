@@ -1,0 +1,33 @@
+<section class="active-arc-section" aria-labelledby="active-arc-heading">
+  <h2 id="active-arc-heading" class="active-arc-section__title">Active Arc</h2>
+
+  @if (activeArc()) {
+    <div class="active-arc-section__card-wrapper">
+      <app-arc-card
+        [arcName]="activeArc()!.name"
+        [progressPercentage]="activeArc()!.progressPercentage"
+        [currentPhase]="activeArc()!.currentPhase"
+        [arcType]="activeArc()!.arcType"
+        (navigate)="navigateToArc.emit()"
+      />
+      <span class="active-arc-section__progress-label">{{ progressLabel() }}</span>
+    </div>
+  } @else {
+    <div
+      class="active-arc-section__prompt-card"
+      role="region"
+      aria-label="No active arc"
+    >
+      <div class="active-arc-section__prompt-icon">🚀</div>
+      <p class="active-arc-section__prompt-text">Start your first Arc</p>
+      <button
+        class="active-arc-section__cta-button"
+        type="button"
+        aria-label="Start your first Arc"
+        (click)="navigateToArcSelection.emit()"
+      >
+        Get Started
+      </button>
+    </div>
+  }
+</section>

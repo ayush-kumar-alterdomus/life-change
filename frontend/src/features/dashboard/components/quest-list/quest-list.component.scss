@@ -1,0 +1,98 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+.quest-list {
+  background: transparent;
+  padding: 0;
+
+  ion-item-sliding {
+    margin-bottom: 8px;
+  }
+
+  &__item {
+    --background: transparent;
+    --padding-start: 0;
+    --padding-end: 0;
+    --inner-padding-end: 0;
+
+    app-quest-card {
+      width: 100%;
+    }
+  }
+
+  &__action {
+    min-width: 72px;
+    min-height: 44px;
+    font-size: 12px;
+    font-weight: 600;
+
+    // Ensure 44x44px minimum touch target
+    ion-icon {
+      font-size: 24px;
+      margin-bottom: 4px;
+    }
+
+    &--complete {
+      --background: #4caf50;
+      --color: #ffffff;
+    }
+
+    &--skip {
+      --color: #ffffff;
+    }
+
+    &--edit {
+      --color: #ffffff;
+    }
+  }
+
+  &__empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 48px 24px;
+    text-align: center;
+  }
+
+  &__empty-icon {
+    font-size: 48px;
+    color: var(--ion-color-medium, #808080);
+    margin-bottom: 16px;
+  }
+
+  &__empty-message {
+    font-size: 16px;
+    color: var(--ion-text-color-secondary, #b0b0b0);
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+  }
+
+  &__view-all {
+    display: block;
+    width: 100%;
+    padding: 12px 16px;
+    margin-top: 8px;
+    background: transparent;
+    border: 1px solid var(--ion-color-primary, #ff9800);
+    border-radius: 8px;
+    color: var(--ion-color-primary, #ff9800);
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+    cursor: pointer;
+    min-height: 44px;
+    min-width: 44px;
+    transition: background-color 0.2s ease;
+
+    &:hover {
+      background: rgba(255, 152, 0, 0.08);
+    }
+
+    &:active {
+      background: rgba(255, 152, 0, 0.16);
+    }
+  }
+}

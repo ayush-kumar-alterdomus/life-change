@@ -1,0 +1,10 @@
+<div class="daily-summary__grid" role="list" aria-label="Daily summary statistics">
+  @for (card of cards(); track card.label) {
+    <app-mini-card
+      role="listitem"
+      [icon]="card.icon"
+      [value]="card.value"
+      [label]="card.label"
+    />
+  }
+</div>

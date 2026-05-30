@@ -1,0 +1,69 @@
+@if (isEmpty()) {
+  <div class="quest-list__empty-state" role="status" aria-label="No quests available">
+    <ion-icon name="moon-outline" class="quest-list__empty-icon" aria-hidden="true"></ion-icon>
+    <p class="quest-list__empty-message">No quests for today. Enjoy your rest!</p>
+  </div>
+} @else {
+  <ion-list class="quest-list" lines="none">
+    @for (quest of displayedQuests(); track quest.id) {
+      <ion-item-sliding>
+        <!-- Right swipe: Complete action -->
+        <ion-item-options side="start">
+          <ion-item-option
+            color="success"
+            class="quest-list__action quest-list__action--complete"
+            (click)="onComplete(quest.id)"
+            aria-label="Complete quest: {{ quest.title }}"
+          >
+            <ion-icon name="checkmark-circle-outline" slot="icon-only"></ion-icon>
+            Complete
+          </ion-item-option>
+        </ion-item-options>
+
+        <!-- Quest card content -->
+        <ion-item class="quest-list__item">
+          <app-quest-card
+            [title]="quest.title"
+            [xpReward]="quest.xpReward"
+            [difficulty]="quest.difficulty"
+            [statType]="quest.statType"
+            [completed]="quest.completed"
+            [timeEstimate]="quest.timeEstimate ?? ''"
+          ></app-quest-card>
+        </ion-item>
+
+        <!-- Left swipe: Skip and Edit actions -->
+        <ion-item-options side="end">
+          <ion-item-option
+            color="warning"
+            class="quest-list__action quest-list__action--skip"
+            (click)="onSkip(quest.id)"
+            aria-label="Skip quest: {{ quest.title }}"
+          >
+            <ion-icon name="close-circle-outline" slot="icon-only"></ion-icon>
+            Skip
+          </ion-item-option>
+          <ion-item-option
+            color="tertiary"
+            class="quest-list__action quest-list__action--edit"
+            (click)="onEdit(quest.id)"
+            aria-label="Edit quest: {{ quest.title }}"
+          >
+            <ion-icon name="create-outline" slot="icon-only"></ion-icon>
+            Edit
+          </ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
+    }
+  </ion-list>
+
+  @if (hasOverflow()) {
+    <button
+      class="quest-list__view-all"
+      (click)="onViewAll()"
+      aria-label="View all quests"
+    >
+      View All Quests
+    </button>
+  }
+}

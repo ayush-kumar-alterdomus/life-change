@@ -1,0 +1,29 @@
+:host {
+  display: block;
+}
+
+.motivation-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px;
+  background: #161616;
+  border-radius: 12px;
+  border-left: 4px solid #ff9800;
+}
+
+.motivation-icon {
+  flex-shrink: 0;
+  color: #ff9800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.motivation-message {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #b0b0b0;
+}

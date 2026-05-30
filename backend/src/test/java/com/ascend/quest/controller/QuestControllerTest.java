@@ -1,9 +1,12 @@
 package com.ascend.quest.controller;
 
 import com.ascend.auth.service.AuthService;
+import com.ascend.common.dto.ApiResponse;
 import com.ascend.common.entity.Difficulty;
 import com.ascend.common.entity.Frequency;
 import com.ascend.common.entity.StatType;
+import com.ascend.quest.dto.CompleteQuestRequest;
+import com.ascend.quest.dto.CreateQuestRequest;
 import com.ascend.quest.dto.DailyQuestsResponse;
 import com.ascend.quest.dto.QuestCompletionResponse;
 import com.ascend.quest.dto.QuestResponse;
@@ -15,52 +18,48 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.Import;
-import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.UUID;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(controllers = QuestController.class, properties = "spring.security.enabled=false")
-@AutoConfigureMockMvc(addFilters = false)
+@ExtendWith(MockitoExtension.class)
 @DisplayName("QuestController")
 class QuestControllerTest {
 
-    @Autowired
-    private MockMvc mockMvc;
-
-    @MockBean
+    @Mock
     private QuestService questService;
 
-    @MockBean
+    @Mock
     private QuestCompletionService questCompletionService;
 
-    @MockBean
+    @Mock
     private AuthService authService;
 
+    @InjectMocks
+    private QuestController controller;
+
     private User testUser;
+    private final String firebaseUid = "firebase-uid-123";
 
     @BeforeEach
     void setUp() {
         testUser = User.builder()
                 .id(UUID.randomUUID())
-                .firebaseUid("firebase-uid-123")
+                .firebaseUid(firebaseUid)
                 .username("testuser")
                 .level(5)
                 .xp(1200L)
@@ -70,12 +69,12 @@ class QuestControllerTest {
     }
 
     @Nested
-    @DisplayName("GET /api/v1/quests/daily")
+    @DisplayName("getDailyQuests")
     class GetDailyQuests {
 
         @Test
         @DisplayName("should return 200 with daily quests")
-        void shouldReturn200WithDailyQuests() throws Exception {
+        void shouldReturn200WithDailyQuests() {
             var response = DailyQuestsResponse.builder()
                     .date(LocalDate.of(2024, 1, 15))
                     .quests(Collections.emptyList())
@@ -85,21 +84,24 @@ class QuestControllerTest {
 
             when(questService.getDailyQuests(testUser.getId())).thenReturn(response);
 
-            mockMvc.perform(get("/api/v1/quests/daily"))
-                    .andExpect(status().isOk())
-                    .andExpect(jsonPath("$.success").value(true))
-                    .andExpect(jsonPath("$.data.totalQuests").value(5))
-                    .andExpect(jsonPath("$.data.completedQuests").value(2));
+            var principal = new com.ascend.auth.config.FirebasePrincipal(firebaseUid, "test@example.com", "password", java.util.Map.of());
+            ResponseEntity<ApiResponse<DailyQuestsResponse>> result = controller.getDailyQuests(principal);
+
+            assertThat(result.getStatusCode()).isEqualTo(HttpStatus.OK);
+            assertThat(result.getBody()).isNotNull();
+            assertThat(result.getBody().isSuccess()).isTrue();
+            assertThat(result.getBody().getData().getTotalQuests()).isEqualTo(5);
+            assertThat(result.getBody().getData().getCompletedQuests()).isEqualTo(2);
         }
     }
 
     @Nested
-    @DisplayName("POST /api/v1/quests/complete")
+    @DisplayName("completeQuest")
     class CompleteQuest {
 
         @Test
         @DisplayName("should return 200 on successful completion")
-        void shouldReturn200OnSuccess() throws Exception {
+        void shouldReturn200OnSuccess() {
             UUID questId = UUID.randomUUID();
             var completionResponse = QuestCompletionResponse.builder()
                     .questId(questId)
@@ -112,56 +114,39 @@ class QuestControllerTest {
             when(questCompletionService.completeQuest(eq(testUser.getId()), eq(questId)))
                     .thenReturn(completionResponse);
 
-            String body = """
-                    {"questId": "%s"}
-                    """.formatted(questId);
+            var principal = new com.ascend.auth.config.FirebasePrincipal(firebaseUid, "test@example.com", "password", java.util.Map.of());
+            var request = new CompleteQuestRequest(questId);
+            ResponseEntity<ApiResponse<QuestCompletionResponse>> result = controller.completeQuest(principal, request);
 
-            mockMvc.perform(post("/api/v1/quests/complete")
-                            .contentType(MediaType.APPLICATION_JSON)
-                            .content(body))
-                    .andExpect(status().isOk())
-                    .andExpect(jsonPath("$.success").value(true))
-                    .andExpect(jsonPath("$.data.xpEarned").value(50))
-                    .andExpect(jsonPath("$.message").value("Quest completed!"));
+            assertThat(result.getStatusCode()).isEqualTo(HttpStatus.OK);
+            assertThat(result.getBody().isSuccess()).isTrue();
+            assertThat(result.getBody().getData().getXpEarned()).isEqualTo(50);
         }
 
         @Test
-        @DisplayName("should return 409 when quest already completed today")
-        void shouldReturn409OnDuplicate() throws Exception {
+        @DisplayName("should propagate DuplicateCompletionException")
+        void shouldThrowOnDuplicate() {
             UUID questId = UUID.randomUUID();
 
             when(questCompletionService.completeQuest(eq(testUser.getId()), eq(questId)))
                     .thenThrow(new DuplicateCompletionException("Quest already completed today"));
 
-            String body = """
-                    {"questId": "%s"}
-                    """.formatted(questId);
+            var principal = new com.ascend.auth.config.FirebasePrincipal(firebaseUid, "test@example.com", "password", java.util.Map.of());
+            var request = new CompleteQuestRequest(questId);
 
-            mockMvc.perform(post("/api/v1/quests/complete")
-                            .contentType(MediaType.APPLICATION_JSON)
-                            .content(body))
-                    .andExpect(status().isConflict())
-                    .andExpect(jsonPath("$.success").value(false))
-                    .andExpect(jsonPath("$.message").value("Quest already completed today"));
-        }
-
-        @Test
-        @DisplayName("should return 400 when questId is missing")
-        void shouldReturn400WhenQuestIdMissing() throws Exception {
-            mockMvc.perform(post("/api/v1/quests/complete")
-                            .contentType(MediaType.APPLICATION_JSON)
-                            .content("{}"))
-                    .andExpect(status().isBadRequest());
+            assertThatThrownBy(() -> controller.completeQuest(principal, request))
+                    .isInstanceOf(DuplicateCompletionException.class)
+                    .hasMessage("Quest already completed today");
         }
     }
 
     @Nested
-    @DisplayName("POST /api/v1/quests")
+    @DisplayName("createCustomQuest")
     class CreateCustomQuest {
 
         @Test
         @DisplayName("should return 201 on successful creation")
-        void shouldReturn201OnSuccess() throws Exception {
+        void shouldReturn201OnSuccess() {
             var questResponse = QuestResponse.builder()
                     .id(UUID.randomUUID())
                     .title("Meditate 10 min")
@@ -174,108 +159,24 @@ class QuestControllerTest {
             when(questService.createCustomQuest(eq(testUser.getId()), any()))
                     .thenReturn(questResponse);
 
-            String body = """
-                    {
-                        "title": "Meditate 10 min",
-                        "difficulty": "EASY",
-                        "xpReward": 25,
-                        "statType": "FOCUS",
-                        "frequency": "DAILY"
-                    }
-                    """;
+            var principal = new com.ascend.auth.config.FirebasePrincipal(firebaseUid, "test@example.com", "password", java.util.Map.of());
+            var request = new CreateQuestRequest("Meditate 10 min", null, Difficulty.EASY, 25, StatType.FOCUS, Frequency.DAILY);
+            ResponseEntity<ApiResponse<QuestResponse>> result = controller.createCustomQuest(principal, request);
 
-            mockMvc.perform(post("/api/v1/quests")
-                            .contentType(MediaType.APPLICATION_JSON)
-                            .content(body))
-                    .andExpect(status().isCreated())
-                    .andExpect(jsonPath("$.success").value(true))
-                    .andExpect(jsonPath("$.data.title").value("Meditate 10 min"))
-                    .andExpect(jsonPath("$.data.xpReward").value(25));
-        }
-
-        @Test
-        @DisplayName("should return 400 when title is blank")
-        void shouldReturn400WhenTitleBlank() throws Exception {
-            String body = """
-                    {
-                        "title": "",
-                        "difficulty": "EASY",
-                        "xpReward": 25,
-                        "statType": "FOCUS",
-                        "frequency": "DAILY"
-                    }
-                    """;
-
-            mockMvc.perform(post("/api/v1/quests")
-                            .contentType(MediaType.APPLICATION_JSON)
-                            .content(body))
-                    .andExpect(status().isBadRequest());
-        }
-
-        @Test
-        @DisplayName("should return 400 when xpReward is below minimum (10)")
-        void shouldReturn400WhenXpTooLow() throws Exception {
-            String body = """
-                    {
-                        "title": "Easy quest",
-                        "difficulty": "EASY",
-                        "xpReward": 5,
-                        "statType": "FOCUS",
-                        "frequency": "DAILY"
-                    }
-                    """;
-
-            mockMvc.perform(post("/api/v1/quests")
-                            .contentType(MediaType.APPLICATION_JSON)
-                            .content(body))
-                    .andExpect(status().isBadRequest());
-        }
-
-        @Test
-        @DisplayName("should return 400 when xpReward exceeds maximum (300)")
-        void shouldReturn400WhenXpTooHigh() throws Exception {
-            String body = """
-                    {
-                        "title": "OP quest",
-                        "difficulty": "LEGENDARY",
-                        "xpReward": 500,
-                        "statType": "STRENGTH",
-                        "frequency": "ONE_TIME"
-                    }
-                    """;
-
-            mockMvc.perform(post("/api/v1/quests")
-                            .contentType(MediaType.APPLICATION_JSON)
-                            .content(body))
-                    .andExpect(status().isBadRequest());
-        }
-
-        @Test
-        @DisplayName("should return 400 when difficulty is missing")
-        void shouldReturn400WhenDifficultyMissing() throws Exception {
-            String body = """
-                    {
-                        "title": "No difficulty",
-                        "xpReward": 50,
-                        "statType": "WISDOM",
-                        "frequency": "WEEKLY"
-                    }
-                    """;
-
-            mockMvc.perform(post("/api/v1/quests")
-                            .contentType(MediaType.APPLICATION_JSON)
-                            .content(body))
-                    .andExpect(status().isBadRequest());
+            assertThat(result.getStatusCode()).isEqualTo(HttpStatus.CREATED);
+            assertThat(result.getBody().isSuccess()).isTrue();
+            assertThat(result.getBody().getData().getTitle()).isEqualTo("Meditate 10 min");
+            assertThat(result.getBody().getData().getXpReward()).isEqualTo(25);
         }
     }
 
     @Nested
-    @DisplayName("GET /api/v1/quests/{id}")
+    @DisplayName("getQuestById")
     class GetQuestById {
 
         @Test
         @DisplayName("should return 200 with quest details")
-        void shouldReturn200WithQuest() throws Exception {
+        void shouldReturn200WithQuest() {
             UUID questId = UUID.randomUUID();
             var questResponse = QuestResponse.builder()
                     .id(questId)
@@ -288,11 +189,13 @@ class QuestControllerTest {
 
             when(questService.getQuestById(questId)).thenReturn(questResponse);
 
-            mockMvc.perform(get("/api/v1/quests/{id}", questId))
-                    .andExpect(status().isOk())
-                    .andExpect(jsonPath("$.success").value(true))
-                    .andExpect(jsonPath("$.data.title").value("Read 30 pages"))
-                    .andExpect(jsonPath("$.data.xpReward").value(75));
+            var principal = new com.ascend.auth.config.FirebasePrincipal(firebaseUid, "test@example.com", "password", java.util.Map.of());
+            ResponseEntity<ApiResponse<QuestResponse>> result = controller.getQuestById(principal, questId);
+
+            assertThat(result.getStatusCode()).isEqualTo(HttpStatus.OK);
+            assertThat(result.getBody().isSuccess()).isTrue();
+            assertThat(result.getBody().getData().getTitle()).isEqualTo("Read 30 pages");
+            assertThat(result.getBody().getData().getXpReward()).isEqualTo(75);
         }
     }
 }

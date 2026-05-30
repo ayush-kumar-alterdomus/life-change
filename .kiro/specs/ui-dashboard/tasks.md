@@ -48,14 +48,14 @@ Replace the existing placeholder dashboard with a fully-featured signal-based ho
     - Verify returned index differs from lastIndex and is within bounds [0, poolSize)
     - **Validates: Requirements 7.2, 7.5**
 
-- [ ] 2. Implement DashboardService and DashboardStore
+- [x] 2. Implement DashboardService and DashboardStore
   - [x] 2.1 Create DashboardService
     - Create `features/dashboard/services/dashboard.service.ts` as an injectable service
     - Inject `ApiService` and implement methods: `getUserSummary()`, `getXpProgress()`, `getDailyStats()`, `getActiveArc()`, `getTodayQuests()`, `getLeaderboardPreview()`, `completeQuest(questId)`, `skipQuest(questId)`
     - Use `HttpContext` with `SKIP_LOADING` token on all requests to prevent global loading overlay
     - _Requirements: 1.5, 11.5, 12.1_
 
-  - [-] 2.2 Rewrite DashboardStore with SectionState signals
+  - [x] 2.2 Rewrite DashboardStore with SectionState signals
     - Replace existing `features/dashboard/services/dashboard.store.ts` with the new signal-based store
     - Implement `SectionState<T>` signals for each section: `userSummary`, `xpProgress`, `dailyStats`, `activeArc`, `todayQuests`, `leaderboardPreview`
     - Implement computed signals: `isLoading`, per-section loading signals, per-section error signals
@@ -85,11 +85,11 @@ Replace the existing placeholder dashboard with a fully-featured signal-based ho
     - Verify loaded sections expose data and errored sections expose error state independently
     - **Validates: Requirements 11.1, 11.2**
 
-- [~] 3. Checkpoint - Ensure data layer tests pass
+- [x] 3. Checkpoint - Ensure data layer tests pass
   - Ensure all tests pass, ask the user if questions arise.
 
-- [ ] 4. Implement dumb child components
-  - [~] 4.1 Create HeaderSectionComponent
+- [x] 4. Implement dumb child components
+  - [x] 4.1 Create HeaderSectionComponent
     - Create `features/dashboard/components/header-section/` with standalone component, template, and styles
     - Accept inputs: `displayName`, `level`, `streakDays`
     - Use `getTimeBasedGreeting` for computed greeting signal
@@ -98,7 +98,7 @@ Replace the existing placeholder dashboard with a fully-featured signal-based ho
     - Use semantic `<h1>` for greeting text
     - _Requirements: 2.1, 2.2, 2.3, 2.4, 2.5, 13.5_
 
-  - [~] 4.2 Create XpProgressCardComponent
+  - [x] 4.2 Create XpProgressCardComponent
     - Create `features/dashboard/components/xp-progress-card/` with standalone component, template, and styles
     - Accept inputs: `currentLevel`, `currentXp`, `requiredXp`
     - Render level number with Orbitron font, `XpProgressBarComponent` (shared), and formatted XP text
@@ -106,14 +106,14 @@ Replace the existing placeholder dashboard with a fully-featured signal-based ho
     - Add 600ms CSS transition on progress bar width for animated XP changes
     - _Requirements: 3.1, 3.2, 3.3, 3.4, 3.5, 3.6_
 
-  - [~] 4.3 Create MiniCardComponent and DailySummaryComponent
+  - [x] 4.3 Create MiniCardComponent and DailySummaryComponent
     - Create `features/dashboard/components/mini-card/` — accepts `icon`, `value`, `label` inputs
     - Create `features/dashboard/components/daily-summary/` — accepts `stats: DashboardDailyStats` input
     - Render 4 mini-cards in a 2x2 grid: Quests (completed/total), Streak (flame icon), Focus Score, Life Score
     - Apply design system card styling (#161616 background, 12px border-radius) to each mini-card
     - _Requirements: 4.1, 4.2, 4.3, 4.4, 4.5, 4.6, 4.7_
 
-  - [~] 4.4 Create ActiveArcSectionComponent
+  - [x] 4.4 Create ActiveArcSectionComponent
     - Create `features/dashboard/components/active-arc-section/` with standalone component
     - Accept input: `activeArc: DashboardActiveArc | null`
     - When arc exists: render `ArcCardComponent` (shared) with name, progress, phase, type; emit `navigateToArc` output on tap
@@ -121,7 +121,7 @@ Replace the existing placeholder dashboard with a fully-featured signal-based ho
     - Display progress as both bar and numeric label (e.g., "43% Complete")
     - _Requirements: 5.1, 5.2, 5.3, 5.4_
 
-  - [~] 4.5 Create QuestListComponent with swipe actions
+  - [x] 4.5 Create QuestListComponent with swipe actions
     - Create `features/dashboard/components/quest-list/` with standalone component
     - Accept input: `quests: Quest[]`; outputs: `completeQuest`, `skipQuest`, `editQuest`, `viewAll`
     - Render `ion-list` with `ion-item-sliding` for each quest; use `QuestCardComponent` (shared) inside each item
@@ -132,14 +132,14 @@ Replace the existing placeholder dashboard with a fully-featured signal-based ho
     - Ensure 44x44px minimum touch targets on swipe action buttons
     - _Requirements: 6.1, 6.2, 6.3, 6.4, 6.5, 6.6, 6.7, 6.8, 6.9, 13.1, 13.3_
 
-  - [~] 4.6 Create MotivationWidgetComponent
+  - [x] 4.6 Create MotivationWidgetComponent
     - Create `features/dashboard/components/motivation-widget/` with standalone component
     - Inject `StorageService` to read/write last motivation index
     - Use `selectMotivationMessage` utility to pick a non-repeating message on init
     - Render message in styled card with lightbulb icon, accent-colored left border, Inter font 16px, text-secondary color (#B0B0B0)
     - _Requirements: 7.1, 7.2, 7.3, 7.4, 7.5_
 
-  - [~] 4.7 Create LeaderboardPreviewComponent
+  - [x] 4.7 Create LeaderboardPreviewComponent
     - Create `features/dashboard/components/leaderboard-preview/` with standalone component
     - Accept input: `preview: DashboardLeaderboardPreview`; output: `viewFullRankings`
     - Display user rank ("#12"), XP total, league name
@@ -160,11 +160,11 @@ Replace the existing placeholder dashboard with a fully-featured signal-based ho
     - Verify exactly 4 mini-cards are produced, each with icon, value, and label
     - **Validates: Requirements 4.1, 4.2, 4.3**
 
-- [~] 5. Checkpoint - Ensure component tests pass
+- [x] 5. Checkpoint - Ensure component tests pass
   - Ensure all tests pass, ask the user if questions arise.
 
-- [ ] 6. Wire DashboardPage and integrate all sections
-  - [~] 6.1 Rewrite DashboardPage as smart component
+- [x] 6. Wire DashboardPage and integrate all sections
+  - [x] 6.1 Rewrite DashboardPage as smart component
     - Replace existing `features/dashboard/pages/dashboard.component.ts` with the new smart component
     - Use separate template file (`dashboard.page.html`) and styles file (`dashboard.page.scss`)
     - Set `changeDetection: ChangeDetectionStrategy.OnPush`
@@ -175,7 +175,7 @@ Replace the existing placeholder dashboard with a fully-featured signal-based ho
     - Render sections in order: Header, XP Card, Daily Summary, Active Arc, Quest List, Motivation, Leaderboard
     - _Requirements: 1.1, 1.2, 1.3, 1.4, 1.5, 1.6_
 
-  - [~] 6.2 Implement skeleton loading states
+  - [x] 6.2 Implement skeleton loading states
     - Add conditional skeleton rendering per section using `@if` with section state checks
     - Header skeleton: text-line + circle placeholders; XP card: rectangle with shimmer; Daily summary: 4 rectangles in 2x2 grid; Quest list: 3 staggered rectangles
     - Use the shared `SkeletonLoaderComponent` or custom skeleton markup
@@ -183,40 +183,40 @@ Replace the existing placeholder dashboard with a fully-featured signal-based ho
     - Show cached data immediately when available (no skeleton)
     - _Requirements: 10.1, 10.2, 10.3, 10.4, 10.5, 10.6, 10.7_
 
-  - [~] 6.3 Implement pull-to-refresh
+  - [x] 6.3 Implement pull-to-refresh
     - Add `ion-refresher` with `ion-refresher-content` at the top of `ion-content`
     - Handle `ionRefresh` event: call `store.refreshDashboard()`, then `event.target.complete()` on completion
     - Use accent color (#FF9800) for the spinner
     - Do NOT show skeleton overlay during refresh — existing data stays visible
     - _Requirements: 9.1, 9.2, 9.3, 9.4, 9.5, 9.6_
 
-  - [~] 6.4 Implement quest swipe action handlers
+  - [x] 6.4 Implement quest swipe action handlers
     - Handle `completeQuest` output: call `DashboardService.completeQuest()`, trigger haptic success feedback, call `store.completeQuest(questId, xpEarned)` on success
     - Handle `skipQuest` output: call `DashboardService.skipQuest()`, update store to move quest to skipped state
     - Handle `editQuest` output: navigate to quest edit route with quest ID parameter
     - Handle `viewAll` output: navigate to full quest board route
     - _Requirements: 6.5, 6.6, 6.7_
 
-  - [~] 6.5 Implement leaderboard lazy loading
+  - [x] 6.5 Implement leaderboard lazy loading
     - In `ngAfterViewInit`, use `setTimeout(() => store.loadLeaderboardPreview(), 0)` to defer leaderboard fetch until above-the-fold content renders
     - Show leaderboard skeleton until data arrives
     - Handle leaderboard error state with retry option independently of other sections
     - _Requirements: 8.4, 13.2_
 
-  - [~] 6.6 Implement connectivity recovery and per-section error handling
+  - [x] 6.6 Implement connectivity recovery and per-section error handling
     - Set up `effect()` watching `ConnectivityService.isOnline` signal; on transition to online, call `store.retryErroredSections()`
     - Render per-section error states with "Retry" button using shared `ErrorStateComponent`
     - When all sections fail, show full-page error overlay with "Try Again" button
     - _Requirements: 11.1, 11.2, 11.3, 11.4, 11.5_
 
-  - [~] 6.7 Add accessibility attributes and semantic structure
+  - [x] 6.7 Add accessibility attributes and semantic structure
     - Add ARIA labels to all interactive elements (swipe actions, buttons, cards)
     - Use heading hierarchy: `<h1>` for greeting, `<h2>` for section titles
     - Ensure all touch targets are minimum 44x44px
     - Add `role` attributes where needed for screen reader navigation
     - _Requirements: 13.3, 13.4, 13.5_
 
-  - [~] 6.8 Update dashboard route configuration
+  - [x] 6.8 Update dashboard route configuration
     - Update `dashboard.routes.ts` if needed to point to the new component file path
     - Ensure lazy loading works correctly with the standalone component
     - _Requirements: 1.1_
@@ -247,7 +247,7 @@ Replace the existing placeholder dashboard with a fully-featured signal-based ho
     - Test cache restore behavior (cached data shown immediately, no skeleton)
     - _Requirements: 1.5, 9.2, 10.7, 11.4_
 
-- [~] 8. Final checkpoint - Ensure all tests pass
+- [x] 8. Final checkpoint - Ensure all tests pass
   - Ensure all tests pass, ask the user if questions arise.
 
 ## Notes

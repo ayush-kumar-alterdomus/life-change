@@ -1,0 +1,14 @@
+<section class="header-section" aria-label="Dashboard header">
+  <h1 class="header-section__greeting">{{ greeting() }}</h1>
+
+  <div class="header-section__indicators">
+    <app-level-badge
+      [level]="level()"
+      size="small"
+      aria-label="Current level"
+    />
+    <app-streak-flame
+      [streakDays]="streakDays()"
+    />
+  </div>
+</section>

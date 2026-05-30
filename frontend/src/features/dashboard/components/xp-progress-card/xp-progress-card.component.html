@@ -1,0 +1,16 @@
+<div class="xp-progress-card" aria-label="XP Progress">
+  <span class="xp-progress-card__level" aria-label="Level {{ currentLevel() }}">
+    {{ currentLevel() }}
+  </span>
+
+  <div class="xp-progress-card__bar">
+    <app-xp-progress-bar
+      [currentXp]="currentXp()"
+      [requiredXp]="requiredXp()"
+    />
+  </div>
+
+  <span class="xp-progress-card__text">
+    {{ formattedXp() }}
+  </span>
+</div>
