@@ -34,6 +34,8 @@ import { Quest } from '../../../../shared/models/quest.model';
 import { QuestFrequency } from '../../../../shared/enums/quest-frequency.enum';
 import { QuestCompletionService } from '../../../quest-completion/services/quest-completion.service';
 import {
+  CreateQuestPayload,
+  calculateXpFromDifficulty,
   filterQuestsByFrequency,
   computeProgress,
   canUserCreateQuest,
@@ -147,9 +149,17 @@ export class QuestBoardComponent implements OnInit {
       });
   }
 
-  onCreateQuest(payload: CreateQuestRequest): void {
+  onCreateQuest(payload: CreateQuestPayload): void {
+    const request: CreateQuestRequest = {
+      title: payload.title,
+      description: payload.description,
+      difficulty: payload.difficulty,
+      xpReward: calculateXpFromDifficulty(payload.difficulty),
+      statType: payload.statType,
+      frequency: payload.frequency,
+    };
     this.questService
-      .createQuest(payload)
+      .createQuest(request)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: () => {
