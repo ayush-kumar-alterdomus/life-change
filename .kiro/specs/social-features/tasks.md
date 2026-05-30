@@ -6,7 +6,7 @@ Friend system, challenges between friends, activity feed, accountability partner
 
 ## Tasks
 
-- [ ] 1. Create Social data models
+- [x] 1. Create Social data models
   - [x] 1.1 Create tables migration
     - Create `V30__create_social_tables.sql`:
       - friendships: id (UUID PK), user_id (UUID FK), friend_id (UUID FK), status (VARCHAR — PENDING, ACCEPTED, BLOCKED), created_at (TIMESTAMP) — UNIQUE(user_id, friend_id)
@@ -14,15 +14,15 @@ Friend system, challenges between friends, activity feed, accountability partner
       - activity_feed: id (UUID PK), user_id (UUID FK), event_type (VARCHAR), title (VARCHAR), description (TEXT), created_at (TIMESTAMP)
       - accountability_partners: id (UUID PK), user_id (UUID FK), partner_id (UUID FK), active (BOOLEAN default true), created_at (TIMESTAMP) — UNIQUE(user_id, partner_id)
     - Add `privacy_level` column to users (VARCHAR default 'PUBLIC' — PUBLIC, FRIENDS_ONLY, PRIVATE)
-  - [-] 1.2 Create DTOs
+  - [x] 1.2 Create DTOs
     - Create `FriendResponse.java`: userId, username, avatarUrl, level, streak, status
     - Create `ChallengeResponse.java`: id, opponent, title, target, myProgress, opponentProgress, status, winner
     - Create `CreateChallengeRequest.java`: friendId, title, target, endsAt
     - Create `ActivityFeedItem.java`: userId, username, eventType, title, description, timestamp
     - Create `PrivacyLevel.java` enum: PUBLIC, FRIENDS_ONLY, PRIVATE
 
-- [ ] 2. Implement Friend Service
-  - [~] 2.1 Create FriendService
+- [x] 2. Implement Friend Service
+  - [x] 2.1 Create FriendService
     - Create `FriendService.java` in `social/service/` (new module)
     - `sendFriendRequest(UUID userId, UUID friendId)` — create PENDING friendship
     - `acceptFriendRequest(UUID userId, UUID friendId)` — update to ACCEPTED
@@ -32,7 +32,7 @@ Friend system, challenges between friends, activity feed, accountability partner
     - `getPendingRequests(UUID userId)` — list incoming requests
 
 - [ ] 3. Implement Challenge System
-  - [~] 3.1 Create ChallengeService
+  - [-] 3.1 Create ChallengeService
     - Create `ChallengeService.java` in `social/service/`
     - `createChallenge(UUID challengerId, CreateChallengeRequest request)`:
       1. Verify users are friends
@@ -45,7 +45,7 @@ Friend system, challenges between friends, activity feed, accountability partner
     - Listen for QuestCompletedEvent → auto-contribute to active challenges
 
 - [ ] 4. Implement Activity Feed
-  - [~] 4.1 Create ActivityFeedService
+  - [-] 4.1 Create ActivityFeedService
     - Create `ActivityFeedService.java` in `social/service/`
     - `publishActivity(UUID userId, String eventType, String title, String description)`:
       1. Create activity_feed record
@@ -58,7 +58,7 @@ Friend system, challenges between friends, activity feed, accountability partner
     - Listen for events: LevelUpEvent, AchievementUnlockedEvent, ArcCompletedEvent → publish to feed
 
 - [ ] 5. Implement Accountability Partners
-  - [~] 5.1 Create AccountabilityService
+  - [-] 5.1 Create AccountabilityService
     - Create `AccountabilityService.java` in `social/service/`
     - `pairPartner(UUID userId, UUID partnerId)` — create partnership
     - `notifyPartnerMissedQuest(UUID userId)`:

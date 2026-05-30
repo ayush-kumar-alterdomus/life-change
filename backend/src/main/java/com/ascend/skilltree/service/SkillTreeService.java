@@ -223,7 +223,7 @@ public class SkillTreeService {
                                                  Map<UUID, UserSkill> unlockedMap) {
         UserSkill userSkill = unlockedMap.get(node.getId());
         boolean unlocked = userSkill != null;
-        LocalDateTime unlockedAt = unlocked ? userSkill.getUnlockedAt() : null;
+        LocalDateTime unlockedAt = userSkill != null ? userSkill.getUnlockedAt() : null;
 
         List<SkillNodeResponse> children = new ArrayList<>();
         List<SkillNode> childNodes = childrenByParent.get(node.getId());

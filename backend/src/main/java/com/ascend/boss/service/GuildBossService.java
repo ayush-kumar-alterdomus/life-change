@@ -1,6 +1,5 @@
 package com.ascend.boss.service;
 
-import com.ascend.boss.dto.BossDefeatResponse;
 import com.ascend.boss.dto.BossResponse;
 import com.ascend.boss.entity.Boss;
 import com.ascend.boss.entity.GuildBossProgress;

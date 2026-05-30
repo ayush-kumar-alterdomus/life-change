@@ -7,7 +7,6 @@ import com.ascend.league.event.LeaguePromotionEvent;
 import com.ascend.league.repository.LeaderboardRepository;
 import com.ascend.league.repository.LeagueGroupRepository;
 import com.ascend.league.service.MatchmakingService;
-import com.ascend.user.entity.User;
 import com.ascend.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

@@ -19,11 +19,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
-import java.time.temporal.WeekFields;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.UUID;
 import java.util.stream.IntStream;
 
@@ -145,9 +142,6 @@ public class LeagueService {
             }
         }
 
-        boolean inPromotionZone = weeklyRank > 0 && weeklyRank <= PROMOTION_ZONE_SIZE;
-        boolean inDemotionZone = weeklyRank > 0 && weeklyRank > (groupSize - DEMOTION_ZONE_SIZE);
-
         return LeagueInfoResponse.builder()
                 .currentTier(currentTier)
                 .leagueScore(leagueScore)
@@ -224,16 +218,6 @@ public class LeagueService {
             return "DEMOTED";
         }
         return "STAYED";
-    }
-
-    /**
-     * Generates the current season week identifier (e.g., "2024-W03").
-     */
-    private String getCurrentSeasonWeek() {
-        LocalDate now = LocalDate.now();
-        int weekNumber = now.get(WeekFields.of(Locale.getDefault()).weekOfWeekBasedYear());
-        int year = now.getYear();
-        return String.format("%d-W%02d", year, weekNumber);
     }
 
     private LeaderboardEntry buildLeaderboardEntry(LeagueGroup group, int rank) {

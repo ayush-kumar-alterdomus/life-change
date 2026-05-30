@@ -1,11 +1,8 @@
 package com.ascend.league.service;
 
-import com.ascend.league.entity.LeagueGroup;
 import com.ascend.league.entity.LeagueTier;
 import com.ascend.league.repository.LeaderboardRepository;
-import com.ascend.league.repository.LeagueGroupRepository;
 import com.ascend.league.repository.SecurityViolationRepository;
-import com.ascend.streak.repository.StreakRepository;
 import com.ascend.user.entity.User;
 import com.ascend.user.repository.UserRepository;
 import com.ascend.xp.repository.XpHistoryRepository;
@@ -16,7 +13,6 @@ import org.mockito.Mockito;
 
 import java.time.LocalDateTime;
 import java.util.*;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import static org.assertj.core.api.Assertions.assertThat;

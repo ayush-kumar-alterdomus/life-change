@@ -12,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -157,6 +156,7 @@ public class CorrelationService {
 
         long total = completions.size();
         double morningPct = (double) morningCount / total;
+        double afternoonPct = (double) afternoonCount / total;
         double eveningPct = (double) eveningCount / total;
 
         if (morningPct > 0.5 && morningCount > 5) {
@@ -164,6 +164,14 @@ public class CorrelationService {
                     .message("Morning completions correlate with higher Focus gains. "
                             + "You're a morning person — keep scheduling important quests early.")
                     .confidence(0.80)
+                    .category("PERFORMANCE")
+                    .actionable(true)
+                    .build());
+        } else if (afternoonPct > 0.5 && afternoonCount > 5) {
+            insights.add(InsightResponse.builder()
+                    .message("You're most productive in the afternoon. "
+                            + "Schedule your hardest quests between 12–6 PM for best results.")
+                    .confidence(0.70)
                     .category("PERFORMANCE")
                     .actionable(true)
                     .build());

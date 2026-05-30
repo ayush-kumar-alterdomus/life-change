@@ -6,7 +6,6 @@ import com.ascend.common.entity.Difficulty;
 import com.ascend.common.entity.StatType;
 import com.ascend.streak.repository.StreakRepository;
 import com.ascend.user.dto.StatGainResponse;
-import com.ascend.user.dto.StatThresholds;
 import com.ascend.user.entity.UserStats;
 import com.ascend.user.event.AchievementUnlockedEvent;
 import com.ascend.user.repository.UserStatsRepository;
@@ -20,7 +19,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.context.ApplicationEventPublisher;
 
 import java.math.BigDecimal;
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 

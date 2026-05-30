@@ -118,6 +118,7 @@ public class GuildChatHandler {
         }
     }
 
+    @SuppressWarnings("null")
     private void persistToFirestore(GuildChatMessage chatMessage) {
         try {
             Map<String, Object> document = Map.of(
@@ -129,8 +130,10 @@ public class GuildChatHandler {
                     "timestamp", chatMessage.getTimestamp().toString()
             );
 
+            String documentId = chatMessage.getId().toString();
+
             firestore.collection("guild_chat")
-                    .document(chatMessage.getId().toString())
+                    .document(documentId)
                     .set(document);
 
             log.debug("Chat message {} persisted to Firestore", chatMessage.getId());

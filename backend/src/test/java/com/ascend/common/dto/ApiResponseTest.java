@@ -41,8 +41,6 @@ class ApiResponseTest {
         @Test
         @DisplayName("should have null message when not provided")
         void shouldHaveNullMessage() {
-            ApiResponse<Integer> response = ApiResponse.success("msg", 1);
-            // message is provided in this factory method, test the data-only one
             ApiResponse<Integer> dataOnly = ApiResponse.success(42);
             assertThat(dataOnly.getMessage()).isNull();
         }

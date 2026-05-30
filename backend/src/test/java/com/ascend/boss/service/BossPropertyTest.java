@@ -152,7 +152,6 @@ class BossPropertyTest {
             @ForAll("difficulties") Difficulty difficulty) {
 
         int damagePerQuest = calculator.calculateDamage(difficulty, StatType.STRENGTH, UUID.randomUUID());
-        int totalDamage = memberCount * damagePerQuest;
 
         // With enough members and quests, the boss should eventually be defeated
         int questsNeeded = (int) Math.ceil(100.0 / damagePerQuest);

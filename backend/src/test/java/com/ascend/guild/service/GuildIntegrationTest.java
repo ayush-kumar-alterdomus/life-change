@@ -4,7 +4,6 @@ import com.ascend.common.exception.BusinessException;
 import com.ascend.guild.dto.GuildChatMessage;
 import com.ascend.guild.entity.Guild;
 import com.ascend.guild.entity.GuildChallenge;
-import com.ascend.guild.entity.GuildMember;
 import com.ascend.guild.event.GuildChallengeCompleteEvent;
 import com.ascend.guild.repository.GuildChallengeRepository;
 import com.ascend.guild.repository.GuildMemberRepository;
@@ -25,7 +24,6 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 

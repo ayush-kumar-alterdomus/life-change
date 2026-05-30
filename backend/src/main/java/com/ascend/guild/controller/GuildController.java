@@ -7,7 +7,6 @@ import com.ascend.guild.dto.CreateGuildRequest;
 import com.ascend.guild.dto.GuildChatMessage;
 import com.ascend.guild.dto.GuildDetailResponse;
 import com.ascend.guild.dto.GuildResponse;
-import com.ascend.guild.service.GuildChatHandler;
 import com.ascend.guild.service.GuildRankingService;
 import com.ascend.guild.service.GuildService;
 import com.ascend.user.entity.User;
@@ -34,7 +33,6 @@ public class GuildController {
 
     private final GuildService guildService;
     private final GuildRankingService guildRankingService;
-    private final GuildChatHandler guildChatHandler;
     private final AuthService authService;
 
     /**

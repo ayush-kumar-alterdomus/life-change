@@ -1,13 +1,11 @@
 package com.ascend.user.service;
 
-import com.ascend.analytics.entity.Achievement;
 import com.ascend.analytics.repository.AchievementRepository;
 import com.ascend.common.entity.Difficulty;
 import com.ascend.common.entity.StatType;
 import com.ascend.streak.entity.Streak;
 import com.ascend.streak.repository.StreakRepository;
 import com.ascend.user.dto.StatGainResponse;
-import com.ascend.user.dto.StatThresholds;
 import com.ascend.user.entity.UserStats;
 import com.ascend.user.repository.UserStatsRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,7 +18,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.context.ApplicationEventPublisher;
 
 import java.math.BigDecimal;
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
