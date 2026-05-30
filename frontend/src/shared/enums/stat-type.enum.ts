@@ -1,7 +1,8 @@
 export enum StatType {
-  Focus = 'focus',
-  Strength = 'strength',
-  Wisdom = 'wisdom',
-  Vitality = 'vitality',
-  Discipline = 'discipline',
+  Focus = 'FOCUS',
+  Strength = 'STRENGTH',
+  Wisdom = 'WISDOM',
+  Vitality = 'VITALITY',
+  Discipline = 'DISCIPLINE',
+  Charisma = 'CHARISMA',
 }

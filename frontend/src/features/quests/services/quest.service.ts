@@ -2,20 +2,9 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ApiService } from '../../../core/services/api.service';
+import { Quest } from '@shared/models/quest.model';
 
-export interface Quest {
-  id: string;
-  title: string;
-  description: string;
-  xpReward: number;
-  difficulty: 'EASY' | 'MEDIUM' | 'HARD' | 'LEGENDARY';
-  statType: 'STRENGTH' | 'WISDOM' | 'FOCUS' | 'DISCIPLINE' | 'VITALITY' | 'CHARISMA';
-  frequency: 'DAILY' | 'WEEKLY' | 'ONE_TIME';
-  timeEstimate?: string;
-  recurring: boolean;
-  isCustom: boolean;
-  completed: boolean;
-}
+export { Quest } from '@shared/models/quest.model';
 
 export interface DailyQuestsResponse {
   date: string;

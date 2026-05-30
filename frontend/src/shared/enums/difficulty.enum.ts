@@ -1,6 +1,6 @@
 export enum Difficulty {
-  Easy = 'easy',
-  Medium = 'medium',
-  Hard = 'hard',
-  Legendary = 'legendary',
+  Easy = 'EASY',
+  Medium = 'MEDIUM',
+  Hard = 'HARD',
+  Legendary = 'LEGENDARY',
 }

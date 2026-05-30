@@ -1,5 +1,5 @@
 export enum QuestFrequency {
-  Daily = 'daily',
-  Weekly = 'weekly',
-  Custom = 'custom',
+  Daily = 'DAILY',
+  Weekly = 'WEEKLY',
+  OneTime = 'ONE_TIME',
 }

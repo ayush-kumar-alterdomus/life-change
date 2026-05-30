@@ -32,7 +32,7 @@ export interface CreateQuestPayload {
  * Returns only quests whose frequency matches the selected tab.
  */
 export function filterQuestsByFrequency(quests: Quest[], frequency: QuestFrequency): Quest[] {
-  return quests.filter(q => q.frequency === frequency);
+  return quests.filter((q) => q.frequency === frequency);
 }
 
 /**
@@ -40,8 +40,8 @@ export function filterQuestsByFrequency(quests: Quest[], frequency: QuestFrequen
  * Returns completed count, total count, and ratio (0 when no daily quests exist).
  */
 export function computeProgress(quests: Quest[]): ProgressSummary {
-  const dailyQuests = quests.filter(q => q.frequency === QuestFrequency.Daily);
-  const completed = dailyQuests.filter(q => q.completed).length;
+  const dailyQuests = quests.filter((q) => q.frequency === QuestFrequency.Daily);
+  const completed = dailyQuests.filter((q) => q.completed).length;
   const total = dailyQuests.length;
   return { completed, total, ratio: total > 0 ? completed / total : 0 };
 }
@@ -52,11 +52,16 @@ export function computeProgress(quests: Quest[]): ProgressSummary {
  */
 export function calculateXpFromDifficulty(difficulty: Difficulty | null | undefined): number {
   switch (difficulty) {
-    case Difficulty.Easy: return 25;
-    case Difficulty.Medium: return 50;
-    case Difficulty.Hard: return 100;
-    case Difficulty.Legendary: return 200;
-    default: return 0;
+    case Difficulty.Easy:
+      return 25;
+    case Difficulty.Medium:
+      return 50;
+    case Difficulty.Hard:
+      return 100;
+    case Difficulty.Legendary:
+      return 200;
+    default:
+      return 0;
   }
 }
 
@@ -73,7 +78,7 @@ export function canUserCreateQuest(isPremium: boolean, activeCustomQuestCount: n
  * Counts the number of active (non-completed) custom quests.
  */
 export function countActiveCustomQuests(quests: Quest[]): number {
-  return quests.filter(q => q.frequency === QuestFrequency.Custom && !q.completed).length;
+  return quests.filter((q) => q.frequency === QuestFrequency.OneTime && !q.completed).length;
 }
 
 /**
