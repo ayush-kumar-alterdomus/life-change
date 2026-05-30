@@ -113,6 +113,8 @@ Guided growth journeys (Arcs) with phases, milestones, bosses, and adaptive diff
 
 ## Notes
 
+- **RULE: Do NOT run any mvn, gradle, npm, or test commands. Only create/edit files. No build or test verification steps.**
+
 - Arcs drive the daily quest assignment — starting an arc changes what quests appear
 - Phase transitions are automatic based on milestone completion percentage
 - Adaptive difficulty prevents user frustration without failing the arc

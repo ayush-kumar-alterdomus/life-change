@@ -162,6 +162,8 @@ PostgreSQL schema setup for the Ascend platform using Flyway migrations, JPA ent
 
 ## Notes
 
+- **RULE: Do NOT run any mvn, gradle, npm, or test commands. Only create/edit files. No build or test verification steps.**
+
 - All UUIDs use PostgreSQL's uuid_generate_v4() for default generation
 - Flyway migrations are numbered sequentially (V1 through V18, V99 for seed)
 - Seed data (V99) should be conditionally applied only in dev/test environments

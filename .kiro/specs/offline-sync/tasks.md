@@ -85,6 +85,8 @@ Offline-first mobile experience with local action queue, server-wins conflict re
 
 ## Notes
 
+- **RULE: Do NOT run any mvn, gradle, npm, or test commands. Only create/edit files. No build or test verification steps.**
+
 - Offline queue uses IndexedDB for persistence across app restarts
 - Server-wins is the conflict resolution strategy (simplest, most predictable)
 - Firestore offline persistence provides instant UI for cached data

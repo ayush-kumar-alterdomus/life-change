@@ -335,6 +335,8 @@ This plan implements the complete authentication flow for the Ascend app: splash
 
 ## Notes
 
+- **RULE: Do NOT run any mvn, gradle, npm, or test commands. Only create/edit files. No build or test verification steps.**
+
 - **IMPORTANT: Do NOT run any terminal commands (npm, ng, npx, etc.). Only create or update files directly.**
 - Tasks marked with `*` are optional and can be skipped for faster MVP
 - Each task references specific requirements for traceability

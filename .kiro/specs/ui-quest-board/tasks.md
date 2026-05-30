@@ -178,6 +178,8 @@ Replace the existing quest-board page with a fresh implementation featuring tab-
 
 ## Notes
 
+- **RULE: Do NOT run any mvn, gradle, npm, or test commands. Only create/edit files. No build or test verification steps.**
+
 - ⚠️ **GLOBAL CONSTRAINT: Do not run any commands (no npm, no ng, no shell commands) — only create files.**
 - Tasks marked with `*` are optional and can be skipped for faster MVP
 - Each task references specific requirements for traceability

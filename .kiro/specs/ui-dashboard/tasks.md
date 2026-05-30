@@ -252,6 +252,8 @@ Replace the existing placeholder dashboard with a fully-featured signal-based ho
 
 ## Notes
 
+- **RULE: Do NOT run any mvn, gradle, npm, or test commands. Only create/edit files. No build or test verification steps.**
+
 - **IMPORTANT: Do NOT run any shell commands (ng generate, npm, etc.) during task execution. Only create and edit files directly.**
 - Tasks marked with `*` are optional and can be skipped for faster MVP
 - Each task references specific requirements for traceability

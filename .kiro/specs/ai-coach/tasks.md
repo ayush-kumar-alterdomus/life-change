@@ -94,8 +94,24 @@ Premium AI coaching system providing burnout detection, adaptive difficulty, per
 
 ## Notes
 
+- **RULE: Do NOT run any mvn, gradle, npm, or test commands. Only create/edit files. No build or test verification steps.**
+
 - AI Coach is premium-only — free users see teaser previews
 - Burnout detection is rule-based for MVP (not ML)
 - Recovery Mode is temporary — deactivates when risk drops
 - Adaptive difficulty prevents both boredom and frustration
 - Optimal timing is based on historical completion patterns
+
+## Task Dependency Graph
+
+```json
+{
+  "waves": [
+    { "id": 0, "tasks": ["1.1"] },
+    { "id": 1, "tasks": ["2.1", "3.1", "4.1"] },
+    { "id": 2, "tasks": ["2.2", "5.1", "6.1"] },
+    { "id": 3, "tasks": ["7.1"] },
+    { "id": 4, "tasks": [] }
+  ]
+}
+```

@@ -88,6 +88,8 @@ Subscription tier management with free trial, feature gating, graceful downgrade
 
 ## Notes
 
+- **RULE: Do NOT run any mvn, gradle, npm, or test commands. Only create/edit files. No build or test verification steps.**
+
 - Trial is one-time only per user
 - Downgrade is graceful — never loses earned progress
 - Premium doesn't grant competitive advantages (no pay-to-win)

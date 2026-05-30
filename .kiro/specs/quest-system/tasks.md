@@ -93,6 +93,8 @@ Quest CRUD operations, completion flow, daily reset scheduler, custom quest vali
 
 ## Notes
 
+- **RULE: Do NOT run any mvn, gradle, npm, or test commands. Only create/edit files. No build or test verification steps.**
+
 - Quest completion is the trigger for the entire game loop (XP, streaks, stats, bosses)
 - Idempotency is critical — the UNIQUE(user_id, quest_id, date) constraint is the last line of defense
 - Daily reset is timezone-aware — users in different timezones reset at their local midnight

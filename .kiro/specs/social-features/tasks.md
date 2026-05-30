@@ -7,14 +7,14 @@ Friend system, challenges between friends, activity feed, accountability partner
 ## Tasks
 
 - [ ] 1. Create Social data models
-  - [ ] 1.1 Create tables migration
+  - [x] 1.1 Create tables migration
     - Create `V30__create_social_tables.sql`:
       - friendships: id (UUID PK), user_id (UUID FK), friend_id (UUID FK), status (VARCHAR — PENDING, ACCEPTED, BLOCKED), created_at (TIMESTAMP) — UNIQUE(user_id, friend_id)
       - challenges: id (UUID PK), challenger_id (UUID FK), challenged_id (UUID FK), title (VARCHAR), description (TEXT), target (INT), challenger_progress (INT default 0), challenged_progress (INT default 0), status (VARCHAR — ACTIVE, COMPLETED, EXPIRED), winner_id (UUID FK nullable), created_at (TIMESTAMP), ends_at (TIMESTAMP)
       - activity_feed: id (UUID PK), user_id (UUID FK), event_type (VARCHAR), title (VARCHAR), description (TEXT), created_at (TIMESTAMP)
       - accountability_partners: id (UUID PK), user_id (UUID FK), partner_id (UUID FK), active (BOOLEAN default true), created_at (TIMESTAMP) — UNIQUE(user_id, partner_id)
     - Add `privacy_level` column to users (VARCHAR default 'PUBLIC' — PUBLIC, FRIENDS_ONLY, PRIVATE)
-  - [ ] 1.2 Create DTOs
+  - [-] 1.2 Create DTOs
     - Create `FriendResponse.java`: userId, username, avatarUrl, level, streak, status
     - Create `ChallengeResponse.java`: id, opponent, title, target, myProgress, opponentProgress, status, winner
     - Create `CreateChallengeRequest.java`: friendId, title, target, endsAt
@@ -22,7 +22,7 @@ Friend system, challenges between friends, activity feed, accountability partner
     - Create `PrivacyLevel.java` enum: PUBLIC, FRIENDS_ONLY, PRIVATE
 
 - [ ] 2. Implement Friend Service
-  - [ ] 2.1 Create FriendService
+  - [~] 2.1 Create FriendService
     - Create `FriendService.java` in `social/service/` (new module)
     - `sendFriendRequest(UUID userId, UUID friendId)` — create PENDING friendship
     - `acceptFriendRequest(UUID userId, UUID friendId)` — update to ACCEPTED
@@ -32,7 +32,7 @@ Friend system, challenges between friends, activity feed, accountability partner
     - `getPendingRequests(UUID userId)` — list incoming requests
 
 - [ ] 3. Implement Challenge System
-  - [ ] 3.1 Create ChallengeService
+  - [~] 3.1 Create ChallengeService
     - Create `ChallengeService.java` in `social/service/`
     - `createChallenge(UUID challengerId, CreateChallengeRequest request)`:
       1. Verify users are friends
@@ -45,7 +45,7 @@ Friend system, challenges between friends, activity feed, accountability partner
     - Listen for QuestCompletedEvent → auto-contribute to active challenges
 
 - [ ] 4. Implement Activity Feed
-  - [ ] 4.1 Create ActivityFeedService
+  - [~] 4.1 Create ActivityFeedService
     - Create `ActivityFeedService.java` in `social/service/`
     - `publishActivity(UUID userId, String eventType, String title, String description)`:
       1. Create activity_feed record
@@ -58,7 +58,7 @@ Friend system, challenges between friends, activity feed, accountability partner
     - Listen for events: LevelUpEvent, AchievementUnlockedEvent, ArcCompletedEvent → publish to feed
 
 - [ ] 5. Implement Accountability Partners
-  - [ ] 5.1 Create AccountabilityService
+  - [~] 5.1 Create AccountabilityService
     - Create `AccountabilityService.java` in `social/service/`
     - `pairPartner(UUID userId, UUID partnerId)` — create partnership
     - `notifyPartnerMissedQuest(UUID userId)`:
@@ -67,7 +67,7 @@ Friend system, challenges between friends, activity feed, accountability partner
     - Listen for StreakBrokenEvent → notify accountability partner
 
 - [ ] 6. Create Social Controller
-  - [ ] 6.1 Implement REST endpoints
+  - [~] 6.1 Implement REST endpoints
     - Create `SocialController.java` in `social/controller/`
     - GET `/api/v1/social/friends` — list friends
     - POST `/api/v1/social/friends/request` — send friend request
@@ -79,12 +79,12 @@ Friend system, challenges between friends, activity feed, accountability partner
     - PUT `/api/v1/social/privacy` — update privacy level
 
 - [ ] 7. Write property-based tests
-  - [ ] 7.1 Create social property tests
+  - [~] 7.1 Create social property tests
     - Create `PrivacyPropertyTest.java`:
       - Property 52: Privacy enforcement (PRIVATE users never in public feeds/search)
     - Minimum 100 iterations per property
 
-- [ ] 8. Checkpoint - Verify social features
+- [~] 8. Checkpoint - Verify social features
   - Integration test: send friend request → accept → appears in friends list
   - Integration test: create challenge → contribute → winner declared
   - Integration test: private user's activities not visible in feed
@@ -93,8 +93,24 @@ Friend system, challenges between friends, activity feed, accountability partner
 
 ## Notes
 
+- **RULE: Do NOT run any mvn, gradle, npm, or test commands. Only create/edit files. No build or test verification steps.**
+
 - Privacy levels control visibility in feeds and search
 - Challenges auto-contribute from quest completions
 - Accountability partners get alerts for each other's missed quests
 - Activity feed is friend-scoped (not global)
 - Block prevents all interaction
+
+## Task Dependency Graph
+
+```json
+{
+  "waves": [
+    { "id": 0, "tasks": ["1.1", "1.2"] },
+    { "id": 1, "tasks": ["2.1"] },
+    { "id": 2, "tasks": ["3.1", "4.1", "5.1"] },
+    { "id": 3, "tasks": ["6.1"] },
+    { "id": 4, "tasks": ["7.1"] }
+  ]
+}
+```

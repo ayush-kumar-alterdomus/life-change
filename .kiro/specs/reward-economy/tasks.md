@@ -105,6 +105,8 @@ In-game currency system (Coins and Gems), loot chests with tiered drop rates, ac
 
 ## Notes
 
+- **RULE: Do NOT run any mvn, gradle, npm, or test commands. Only create/edit files. No build or test verification steps.**
+
 - Coins are earned through gameplay, Gems are purchased (premium currency)
 - Anti-inflation prevents economy devaluation over time
 - Loot chest contents are determined at open time, not earn time

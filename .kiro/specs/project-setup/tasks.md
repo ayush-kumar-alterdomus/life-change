@@ -132,6 +132,8 @@ Initial scaffolding for the Ascend platform — a Spring Boot modular monolith b
 
 ## Notes
 
+- **RULE: Do NOT run any mvn, gradle, npm, or test commands. Only create/edit files. No build or test verification steps.**
+
 - No business logic is implemented — only project structure and configuration scaffolding
 - Backend modules contain empty packages ready for feature implementation
 - Frontend features contain empty directories following the feature-first convention

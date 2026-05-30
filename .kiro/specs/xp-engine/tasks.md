@@ -128,6 +128,8 @@ XP calculation, award, daily cap enforcement, level-up detection, prestige syste
 
 ## Notes
 
+- **RULE: Do NOT run any mvn, gradle, npm, or test commands. Only create/edit files. No build or test verification steps.**
+
 - XP calculations are pure functions — easy to test with property-based testing
 - Server-side authority is non-negotiable — client XP values are always rejected
 - Daily cap prevents grinding abuse while still rewarding consistent play

@@ -81,8 +81,24 @@ Firebase Cloud Messaging integration for push notifications with daily cap enfor
 
 ## Notes
 
+- **RULE: Do NOT run any mvn, gradle, npm, or test commands. Only create/edit files. No build or test verification steps.**
+
 - Daily cap of 5 prevents notification fatigue
 - Streak warnings are the highest priority notification
 - Recovery mode reduces notification frequency
 - FCM tokens can expire — handle gracefully
 - Quiet hours respect user preferences
+
+## Task Dependency Graph
+
+```json
+{
+  "waves": [
+    { "id": 0, "tasks": ["1.1"] },
+    { "id": 1, "tasks": ["2.1"] },
+    { "id": 2, "tasks": ["3.1", "6.1"] },
+    { "id": 3, "tasks": ["4.1", "5.1"] },
+    { "id": 4, "tasks": ["7.1"] }
+  ]
+}
+```

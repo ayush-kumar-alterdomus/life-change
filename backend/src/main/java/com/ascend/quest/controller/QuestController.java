@@ -90,6 +90,20 @@ public class QuestController {
     }
 
     /**
+     * GET /api/v1/quests
+     * Returns all quests for the authenticated user.
+     */
+    @GetMapping
+    public ResponseEntity<ApiResponse<DailyQuestsResponse>> getAllQuests(
+            @AuthenticationPrincipal FirebasePrincipal principal) {
+
+        User user = authService.getCurrentUser(principal.uid());
+        DailyQuestsResponse response = questService.getDailyQuests(user.getId());
+
+        return ResponseEntity.ok(ApiResponse.success(response));
+    }
+
+    /**
      * POST /api/v1/quests
      * Creates a custom quest for the authenticated user.
      * Free users are limited to 5 custom quests; premium users have no limit.

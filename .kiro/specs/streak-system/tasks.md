@@ -118,6 +118,8 @@ Daily streak tracking, combo multiplier calculation, streak shields, comeback mo
 
 ## Notes
 
+- **RULE: Do NOT run any mvn, gradle, npm, or test commands. Only create/edit files. No build or test verification steps.**
+
 - Streak evaluation happens at daily reset (timezone-aware), not on each quest completion
 - Combo multiplier is recalculated on every streak change and cached in the streaks table
 - Comeback Mode provides a 48-hour grace period with easier quests

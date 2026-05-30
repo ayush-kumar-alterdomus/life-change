@@ -101,6 +101,8 @@ Firebase authentication integration with Spring Boot backend. Covers JWT validat
 
 ## Notes
 
+- **RULE: Do NOT run any mvn, gradle, npm, or test commands. Only create/edit files. No build or test verification steps.**
+
 - Firebase Admin SDK handles token verification — no custom JWT signing needed
 - Rate limiting uses Redis for distributed state across instances
 - Security events use JSONB for flexible detail storage
