@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, input, output, computed } from '@angular/core';
+import { Component, ChangeDetectionStrategy, input, output, computed, HostBinding, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ArcType } from '../../enums/arc-type.enum';
 import { AppProgressComponent } from '../../components/app-progress/app-progress.component';
@@ -10,23 +10,23 @@ import { AppProgressComponent } from '../../components/app-progress/app-progress
   styleUrls: ['./arc-card.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CommonModule, AppProgressComponent],
-  host: {
-    class: 'arc-card',
-    '[class.arc-card--monk]': 'arcType() === ArcType.Monk',
-    '[class.arc-card--warrior]': 'arcType() === ArcType.Warrior',
-    '[class.arc-card--scholar]': 'arcType() === ArcType.Scholar',
-    '[class.arc-card--creator]': 'arcType() === ArcType.Creator',
-    '[class.arc-card--athlete]': 'arcType() === ArcType.Athlete',
-    '(click)': 'onCardTap()',
-    role: 'button',
-    tabindex: '0',
-    '(keydown.enter)': 'onCardTap()',
-    '(keydown.space)': 'onCardTap()',
-    '[attr.aria-label]': 'ariaLabel()',
-  },
 })
 export class ArcCardComponent {
   protected readonly ArcType = ArcType;
+
+  @HostBinding('class') readonly hostClass = 'arc-card';
+  @HostBinding('class.arc-card--monk') get hostMonk() { return this.arcType() === ArcType.Monk; }
+  @HostBinding('class.arc-card--warrior') get hostWarrior() { return this.arcType() === ArcType.Warrior; }
+  @HostBinding('class.arc-card--scholar') get hostScholar() { return this.arcType() === ArcType.Scholar; }
+  @HostBinding('class.arc-card--creator') get hostCreator() { return this.arcType() === ArcType.Creator; }
+  @HostBinding('class.arc-card--athlete') get hostAthlete() { return this.arcType() === ArcType.Athlete; }
+  @HostBinding('attr.role') readonly hostRole = 'button';
+  @HostBinding('attr.tabindex') readonly hostTabindex = '0';
+  @HostBinding('attr.aria-label') get hostAriaLabel() { return this.ariaLabel(); }
+
+  @HostListener('click') onClick() { this.onCardTap(); }
+  @HostListener('keydown.enter') onEnter() { this.onCardTap(); }
+  @HostListener('keydown.space') onSpace() { this.onCardTap(); }
 
   /** Name of the arc */
   arcName = input.required<string>();

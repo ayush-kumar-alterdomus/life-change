@@ -7,6 +7,7 @@ import com.ascend.common.entity.StatType;
 import com.ascend.quest.event.QuestCompletedEvent;
 import com.ascend.skilltree.entity.UserSkill;
 import com.ascend.skilltree.repository.UserSkillRepository;
+import com.ascend.skilltree.service.SkillBuffCalculator;
 import com.ascend.streak.entity.Streak;
 import com.ascend.streak.repository.StreakRepository;
 import com.ascend.user.entity.User;
@@ -47,6 +48,8 @@ class XpServiceTest {
     private XpHistoryRepository xpHistoryRepository;
     @Mock
     private ApplicationEventPublisher eventPublisher;
+    @Mock
+    private SkillBuffCalculator skillBuffCalculator;
 
     private XpService xpService;
 
@@ -57,7 +60,8 @@ class XpServiceTest {
     void setUp() {
         xpService = new XpService(
                 userRepository, streakRepository, userArcProgressRepository,
-                userSkillRepository, xpHistoryRepository, eventPublisher
+                userSkillRepository, xpHistoryRepository, eventPublisher,
+                skillBuffCalculator
         );
         userId = UUID.randomUUID();
         user = User.builder()

@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, input } from '@angular/core';
+import { Component, ChangeDetectionStrategy, input, HostBinding } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -8,14 +8,12 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./level-badge.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CommonModule],
-  host: {
-    class: 'level-badge',
-    '[class.level-badge--small]': 'size() === "small"',
-    '[class.level-badge--large]': 'size() === "large"',
-    '[attr.aria-label]': '"Level " + level()',
-  },
 })
 export class LevelBadgeComponent {
+  @HostBinding('class') readonly hostClass = 'level-badge';
+  @HostBinding('class.level-badge--small') get hostSmall() { return this.size() === 'small'; }
+  @HostBinding('class.level-badge--large') get hostLarge() { return this.size() === 'large'; }
+  @HostBinding('attr.aria-label') get hostAriaLabel() { return `Level ${this.level()}`; }
   /** The user's current level */
   level = input.required<number>();
 

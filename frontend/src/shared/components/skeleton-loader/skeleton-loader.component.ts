@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, input, computed } from '@angular/core';
+import { Component, ChangeDetectionStrategy, input, computed, HostBinding } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 /**
@@ -18,16 +18,14 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./skeleton-loader.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CommonModule],
-  host: {
-    '[class]': '"skeleton-loader skeleton-loader--" + shape()',
-    '[style.width]': 'resolvedWidth()',
-    '[style.height]': 'resolvedHeight()',
-    '[style.border-radius]': 'resolvedBorderRadius()',
-    'aria-hidden': 'true',
-    role: 'presentation',
-  },
 })
 export class SkeletonLoaderComponent {
+  @HostBinding('class') get hostClass() { return `skeleton-loader skeleton-loader--${this.shape()}`; }
+  @HostBinding('style.width') get hostWidth() { return this.resolvedWidth(); }
+  @HostBinding('style.height') get hostHeight() { return this.resolvedHeight(); }
+  @HostBinding('style.border-radius') get hostBorderRadius() { return this.resolvedBorderRadius(); }
+  @HostBinding('attr.aria-hidden') readonly hostAriaHidden = 'true';
+  @HostBinding('attr.role') readonly hostRoleAttr = 'presentation';
   /** Shape variant: rectangle, circle, or text-line */
   shape = input<'rectangle' | 'circle' | 'text-line'>('rectangle');
 

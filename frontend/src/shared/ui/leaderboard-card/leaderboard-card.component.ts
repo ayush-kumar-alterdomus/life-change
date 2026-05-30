@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, input, computed } from '@angular/core';
+import { Component, ChangeDetectionStrategy, input, computed, HostBinding } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { XpFormatPipe } from '../../pipes/xp-format.pipe';
 
@@ -9,16 +9,14 @@ import { XpFormatPipe } from '../../pipes/xp-format.pipe';
   styleUrls: ['./leaderboard-card.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CommonModule, XpFormatPipe],
-  host: {
-    class: 'leaderboard-card',
-    '[class.leaderboard-card--current-user]': 'isCurrentUser()',
-    '[class.leaderboard-card--gold]': 'rank() === 1',
-    '[class.leaderboard-card--silver]': 'rank() === 2',
-    '[class.leaderboard-card--bronze]': 'rank() === 3',
-    '[attr.aria-label]': 'ariaLabel()',
-  },
 })
 export class LeaderboardCardComponent {
+  @HostBinding('class') readonly hostClass = 'leaderboard-card';
+  @HostBinding('class.leaderboard-card--current-user') get hostCurrentUser() { return this.isCurrentUser(); }
+  @HostBinding('class.leaderboard-card--gold') get hostGold() { return this.rank() === 1; }
+  @HostBinding('class.leaderboard-card--silver') get hostSilver() { return this.rank() === 2; }
+  @HostBinding('class.leaderboard-card--bronze') get hostBronze() { return this.rank() === 3; }
+  @HostBinding('attr.aria-label') get hostAriaLabel() { return this.ariaLabel(); }
   /** Position on the leaderboard */
   rank = input.required<number>();
 

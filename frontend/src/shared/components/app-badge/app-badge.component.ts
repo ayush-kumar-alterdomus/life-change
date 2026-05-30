@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, input } from '@angular/core';
+import { Component, ChangeDetectionStrategy, input, HostBinding } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -8,10 +8,6 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./app-badge.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CommonModule],
-  host: {
-    '[class]': '"app-badge--" + color() + " app-badge--" + size()',
-    '[class.app-badge--dot-only]': 'dotOnly()',
-  },
 })
 export class AppBadgeComponent {
   /** Color variant mapped to design tokens */
@@ -22,4 +18,12 @@ export class AppBadgeComponent {
 
   /** When true, renders only a colored dot without text content */
   dotOnly = input<boolean>(false);
+
+  @HostBinding('class') get hostClass() {
+    return `app-badge--${this.color()} app-badge--${this.size()}`;
+  }
+
+  @HostBinding('class.app-badge--dot-only') get hostDotOnly() {
+    return this.dotOnly();
+  }
 }

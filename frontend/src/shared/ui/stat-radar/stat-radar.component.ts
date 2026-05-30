@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, input, computed, isDevMode } from '@angular/core';
+import { Component, ChangeDetectionStrategy, input, computed, isDevMode, HostBinding } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 export interface StatRadarPoint {
@@ -13,13 +13,11 @@ export interface StatRadarPoint {
   styleUrls: ['./stat-radar.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CommonModule],
-  host: {
-    class: 'stat-radar',
-    role: 'img',
-    '[attr.aria-label]': 'ariaLabel()',
-  },
 })
 export class StatRadarComponent {
+  @HostBinding('class') readonly hostClass = 'stat-radar';
+  @HostBinding('attr.role') readonly hostRole = 'img';
+  @HostBinding('attr.aria-label') get hostAriaLabel() { return this.ariaLabel(); }
   /** Array of stat objects with name and value (0-100 scale) */
   stats = input.required<StatRadarPoint[]>();
 

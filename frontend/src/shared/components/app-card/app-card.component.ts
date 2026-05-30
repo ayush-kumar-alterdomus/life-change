@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, input, output } from '@angular/core';
+import { Component, ChangeDetectionStrategy, input, output, HostBinding, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -8,15 +8,6 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./app-card.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CommonModule],
-  host: {
-    '[class.app-card--elevated]': 'elevated()',
-    '[class.app-card--clickable]': 'clickable()',
-    '[attr.role]': 'clickable() ? "button" : null',
-    '[attr.tabindex]': 'clickable() ? 0 : null',
-    '(click)': 'handleClick()',
-    '(keydown.enter)': 'handleClick()',
-    '(keydown.space)': 'handleClick()',
-  },
 })
 export class AppCardComponent {
   /** Whether the card has elevated shadow styling */
@@ -27,6 +18,15 @@ export class AppCardComponent {
 
   /** Emits when the card is clicked (only when clickable is true) */
   cardClick = output<void>();
+
+  @HostBinding('class.app-card--elevated') get hostElevated() { return this.elevated(); }
+  @HostBinding('class.app-card--clickable') get hostClickable() { return this.clickable(); }
+  @HostBinding('attr.role') get hostRole() { return this.clickable() ? 'button' : null; }
+  @HostBinding('attr.tabindex') get hostTabindex() { return this.clickable() ? 0 : null; }
+
+  @HostListener('click') onClick() { this.handleClick(); }
+  @HostListener('keydown.enter') onEnter() { this.handleClick(); }
+  @HostListener('keydown.space') onSpace() { this.handleClick(); }
 
   handleClick(): void {
     if (this.clickable()) {

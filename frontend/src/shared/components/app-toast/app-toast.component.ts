@@ -9,6 +9,7 @@ import {
   signal,
   inject,
   DestroyRef,
+  HostBinding,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -19,19 +20,18 @@ import { CommonModule } from '@angular/common';
   templateUrl: './app-toast.component.html',
   styleUrls: ['./app-toast.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  host: {
-    role: 'alert',
-    'aria-live': 'polite',
-    '[class.app-toast--success]': 'type() === "success"',
-    '[class.app-toast--error]': 'type() === "error"',
-    '[class.app-toast--warning]': 'type() === "warning"',
-    '[class.app-toast--info]': 'type() === "info"',
-    '[class.app-toast--dismissing]': 'isDismissing()',
-    '[style.--toast-offset]': 'offsetPx()',
-  },
 })
 export class AppToastComponent implements OnInit, OnDestroy {
   private readonly destroyRef = inject(DestroyRef);
+
+  @HostBinding('attr.role') readonly hostRole = 'alert';
+  @HostBinding('attr.aria-live') readonly hostAriaLive = 'polite';
+  @HostBinding('class.app-toast--success') get hostSuccess() { return this.type() === 'success'; }
+  @HostBinding('class.app-toast--error') get hostError() { return this.type() === 'error'; }
+  @HostBinding('class.app-toast--warning') get hostWarning() { return this.type() === 'warning'; }
+  @HostBinding('class.app-toast--info') get hostInfo() { return this.type() === 'info'; }
+  @HostBinding('class.app-toast--dismissing') get hostDismissing() { return this.isDismissing(); }
+  @HostBinding('style.--toast-offset') get hostOffset() { return this.offsetPx(); }
 
   /** Toast type determines icon and color accent. */
   type = input<'success' | 'error' | 'warning' | 'info'>('info');

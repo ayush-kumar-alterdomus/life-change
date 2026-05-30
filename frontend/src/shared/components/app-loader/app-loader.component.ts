@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, input } from '@angular/core';
+import { Component, ChangeDetectionStrategy, input, HostBinding } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -8,11 +8,6 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./app-loader.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CommonModule],
-  host: {
-    '[class]': '"app-loader--" + mode() + " app-loader--" + size()',
-    role: 'status',
-    'aria-label': 'Loading',
-  },
 })
 export class AppLoaderComponent {
   /** Loading mode: spinner, skeleton, or progress */
@@ -20,4 +15,11 @@ export class AppLoaderComponent {
 
   /** Size variant */
   size = input<'small' | 'medium' | 'large'>('medium');
+
+  @HostBinding('class') get hostClass() {
+    return `app-loader--${this.mode()} app-loader--${this.size()}`;
+  }
+
+  @HostBinding('attr.role') readonly hostRole = 'status';
+  @HostBinding('attr.aria-label') readonly hostAriaLabel = 'Loading';
 }

@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, input, computed } from '@angular/core';
+import { Component, ChangeDetectionStrategy, input, computed, HostBinding } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { XpFormatPipe } from '../../pipes/xp-format.pipe';
 
@@ -9,16 +9,14 @@ import { XpFormatPipe } from '../../pipes/xp-format.pipe';
   styleUrls: ['./xp-progress-bar.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CommonModule, XpFormatPipe],
-  host: {
-    class: 'xp-progress-bar',
-    role: 'progressbar',
-    '[attr.aria-valuenow]': 'currentXp()',
-    '[attr.aria-valuemin]': '0',
-    '[attr.aria-valuemax]': 'requiredXp()',
-    '[attr.aria-label]': '"XP progress"',
-  },
 })
 export class XpProgressBarComponent {
+  @HostBinding('class') readonly hostClass = 'xp-progress-bar';
+  @HostBinding('attr.role') readonly hostRole = 'progressbar';
+  @HostBinding('attr.aria-valuenow') get hostValueNow() { return this.currentXp(); }
+  @HostBinding('attr.aria-valuemin') readonly hostValueMin = 0;
+  @HostBinding('attr.aria-valuemax') get hostValueMax() { return this.requiredXp(); }
+  @HostBinding('attr.aria-label') readonly hostAriaLabel = 'XP progress';
   /** Current XP earned toward the next level */
   currentXp = input.required<number>();
 

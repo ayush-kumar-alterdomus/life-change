@@ -41,8 +41,8 @@ Skill node progression system tied to Arcs. Users unlock nodes that grant passiv
       4. Throw `SkillPrerequisiteException` if parent not unlocked
     - Recursive check not needed (single parent per node)
 
-- [ ] 3. Implement Skill Buff Calculator
-  - [-] 3.1 Create SkillBuffCalculator
+- [x] 3. Implement Skill Buff Calculator
+  - [x] 3.1 Create SkillBuffCalculator
     - Create `SkillBuffCalculator.java` in `skilltree/service/`
     - `getActiveBuffs(UUID userId)`:
       1. Fetch all unlocked skills for user
@@ -54,8 +54,8 @@ Skill node progression system tied to Arcs. Users unlock nodes that grant passiv
       2. Return floor(baseXp × (1 + totalBuff))
     - Integrate with XpService — call during XP calculation
 
-- [ ] 4. Implement Skill Reset (Premium)
-  - [-] 4.1 Create skill reset logic
+- [x] 4. Implement Skill Reset (Premium)
+  - [x] 4.1 Create skill reset logic
     - `resetSkillTree(UUID userId, UUID arcId)`:
       1. Verify user is premium
       2. Check cooldown: last_skill_reset_at must be > 30 days ago (or null)
@@ -64,23 +64,23 @@ Skill node progression system tied to Arcs. Users unlock nodes that grant passiv
       5. Return confirmation
     - Throw `SkillResetCooldownException` if within 30 days
 
-- [ ] 5. Create Skill Tree Controller
-  - [~] 5.1 Implement REST endpoints
+- [x] 5. Create Skill Tree Controller
+  - [x] 5.1 Implement REST endpoints
     - Create `SkillTreeController.java` in `skilltree/controller/`
     - GET `/api/v1/skills/tree?arcId={id}` — get skill tree for an arc
     - POST `/api/v1/skills/unlock` — unlock a skill node
     - GET `/api/v1/skills/buffs` — get active buff summary
     - POST `/api/v1/skills/reset?arcId={id}` — reset skill tree (premium only)
 
-- [ ] 6. Write property-based tests
-  - [~] 6.1 Create skill tree property tests
+- [x] 6. Write property-based tests
+  - [x] 6.1 Create skill tree property tests
     - Create `SkillTreePropertyTest.java`:
       - Property 34: Prerequisite enforcement (can't unlock child without parent)
       - Property 35: Buff calculation correctness (BoostedXP = BaseXP × (1 + sum of buffs))
       - Property 36: Reset cooldown enforcement (reject if < 30 days)
     - Minimum 100 iterations per property
 
-- [~] 7. Checkpoint - Verify skill tree
+- [x] 7. Checkpoint - Verify skill tree
   - Integration test: unlock root node → unlock child → verify buff applies to XP
   - Integration test: attempt to unlock child without parent → rejected
   - Integration test: premium reset → verify cooldown enforced

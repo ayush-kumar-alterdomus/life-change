@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, input, computed } from '@angular/core';
+import { Component, ChangeDetectionStrategy, input, computed, HostBinding } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 export type StreakIntensity = 'inactive' | 'low' | 'active' | 'epic' | 'legendary';
@@ -10,17 +10,15 @@ export type StreakIntensity = 'inactive' | 'low' | 'active' | 'epic' | 'legendar
   styleUrls: ['./streak-flame.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CommonModule],
-  host: {
-    class: 'streak-flame',
-    '[class.streak-flame--inactive]': 'intensity() === "inactive"',
-    '[class.streak-flame--low]': 'intensity() === "low"',
-    '[class.streak-flame--active]': 'intensity() === "active"',
-    '[class.streak-flame--epic]': 'intensity() === "epic"',
-    '[class.streak-flame--legendary]': 'intensity() === "legendary"',
-    '[attr.aria-label]': 'ariaLabel()',
-  },
 })
 export class StreakFlameComponent {
+  @HostBinding('class') readonly hostClass = 'streak-flame';
+  @HostBinding('class.streak-flame--inactive') get hostInactive() { return this.intensity() === 'inactive'; }
+  @HostBinding('class.streak-flame--low') get hostLow() { return this.intensity() === 'low'; }
+  @HostBinding('class.streak-flame--active') get hostActive() { return this.intensity() === 'active'; }
+  @HostBinding('class.streak-flame--epic') get hostEpic() { return this.intensity() === 'epic'; }
+  @HostBinding('class.streak-flame--legendary') get hostLegendary() { return this.intensity() === 'legendary'; }
+  @HostBinding('attr.aria-label') get hostAriaLabel() { return this.ariaLabel(); }
   /** Number of consecutive streak days */
   streakDays = input.required<number>();
 

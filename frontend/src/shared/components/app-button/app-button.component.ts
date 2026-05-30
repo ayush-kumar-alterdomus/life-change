@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, input, output } from '@angular/core';
+import { Component, ChangeDetectionStrategy, input, output, HostBinding } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -8,11 +8,11 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./app-button.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CommonModule],
-  host: {
-    '[class]': '"app-button--" + variant() + " app-button--" + size()',
-  },
 })
 export class AppButtonComponent {
+  @HostBinding('class') get hostClass() {
+    return `app-button--${this.variant()} app-button--${this.size()}`;
+  }
   /** Accessible label for the button (use when content is icon-only) */
   ariaLabel = input<string>('');
 

@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, input, output, computed } from '@angular/core';
+import { Component, ChangeDetectionStrategy, input, output, computed, HostBinding } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AppProgressComponent } from '../../components/app-progress/app-progress.component';
 
@@ -9,14 +9,12 @@ import { AppProgressComponent } from '../../components/app-progress/app-progress
   styleUrls: ['./boss-card.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CommonModule, AppProgressComponent],
-  host: {
-    class: 'boss-card',
-    '[class.boss-card--defeated]': 'defeated()',
-    role: 'article',
-    '[attr.aria-label]': 'ariaLabel()',
-  },
 })
 export class BossCardComponent {
+  @HostBinding('class') readonly hostClass = 'boss-card';
+  @HostBinding('class.boss-card--defeated') get hostDefeated() { return this.defeated(); }
+  @HostBinding('attr.role') readonly hostRole = 'article';
+  @HostBinding('attr.aria-label') get hostAriaLabel() { return this.ariaLabel(); }
   /** Name of the boss */
   bossName = input.required<string>();
 

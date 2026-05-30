@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, input, computed } from '@angular/core';
+import { Component, ChangeDetectionStrategy, input, computed, HostBinding } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -8,17 +8,15 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./app-progress.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CommonModule],
-  host: {
-    class: 'app-progress',
-    '[class.app-progress--striped]': 'striped()',
-    '[class.app-progress--animated]': 'animated()',
-    role: 'progressbar',
-    '[attr.aria-valuenow]': 'clampedValue()',
-    '[attr.aria-valuemin]': '0',
-    '[attr.aria-valuemax]': '100',
-  },
 })
 export class AppProgressComponent {
+  @HostBinding('class') readonly hostClass = 'app-progress';
+  @HostBinding('class.app-progress--striped') get hostStriped() { return this.striped(); }
+  @HostBinding('class.app-progress--animated') get hostAnimated() { return this.animated(); }
+  @HostBinding('attr.role') readonly hostRole = 'progressbar';
+  @HostBinding('attr.aria-valuenow') get hostValueNow() { return this.clampedValue(); }
+  @HostBinding('attr.aria-valuemin') readonly hostValueMin = 0;
+  @HostBinding('attr.aria-valuemax') readonly hostValueMax = 100;
   /** Progress value from 0 to 100 */
   value = input<number>(0);
 

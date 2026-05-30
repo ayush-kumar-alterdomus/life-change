@@ -90,3 +90,18 @@ Competitive weekly leagues with tier-based matchmaking, league score calculation
 - Weekly cycle runs once (Sunday) — idempotent in case of retry
 - Ascendant tier is invite-only (admin action)
 - Virtual scrolling on frontend for large leaderboards
+
+## Task Dependency Graph
+
+```json
+{
+  "waves": [
+    { "id": 0, "tasks": ["1.1"] },
+    { "id": 1, "tasks": ["2.1", "2.2"] },
+    { "id": 2, "tasks": ["3.1", "3.2", "4.1"] },
+    { "id": 3, "tasks": ["5.1"] },
+    { "id": 4, "tasks": ["6.1"] },
+    { "id": 5, "tasks": ["7"] }
+  ]
+}
+```

@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, input, output, computed } from '@angular/core';
+import { Component, ChangeDetectionStrategy, input, output, computed, HostBinding } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -8,13 +8,11 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./guild-card.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CommonModule],
-  host: {
-    class: 'guild-card',
-    role: 'article',
-    '[attr.aria-label]': 'ariaLabel()',
-  },
 })
 export class GuildCardComponent {
+  @HostBinding('class') readonly hostClass = 'guild-card';
+  @HostBinding('attr.role') readonly hostRole = 'article';
+  @HostBinding('attr.aria-label') get hostAriaLabel() { return this.ariaLabel(); }
   /** Name of the guild */
   guildName = input.required<string>();
 
