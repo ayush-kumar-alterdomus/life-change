@@ -5,7 +5,11 @@ import { Quest } from '@shared/models/quest.model';
 import { QuestService, QuestCompletionResponse } from '../../quests/services/quest.service';
 import { HapticService } from '../../../core/services/haptic.service';
 import { DashboardStore } from '../../dashboard/state/dashboard.store';
-import { CompletionFlowState, QuestCompletionResult } from '../models/quest-completion.models';
+import {
+  CompletionFlowState,
+  PerfectDayStats,
+  QuestCompletionResult,
+} from '../models/quest-completion.models';
 
 /**
  * Singleton orchestration service for the quest completion flow.
@@ -132,15 +136,16 @@ export class QuestCompletionService {
   /**
    * Returns stats for the Perfect Day overlay.
    */
-  getPerfectDayStats(): { totalXp: number; questsCompleted: number } {
-    const quest = this._flowState().quest;
-    return {
-      totalXp: quest?.xpReward ?? 0,
-      questsCompleted:
-        this.dashboardStore.todayQuests().status === 'loaded'
-          ? this.dashboardStore.todayQuests().data.length
-          : 0,
-    };
+  getPerfectDayStats(): PerfectDayStats {
+    const questsState = this.dashboardStore.todayQuests();
+    const totalQuestsCompleted = questsState.status === 'loaded' ? questsState.data.length : 0;
+
+    const dailyStatsState = this.dashboardStore.dailyStats();
+    const currentStreak =
+      dailyStatsState.status === 'loaded' ? dailyStatsState.data.currentStreak : 0;
+    const totalXpEarnedToday = this._flowState().quest?.xpReward ?? 0;
+
+    return { totalQuestsCompleted, totalXpEarnedToday, currentStreak };
   }
 
   // ─── Private Methods ───────────────────────────────────────────────────────
@@ -168,7 +173,7 @@ export class QuestCompletionService {
    * Handle quest completion API error.
    * 409 → silent dismiss (quest already completed); other → show error, keep sheet open.
    */
-  private handleError(quest: Quest, error: any): Observable<never> {
+  private handleError(quest: Quest, error: { status?: number }): Observable<never> {
     const status = error?.status;
     if (status === 409) {
       this.dashboardStore.completeQuest(quest.id, quest.xpReward);
