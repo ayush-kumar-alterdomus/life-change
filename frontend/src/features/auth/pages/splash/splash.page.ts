@@ -16,7 +16,7 @@ import { UserStore } from '../../../../core/services/user-store.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [IonContent],
 })
-export class SplashPage implements OnInit {
+export class SplashComponent implements OnInit {
   private readonly authService = inject(AuthService);
   private readonly userStore = inject(UserStore);
   private readonly navCtrl = inject(NavController);

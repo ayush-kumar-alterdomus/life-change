@@ -8,3 +8,4 @@ export { AppProgressComponent } from './app-progress/app-progress.component';
 export { SkeletonLoaderComponent } from './skeleton-loader/skeleton-loader.component';
 export { ErrorStateComponent } from './error-state/error-state.component';
 export { OfflineBannerComponent } from './offline-banner/offline-banner.component';
+export { StepperComponent } from './stepper/stepper.component';

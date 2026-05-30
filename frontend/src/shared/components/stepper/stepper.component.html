@@ -1,0 +1,11 @@
+<div class="stepper" role="progressbar" aria-label="Onboarding progress" [attr.aria-valuenow]="currentStep() + 1" [attr.aria-valuemin]="1" [attr.aria-valuemax]="totalSteps()">
+  @for (step of steps(); track step) {
+    <span
+      class="stepper__dot"
+      [class.stepper__dot--completed]="step < currentStep()"
+      [class.stepper__dot--current]="step === currentStep()"
+      [class.stepper__dot--upcoming]="step > currentStep()"
+      [attr.aria-label]="'Step ' + (step + 1) + ' of ' + totalSteps()"
+    ></span>
+  }
+</div>

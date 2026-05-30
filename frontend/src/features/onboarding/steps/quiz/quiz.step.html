@@ -1,0 +1,39 @@
+<div class="quiz">
+  <div class="quiz__header">
+    @if (canGoBack()) {
+      <button
+        class="quiz__back-btn"
+        type="button"
+        (click)="goBack()"
+        aria-label="Go to previous question"
+      >
+        ← Back
+      </button>
+    }
+    <span class="quiz__progress">{{ progressLabel() }}</span>
+  </div>
+
+  <div class="quiz__progress-bar">
+    <div
+      class="quiz__progress-bar-fill"
+      [style.width.%]="((currentQuestionIndex() + 1) / totalQuestions) * 100"
+    ></div>
+  </div>
+
+  <h2 class="quiz__question">{{ currentQuestion().text }}</h2>
+
+  <div class="quiz__options">
+    @for (option of currentQuestion().options; track option.id) {
+      <button
+        class="quiz__option-card"
+        [class.quiz__option-card--selected]="isOptionHighlighted(option.id)"
+        [attr.aria-pressed]="isOptionHighlighted(option.id)"
+        [disabled]="isAdvancing()"
+        type="button"
+        (click)="selectOption(option)"
+      >
+        <span class="quiz__option-text">{{ option.text }}</span>
+      </button>
+    }
+  </div>
+</div>

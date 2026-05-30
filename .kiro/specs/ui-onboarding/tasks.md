@@ -108,18 +108,18 @@ This plan implements the multi-step onboarding personalization wizard for the As
     - Create `src/features/onboarding/utils/__tests__/state-validation.property.spec.ts`
     - **Validates: Requirements 8.7, 12.5, 12.6**
 
-- [-] 3. Checkpoint - Ensure models, store, and service compile and pass tests
+- [x] 3. Checkpoint - Ensure models, store, and service compile and pass tests
   - Ensure all tests pass, ask the user if questions arise.
 
-- [ ] 4. Implement shared UI components (Stepper and GlowCard directive)
-  - [~] 4.1 Create StepperComponent
+- [x] 4. Implement shared UI components (Stepper and GlowCard directive)
+  - [x] 4.1 Create StepperComponent
     - Create `src/shared/components/stepper/stepper.component.ts`, `.html`, `.scss`
     - Standalone component with `@Input({ required: true }) totalSteps: number` and `@Input({ required: true }) currentStep: number`
     - Render dots/segments: filled with primary accent (`#FF9800`) for completed steps, pulsing glow animation on current step, muted gray for upcoming steps
     - Use CSS keyframe animation for the pulsing glow on current step indicator
     - _Requirements: 1.2, 10.5_
 
-  - [~] 4.2 Create GlowCardDirective
+  - [x] 4.2 Create GlowCardDirective
     - Create `src/shared/directives/glow-card/glow-card.directive.ts`
     - Standalone directive with selector `[appGlowCard]`
     - Inputs: `appGlowCard: boolean` (active state), `glowColor: string` (default `#FF9800`), `glowRadius: string` (default `12px`)
@@ -141,8 +141,8 @@ This plan implements the multi-step onboarding personalization wizard for the As
     - Create `src/shared/directives/__tests__/glow-card.directive.spec.ts`
     - _Requirements: 1.2, 2.2, 10.2, 10.5, 10.6_
 
-- [ ] 5. Implement Goal Selection step component
-  - [~] 5.1 Create GoalSelectionStep component with 6 goal cards in 2-column grid
+- [x] 5. Implement Goal Selection step component
+  - [x] 5.1 Create GoalSelectionStep component with 6 goal cards in 2-column grid
     - Create `src/features/onboarding/steps/goal-selection/goal-selection.step.ts`, `.html`, `.scss`
     - Standalone component injecting `OnboardingService`, `OnboardingStore`, `HapticService`
     - Display 6 `GoalCategory` cards from `GOAL_CATEGORIES` in a responsive 2-column CSS grid
@@ -166,8 +166,8 @@ This plan implements the multi-step onboarding personalization wizard for the As
     - Create `src/features/onboarding/__tests__/goal-selection.step.spec.ts`
     - _Requirements: 2.1–2.8_
 
-- [ ] 6. Implement Difficulty Selection step component
-  - [~] 6.1 Create DifficultySelectionStep component with 3 tier cards
+- [x] 6. Implement Difficulty Selection step component
+  - [x] 6.1 Create DifficultySelectionStep component with 3 tier cards
     - Create `src/features/onboarding/steps/difficulty-selection/difficulty-selection.step.ts`, `.html`, `.scss`
     - Standalone component injecting `OnboardingService`, `OnboardingStore`, `HapticService`
     - Display 3 `DifficultyTier` cards from `DIFFICULTY_TIERS` in single-column vertical layout
@@ -189,8 +189,8 @@ This plan implements the multi-step onboarding personalization wizard for the As
     - Create `src/features/onboarding/__tests__/difficulty-selection.step.spec.ts`
     - _Requirements: 3.1–3.7_
 
-- [ ] 7. Implement Personality Quiz step component
-  - [~] 7.1 Create QuizStep component with sequential questions and auto-advance
+- [x] 7. Implement Personality Quiz step component
+  - [x] 7.1 Create QuizStep component with sequential questions and auto-advance
     - Create `src/features/onboarding/steps/quiz/quiz.step.ts`, `.html`, `.scss`
     - Standalone component injecting `OnboardingService`, `OnboardingStore`, `HapticService`
     - Display one question at a time from `QUIZ_QUESTIONS` with progress indicator (e.g., "Question 3 of 6")
@@ -219,8 +219,8 @@ This plan implements the multi-step onboarding personalization wizard for the As
     - Create `src/features/onboarding/__tests__/quiz.step.spec.ts`
     - _Requirements: 4.1–4.8_
 
-- [ ] 8. Implement Arc Recommendation step component
-  - [~] 8.1 Create ArcRecommendationStep component with hero card and override
+- [x] 8. Implement Arc Recommendation step component
+  - [x] 8.1 Create ArcRecommendationStep component with hero card and override
     - Create `src/features/onboarding/steps/arc-recommendation/arc-recommendation.step.ts`, `.html`, `.scss`
     - Standalone component injecting `OnboardingService`, `OnboardingStore`
     - On init: compute recommended Arc via `computeRecommendedArc(goals, difficulty, personalityType)` and set in store
@@ -248,8 +248,8 @@ This plan implements the multi-step onboarding personalization wizard for the As
     - Create `src/features/onboarding/__tests__/arc-recommendation.step.spec.ts`
     - _Requirements: 5.1–5.8_
 
-- [ ] 9. Implement Avatar Selection step component
-  - [~] 9.1 Create AvatarSelectionStep component with grid and preview
+- [x] 9. Implement Avatar Selection step component
+  - [x] 9.1 Create AvatarSelectionStep component with grid and preview
     - Create `src/features/onboarding/steps/avatar-selection/avatar-selection.step.ts`, `.html`, `.scss`
     - Standalone component injecting `OnboardingService`, `OnboardingStore`, `HapticService`
     - Display scrollable grid of 8+ avatar options (2–3 columns depending on screen width)
@@ -276,11 +276,11 @@ This plan implements the multi-step onboarding personalization wizard for the As
     - Create `src/features/onboarding/__tests__/avatar-selection.step.spec.ts`
     - _Requirements: 6.1–6.7, 7.1–7.7_
 
-- [~] 10. Checkpoint - Ensure all step components compile and pass tests
+- [x] 10. Checkpoint - Ensure all step components compile and pass tests
   - Ensure all tests pass, ask the user if questions arise.
 
-- [ ] 11. Implement OnboardingContainerPage with stepper, transitions, and routing
-  - [~] 11.1 Create OnboardingContainerPage with step orchestration and slide transitions
+- [x] 11. Implement OnboardingContainerPage with stepper, transitions, and routing
+  - [x] 11.1 Create OnboardingContainerPage with step orchestration and slide transitions
     - Create `src/features/onboarding/pages/onboarding-container/onboarding-container.page.ts`, `.html`, `.scss`
     - Standalone component using Ionic page structure (`ion-content`, `ion-header`, `ion-toolbar`)
     - Inject `OnboardingService`, `OnboardingStore`
@@ -296,7 +296,7 @@ This plan implements the multi-step onboarding personalization wizard for the As
     - Use deep black background (`#0A0A0A`) and app display font for titles
     - _Requirements: 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 10.1, 10.3, 10.7_
 
-  - [~] 11.2 Create onboarding routes and guards
+  - [x] 11.2 Create onboarding routes and guards
     - Create `src/features/onboarding/onboarding.routes.ts` with route config: `path: ''` loading `OnboardingContainerPage` via `loadComponent`
     - Create `src/features/onboarding/guards/onboarding.guard.ts` — `CanActivateFn` that checks if user has `onboarding_complete` flag; if true, redirects to `/tabs/home`; if unauthenticated, redirects to `/auth/welcome`
     - Update `src/app/app.routes.ts` to add `/onboarding` route with `loadChildren` pointing to `onboarding.routes.ts`, applying auth guard and onboarding guard
@@ -317,7 +317,7 @@ This plan implements the multi-step onboarding personalization wizard for the As
     - Create `src/features/onboarding/guards/__tests__/onboarding.guard.spec.ts`
     - _Requirements: 1.1–1.7, 11.1–11.5_
 
-- [~] 12. Final checkpoint - Ensure all tests pass and onboarding flow compiles
+- [x] 12. Final checkpoint - Ensure all tests pass and onboarding flow compiles
   - Ensure all tests pass, ask the user if questions arise.
 
 ## Notes

@@ -1,0 +1,32 @@
+<div class="difficulty-selection">
+  <h2 class="difficulty-selection__title">Choose Your Intensity</h2>
+  <p class="difficulty-selection__subtitle">How hard do you want to push yourself?</p>
+
+  <div class="difficulty-selection__cards">
+    @for (tier of tiers; track tier.id) {
+      <div
+        class="tier-card"
+        [class.tier-card--selected]="isSelected(tier.id)"
+        [class.tier-card--beast-mode]="tier.id === 'beast_mode'"
+        [appGlowCard]="isSelected(tier.id)"
+        [glowColor]="tier.glowColor"
+        (click)="selectTier(tier)"
+      >
+        <div class="tier-card__content">
+          <div class="tier-card__header">
+            <h3 class="tier-card__name">{{ tier.name }}</h3>
+            @if (tier.recommended) {
+              <span class="tier-card__badge">Recommended</span>
+            }
+          </div>
+          <p class="tier-card__subtitle">{{ tier.subtitle }}</p>
+          <div class="tier-card__flames">
+            @for (i of getFlameArray(tier.flameCount); track i) {
+              <ion-icon name="flame" class="tier-card__flame"></ion-icon>
+            }
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+</div>

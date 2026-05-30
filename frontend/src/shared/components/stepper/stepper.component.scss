@@ -1,0 +1,41 @@
+:host {
+  display: block;
+}
+
+.stepper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 8px 0;
+}
+
+.stepper__dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+
+  &--completed {
+    background-color: #ff9800;
+  }
+
+  &--current {
+    background-color: #ff9800;
+    animation: pulse-glow 1.5s ease-in-out infinite;
+  }
+
+  &--upcoming {
+    background-color: #3a3a3a;
+  }
+}
+
+@keyframes pulse-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 4px 1px rgba(255, 152, 0, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 10px 4px rgba(255, 152, 0, 0.7);
+  }
+}

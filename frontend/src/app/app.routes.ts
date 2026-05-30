@@ -2,12 +2,13 @@ import { Routes } from '@angular/router';
 import { authGuard } from '../core/auth/auth.guard';
 import { onboardingGuard } from '../core/auth/onboarding.guard';
 import { noAuthGuard } from '../core/auth/no-auth.guard';
+import { onboardingAccessGuard } from '../features/onboarding/guards/onboarding.guard';
 
 export const routes: Routes = [
   {
     path: '',
     loadComponent: () =>
-      import('../features/auth/pages/splash/splash.page').then((m) => m.SplashPage),
+      import('../features/auth/pages/splash/splash.page').then((m) => m.SplashComponent),
   },
   {
     path: 'auth',
@@ -16,6 +17,7 @@ export const routes: Routes = [
   },
   {
     path: 'onboarding',
+    canActivate: [onboardingAccessGuard],
     loadChildren: () =>
       import('../features/onboarding/onboarding.routes').then((m) => m.ONBOARDING_ROUTES),
   },

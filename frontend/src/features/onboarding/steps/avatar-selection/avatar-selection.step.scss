@@ -1,0 +1,122 @@
+.avatar-selection {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0 0 4px;
+    text-align: center;
+  }
+
+  &__subtitle {
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.6);
+    margin: 0 0 20px;
+    text-align: center;
+  }
+
+  &__preview {
+    margin-bottom: 24px;
+  }
+
+  &__preview-img {
+    width: 128px;
+    height: 128px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #ff9800;
+    box-shadow: 0 0 16px rgba(255, 152, 0, 0.4);
+  }
+
+  &__preview-placeholder {
+    width: 128px;
+    height: 128px;
+    border-radius: 50%;
+    background: #1e1e1e;
+    border: 2px dashed rgba(255, 255, 255, 0.2);
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    width: 100%;
+    margin-bottom: 24px;
+  }
+
+  &__error {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 16px;
+    padding: 12px;
+    background: rgba(244, 67, 54, 0.1);
+    border: 1px solid rgba(244, 67, 54, 0.3);
+    border-radius: 8px;
+  }
+
+  &__error-text {
+    font-size: 0.875rem;
+    color: #f44336;
+    margin: 0 0 8px;
+  }
+
+  &__retry-btn {
+    background: none;
+    border: 1px solid #f44336;
+    color: #f44336;
+    padding: 6px 16px;
+    border-radius: 6px;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    cursor: pointer;
+    min-height: 36px;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  &__complete-btn {
+    width: 100%;
+    --border-radius: 12px;
+    --background: #ff9800;
+    --color: #ffffff;
+    font-weight: 700;
+    font-size: 1rem;
+    min-height: 48px;
+  }
+}
+
+.avatar-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 8px;
+  background: #161616;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  cursor: pointer;
+  min-height: 44px;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-user-select: none;
+  user-select: none;
+
+  &__img {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  &__name {
+    font-size: 0.6875rem;
+    color: rgba(255, 255, 255, 0.7);
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+  }
+}

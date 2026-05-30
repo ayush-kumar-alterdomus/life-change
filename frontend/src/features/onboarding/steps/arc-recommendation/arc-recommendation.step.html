@@ -1,0 +1,87 @@
+<div class="arc-recommendation">
+  @if (selectedArc(); as arc) {
+    <!-- Hero Card -->
+    <div
+      class="arc-hero"
+      [style.background]="'linear-gradient(135deg, ' + arc.themeColor + '22 0%, #0a0a0a 60%)'"
+    >
+      <div class="arc-hero__icon-wrapper" [style.color]="arc.themeColor">
+        <ion-icon [name]="arc.icon" class="arc-hero__icon" aria-hidden="true"></ion-icon>
+      </div>
+
+      <h2 class="arc-hero__name">{{ arc.name }}</h2>
+      <p class="arc-hero__description">{{ arc.description }}</p>
+
+      @if (isRecommended(arc.id)) {
+        <span class="arc-hero__badge">Recommended for you</span>
+      }
+
+      <div class="arc-hero__quests">
+        <h4 class="arc-hero__quests-title">Sample Quests</h4>
+        <ul class="arc-hero__quests-list">
+          @for (quest of arc.sampleQuests; track quest) {
+            <li class="arc-hero__quest-item" [style.color]="arc.themeColor">
+              <span class="arc-hero__quest-dot" [style.background]="arc.themeColor"></span>
+              <span class="arc-hero__quest-text">{{ quest }}</span>
+            </li>
+          }
+        </ul>
+      </div>
+    </div>
+
+    <!-- Primary Action -->
+    <ion-button
+      expand="block"
+      class="arc-recommendation__begin-btn"
+      (click)="beginArc()"
+      [style.--background]="arc.themeColor"
+    >
+      Begin This Arc
+    </ion-button>
+
+    <!-- Override Link -->
+    @if (!showOverrideList()) {
+      <button
+        class="arc-recommendation__override-link"
+        (click)="showOverride()"
+        type="button"
+      >
+        Choose a different Arc
+      </button>
+    }
+  }
+
+  <!-- Override List -->
+  @if (showOverrideList()) {
+    <div class="arc-override">
+      <h3 class="arc-override__title">Choose Your Arc</h3>
+
+      <div class="arc-override__list">
+        @for (arc of allArcs; track arc.id) {
+          <button
+            class="arc-override__card"
+            [class.arc-override__card--selected]="arc.id === store.selectedArc()"
+            [style.border-color]="arc.id === store.selectedArc() ? arc.themeColor : ''"
+            (click)="selectArc(arc)"
+            type="button"
+            [attr.aria-pressed]="arc.id === store.selectedArc()"
+            [attr.aria-label]="arc.name + ': ' + arc.description"
+          >
+            <div class="arc-override__card-icon" [style.color]="arc.themeColor">
+              <ion-icon [name]="arc.icon" aria-hidden="true"></ion-icon>
+            </div>
+            <div class="arc-override__card-content">
+              <span class="arc-override__card-name">{{ arc.name }}</span>
+              <span class="arc-override__card-desc">{{ arc.description }}</span>
+            </div>
+            @if (isRecommended(arc.id)) {
+              <span class="arc-override__card-badge" [style.background]="arc.themeColor">
+                Recommended
+              </span>
+            }
+          </button>
+        }
+      </div>
+    </div>
+  }
+</div>

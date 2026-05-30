@@ -1,0 +1,63 @@
+<div class="avatar-selection">
+  <h2 class="avatar-selection__title">Choose Your Avatar</h2>
+  <p class="avatar-selection__subtitle">Pick a character to represent you</p>
+
+  <!-- Preview -->
+  <div class="avatar-selection__preview">
+    @if (selectedAvatar(); as avatar) {
+      <img
+        [src]="avatar.imageUrl"
+        [alt]="avatar.name"
+        class="avatar-selection__preview-img"
+      />
+    } @else {
+      <div class="avatar-selection__preview-placeholder"></div>
+    }
+  </div>
+
+  <!-- Grid -->
+  <div class="avatar-selection__grid">
+    @for (avatar of avatars; track avatar.id) {
+      <button
+        class="avatar-item"
+        [appGlowCard]="isSelected(avatar.id)"
+        glowRadius="8px"
+        (click)="selectAvatar(avatar)"
+        type="button"
+        [attr.aria-pressed]="isSelected(avatar.id)"
+        [attr.aria-label]="avatar.name"
+      >
+        <img
+          [src]="avatar.imageUrl"
+          [alt]="avatar.name"
+          class="avatar-item__img"
+        />
+        <span class="avatar-item__name">{{ avatar.name }}</span>
+      </button>
+    }
+  </div>
+
+  <!-- Error -->
+  @if (errorMessage(); as error) {
+    <div class="avatar-selection__error">
+      <p class="avatar-selection__error-text">{{ error }}</p>
+      <button class="avatar-selection__retry-btn" (click)="complete()" type="button">
+        Retry
+      </button>
+    </div>
+  }
+
+  <!-- Complete Button -->
+  <ion-button
+    expand="block"
+    class="avatar-selection__complete-btn"
+    [disabled]="!canComplete()"
+    (click)="complete()"
+  >
+    @if (isSubmitting()) {
+      <ion-spinner name="crescent"></ion-spinner>
+    } @else {
+      Complete
+    }
+  </ion-button>
+</div>
