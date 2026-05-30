@@ -21,16 +21,17 @@ export class SplashComponent implements OnInit {
   private readonly userStore = inject(UserStore);
   private readonly navCtrl = inject(NavController);
 
+  // Must be created in injection context (field initializer)
+  private readonly authReady$ = toObservable(this.authService.authReady).pipe(
+    filter((ready) => ready),
+    first(),
+  );
+
   async ngOnInit(): Promise<void> {
     const minDisplayTime = new Promise<void>((resolve) => setTimeout(resolve, 1500));
 
-    // Wait for auth to resolve (AuthService handles the 5s timeout internally)
-    await firstValueFrom(
-      toObservable(this.authService.authReady).pipe(
-        filter((ready) => ready),
-        first(),
-      ),
-    );
+    // Wait for auth to resolve
+    await firstValueFrom(this.authReady$);
 
     // Ensure minimum 1.5s display time
     await minDisplayTime;
