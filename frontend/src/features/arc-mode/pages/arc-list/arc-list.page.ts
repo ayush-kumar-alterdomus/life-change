@@ -164,11 +164,11 @@ export class ArcListComponent implements OnInit {
   }
 
   onArcTap(arcId: string): void {
-    this.router.navigate(['/arc-mode', arcId]);
+    this.router.navigate(['/tabs/arc-mode', arcId]);
   }
 
   onCreateArc(): void {
-    this.router.navigate(['/arc-mode', 'create']);
+    this.router.navigate(['/tabs/arc-mode', 'create']);
   }
 
   onRetry(): void {

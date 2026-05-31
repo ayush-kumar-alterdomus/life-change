@@ -6,4 +6,9 @@ export const QUESTS_ROUTES: Routes = [
     loadComponent: () =>
       import('./pages/quest-board/quest-board.component').then((m) => m.QuestBoardComponent),
   },
+  {
+    path: 'edit/:id',
+    loadComponent: () =>
+      import('./pages/quest-board/quest-board.component').then((m) => m.QuestBoardComponent),
+  },
 ];

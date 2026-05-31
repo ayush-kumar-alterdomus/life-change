@@ -127,7 +127,7 @@ export class ArcDetailComponent implements OnInit {
 
   onSkillTreeTap(): void {
     const arcId = this.arcDetail()?.id;
-    this.router.navigate(['/skill-tree'], { queryParams: { arcId } });
+    this.router.navigate(['/tabs/arc-mode', 'skill-tree'], { queryParams: { arcId } });
   }
 
   getPhases(arc: {

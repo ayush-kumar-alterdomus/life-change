@@ -11,6 +11,11 @@ export const ARC_MODE_ROUTES: Routes = [
       import('./pages/arc-create/arc-create.page').then((m) => m.ArcCreateComponent),
   },
   {
+    path: 'skill-tree',
+    loadComponent: () =>
+      import('./pages/arc-detail/arc-detail.page').then((m) => m.ArcDetailComponent),
+  },
+  {
     path: ':id',
     loadComponent: () =>
       import('./pages/arc-detail/arc-detail.page').then((m) => m.ArcDetailComponent),
