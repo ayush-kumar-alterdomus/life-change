@@ -60,6 +60,22 @@ public class BossController {
     }
 
     /**
+     * POST /api/v1/boss/attack — record boss damage from quest completion.
+     */
+    @PostMapping("/attack")
+    public ResponseEntity<ApiResponse<BossResponse>> attackBoss(
+            @AuthenticationPrincipal FirebasePrincipal principal,
+            @RequestBody java.util.Map<String, Object> request) {
+
+        User user = authService.getCurrentUser(principal.uid());
+        UUID bossId = UUID.fromString((String) request.get("bossId"));
+        int damage = (int) request.getOrDefault("damage", 10);
+        BossResponse response = bossService.contributeToBoss(user.getId(), bossId, damage);
+
+        return ResponseEntity.ok(ApiResponse.success("Boss attacked!", response));
+    }
+
+    /**
      * GET /api/v1/boss/guild/{guildId} — guild boss progress.
      */
     @GetMapping("/guild/{guildId}")

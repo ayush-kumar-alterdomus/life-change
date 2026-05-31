@@ -26,6 +26,10 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   </head>
   <body>
+      <script>
+      // Polyfill for libraries expecting         .js globals in browser
+      var global = global || window;
+    </script>
     <app-root></app-root>
   </body>
 </html>

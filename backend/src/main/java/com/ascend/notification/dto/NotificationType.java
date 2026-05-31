@@ -7,5 +7,6 @@ public enum NotificationType {
     GUILD_REMINDER,
     LEVEL_UP,
     BOSS_PROGRESS,
-    ACHIEVEMENT
+    ACHIEVEMENT,
+    GENERAL
 }

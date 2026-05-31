@@ -1,19 +1,20 @@
 package com.ascend.notification.controller;
 
-import com.ascend.notification.dto.NotificationPreferences;
+import com.ascend.auth.config.FirebasePrincipal;
+import com.ascend.auth.service.AuthService;
+import com.ascend.common.dto.ApiResponse;
 import com.ascend.notification.dto.NotificationResponse;
 import com.ascend.notification.dto.NotificationType;
 import com.ascend.notification.entity.NotificationLog;
-import com.ascend.notification.service.FcmService;
 import com.ascend.notification.service.NotificationService;
-import com.ascend.user.repository.UserRepository;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ascend.user.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -23,68 +24,58 @@ import java.util.UUID;
 public class NotificationController {
 
     private final NotificationService notificationService;
-    private final FcmService fcmService;
-    private final UserRepository userRepository;
-    private final ObjectMapper objectMapper;
+    private final AuthService authService;
 
     @GetMapping
-    public ResponseEntity<Page<NotificationResponse>> getNotifications(
-            @AuthenticationPrincipal UUID userId,
-            @RequestParam(defaultValue = "0") int page) {
-        Page<NotificationLog> notifications = notificationService.getNotifications(userId, page);
-        return ResponseEntity.ok(notifications.map(this::toResponse));
-    }
+    public ResponseEntity<ApiResponse<Map<String, Object>>> getNotifications(
+            @AuthenticationPrincipal FirebasePrincipal principal,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "false") boolean unreadOnly) {
 
-    @PostMapping("/register-token")
-    public ResponseEntity<Void> registerToken(
-            @AuthenticationPrincipal UUID userId,
-            @RequestBody Map<String, String> body) {
-        fcmService.registerToken(userId, body.get("token"));
-        return ResponseEntity.ok().build();
-    }
+        User user = authService.getCurrentUser(principal.uid());
+        Page<NotificationLog> notifications = notificationService.getNotifications(user.getId(), page);
 
-    @PatchMapping("/{id}/read")
-    public ResponseEntity<Void> markAsRead(
-            @AuthenticationPrincipal UUID userId,
-            @PathVariable UUID id) {
-        boolean marked = notificationService.markAsRead(userId, id);
-        return marked ? ResponseEntity.ok().build() : ResponseEntity.notFound().build();
+        List<NotificationResponse> items = notifications.getContent().stream()
+                .filter(n -> !unreadOnly || n.getReadAt() == null)
+                .map(this::toResponse)
+                .toList();
+
+        long unreadCount = notificationService.countUnread(user.getId());
+
+        Map<String, Object> data = Map.of(
+                "notifications", items,
+                "unreadCount", unreadCount,
+                "totalPages", notifications.getTotalPages()
+        );
+
+        return ResponseEntity.ok(ApiResponse.success(data));
     }
 
     @PatchMapping("/read")
-    public ResponseEntity<Void> markAllAsRead(@AuthenticationPrincipal UUID userId) {
-        notificationService.markAllAsRead(userId);
-        return ResponseEntity.ok().build();
-    }
+    public ResponseEntity<ApiResponse<Void>> markAsRead(
+            @AuthenticationPrincipal FirebasePrincipal principal,
+            @RequestBody Map<String, List<String>> request) {
 
-    @GetMapping("/unread-count")
-    public ResponseEntity<Map<String, Long>> getUnreadCount(@AuthenticationPrincipal UUID userId) {
-        long count = notificationService.countUnread(userId);
-        return ResponseEntity.ok(Map.of("count", count));
+        User user = authService.getCurrentUser(principal.uid());
+        List<String> ids = request.get("notificationIds");
+
+        if (ids == null || ids.isEmpty()) {
+            notificationService.markAllAsRead(user.getId());
+        } else {
+            ids.forEach(id -> notificationService.markAsRead(user.getId(), UUID.fromString(id)));
+        }
+
+        return ResponseEntity.ok(ApiResponse.success("Notifications marked as read"));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteNotification(
-            @AuthenticationPrincipal UUID userId,
+    public ResponseEntity<ApiResponse<Void>> deleteNotification(
+            @AuthenticationPrincipal FirebasePrincipal principal,
             @PathVariable UUID id) {
-        boolean deleted = notificationService.delete(userId, id);
-        return deleted ? ResponseEntity.noContent().build() : ResponseEntity.notFound().build();
-    }
 
-    @PutMapping("/preferences")
-    public ResponseEntity<Void> updatePreferences(
-            @AuthenticationPrincipal UUID userId,
-            @RequestBody NotificationPreferences preferences) {
-        try {
-            String json = objectMapper.writeValueAsString(preferences);
-            userRepository.findById(userId).ifPresent(user -> {
-                user.setNotificationPreferences(json);
-                userRepository.save(user);
-            });
-            return ResponseEntity.ok().build();
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().build();
-        }
+        User user = authService.getCurrentUser(principal.uid());
+        notificationService.delete(user.getId(), id);
+        return ResponseEntity.ok(ApiResponse.success("Notification deleted"));
     }
 
     private NotificationResponse toResponse(NotificationLog log) {
@@ -92,7 +83,7 @@ public class NotificationController {
         try {
             type = NotificationType.valueOf(log.getType());
         } catch (IllegalArgumentException e) {
-            type = NotificationType.QUEST_REMINDER;
+            type = NotificationType.GENERAL;
         }
         return new NotificationResponse(
                 log.getId(), type, log.getTitle(), log.getMessage(),

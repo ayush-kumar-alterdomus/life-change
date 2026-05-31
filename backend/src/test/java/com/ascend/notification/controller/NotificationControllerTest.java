@@ -1,9 +1,9 @@
 package com.ascend.notification.controller;
 
+import com.ascend.auth.config.FirebasePrincipal;
+import com.ascend.auth.service.AuthService;
 import com.ascend.notification.service.NotificationService;
-import com.ascend.notification.service.FcmService;
-import com.ascend.user.repository.UserRepository;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ascend.user.entity.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -13,6 +13,8 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 
+import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -23,47 +25,49 @@ import static org.mockito.Mockito.*;
 class NotificationControllerTest {
 
     @Mock private NotificationService notificationService;
-    @Mock private FcmService fcmService;
-    @Mock private UserRepository userRepository;
+    @Mock private AuthService authService;
 
     private NotificationController controller;
     private UUID userId;
+    private User user;
+    private FirebasePrincipal principal;
 
     @BeforeEach
     void setUp() {
+        controller = new NotificationController(notificationService, authService);
         userId = UUID.randomUUID();
-        controller = new NotificationController(notificationService, fcmService, userRepository, new ObjectMapper());
+        user = User.builder().id(userId).username("alice").build();
+        principal = new FirebasePrincipal("uid-123", "alice@test.com", "password", Map.of());
+        when(authService.getCurrentUser("uid-123")).thenReturn(user);
     }
 
     @Nested
-    @DisplayName("PATCH /notifications/read (batch)")
-    class MarkAllAsRead {
+    @DisplayName("PATCH /notifications/read")
+    class MarkAsRead {
 
         @Test
-        @DisplayName("should return 200 and delegate to service")
-        void shouldReturn200() {
-            when(notificationService.markAllAsRead(userId)).thenReturn(5);
+        @DisplayName("should mark all as read when no IDs provided")
+        void shouldMarkAllAsRead() {
+            Map<String, List<String>> request = Map.of("notificationIds", List.of());
 
-            var response = controller.markAllAsRead(userId);
+            var response = controller.markAsRead(principal, request);
 
             assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
             verify(notificationService).markAllAsRead(userId);
         }
-    }
-
-    @Nested
-    @DisplayName("GET /notifications/unread-count")
-    class UnreadCount {
 
         @Test
-        @DisplayName("should return count")
-        void shouldReturnCount() {
-            when(notificationService.countUnread(userId)).thenReturn(7L);
+        @DisplayName("should mark specific IDs as read")
+        void shouldMarkSpecificAsRead() {
+            UUID id1 = UUID.randomUUID();
+            UUID id2 = UUID.randomUUID();
+            Map<String, List<String>> request = Map.of("notificationIds", List.of(id1.toString(), id2.toString()));
 
-            var response = controller.getUnreadCount(userId);
+            var response = controller.markAsRead(principal, request);
 
             assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-            assertThat(response.getBody()).containsEntry("count", 7L);
+            verify(notificationService).markAsRead(userId, id1);
+            verify(notificationService).markAsRead(userId, id2);
         }
     }
 
@@ -72,25 +76,14 @@ class NotificationControllerTest {
     class DeleteNotification {
 
         @Test
-        @DisplayName("should return 204 when deleted")
-        void shouldReturn204WhenDeleted() {
+        @DisplayName("should return 200 when deleted")
+        void shouldReturn200WhenDeleted() {
             UUID notifId = UUID.randomUUID();
-            when(notificationService.delete(userId, notifId)).thenReturn(true);
 
-            var response = controller.deleteNotification(userId, notifId);
+            var response = controller.deleteNotification(principal, notifId);
 
-            assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NO_CONTENT);
-        }
-
-        @Test
-        @DisplayName("should return 404 when not found")
-        void shouldReturn404WhenNotFound() {
-            UUID notifId = UUID.randomUUID();
-            when(notificationService.delete(userId, notifId)).thenReturn(false);
-
-            var response = controller.deleteNotification(userId, notifId);
-
-            assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+            assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+            verify(notificationService).delete(userId, notifId);
         }
     }
 }
