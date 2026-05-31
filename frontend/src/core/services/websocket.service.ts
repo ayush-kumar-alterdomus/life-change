@@ -2,7 +2,6 @@ import { Injectable, inject, signal, OnDestroy } from '@angular/core';
 import { Auth } from '@angular/fire/auth';
 import { Subject } from 'rxjs';
 import { Client, IMessage, StompSubscription } from '@stomp/stompjs';
-import SockJS from 'sockjs-client';
 import { environment } from '../../environments/environment';
 
 export interface WsMessage<T = unknown> {
@@ -29,7 +28,7 @@ export class WebSocketService implements OnDestroy {
     const wsUrl = environment.apiUrl.replace('/api/v1', '') + '/ws';
 
     this.client = new Client({
-      webSocketFactory: () => new SockJS(wsUrl),
+      brokerURL: wsUrl.replace(/^http/, 'ws'),
       connectHeaders: { Authorization: `Bearer ${token}` },
       onConnect: () => {
         this.connected.set(true);
