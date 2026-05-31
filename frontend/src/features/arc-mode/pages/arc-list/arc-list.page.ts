@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, inject, signal, OnInit } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject, signal, computed, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import {
@@ -57,7 +57,7 @@ import { ArcStore } from '../../store/arc.store';
             >
               <h3>{{ arc.name }}</h3>
               <p>{{ arc.description }}</p>
-              <span>{{ arc.progressPercentage }}%</span>
+              <span>{{ arc.durationDays }} days</span>
             </div>
           } @empty {
             <div class="arc-list__empty">
@@ -145,9 +145,18 @@ export class ArcListComponent implements OnInit {
   readonly loading = this.arcStore.loadingList;
   readonly error = this.arcStore.listError;
 
-  readonly currentArcs = signal<
-    { id: string; name: string; description: string; progressPercentage: number }[]
-  >([]);
+  readonly currentArcs = computed(() => {
+    switch (this.selectedTab()) {
+      case 'explore':
+        return this.arcStore.prebuiltArcs();
+      case 'my-arcs':
+        return this.arcStore.activeArcs();
+      case 'completed':
+        return this.arcStore.completedArcs();
+      default:
+        return [];
+    }
+  });
 
   ngOnInit(): void {
     this.arcStore.loadArcsIfEmpty();

@@ -18,7 +18,9 @@ export class ArcStore {
   readonly detailError = signal<string | null>(null);
   readonly createError = signal<string | null>(null);
 
-  readonly prebuiltArcs = computed(() => this._arcs().filter((a) => a.isPrebuilt));
+  readonly prebuiltArcs = computed(() =>
+    this._arcs().filter((a) => (a as ArcDetail & { prebuilt?: boolean }).prebuilt || a.isPrebuilt),
+  );
   readonly activeArcs = computed(() => this._arcs().filter((a) => a.startedAt && !a.completedAt));
   readonly completedArcs = computed(() => this._arcs().filter((a) => !!a.completedAt));
   readonly selectedArcDetail = this._selectedDetail.asReadonly();

@@ -9,6 +9,7 @@ export interface ArcDetail extends Arc {
   identityTitles: IdentityTitleMap;
   questFrequency: string;
   isPrebuilt?: boolean;
+  prebuilt?: boolean;
 }
 
 export interface ArcMilestoneDetail {
