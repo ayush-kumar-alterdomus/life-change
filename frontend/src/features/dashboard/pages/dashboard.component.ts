@@ -144,8 +144,10 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
   onNavigateToArc(): void {
     const arc = this.activeArc();
-    if (arc.status === 'loaded' && arc.data) {
+    if (arc.status === 'loaded' && arc.data && arc.data.id) {
       this.router.navigate(['/tabs/arc-mode', arc.data.id]);
+    } else {
+      this.router.navigate(['/tabs/arc-mode']);
     }
   }
 

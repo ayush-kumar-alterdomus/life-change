@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, inject, OnInit } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
@@ -8,8 +8,12 @@ import {
   IonHeader,
   IonToolbar,
   IonTitle,
+  IonButton,
+  IonIcon,
+  IonSpinner,
 } from '@ionic/angular/standalone';
 import { ArcStore } from '../../store/arc.store';
+import { ArcService } from '../../services/arc.service';
 import { CinematicBannerComponent } from '../../components/cinematic-banner/cinematic-banner.component';
 import { PhaseProgressComponent } from '../../components/phase-progress/phase-progress.component';
 import { IdentityTitleComponent } from '../../components/identity-title/identity-title.component';
@@ -30,6 +34,9 @@ import { ArcPhaseWithMilestones } from '../../models';
     IonHeader,
     IonToolbar,
     IonTitle,
+    IonButton,
+    IonIcon,
+    IonSpinner,
     CinematicBannerComponent,
     PhaseProgressComponent,
     IdentityTitleComponent,
@@ -43,7 +50,7 @@ import { ArcPhaseWithMilestones } from '../../models';
     <ion-header>
       <ion-toolbar>
         <ion-buttons slot="start"
-          ><ion-back-button defaultHref="/arc-mode"></ion-back-button
+          ><ion-back-button defaultHref="/tabs/arc-mode"></ion-back-button
         ></ion-buttons>
         <ion-title>{{ arcDetail()?.name ?? 'Arc Detail' }}</ion-title>
       </ion-toolbar>
@@ -64,7 +71,32 @@ import { ArcPhaseWithMilestones } from '../../models';
             [currentPhase]="arc.currentPhase"
             [progressPercentage]="arc.progressPercentage"
           />
-          <app-phase-progress [currentPhase]="arc.currentPhase" />
+
+          @if (!arc.startedAt) {
+            <div class="detail__start-section">
+              <p class="detail__start-description">{{ arc.description }}</p>
+              <p class="detail__start-meta">
+                {{ arc.durationDays }} days • {{ arc.phases.length }} phases
+              </p>
+              <ion-button
+                expand="block"
+                color="warning"
+                class="detail__start-btn"
+                [disabled]="starting()"
+                (click)="onStartArc(arc.id)"
+              >
+                @if (starting()) {
+                  <ion-spinner name="crescent"></ion-spinner>
+                } @else {
+                  <ion-icon name="rocket-outline" slot="start"></ion-icon>
+                  Begin Arc
+                }
+              </ion-button>
+            </div>
+          } @else {
+            <app-phase-progress [currentPhase]="arc.currentPhase" />
+          }
+
           @if (arc.identityTitles) {
             <app-identity-title
               [currentPhase]="arc.currentPhase"
@@ -103,26 +135,61 @@ import { ArcPhaseWithMilestones } from '../../models';
         padding: 16px 16px 0;
         margin: 0;
       }
+      .detail__start-section {
+        padding: 24px 16px;
+        text-align: center;
+      }
+      .detail__start-description {
+        color: #ccc;
+        font-size: 0.95rem;
+        margin: 0 0 8px;
+      }
+      .detail__start-meta {
+        color: #888;
+        font-size: 0.8rem;
+        margin: 0 0 20px;
+      }
+      .detail__start-btn {
+        --border-radius: 12px;
+        font-weight: 600;
+      }
     `,
   ],
 })
 export class ArcDetailComponent implements OnInit {
   private readonly route = inject(ActivatedRoute);
   private readonly arcStore = inject(ArcStore);
+  private readonly arcService = inject(ArcService);
   private readonly router = inject(Router);
 
   readonly arcDetail = this.arcStore.selectedArcDetail;
   readonly loading = this.arcStore.loadingDetail;
   readonly error = this.arcStore.detailError;
+  readonly starting = signal(false);
 
   ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('id')!;
+    const id = this.route.snapshot.paramMap.get('id');
+    if (!id || id === 'null') return;
     this.arcStore.loadArcDetail(id);
   }
 
   onRetry(): void {
-    const id = this.route.snapshot.paramMap.get('id')!;
+    const id = this.route.snapshot.paramMap.get('id');
+    if (!id || id === 'null') return;
     this.arcStore.loadArcDetail(id);
+  }
+
+  onStartArc(arcId: string): void {
+    this.starting.set(true);
+    this.arcService.startArc(arcId).subscribe({
+      next: () => {
+        this.starting.set(false);
+        this.router.navigate(['/tabs/home']);
+      },
+      error: () => {
+        this.starting.set(false);
+      },
+    });
   }
 
   onSkillTreeTap(): void {
