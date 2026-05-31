@@ -21,7 +21,7 @@ export class UserService {
    */
   async getMe(): Promise<User | null> {
     try {
-      return await firstValueFrom(this.api.get<User>('/api/v1/users/me'));
+      return await firstValueFrom(this.api.get<User>('/users/me'));
     } catch (error) {
       if (error instanceof HttpErrorResponse && error.status === 404) {
         return null;
@@ -34,7 +34,7 @@ export class UserService {
    * Creates a new user profile in the backend.
    */
   async register(data: { isGuest: boolean }): Promise<User> {
-    return await firstValueFrom(this.api.post<User>('/api/v1/users/register', data));
+    return await firstValueFrom(this.api.post<User>('/users/register', data));
   }
 
   /**
