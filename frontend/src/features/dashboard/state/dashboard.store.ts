@@ -42,6 +42,8 @@ export class DashboardStore {
     status: 'idle',
   });
 
+  private userLeague = 'BRONZE';
+
   // ─── Computed: Global Loading ──────────────────────────────────────────────
 
   readonly isLoading = computed(
@@ -231,6 +233,7 @@ export class DashboardStore {
       next: (response) => {
         const d = response.data;
         if (d.user) {
+          this.userLeague = d.user.league ?? 'BRONZE';
           this.userSummary.set({
             status: 'loaded',
             data: {
@@ -394,7 +397,7 @@ export class DashboardStore {
   }
 
   private fetchLeaderboardPreview(): void {
-    this.dashboardService.getLeaderboardPreview().subscribe({
+    this.dashboardService.getLeaderboardPreview(this.userLeague).subscribe({
       next: (data) => {
         this.leaderboardPreview.set({ status: 'loaded', data });
         this.storageService.set(CACHE_KEYS.leaderboardPreview, data);

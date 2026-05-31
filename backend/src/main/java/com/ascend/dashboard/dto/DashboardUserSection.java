@@ -4,6 +4,7 @@ public record DashboardUserSection(
         String displayName,
         int level,
         String avatarUrl,
-        boolean premium
+        boolean premium,
+        String league
 ) {
 }

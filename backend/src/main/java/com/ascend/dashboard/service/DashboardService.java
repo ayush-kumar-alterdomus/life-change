@@ -54,7 +54,8 @@ public class DashboardService {
                 user.getUsername(),
                 user.getLevel(),
                 user.getAvatarUrl(),
-                Boolean.TRUE.equals(user.getPremium())
+                Boolean.TRUE.equals(user.getPremium()),
+                user.getLeague()
         );
     }
 

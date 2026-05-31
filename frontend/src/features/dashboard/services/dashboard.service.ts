@@ -53,9 +53,10 @@ export class DashboardService {
     });
   }
 
-  getLeaderboardPreview(): Observable<DashboardLeaderboardPreview> {
+  getLeaderboardPreview(tier: string = 'BRONZE'): Observable<DashboardLeaderboardPreview> {
     return this.http.get<DashboardLeaderboardPreview>(`${this.baseUrl}/league/leaderboard`, {
       context: this.skipLoadingContext,
+      params: { tier, page: '0', size: '3' },
     });
   }
 

@@ -61,7 +61,13 @@ export interface DashboardUserSummary {
 export interface DashboardAggregatedResponse {
   success: boolean;
   data: {
-    user: { displayName: string; level: number; avatarUrl: string; premium: boolean };
+    user: {
+      displayName: string;
+      level: number;
+      avatarUrl: string;
+      premium: boolean;
+      league: string;
+    };
     xp: {
       totalXp: number;
       level: number;
