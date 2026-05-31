@@ -76,7 +76,7 @@ import { ArcPhaseWithMilestones } from '../../models';
             <div class="detail__start-section">
               <p class="detail__start-description">{{ arc.description }}</p>
               <p class="detail__start-meta">
-                {{ arc.durationDays }} days • {{ arc.phases.length }} phases
+                {{ arc.durationDays }} days • {{ (arc.phases || []).length || 3 }} phases
               </p>
               <ion-button
                 expand="block"
