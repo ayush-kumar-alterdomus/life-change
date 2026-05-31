@@ -165,7 +165,8 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     this.store.loadDashboard();
   }
 
-  onRetrySection(): void {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  onRetrySection(_section: string): void {
     this.store.retryErroredSections();
   }
 
