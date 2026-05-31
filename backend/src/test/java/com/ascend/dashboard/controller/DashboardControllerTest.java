@@ -43,7 +43,7 @@ class DashboardControllerTest {
     @DisplayName("should return 200 with dashboard response")
     void shouldReturn200() {
         var response = DashboardResponse.builder()
-                .user(new DashboardUserSection("alice", 5, null, false))
+                .user(new DashboardUserSection("alice", 5, null, false, "BRONZE"))
                 .xp(new DashboardXpSection(1000, 5, 200, 50, 1100, 1.0))
                 .streak(new DashboardStreakSection(3, 10, true, false))
                 .dailyStats(new DashboardDailyStatsSection(2, 5, 40))

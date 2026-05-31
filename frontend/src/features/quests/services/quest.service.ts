@@ -70,15 +70,21 @@ export class QuestService {
   }
 
   getAllQuests(): Observable<Quest[]> {
-    return this.api.get<ApiResponse<Quest[]>>('/quests').pipe(map((res) => res.data));
+    return this.api
+      .get<ApiResponse<DailyQuestsResponse>>('/quests')
+      .pipe(map((res) => res.data.quests));
   }
 
   getWeeklyQuests(): Observable<Quest[]> {
-    return this.api.get<ApiResponse<Quest[]>>('/quests/weekly').pipe(map((res) => res.data));
+    return this.api
+      .get<ApiResponse<DailyQuestsResponse>>('/quests/weekly')
+      .pipe(map((res) => res.data.quests));
   }
 
   getCustomQuests(): Observable<Quest[]> {
-    return this.api.get<ApiResponse<Quest[]>>('/quests/custom').pipe(map((res) => res.data));
+    return this.api
+      .get<ApiResponse<DailyQuestsResponse>>('/quests/custom')
+      .pipe(map((res) => res.data.quests));
   }
 
   updateQuest(id: string, request: UpdateQuestRequest): Observable<Quest> {
