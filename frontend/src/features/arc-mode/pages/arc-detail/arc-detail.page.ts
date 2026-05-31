@@ -14,6 +14,8 @@ import {
 } from '@ionic/angular/standalone';
 import { ArcStore } from '../../store/arc.store';
 import { ArcService } from '../../services/arc.service';
+import { addIcons } from 'ionicons';
+import { rocketOutline } from 'ionicons/icons';
 import { CinematicBannerComponent } from '../../components/cinematic-banner/cinematic-banner.component';
 import { PhaseProgressComponent } from '../../components/phase-progress/phase-progress.component';
 import { IdentityTitleComponent } from '../../components/identity-title/identity-title.component';
@@ -106,7 +108,7 @@ import { ArcPhaseWithMilestones } from '../../models';
           }
           <h2 class="detail__section-title">Milestones</h2>
           <app-milestone-timeline [phases]="getPhases(arc)" [currentPhase]="arc.currentPhase" />
-          <app-boss-section [boss]="arc.boss" />
+          <app-boss-section [boss]="arc.boss ?? null" />
           <app-rewards-section [rewards]="arc.rewards" />
           <app-skill-tree-preview [nodes]="arc.skillTreeNodes" (navigate)="onSkillTreeTap()" />
         }
@@ -167,6 +169,10 @@ export class ArcDetailComponent implements OnInit {
   readonly error = this.arcStore.detailError;
   readonly starting = signal(false);
 
+  constructor() {
+    addIcons({ rocketOutline });
+  }
+
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
     if (!id || id === 'null') return;
@@ -180,6 +186,7 @@ export class ArcDetailComponent implements OnInit {
   }
 
   onStartArc(arcId: string): void {
+    if (!arcId) return;
     this.starting.set(true);
     this.arcService.startArc(arcId).subscribe({
       next: () => {

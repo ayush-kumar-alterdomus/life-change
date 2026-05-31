@@ -56,6 +56,6 @@ import { Boss } from '@shared/models';
 export class BossSectionComponent {
   boss = input.required<Boss | null>();
 
-  hasBoss = computed(() => this.boss() !== null);
+  hasBoss = computed(() => !!this.boss());
   isDefeated = computed(() => this.boss()?.healthPercentage === 0);
 }
