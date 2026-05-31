@@ -119,7 +119,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   onCompleteQuest(questId: string): void {
     const questsState = this.todayQuests();
     if (questsState.status !== 'loaded') return;
-    const quest = questsState.data.find(q => q.id === questId);
+    const quest = questsState.data.find((q) => q.id === questId);
     if (!quest) return;
     this.questCompletionService.completeQuest(quest).subscribe();
   }
@@ -150,7 +150,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   }
 
   onNavigateToArcSelection(): void {
-    this.router.navigate(['/tabs/arc-mode/select']);
+    this.router.navigate(['/tabs/arc-mode']);
   }
 
   // ─── Leaderboard Navigation ────────────────────────────────────────────────
@@ -165,7 +165,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     this.store.loadDashboard();
   }
 
-  onRetrySection(_section: string): void {
+  onRetrySection(): void {
     this.store.retryErroredSections();
   }
 
