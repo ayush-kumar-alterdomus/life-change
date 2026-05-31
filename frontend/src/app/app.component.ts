@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import {
+  add,
   addOutline,
   chevronDownCircleOutline,
   trophyOutline,
@@ -14,6 +15,7 @@ import { QuestCompletionHostComponent } from '../features/quest-completion/compo
 import { CelebrationOverlayComponent } from '../features/leveling/components/celebration-overlay/celebration-overlay.component';
 
 addIcons({
+  add,
   addOutline,
   chevronDownCircleOutline,
   trophyOutline,
