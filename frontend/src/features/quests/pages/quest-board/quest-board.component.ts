@@ -9,6 +9,7 @@ import {
   CUSTOM_ELEMENTS_SCHEMA,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
   IonContent,
@@ -84,6 +85,7 @@ export class QuestBoardComponent implements OnInit {
   private readonly userStore = inject(UserStore);
   private readonly destroyRef = inject(DestroyRef);
   private readonly questCompletionService = inject(QuestCompletionService);
+  private readonly router = inject(Router);
 
   // ─── State Signals ─────────────────────────────────────────────────────────
   allQuests = signal<Quest[]>([]);
@@ -146,6 +148,26 @@ export class QuestBoardComponent implements OnInit {
             quests.map((q) => (q.id === result.questId ? { ...q, completed: true } : q)),
           );
         },
+      });
+  }
+
+  onEditQuest(): void {
+    const quest = this.selectedQuest();
+    if (!quest) return;
+    this.selectedQuest.set(null);
+    this.router.navigate(['/tabs/quests/edit', quest.id]);
+  }
+
+  onSkipQuest(): void {
+    const quest = this.selectedQuest();
+    if (!quest) return;
+    this.selectedQuest.set(null);
+    this.questService
+      .skipQuest(quest.id)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: () => this.showSuccessToast('Quest skipped'),
+        error: () => this.showErrorToast('Failed to skip quest.'),
       });
   }
 

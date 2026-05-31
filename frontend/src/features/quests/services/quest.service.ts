@@ -94,4 +94,8 @@ export class QuestService {
   deleteQuest(id: string): Observable<void> {
     return this.api.delete<void>(`/quests/${id}`);
   }
+
+  skipQuest(questId: string): Observable<void> {
+    return this.api.post<ApiResponse<void>>('/quests/skip', { questId }).pipe(map(() => undefined));
+  }
 }

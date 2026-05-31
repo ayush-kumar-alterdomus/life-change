@@ -65,6 +65,8 @@
           [quest]="quest"
           [isOpen]="true"
           (complete)="onCompleteQuest()"
+          (edit)="onEditQuest()"
+          (skip)="onSkipQuest()"
           (dismissed)="onDetailDismissed()">
         </app-quest-detail-sheet>
       </ng-template>
